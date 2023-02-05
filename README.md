@@ -5,20 +5,20 @@
 
 ## Prefix character
 
-A ***prefix character*** is simply any single character. This character is used
-to denote *flag* and *option* command line interface arguments.
+A ***prefix character*** is a string used to denote *flag* and *option* command
+line interface arguments.
 
 ## Operand
 
 An ***operand*** is any command line interface argument that isn't prefixed by
-the prefix character.
+a prefix character.
 
 ## Flag
 
 A ***flag*** is any command line interface argument that is prefixed by only a
-single prefix character.
+a single prefix character.
 
 ## Option
 
 A ***option*** is any command line interface argument that is prefixed by 2 or
-more prefix characters.
+more adjacent prefix characters.
