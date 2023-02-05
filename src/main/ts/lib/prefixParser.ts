@@ -21,6 +21,11 @@ export class CliArgPrefixParser
         this._prefixChar = prefixChar;
         this._strings = strings;
 
+        if (prefixChar.length === 0)
+        {
+            false;
+        }
+
         const optionPrefix: string = prefixChar.repeat(2);
 
         const operandsFlagsOptions: { readonly operands: string[],
@@ -37,13 +42,13 @@ export class CliArgPrefixParser
                 // without leading 2 prefix chars
                 else if (aString.startsWith(optionPrefix))
                 {
-                    operandFlagOptionsTuple.options.push(aString.slice(2));
+                    operandFlagOptionsTuple.options.push(aString.slice(optionPrefix.length));
                 }
                 // If starts with only a single prefix char, save characters of
                 // string without leading prefix char
                 else
                 {
-                    for(const flagChar of aString.slice(1))
+                    for(const flagChar of aString.slice(prefixChar.length))
                     {
                         operandFlagOptionsTuple.flags.push(flagChar);
                     }
