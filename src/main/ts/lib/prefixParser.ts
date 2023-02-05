@@ -1,4 +1,4 @@
-interface OperandsOptionsFlags
+interface OperandsFlagsOptions
 {
     operands(): readonly string[];
     flags(): readonly string[];
@@ -13,7 +13,7 @@ export class CliArgPrefixParser
     private readonly _operands: readonly string[];
     private readonly _options: readonly string[];
     private readonly _flags: readonly string[];
-    private readonly _distinct: OperandsOptionsFlags;
+    private readonly _distinct: OperandsFlagsOptions;
 
 
     public constructor(prefixChar: string, strings: readonly string[])
@@ -25,7 +25,7 @@ export class CliArgPrefixParser
 
         const operandsFlagsOptions: { readonly operands: string[],
                                       readonly flags: string[],
-                                      readonly options: string[]}
+                                      readonly options: string[] }
             = strings.reduce((operandFlagOptionsTuple: {readonly operands: string[], readonly options: string[], readonly flags: string[]}, aString: string) =>
             {
                 // If no prefix char, save entire string to index
@@ -79,7 +79,7 @@ export class CliArgPrefixParser
 
     public isEmpty(): boolean {return this._strings.length === 0;}
 
-    public distinct(): OperandsOptionsFlags {return this._distinct;}
+    public distinct(): OperandsFlagsOptions {return this._distinct;}
 
     public toString(): string
     {
