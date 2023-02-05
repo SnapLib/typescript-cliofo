@@ -33,8 +33,8 @@ export class CliArgPrefixParser
                 {
                     operandFlagOptionsTuple.operands.push(aString);
                 }
-                // If starts with 2 or more prefix chars, save string without
-                // leading 2 prefix chars
+                // If starts with 2 or more adjacent prefix chars, save string
+                // without leading 2 prefix chars
                 else if (aString.startsWith(optionPrefix))
                 {
                     operandFlagOptionsTuple.options.push(aString.slice(2));
