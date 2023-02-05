@@ -1,0 +1,19 @@
+{
+    "include": ["./src/main/ts/**/*.ts"],
+    "compilerOptions":
+    {
+      "allowSyntheticDefaultImports": true,
+      "baseUrl": "./src/main/ts",
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "importHelpers": true,
+      "lib": ["es2021"],
+      "module": "es2020",
+      "moduleResolution": "node16",
+      "noEmitOnError": true,
+      "preserveConstEnums": false,
+      "removeComments": true,
+      "strict": true,
+      "target": "es2021"
+    }
+  }
