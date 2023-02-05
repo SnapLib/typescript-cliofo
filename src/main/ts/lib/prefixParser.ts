@@ -1,9 +1,9 @@
 class OperandsFlagsOptions
 {
-    private readonly _strings: readonly string[];
-    private readonly _operands: readonly string[];
-    private readonly _flags: readonly string[];
-    private readonly _options: readonly string[];
+    protected readonly _strings: readonly string[];
+    protected readonly _operands: readonly string[];
+    protected readonly _flags: readonly string[];
+    protected readonly _options: readonly string[];
 
     constructor(operands: readonly string[], flags: readonly string[], options: readonly string[])
     {
@@ -20,26 +20,58 @@ class OperandsFlagsOptions
 }
 
 
-export class CliArgPrefixParser
+export class CliArgPrefixParser extends OperandsFlagsOptions
 {
     private readonly _prefixChar: string;
-    private readonly _strings: readonly string[];
-    private readonly _operands: readonly string[];
-    private readonly _options: readonly string[];
-    private readonly _flags: readonly string[];
     private readonly _distinct: OperandsFlagsOptions;
 
 
     public constructor(prefixChar: string, strings: readonly string[])
     {
-        this._prefixChar = prefixChar;
-        this._strings = Object.freeze(strings);
-
         if (prefixChar.length === 0)
         {
-            this._operands = this._strings;
-            this._flags = [];
-            this._options = [];
+            super(strings, [], []);
+
+            this._distinct = new OperandsFlagsOptions( Object.freeze([]),
+                                                       Object.freeze([]),
+                                                       Object.freeze([]) );
+        }
+        else
+        {
+            const optionPrefix: string = prefixChar.repeat(2);
+
+            const operandsFlagsOptions: { readonly operands: string[],
+                                        readonly flags: string[],
+                                        readonly options: string[] }
+                = strings.reduce((operandFlagOptionsTuple: {readonly operands: string[], readonly options: string[], readonly flags: string[]}, aString: string) =>
+                {
+                    // If no prefix char, save entire string to index
+                    if ( ! aString.startsWith(prefixChar))
+                    {
+                        operandFlagOptionsTuple.operands.push(aString);
+                    }
+                    // If starts with 2 or more adjacent prefix chars, save string
+                    // without leading 2 prefix chars
+                    else if (aString.startsWith(optionPrefix))
+                    {
+                        operandFlagOptionsTuple.options.push(aString.slice(optionPrefix.length));
+                    }
+                    // If starts with only a single prefix char, save characters of
+                    // string without leading prefix char
+                    else
+                    {
+                        for(const flagChar of aString.slice(prefixChar.length))
+                        {
+                            operandFlagOptionsTuple.flags.push(flagChar);
+                        }
+                    }
+                    return operandFlagOptionsTuple;
+                },
+                Object.freeze({operands: [], flags: [],options: []}));
+
+            super( Object.freeze(operandsFlagsOptions.operands),
+                   Object.freeze(operandsFlagsOptions.flags),
+                   Object.freeze(operandsFlagsOptions.options) );
 
             this._distinct = new OperandsFlagsOptions(
                 Object.freeze([...new Set(this._operands)]),
@@ -48,46 +80,8 @@ export class CliArgPrefixParser
             );
         }
 
-        const optionPrefix: string = prefixChar.repeat(2);
+        this._prefixChar = prefixChar;
 
-        const operandsFlagsOptions: { readonly operands: string[],
-                                      readonly flags: string[],
-                                      readonly options: string[] }
-            = strings.reduce((operandFlagOptionsTuple: {readonly operands: string[], readonly options: string[], readonly flags: string[]}, aString: string) =>
-            {
-                // If no prefix char, save entire string to index
-                if ( ! aString.startsWith(prefixChar))
-                {
-                    operandFlagOptionsTuple.operands.push(aString);
-                }
-                // If starts with 2 or more adjacent prefix chars, save string
-                // without leading 2 prefix chars
-                else if (aString.startsWith(optionPrefix))
-                {
-                    operandFlagOptionsTuple.options.push(aString.slice(optionPrefix.length));
-                }
-                // If starts with only a single prefix char, save characters of
-                // string without leading prefix char
-                else
-                {
-                    for(const flagChar of aString.slice(prefixChar.length))
-                    {
-                        operandFlagOptionsTuple.flags.push(flagChar);
-                    }
-                }
-                return operandFlagOptionsTuple;
-            },
-            Object.freeze({operands: [], flags: [],options: []}));
-
-        this._operands = Object.freeze(operandsFlagsOptions.operands);
-        this._flags = Object.freeze(operandsFlagsOptions.flags);
-        this._options = Object.freeze(operandsFlagsOptions.options);
-
-        this._distinct = new OperandsFlagsOptions(
-            Object.freeze([...new Set(this._operands)]),
-            Object.freeze([...new Set(this._flags)]),
-            Object.freeze([...new Set(this._options)])
-        );
     }
 
     public prefixChar(): string {return this._prefixChar;}
