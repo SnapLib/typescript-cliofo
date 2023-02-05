@@ -1,19 +1,19 @@
 class OperandsFlagsOptions
 {
-    protected readonly _strings: readonly string[];
+    protected readonly _all: readonly string[];
     protected readonly _operands: readonly string[];
     protected readonly _flags: readonly string[];
     protected readonly _options: readonly string[];
 
     constructor(operands: readonly string[], flags: readonly string[], options: readonly string[])
     {
-        this._strings = Object.freeze([...operands, ...flags, ...options]);
+        this._all = Object.freeze([...operands, ...flags, ...options]);
         this._operands = operands;
         this._flags = flags;
         this._options = options;
     }
 
-    public strings(): readonly string[] {return this._strings;}
+    public all(): readonly string[] {return this._all;}
     public operands(): readonly string[] {return this._operands;}
     public flags(): readonly string[] {return this._flags;}
     public options(): readonly string[] {return this._options;}
@@ -23,6 +23,7 @@ class OperandsFlagsOptions
 export class CliArgPrefixParser extends OperandsFlagsOptions
 {
     private readonly _prefixChar: string;
+    private readonly _strings: readonly string[];
     private readonly _distinct: OperandsFlagsOptions;
 
 
@@ -31,7 +32,7 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
         if (prefixChar.length === 0)
         {
             super(strings, [], []);
-
+            this._strings = this._all;
             this._distinct = new OperandsFlagsOptions( Object.freeze([]),
                                                        Object.freeze([]),
                                                        Object.freeze([]) );
@@ -41,8 +42,8 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
             const optionPrefix: string = prefixChar.repeat(2);
 
             const operandsFlagsOptions: { readonly operands: string[],
-                                        readonly flags: string[],
-                                        readonly options: string[] }
+                                          readonly flags: string[],
+                                          readonly options: string[] }
                 = strings.reduce((operandFlagOptionsTuple: {readonly operands: string[], readonly options: string[], readonly flags: string[]}, aString: string) =>
                 {
                     // If no prefix char, save entire string to index
@@ -72,6 +73,8 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
             super( Object.freeze(operandsFlagsOptions.operands),
                    Object.freeze(operandsFlagsOptions.flags),
                    Object.freeze(operandsFlagsOptions.options) );
+
+            this._strings = strings;
 
             this._distinct = new OperandsFlagsOptions(
                 Object.freeze([...new Set(this._operands)]),
