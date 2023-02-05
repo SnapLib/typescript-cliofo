@@ -1,8 +1,22 @@
-interface OperandsFlagsOptions
+class OperandsFlagsOptions
 {
-    operands(): readonly string[];
-    flags(): readonly string[];
-    options(): readonly string[];
+    private readonly _strings: readonly string[];
+    private readonly _operands: readonly string[];
+    private readonly _flags: readonly string[];
+    private readonly _options: readonly string[];
+
+    constructor(operands: readonly string[], flags: readonly string[], options: readonly string[])
+    {
+        this._strings = Object.freeze([...operands, ...flags, ...options]);
+        this._operands = operands;
+        this._flags = flags;
+        this._options = options;
+    }
+
+    public strings(): readonly string[] {return this._strings;}
+    public operands(): readonly string[] {return this._operands;}
+    public flags(): readonly string[] {return this._flags;}
+    public options(): readonly string[] {return this._options;}
 }
 
 
@@ -19,11 +33,19 @@ export class CliArgPrefixParser
     public constructor(prefixChar: string, strings: readonly string[])
     {
         this._prefixChar = prefixChar;
-        this._strings = strings;
+        this._strings = Object.freeze(strings);
 
         if (prefixChar.length === 0)
         {
-            false;
+            this._operands = this._strings;
+            this._flags = [];
+            this._options = [];
+
+            this._distinct = new OperandsFlagsOptions(
+                Object.freeze([...new Set(this._operands)]),
+                Object.freeze([...new Set(this._flags)]),
+                Object.freeze([...new Set(this._options)])
+            );
         }
 
         const optionPrefix: string = prefixChar.repeat(2);
@@ -61,15 +83,11 @@ export class CliArgPrefixParser
         this._flags = Object.freeze(operandsFlagsOptions.flags);
         this._options = Object.freeze(operandsFlagsOptions.options);
 
-        const distinctOperands: readonly string[] = Object.freeze([...new Set(operandsFlagsOptions.operands)]);
-        const distinctFlags: readonly string[] = Object.freeze([...new Set(operandsFlagsOptions.flags)]);
-        const distinctOptions: readonly string[] = Object.freeze([...new Set(operandsFlagsOptions.options)]);
-
-        this._distinct = Object.freeze({
-            operands() { return distinctOperands; },
-            flags() { return distinctFlags; },
-            options() { return distinctOptions; }
-        });
+        this._distinct = new OperandsFlagsOptions(
+            Object.freeze([...new Set(this._operands)]),
+            Object.freeze([...new Set(this._flags)]),
+            Object.freeze([...new Set(this._options)])
+        );
     }
 
     public prefixChar(): string {return this._prefixChar;}
