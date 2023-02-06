@@ -86,10 +86,10 @@ export class PrefixParser extends OperandsFlagsOptions
                                 flags: Object.freeze([..._operandFlagOptions.flags, ...aString.slice(prefixChar.length)]),
                                 options: _operandFlagOptions.options});
                     },
-                // Initial frozen empty operands, flags, and options object
-                Object.freeze({ operands: Object.freeze([]),
-                                flags: Object.freeze([]),
-                                options: Object.freeze([]) }
+                    // Initial frozen empty operands, flags, and options object
+                    Object.freeze({ operands: Object.freeze([]),
+                                    flags: Object.freeze([]),
+                                    options: Object.freeze([]) }
                 ));
 
             super( operandsFlagsOptions.operands,
