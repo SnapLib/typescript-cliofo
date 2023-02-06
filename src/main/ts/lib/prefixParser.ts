@@ -26,7 +26,7 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
                     {
                         return Object.freeze({
                                    operands: Object.freeze([...operandFlagOptionsTuple.operands, aString]),
-                                   flags: (operandFlagOptionsTuple.flags),
+                                   flags: operandFlagOptionsTuple.flags,
                                    options: operandFlagOptionsTuple.options });
                     }
                     // If starts with 2 or more adjacent prefix chars, save string
@@ -35,7 +35,7 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
                     {
                         return Object.freeze({
                                    operands: operandFlagOptionsTuple.operands,
-                                   flags: (operandFlagOptionsTuple.flags),
+                                   flags: operandFlagOptionsTuple.flags,
                                    options: Object.freeze([...operandFlagOptionsTuple.options, aString.slice(optionPrefix.length)]) });
                     }
                     // If starts with only a single prefix char, save characters of
