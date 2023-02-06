@@ -1,6 +1,19 @@
 import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
 import {joinStringsFormatted} from "./util.js";
 
+/**
+ * This class parses an array of string arguments into operands, flags, and
+ * options based on a prefix character string. The prefix character string is
+ * used to denote if a string is an operand, flag, or option.
+ *
+ * If a strings is prefixed with no prefix characters, then it's an *operand*.
+ * If a string is prefixed with only a single prefix character, then it's a
+ * *flag*. If a string is prefixed with 2 or more prefix characters, then it's
+ * an *option*.
+ *
+ * @remarks The option and flag strings this object contains do not include the
+ *          1 or 2 leading prefix characters they were prefixed with.
+ */
 export class CliArgPrefixParser extends OperandsFlagsOptions
 {
     readonly #prefixChar: string;
@@ -8,6 +21,28 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
     readonly #distinct: Readonly<OperandsFlagsOptions>;
 
 
+    /**
+     * Constructs an object that parses an array of string arguments into
+     * operands, flags, and options based on a prefix character string. The
+     * passed prefix character string argument is used to denote if a string is
+     * an operand, flag, or option.
+     *
+     * Any string that starts with no prefix character string is an *operand*.
+     * Any string that starts with only a single prefix character string is a
+     * *flag*. And any string that starts with 2 or more prefix character
+     * strings is an *option*.
+     *
+     * @remarks The option and flag strings this object contains do not include
+ *              the 1 or 2 leading prefix character strings they were prefixed
+ *              with.
+     *
+     * @param prefixChar The string used to denote which strings are flags
+     *                   and options.
+     *
+     * @param strings The strings to parse into operands, flags, and options.
+     *
+     * @constructor
+     */
     public constructor(prefixChar: string, strings: readonly string[])
     {
             const optionPrefix: string = prefixChar.repeat(2);
@@ -19,33 +54,36 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
                     operandFlagOptionsTuple: Readonly<{ readonly operands: readonly string[],
                                                         readonly options: readonly string[],
                                                         readonly flags: readonly string[] }>,
-                    aString: string) =>
-                {
-                    // If no prefix char, save entire string to index
-                    if ( ! aString.startsWith(prefixChar))
+                    aString: string ) =>
                     {
-                        return Object.freeze({
-                                   operands: Object.freeze([...operandFlagOptionsTuple.operands, aString]),
-                                   flags: operandFlagOptionsTuple.flags,
-                                   options: operandFlagOptionsTuple.options });
-                    }
-                    // If starts with 2 or more adjacent prefix chars, save string
-                    // without leading 2 prefix chars
-                    else if (aString.startsWith(optionPrefix))
-                    {
-                        return Object.freeze({
-                                   operands: operandFlagOptionsTuple.operands,
-                                   flags: operandFlagOptionsTuple.flags,
-                                   options: Object.freeze([...operandFlagOptionsTuple.options, aString.slice(optionPrefix.length)]) });
-                    }
+                        // If string doesn't start with the prefix char string,
+                        // add it to operands array
+                        if ( ! aString.startsWith(prefixChar))
+                        {
+                            return Object.freeze({
+                                    operands: Object.freeze([...operandFlagOptionsTuple.operands, aString]),
+                                    flags: operandFlagOptionsTuple.flags,
+                                    options: operandFlagOptionsTuple.options });
+                        }
+                        // If string starts with 2 or more adjacent prefix char
+                        // strings, add string without leading 2 prefix char
+                        // strings to options array
+                        else if (aString.startsWith(optionPrefix))
+                        {
+                            return Object.freeze({
+                                    operands: operandFlagOptionsTuple.operands,
+                                    flags: operandFlagOptionsTuple.flags,
+                                    options: Object.freeze([...operandFlagOptionsTuple.options, aString.slice(optionPrefix.length)]) });
+                        }
 
-                    // If starts with only a single prefix char, save characters of
-                    // string without leading prefix char
-                    return Object.freeze({
-                               operands: operandFlagOptionsTuple.operands,
-                               flags: Object.freeze([...operandFlagOptionsTuple.flags, ...aString.slice(prefixChar.length)]),
-                               options: operandFlagOptionsTuple.options});
-                },
+                        // If string starts with only a single prefix char
+                        // string, add characters of string without leading
+                        // prefix char string to flags array
+                        return Object.freeze({
+                                operands: operandFlagOptionsTuple.operands,
+                                flags: Object.freeze([...operandFlagOptionsTuple.flags, ...aString.slice(prefixChar.length)]),
+                                options: operandFlagOptionsTuple.options});
+                    },
                 // Initial frozen empty operands, flags, and options object
                 Object.freeze({ operands: Object.freeze([]),
                                 flags: Object.freeze([]),
