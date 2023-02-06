@@ -72,25 +72,46 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
 
     public distinct(): Readonly<OperandsFlagsOptions> {return this._distinct;}
 
-    public toString(format: string | undefined | null = undefined): string
+    public toString(format: string | undefined | null = undefined, tabSize: number = 2): string
     {
-        const str: string =    format === undefined
-                            || format === null
-                            || format.length === 0
-                            || ["inline", "none"].some(frmt => strEqualsIgnoreCase(format, frmt))
-            ?   `prefixChar: "${this._prefixChar}", `
-              + `operands: ${joinStringsFormatted(this._operands)}, `
-              + `flags: ${joinStringsFormatted(this._flags)}, `
-              + `options: ${joinStringsFormatted(this._options)}`
-            : "\n" === format
-                ?   `prefixChar: "${this._prefixChar}", `
-                  + `operands: ${joinStringsFormatted(this._operands)}, `
-                  + `flags: ${joinStringsFormatted(this._flags)}, `
-                  + `options: ${joinStringsFormatted(this._options)}`
-            : "\n";
+        const validFormatArgs: readonly (string | undefined | null)[] =
+            Object.freeze([undefined, null, "inline", "none", "\n", "\n\n", "\u0020"]);
 
-        return `${this.constructor.name}{${str}}`;
+        if ( ! validFormatArgs.some(validFrmtArg => strEqualsIgnoreCase(validFrmtArg, format)))
+        {
+            const quotes: string = format !== undefined && format !== null ? '"' : "";
+
+            throw new Error(`illegal string format argument: ${quotes}${format}${quotes}`);
+        }
+
+        return "\u0020" === format
+                   ?   `\u0020prefixChar: "${this._prefixChar}", `
+                     + `operands: ${joinStringsFormatted(this._operands)}, `
+                     + `flags: ${joinStringsFormatted(this._flags)}, `
+                     + `options: ${joinStringsFormatted(this._options)} `
+              : "\n" === format
+                  ?   `${" ".repeat(tabSize)}prefixChar: "${this._prefixChar}",\n`
+                    + `${" ".repeat(tabSize)}operands: ${joinStringsFormatted(this._operands)},\n`
+                    + `${" ".repeat(tabSize)}flags: ${joinStringsFormatted(this._flags)},\n`
+                    + `${" ".repeat(tabSize)}options: ${joinStringsFormatted(this._options)}\n`
+              : "\n\n" === format
+                  ?   `\n${" ".repeat(tabSize)}prefixChar: "${this._prefixChar}",\n`
+                    + `${" ".repeat(tabSize)}operands: ${joinStringsFormatted(this._operands)},\n`
+                    + `${" ".repeat(tabSize)}flags: ${joinStringsFormatted(this._flags)},\n`
+                    + `${" ".repeat(tabSize)}options: ${joinStringsFormatted(this._options)}\n`
+              :   `prefixChar: "${this._prefixChar}", `
+                + `operands: ${joinStringsFormatted(this._operands)}, `
+                + `flags: ${joinStringsFormatted(this._flags)}, `
+                + `options: ${joinStringsFormatted(this._options)}`;
     }
 }
 
-const strEqualsIgnoreCase = (aString: string, anotherString: string): boolean =>  aString.localeCompare(anotherString, undefined, {sensitivity: "base"}) === 0;
+const strEqualsIgnoreCase = (aString: string | undefined | null, anotherString: string | undefined | null): boolean =>
+{
+    if (aString === undefined || aString === null || anotherString === undefined || anotherString === null)
+    {
+        return aString === anotherString;
+    }
+
+    return aString.localeCompare(anotherString, undefined, {sensitivity: "base"}) === 0;
+};
