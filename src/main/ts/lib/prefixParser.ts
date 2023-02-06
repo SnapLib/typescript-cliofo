@@ -52,9 +52,9 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
                                 options: Object.freeze([]) }
                 ));
 
-            super( Object.freeze(operandsFlagsOptions.operands),
-                   Object.freeze(operandsFlagsOptions.flags),
-                   Object.freeze(operandsFlagsOptions.options) );
+            super( operandsFlagsOptions.operands,
+                   operandsFlagsOptions.flags,
+                   operandsFlagsOptions.options );
             this.#prefixChar = prefixChar;
             this.#strings = strings;
             this.#distinct = Object.freeze(new OperandsFlagsOptions(
@@ -70,9 +70,9 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
 
     public operands(): readonly string[] {return this._operands;}
 
-    public options(): readonly string[] {return this._options;}
-
     public flags(): readonly string[] {return this._flags;}
+
+    public options(): readonly string[] {return this._options;}
 
     public isEmpty(): boolean {return this.#strings.length === 0;}
 
