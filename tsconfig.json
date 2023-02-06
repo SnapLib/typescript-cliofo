@@ -4,13 +4,13 @@
     {
       "allowSyntheticDefaultImports": true,
       "baseUrl": "./src/main/ts",
+      "declaration": true,
       "esModuleInterop": true,
       "forceConsistentCasingInFileNames": true,
       "lib": ["es2021"],
       "module": "es2020",
       "noEmitOnError": true,
       "preserveConstEnums": false,
-      "removeComments": true,
       "strict": true,
       "target": "es2021"
     }
