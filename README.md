@@ -23,9 +23,9 @@ $ node ls.js -lc --all ./aDirectory
 
 ## Flag
 
-A ***flag*** is <u>***a characters***</u> that make up any `string` that is
+A ***flag*** is <u>***a character***</u> that makes up any `string` that is
 prefixed by only a single leading *prefix string*. The leading prefix `string`
-character(s) are not considered flag characters.
+character(s) are not considered flag character strings.
 
 In the following example, `"l"` and `"c"` are *flag*s passed to the
 javascript script `ls.js`:
