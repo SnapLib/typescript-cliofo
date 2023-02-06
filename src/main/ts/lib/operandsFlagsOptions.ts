@@ -5,6 +5,9 @@ export class OperandsFlagsOptions
     protected readonly _flags: readonly string[];
     protected readonly _options: readonly string[];
 
+    public static readonly empty: Readonly<OperandsFlagsOptions> =
+        Object.freeze(new OperandsFlagsOptions(Object.freeze([]), Object.freeze([]), Object.freeze([])));
+
     protected constructor(operands: readonly string[], flags: readonly string[], options: readonly string[])
     {
         this._all = Object.freeze([...operands, ...flags, ...options]);

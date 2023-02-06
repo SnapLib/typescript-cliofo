@@ -1,5 +1,5 @@
 import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
-
+import {joinStringsFormatted} from "./util.js";
 export class CliArgPrefixParser extends OperandsFlagsOptions
 {
     private readonly _prefixChar: string;
@@ -9,11 +9,21 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
 
     public constructor(prefixChar: string, strings: readonly string[])
     {
-        if (prefixChar.length === 0)
+        // If no strings to parse are passed...
+        if (strings.length === 0)
+        {
+            super([], [], []);
+            this._strings = Object.freeze([]);
+            this._distinct = new OperandsFlagsOptions( Object.freeze([]),
+                                                       Object.freeze([]),
+                                                       Object.freeze([]) );
+        }
+        // Else if prefix char is blank...
+        else if (prefixChar.length === 0)
         {
             super(strings, [], []);
             this._strings = this._all;
-            this._distinct = new OperandsFlagsOptions( Object.freeze([]),
+            this._distinct = new OperandsFlagsOptions( Object.freeze([...new Set(this._all)]),
                                                        Object.freeze([]),
                                                        Object.freeze([]) );
         }
@@ -84,15 +94,9 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
     public toString(): string
     {
         const str: string =   `prefixChar: "${this._prefixChar}", `
-                            + `operands: ${joinStrings(this._operands)}, `
-                            + `flags: ${joinStrings(this._flags)}, `
-                            + `options: ${joinStrings(this._options)}`;
+                            + `operands: ${joinStringsFormatted(this._operands)}, `
+                            + `flags: ${joinStringsFormatted(this._flags)}, `
+                            + `options: ${joinStringsFormatted(this._options)}`;
         return `${this.constructor.name}{${str}}`;
     }
 }
-
-const joinStrings = (strings: readonly string[]): string =>
-{
-    const quotes: string = strings.length !== 0 ? "\"" : "";
-    return `[${quotes}${strings.join("\", \"")}${quotes}]`;
-};
