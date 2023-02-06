@@ -1,6 +1,6 @@
 /**
  * A container for string arrays intended to be used for strings parsed to
- * operands, flags, and flags.
+ * operands, flags, and options.
  */
 export class OperandsFlagsOptions
 {
