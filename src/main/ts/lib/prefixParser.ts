@@ -38,15 +38,13 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
                                    flags: operandFlagOptionsTuple.flags,
                                    options: Object.freeze([...operandFlagOptionsTuple.options, aString.slice(optionPrefix.length)]) });
                     }
+
                     // If starts with only a single prefix char, save characters of
                     // string without leading prefix char
-                    else
-                    {
-                        return Object.freeze({
-                                   operands: operandFlagOptionsTuple.operands,
-                                   flags: Object.freeze([...operandFlagOptionsTuple.flags, ...aString.slice(prefixChar.length)]),
-                                   options: operandFlagOptionsTuple.options});
-                    }
+                    return Object.freeze({
+                               operands: operandFlagOptionsTuple.operands,
+                               flags: Object.freeze([...operandFlagOptionsTuple.flags, ...aString.slice(prefixChar.length)]),
+                               options: operandFlagOptionsTuple.options});
                 },
                 // Initial frozen empty operands, flags, and options object
                 Object.freeze({ operands: Object.freeze([]),
