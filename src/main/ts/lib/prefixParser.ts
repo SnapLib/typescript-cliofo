@@ -98,7 +98,7 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
                    operandsFlagsOptions.flags,
                    operandsFlagsOptions.options );
             this.#prefixChar = prefixChar;
-            this.#strings = strings;
+            this.#strings = Object.isFrozen(strings) ? strings : Object.freeze([...strings]);
             this.#distinct = Object.freeze(new OperandsFlagsOptions(
                 Object.freeze([...new Set(this._operands)]),
                 Object.freeze([...new Set(this._flags)]),
