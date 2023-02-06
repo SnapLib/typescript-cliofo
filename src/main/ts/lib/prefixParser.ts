@@ -3,18 +3,16 @@ import {joinStringsFormatted} from "./util.js";
 
 /**
  * This class parses an array of string arguments into operands, flags, and
- * options based on a prefix character string. The prefix character string is
- * used to denote if a string is an operand, flag, or option.
+ * options based on a prefix string. The prefix string is used to denote if a
+ * string is an operand, flag, or option.
  *
- * If a strings is prefixed with no prefix characters, then it's an *operand*.
- * If a string is prefixed with only a single prefix character, then it's a
- * *flag*. If a string is prefixed with 2 or more prefix characters, then it's
- * an *option*.
+ * If a strings is prefixed with no prefix strings, then it's an *operand*. If a
+ * string is prefixed with only a single prefix string, then it's a "flag". If a
+ * string is prefixed with 2 or more prefix strings, then it's an *option*.
  *
- * @remarks The flag strings are parsed down to individual characters.
- *
- * @remarks The option and flag strings this object contains do not include the
- *          1 or 2 leading prefix characters they were prefixed with.
+ * @remarks The flag and option strings do not include the 1 or 2 leading prefix
+ *          strings they were prefixed with and all flag strings are parsed down
+ *          to their individual characters.
  */
 export class CliArgPrefixParser extends OperandsFlagsOptions
 {
