@@ -47,13 +47,16 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
     {
             const optionPrefix: string = prefixChar.repeat(2);
 
+            // Create new array of parsed using prefix char argument to parse
+            // strings in string array argument
             const operandsFlagsOptions: Readonly<{ readonly operands: readonly string[],
                                                    readonly flags: readonly string[],
                                                    readonly options: readonly string[] }>
+                // reduce passed strings to new array of parsed strings
                 = strings.reduce((
-                    operandFlagOptionsTuple: Readonly<{ readonly operands: readonly string[],
-                                                        readonly options: readonly string[],
-                                                        readonly flags: readonly string[] }>,
+                    _operandFlagOptions: Readonly<{ readonly operands: readonly string[],
+                                                    readonly options: readonly string[],
+                                                    readonly flags: readonly string[] }>,
                     aString: string ) =>
                     {
                         // If string doesn't start with the prefix char string,
@@ -61,9 +64,9 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
                         if ( ! aString.startsWith(prefixChar))
                         {
                             return Object.freeze({
-                                    operands: Object.freeze([...operandFlagOptionsTuple.operands, aString]),
-                                    flags: operandFlagOptionsTuple.flags,
-                                    options: operandFlagOptionsTuple.options });
+                                    operands: Object.freeze([..._operandFlagOptions.operands, aString]),
+                                    flags: _operandFlagOptions.flags,
+                                    options: _operandFlagOptions.options });
                         }
                         // If string starts with 2 or more adjacent prefix char
                         // strings, add string without leading 2 prefix char
@@ -71,18 +74,17 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
                         else if (aString.startsWith(optionPrefix))
                         {
                             return Object.freeze({
-                                    operands: operandFlagOptionsTuple.operands,
-                                    flags: operandFlagOptionsTuple.flags,
-                                    options: Object.freeze([...operandFlagOptionsTuple.options, aString.slice(optionPrefix.length)]) });
+                                    operands: _operandFlagOptions.operands,
+                                    flags: _operandFlagOptions.flags,
+                                    options: Object.freeze([..._operandFlagOptions.options, aString.slice(optionPrefix.length)]) });
                         }
-
                         // If string starts with only a single prefix char
                         // string, add characters of string without leading
                         // prefix char string to flags array
                         return Object.freeze({
-                                operands: operandFlagOptionsTuple.operands,
-                                flags: Object.freeze([...operandFlagOptionsTuple.flags, ...aString.slice(prefixChar.length)]),
-                                options: operandFlagOptionsTuple.options});
+                                operands: _operandFlagOptions.operands,
+                                flags: Object.freeze([..._operandFlagOptions.flags, ...aString.slice(prefixChar.length)]),
+                                options: _operandFlagOptions.options});
                     },
                 // Initial frozen empty operands, flags, and options object
                 Object.freeze({ operands: Object.freeze([]),
