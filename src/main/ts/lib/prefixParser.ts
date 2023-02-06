@@ -2,50 +2,67 @@ import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
 import {joinStringsFormatted} from "./util.js";
 
 /**
- * This class parses an array of string arguments into operands, flags, and
- * options based on a prefix string. The prefix string is used to denote if a
- * string is an operand, flag, or option.
+ * This class parses an array of `string` arguments into operands, flags, and
+ * options based on a *prefix string*. The *prefix string* is used to denote if
+ * a `string` is an operand, flag, or option.
  *
- * If a strings is prefixed with no prefix strings, then it's an *operand*. If a
- * string is prefixed with only a single prefix string, then it's a *flag*. If a
- * string is prefixed with 2 or more prefix strings, then it's an *option*.
+ * If a string isn't prefixed with a string, then it's an *operand*. If a
+ * string is prefixed with only a single leading prefix string, then it's a
+ * *flag*. If a string is prefixed with 2 or more adjacent leading prefix
+ * strings, then it's an *option*.
  *
- * @remarks The flag and option strings do not include the 1 or 2 leading prefix
- *          strings they were prefixed with and all flag strings are parsed down
- *          to their individual characters.
+ * @remarks
+ * - The flag and option strings do not include the 1 or 2 leading prefix
+ *   strings they were prefixed with to denote them as a flag or option. For
+ *   example, the leading hyphen characters (`"-"` and `"--"`) in the strings
+ *   `"-foo"` and `"--bar"` would be ignored if the prefix string is a hyphen
+ *   character.
+ *
+ * - All flag strings are parsed down to their individual characters. For
+ *   example the string `"-foo"` would be stored as the ***flags***
+ *   `["f", "o", "o"]` if the leading hyphen character (`"-"`) is the prefix
+ *   string.
  */
 export class PrefixParser extends OperandsFlagsOptions
 {
-    readonly #prefixChar: string;
+    readonly #prefixString: string;
     readonly #strings: readonly string[];
     readonly #distinct: Readonly<OperandsFlagsOptions>;
 
 
     /**
-     * Constructs an object that parses an array of string arguments into
-     * operands, flags, and options based on a prefix character string. The
-     * passed prefix character string argument is used to denote if a string is
-     * an operand, flag, or option.
+     * Constructs an object that parses an array of `string` arguments into
+     * operands, flags, and options based on a leading prefix string. The passed
+     * prefix string argument is used to denote if a string is an operand, flag,
+     * or option.
      *
      * Any string that starts with no prefix character string is an *operand*.
      * Any string that starts with only a single prefix character string is a
      * *flag*. And any string that starts with 2 or more prefix character
      * strings is an *option*.
      *
-     * @remarks The option and flag strings this object contains do not include
- *              the 1 or 2 leading prefix character strings they were prefixed
- *              with.
+     * @remarks
+     * - The flag and option strings do not include the 1 or 2 leading prefix
+     *   strings they were prefixed with to denote them as a flag or option. For
+     *   example, the leading hyphen characters (`"-"` and `"--"`) in the
+     *   strings `"-foo"` and `"--bar"` would be ignored if the prefix string is
+     *   a hyphen character.
      *
-     * @param prefixChar The string used to denote which strings are flags
-     *                   and options.
+     * - All flag strings are parsed down to their individual characters. For
+     *   example the string `"-foo"` would be stored as the ***flags***
+     *   `["f", "o", "o"]` if the leading hyphen character (`"-"`) is the prefix
+     *   string.
+     *
+     * @param prefixString The string used to denote which strings are flags
+     *                     and options.
      *
      * @param strings The strings to parse into operands, flags, and options.
      *
      * @constructor
      */
-    public constructor(prefixChar: string, strings: readonly string[])
+    public constructor(prefixString: string, strings: readonly string[])
     {
-            const optionPrefix: string = prefixChar.repeat(2);
+            const optionPrefix: string = prefixString.repeat(2);
 
             // Create new array of parsed using prefix char argument to parse
             // strings in string array argument
@@ -61,7 +78,7 @@ export class PrefixParser extends OperandsFlagsOptions
                     {
                         // If string doesn't start with the prefix char string,
                         // add it to operands array
-                        if ( ! aString.startsWith(prefixChar))
+                        if ( ! aString.startsWith(prefixString))
                         {
                             return Object.freeze({
                                     operands: Object.freeze([..._operandFlagOptions.operands, aString]),
@@ -83,7 +100,7 @@ export class PrefixParser extends OperandsFlagsOptions
                         // prefix char string to flags array
                         return Object.freeze({
                                 operands: _operandFlagOptions.operands,
-                                flags: Object.freeze([..._operandFlagOptions.flags, ...aString.slice(prefixChar.length)]),
+                                flags: Object.freeze([..._operandFlagOptions.flags, ...aString.slice(prefixString.length)]),
                                 options: _operandFlagOptions.options});
                     },
                     // Initial frozen empty operands, flags, and options object
@@ -95,7 +112,7 @@ export class PrefixParser extends OperandsFlagsOptions
             super( operandsFlagsOptions.operands,
                    operandsFlagsOptions.flags,
                    operandsFlagsOptions.options );
-            this.#prefixChar = prefixChar;
+            this.#prefixString = prefixString;
             this.#strings = Object.isFrozen(strings) ? strings : Object.freeze([...strings]);
             this.#distinct = Object.freeze(new OperandsFlagsOptions(
                 Object.freeze([...new Set(this._operands)]),
@@ -109,7 +126,7 @@ export class PrefixParser extends OperandsFlagsOptions
      *
      * @returns The string used to denote flags and options.
      */
-    public prefixChar(): string {return this.#prefixChar;}
+    public prefixString(): string {return this.#prefixString;}
 
     /**
      * Returns this object's strings to parse.
@@ -165,58 +182,36 @@ export class PrefixParser extends OperandsFlagsOptions
      * Returns the string representation fo this object that can optionally
      * formatted in various ways.
      *
-     * @param format Specifies how to format the outputted string
-     *               representation of this object.
+     * @param stringFormat
+     * Various options used to format the string output of this method. The
+     * following format options are:
      *
-     * @param tabSize Specifies how many spaces tabs used for indentation should
-     *                contain if any used.
+     * - `verbose`
+     *   Boolean flag indicating whether output should include all object
+     *   properties or just the main ones.
      *
-     * @returns the string representation fo this object.
+     * - `tabSize`
+     *   Number indicating how many spaces are used to separate or indent each
+     *   line this objects properties.
+     *
+     * - `lineEnding`
+     *   String indicating what should be appended to each property line.
+     *
+     * @returns the string representation of this object.
      */
-    public toString(format: string | undefined | null = null, tabSize: number | undefined | null = null): string
+    public toString(stringFormat: Partial<{verbose: boolean, tabSize: number, lineEnding: string}> = {}): string
     {
-        const validFormatArgs: readonly (string | undefined | null)[] =
-            Object.freeze([undefined, null, "inline", "none", "verbose", "\n", "\n\n", "\u0020"]);
+        const objVerboseString: readonly string[] = Object.freeze([
+            `prefixString: "${this.#prefixString}"`,
+            `strings: ${joinStringsFormatted(this.#strings)}`,
+            `operands: ${joinStringsFormatted(this._operands)}`,
+            `flags: ${joinStringsFormatted(this._flags)}`,
+            `options: ${joinStringsFormatted(this._options)}` ]);
 
-        if ( ! validFormatArgs.some(validFrmtArg => strEqualsIgnoreCase(validFrmtArg, format)))
-        {
-            const quotes: string = format !== undefined && format !== null ? '"' : "";
+        const tabString: string = " ".repeat(stringFormat.tabSize ?? 0);
 
-            throw new Error(`illegal string format argument: ${quotes}${format}${quotes}`);
-        }
-
-        const _tabSize: number = tabSize === undefined ? 0 : tabSize === null ? 4 : tabSize;
-
-        return   `${OperandsFlagsOptions.name}{`
-               + ( "\u0020" === format
-                     ?   `\u0020prefixChar: "${this.#prefixChar}", `
-                       + `operands: ${joinStringsFormatted(this._operands)}, `
-                       + `flags: ${joinStringsFormatted(this._flags)}, `
-                       + `options: ${joinStringsFormatted(this._options)}\u0020`
-                   : "\n" === format
-                       ?   `prefixChar: "${this.#prefixChar}",\n`
-                         + `${" ".repeat(_tabSize)}operands: ${joinStringsFormatted(this._operands)},\n`
-                         + `${" ".repeat(_tabSize)}flags: ${joinStringsFormatted(this._flags)},\n`
-                         + `${" ".repeat(_tabSize)}options: ${joinStringsFormatted(this._options)}\n`
-                   : "\n\n" === format
-                       ?   `\n${" ".repeat(_tabSize)}prefixChar: "${this.#prefixChar}",\n`
-                         + `${" ".repeat(_tabSize)}operands: ${joinStringsFormatted(this._operands)},\n`
-                         + `${" ".repeat(_tabSize)}flags: ${joinStringsFormatted(this._flags)},\n`
-                         + `${" ".repeat(_tabSize)}options: ${joinStringsFormatted(this._options)}\n`
-                   :    `prefixChar: "${this.#prefixChar}", `
-                      + `operands: ${joinStringsFormatted(this._operands)}, `
-                      + `flags: ${joinStringsFormatted(this._flags)}, `
-                      + `options: ${joinStringsFormatted(this._options)}`)
-               + "}";
+        return `${PrefixParser.name}{ ` + (stringFormat.verbose ? objVerboseString
+                                                  : [objVerboseString[0], ...objVerboseString.slice(2)])
+                                               .join(`${stringFormat.lineEnding ?? ", "}${tabString}`) + "}";
     }
 }
-
-const strEqualsIgnoreCase = (aString: string | undefined | null, anotherString: string | undefined | null): boolean =>
-{
-    if (aString === undefined || aString === null || anotherString === undefined || anotherString === null)
-    {
-        return aString === anotherString;
-    }
-
-    return aString.localeCompare(anotherString, undefined, {sensitivity: "base"}) === 0;
-};
