@@ -3,10 +3,10 @@
 
 module.exports = {
     root: true,
-    ignorePatterns: ["!**/*.ts"],
+    ignorePatterns: ["!./**/*.ts"],
     env:
     {
-        es2020: true,
+        es2021: true,
         node: true
     },
     extends:
