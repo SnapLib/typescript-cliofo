@@ -66,11 +66,11 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
 
             this._strings = strings;
 
-            this._distinct = new OperandsFlagsOptions(
+            this._distinct = Object.freeze(new OperandsFlagsOptions(
                 Object.freeze([...new Set(this._operands)]),
                 Object.freeze([...new Set(this._flags)]),
                 Object.freeze([...new Set(this._options)])
-            );
+            ));
         }
 
         this._prefixChar = prefixChar;
