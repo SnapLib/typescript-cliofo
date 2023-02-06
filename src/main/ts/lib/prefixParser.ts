@@ -3,9 +3,9 @@ import {joinStringsFormatted} from "./util.js";
 
 export class CliArgPrefixParser extends OperandsFlagsOptions
 {
-    private readonly _prefixChar: string;
-    private readonly _strings: readonly string[];
-    private readonly _distinct: Readonly<OperandsFlagsOptions>;
+    readonly #prefixChar: string;
+    readonly #strings: readonly string[];
+    readonly #distinct: Readonly<OperandsFlagsOptions>;
 
 
     public constructor(prefixChar: string, strings: readonly string[])
@@ -55,18 +55,18 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
             super( Object.freeze(operandsFlagsOptions.operands),
                    Object.freeze(operandsFlagsOptions.flags),
                    Object.freeze(operandsFlagsOptions.options) );
-            this._prefixChar = prefixChar;
-            this._strings = strings;
-            this._distinct = Object.freeze(new OperandsFlagsOptions(
+            this.#prefixChar = prefixChar;
+            this.#strings = strings;
+            this.#distinct = Object.freeze(new OperandsFlagsOptions(
                 Object.freeze([...new Set(this._operands)]),
                 Object.freeze([...new Set(this._flags)]),
                 Object.freeze([...new Set(this._options)])
             ));
     }
 
-    public prefixChar(): string {return this._prefixChar;}
+    public prefixChar(): string {return this.#prefixChar;}
 
-    public strings(): readonly string[] {return this._strings;}
+    public strings(): readonly string[] {return this.#strings;}
 
     public operands(): readonly string[] {return this._operands;}
 
@@ -74,9 +74,9 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
 
     public flags(): readonly string[] {return this._flags;}
 
-    public isEmpty(): boolean {return this._strings.length === 0;}
+    public isEmpty(): boolean {return this.#strings.length === 0;}
 
-    public distinct(): Readonly<OperandsFlagsOptions> {return this._distinct;}
+    public distinct(): Readonly<OperandsFlagsOptions> {return this.#distinct;}
 
     public toString(format: string | undefined | null = null, tabSize: number | undefined | null = null): string
     {
@@ -94,21 +94,21 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
 
         return   `${OperandsFlagsOptions.name}{`
                + ( "\u0020" === format
-                     ?   `\u0020prefixChar: "${this._prefixChar}", `
+                     ?   `\u0020prefixChar: "${this.#prefixChar}", `
                        + `operands: ${joinStringsFormatted(this._operands)}, `
                        + `flags: ${joinStringsFormatted(this._flags)}, `
                        + `options: ${joinStringsFormatted(this._options)}\u0020`
                    : "\n" === format
-                       ?   `prefixChar: "${this._prefixChar}",\n`
+                       ?   `prefixChar: "${this.#prefixChar}",\n`
                          + `${" ".repeat(_tabSize)}operands: ${joinStringsFormatted(this._operands)},\n`
                          + `${" ".repeat(_tabSize)}flags: ${joinStringsFormatted(this._flags)},\n`
                          + `${" ".repeat(_tabSize)}options: ${joinStringsFormatted(this._options)}\n`
                    : "\n\n" === format
-                       ?   `\n${" ".repeat(_tabSize)}prefixChar: "${this._prefixChar}",\n`
+                       ?   `\n${" ".repeat(_tabSize)}prefixChar: "${this.#prefixChar}",\n`
                          + `${" ".repeat(_tabSize)}operands: ${joinStringsFormatted(this._operands)},\n`
                          + `${" ".repeat(_tabSize)}flags: ${joinStringsFormatted(this._flags)},\n`
                          + `${" ".repeat(_tabSize)}options: ${joinStringsFormatted(this._options)}\n`
-                   :    `prefixChar: "${this._prefixChar}", `
+                   :    `prefixChar: "${this.#prefixChar}", `
                       + `operands: ${joinStringsFormatted(this._operands)}, `
                       + `flags: ${joinStringsFormatted(this._flags)}, `
                       + `options: ${joinStringsFormatted(this._options)}`)
