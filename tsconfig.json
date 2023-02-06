@@ -6,7 +6,6 @@
       "baseUrl": "./src/main/ts",
       "esModuleInterop": true,
       "forceConsistentCasingInFileNames": true,
-      "importHelpers": true,
       "lib": ["es2021"],
       "module": "es2020",
       "noEmitOnError": true,
