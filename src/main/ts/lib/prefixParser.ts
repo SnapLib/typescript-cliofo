@@ -11,6 +11,8 @@ import {joinStringsFormatted} from "./util.js";
  * *flag*. If a string is prefixed with 2 or more prefix characters, then it's
  * an *option*.
  *
+ * @remarks The flag strings are parsed down to individual characters.
+ *
  * @remarks The option and flag strings this object contains do not include the
  *          1 or 2 leading prefix characters they were prefixed with.
  */
@@ -55,8 +57,8 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
                 // reduce passed strings to new array of parsed strings
                 = strings.reduce((
                     _operandFlagOptions: Readonly<{ readonly operands: readonly string[],
-                                                    readonly options: readonly string[],
-                                                    readonly flags: readonly string[] }>,
+                                                    readonly flags: readonly string[],
+                                                    readonly options: readonly string[] }>,
                     aString: string ) =>
                     {
                         // If string doesn't start with the prefix char string,
