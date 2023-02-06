@@ -14,7 +14,7 @@ import {joinStringsFormatted} from "./util.js";
  *          strings they were prefixed with and all flag strings are parsed down
  *          to their individual characters.
  */
-export class CliArgPrefixParser extends OperandsFlagsOptions
+export class PrefixParser extends OperandsFlagsOptions
 {
     readonly #prefixChar: string;
     readonly #strings: readonly string[];
