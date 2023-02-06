@@ -1,0 +1,12 @@
+{
+  "entryPoints": ["./src/main/ts"],
+  "entryPointStrategy": "expand",
+  "excludeInternal": true,
+  "excludePrivate": true,
+  "gitRemote": "upstream",
+  "includeVersion": true,
+  "name": "Cliofo",
+  "out": "./build/tsdoc",
+  "readme": "./README.md",
+  "tsconfig": "./tsconfig.json"
+}
