@@ -4,7 +4,7 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
 {
     private readonly _prefixChar: string;
     private readonly _strings: readonly string[];
-    private readonly _distinct: OperandsFlagsOptions;
+    private readonly _distinct: Readonly<OperandsFlagsOptions>;
 
 
     public constructor(prefixChar: string, strings: readonly string[])
@@ -89,7 +89,7 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
 
     public isEmpty(): boolean {return this._strings.length === 0;}
 
-    public distinct(): OperandsFlagsOptions {return this._distinct;}
+    public distinct(): Readonly<OperandsFlagsOptions> {return this._distinct;}
 
     public toString(): string
     {
