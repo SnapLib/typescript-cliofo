@@ -23,8 +23,9 @@ $ node ls.js -lc --all ./aDirectory
 
 ## Flag
 
-A ***flag*** is any `string` that is prefixed by only a single leading
-*prefix string*.
+A ***flag*** is <u>***a characters***</u> that make up any `string` that is
+prefixed by only a single leading *prefix string*. The leading prefix `string`
+character(s) are not considered flag characters.
 
 In the following example, `"l"` and `"c"` are *flag*s passed to the
 javascript script `ls.js`:
@@ -37,7 +38,8 @@ $ node ls.js -lc --all ./aDirectory
 ## Option
 
 An ***option*** is any `string` that is prefixed by 2 or more leading adjacent
-*prefix string*s.
+*prefix string*s. The leading 2 prefix `string`s are not considered part of the
+passed option `string`.
 
 In the following example, `all` is an *option* passed to the
 javascript script `ls.js`:
