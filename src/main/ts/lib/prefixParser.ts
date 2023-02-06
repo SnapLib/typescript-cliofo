@@ -64,20 +64,75 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
             ));
     }
 
+    /**
+     * Returns the string used to denote flags and options.
+     *
+     * @returns The string used to denote flags and options.
+     */
     public prefixChar(): string {return this.#prefixChar;}
 
+    /**
+     * Returns this object's strings to parse.
+     *
+     * @returns This object's strings to parse.
+     */
     public strings(): readonly string[] {return this.#strings;}
 
+    /**
+     * Returns the operand arguments parsed from this object's strings.
+     *
+     * @returns The operand arguments parsed from this object's strings.
+     */
     public operands(): readonly string[] {return this._operands;}
 
+    /**
+     * Returns the flag arguments parsed from this object's strings.
+     *
+     * @remarks The leading prefix character string is omitted from these flag
+     *          strings.
+     *
+     * @returns The operand arguments parsed from this object's strings.
+     */
     public flags(): readonly string[] {return this._flags;}
 
+    /**
+     * Returns the option arguments parsed from this object's strings.
+     *
+     * @remarks The leading 2 adjacent prefix character strings are omitted from
+     *          these option strings.
+     *
+     * @returns The option arguments parsed from this object's strings.
+     */
     public options(): readonly string[] {return this._options;}
 
+    /**
+     * Returns `true` if this object contains 0 strings to parse.
+     *
+     * @returns `true` if this object contains 0 strings to parse.
+     */
     public isEmpty(): boolean {return this.#strings.length === 0;}
 
+    /**
+     * An object containing distinct copies of this object's parsed operands,
+     * flags, and options.
+     *
+     * @returns An object containing distinct copies of this object's parsed
+     *          operands, flags, and options.
+     */
     public distinct(): Readonly<OperandsFlagsOptions> {return this.#distinct;}
 
+    /**
+     * Returns the string representation fo this object that can optionally
+     * formatted in various ways.
+     *
+     * @param format Specifies how to format the outputted string
+     *               representation of this object.
+     *
+     * @param tabSize Specifies how many spaces tabs used for indentation should
+     *                contain if any used.
+     *
+     * @returns the string representation fo this object.
+     */
     public toString(format: string | undefined | null = null, tabSize: number | undefined | null = null): string
     {
         const validFormatArgs: readonly (string | undefined | null)[] =
