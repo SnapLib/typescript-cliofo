@@ -9,7 +9,6 @@
 A ***prefix string*** is a `string` used to determine if another `string` is an
 *operand*, *flag*, or *option*.
 
-
 ## Operand
 
 An ***operand*** is any `string` that isn't prefixed by a *prefix string*.
