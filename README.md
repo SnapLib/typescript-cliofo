@@ -12,7 +12,7 @@ A ***prefix string*** is a `string` used to denote if a string is an *operand*,
 ## Operand
 
 An ***operand*** is any command line interface argument that isn't prefixed by
-a prefix string.
+a *prefix string*.
 
 ## Flag
 
