@@ -15,12 +15,11 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
             const operandsFlagsOptions: Readonly<{ readonly operands: string[],
                                                    readonly flags: string[],
                                                    readonly options: string[] }>
-                = Object.freeze(strings
-                    .reduce((operandFlagOptionsTuple: Readonly<{
-                        readonly operands: string[],
-                        readonly options: string[],
-                        readonly flags: string[] }>,
-                             aString: string) =>
+                = strings.reduce((
+                    operandFlagOptionsTuple: Readonly<{ readonly operands: string[],
+                                                        readonly options: string[],
+                                                        readonly flags: string[] }>,
+                    aString: string) =>
                 {
                     // If no prefix char, save entire string to index
                     if ( ! aString.startsWith(prefixChar))
@@ -44,7 +43,7 @@ export class CliArgPrefixParser extends OperandsFlagsOptions
                     }
                     return operandFlagOptionsTuple;
                 },
-                Object.freeze({operands: [], flags: [],options: []})));
+                Object.freeze({operands: [], flags: [],options: []}));
 
             super( Object.freeze(operandsFlagsOptions.operands),
                    Object.freeze(operandsFlagsOptions.flags),
