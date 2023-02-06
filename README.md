@@ -6,20 +6,19 @@
 
 ## Prefix string
 
-A ***prefix string*** is a `string` used to denote if a string is an *operand*,
-*flag* or *option*.
+A ***prefix string*** is a `string` used to determine if another `string` is an
+*operand*, *flag*, or *option*.
 
 ## Operand
 
-An ***operand*** is any command line interface argument that isn't prefixed by
-a *prefix string*.
+An ***operand*** is any `string` that isn't prefixed by a *prefix string*.
 
 ## Flag
 
-A ***flag*** is any `string` that is prefixed by only a single leading prefix
+A ***flag*** is any `string` that is prefixed by only a single leading
 *prefix string*.
 
 ## Option
 
-A ***option*** is any `string` that is prefixed by 2 or more leading adjacent
+An ***option*** is any `string` that is prefixed by 2 or more leading adjacent
 *prefix string*s.
