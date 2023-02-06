@@ -7,7 +7,7 @@ import {joinStringsFormatted} from "./util.js";
  * string is an operand, flag, or option.
  *
  * If a strings is prefixed with no prefix strings, then it's an *operand*. If a
- * string is prefixed with only a single prefix string, then it's a "flag". If a
+ * string is prefixed with only a single prefix string, then it's a *flag*. If a
  * string is prefixed with 2 or more prefix strings, then it's an *option*.
  *
  * @remarks The flag and option strings do not include the 1 or 2 leading prefix
