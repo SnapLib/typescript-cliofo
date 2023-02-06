@@ -2,7 +2,7 @@
   "name": "@snaplib/cliofo",
   "version": "0.0.1",
   "description": "Command line interface argument parser built around the concept of a prefix character, operands, flags, and options.",
-  "main": "cliofo.js",
+  "main": "./build/dist/cliofo.js",
   "author": "Snap",
   "license": "MIT",
   "private": true,
@@ -11,9 +11,10 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "build": "tsc -p ./tsconfig.json --outDir ./build/dev/cliofo --declaration true --declarationDir ./build/dev/cliofo/types --declarationMap true --sourceMap true",
-    "build-dist": "tsc -p ./tsconfig.json --outDir ./build/dist/cliofo",
+    "build": "tsc --skipLibCheck true --declarationMap true --sourceMap true -p ./tsconfig.json --outDir ./build/dev --declarationDir ./build/dev/types",
+    "build-dist": "tsc --declarationMap true -p ./tsconfig.json --outDir ./build/dist --declarationDir ./build/dist/types",
     "build-scripts": "tsc -p ./scripts/ts/tsconfig.json --outDir ./scripts",
+    "build-docs": "typedoc --options ./typedoc.cjs",
     "clean": "node ./scripts/remove.js --directory ./build",
     "test": "env TS_NODE_PROJECT='./src/test/tsconfig.json' mocha --config ./src/test/.mocharc.cjs"
   },
