@@ -28,7 +28,7 @@ export class PrefixParser extends OperandsFlagsOptions
     readonly #prefixString: string;
     readonly #strings: readonly string[];
     // readonly #occurrenceCount: Readonly<OperandFlagOptionOccurrenceCount>;
-    readonly #jsonEntries: ReadonlyArray<readonly [string, unknown]>;
+    readonly #jsonEntries: ReadonlyArray<readonly [string, string | readonly string[]]>;
 
 
     /**
@@ -211,7 +211,7 @@ export class PrefixParser extends OperandsFlagsOptions
      *
      * @returns the JSON string representation of this object.
      */
-    public toJSON(json: Partial<{verbose: unknown, replacer: (unknown: unknown) => unknown, space: string | number}> = {}): string
+    public toJSON(json: Partial<{verbose: unknown, replacer: (_: unknown) => unknown, space: string | number}> = {}): string
     {
         const obj: Readonly<object> = Object.freeze(Object.fromEntries(
             ! json.verbose
