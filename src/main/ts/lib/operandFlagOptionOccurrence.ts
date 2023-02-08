@@ -11,6 +11,7 @@ export class OperandFlagOptionOccurrenceCount
     {
         this.#operandsFlagsOptions = Object.isFrozen(operandsFlagsOptions) ? operandsFlagsOptions
             : Object.freeze(OperandsFlagsOptions.copy(operandsFlagsOptions));
+
         this.#operandsOccurrenceCountMap = Object.freeze(new Map(this.#operandsFlagsOptions.distinct().operands
             .map((operandString: string, index: number, operandStrings: readonly string[]) =>
                 Object.freeze([operandString, operandStrings.filter(otherOperandString => operandString === otherOperandString).length]))));
