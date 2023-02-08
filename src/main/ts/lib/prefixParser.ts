@@ -177,8 +177,8 @@ export class PrefixParser extends OperandsFlagsOptions
     //     {return this.#occurrenceCount;}
 
     /**
-     * Returns the string representation fo this object that can optionally
-     * formatted in various ways.
+     * Returns the JSON string representation of this object that can optionally
+     * be formatted in various ways.
      *
      * @param stringFormat
      * Various options used to format the string output of this method. The
@@ -188,28 +188,37 @@ export class PrefixParser extends OperandsFlagsOptions
      *   Boolean flag indicating whether output should include all object
      *   properties or just the main ones.
      *
-     * - `tabSize`
-     *   Number indicating how many spaces are used to separate or indent each
-     *   line this objects properties.
+     * - `space`
+     *   This parameter is passed to the `JSON.stringify(...)` method that's
+     *   called internally. Below is the doc comment directly from
+     *   {@link JSON.parse()}:
      *
-     * - `lineEnding`
-     *   String indicating what should be appended to each property line.
+     *   A `string` or `number` that's used to insert white space (including
+     *   indentation, line break characters, etc.) into the output JSON string
+     *   for readability purposes. If this is a number, it indicates the number
+     *   of space characters to be used as indentation, clamped to 10 (that is,
+     *   any number greater than 10 is treated as if it were 10). Values less
+     *   than 1 indicate that no space should be used. If this is a string, the
+     *   string (or the first 10 characters of the string, if it's longer than
+     *   that) is inserted before every nested object or array.
      *
-     * @returns the string representation of this object.
+     * @returns the JSON string representation of this object.
      */
-    public toString(stringFormat: Partial<{verbose: boolean, tabSize: number, lineEnding: string}> = {}): string
+    public toJSON(json: Partial<{verbose: unknown, space: string | number}> = {verbose: false, space: 2}): string
     {
-        const objVerboseString: readonly string[] = Object.freeze([
-            `prefixString: "${this.#prefixString}"`,
-            `strings: ${joinStringsFormatted(this.#strings)}`,
-            `operands: ${joinStringsFormatted(this._operands)}`,
-            `flags: ${joinStringsFormatted(this._flags)}`,
-            `options: ${joinStringsFormatted(this._options)}` ]);
+        const obj: Readonly<unknown> = Object.freeze(Object.fromEntries(
+            json.verbose
+                ? [ ["prefixString", this.#prefixString],
+                    ["strings", this.#strings],
+                    ["operands", this._operands],
+                    ["flags", this._flags],
+                    ["options", this._options] ]
+                : [ ["prefixString", this.#prefixString],
+                    ["operands", this._operands],
+                    ["flags", this._flags],
+                    ["options", this._options]]
+        ));
 
-        const tabString: string = " ".repeat(stringFormat.tabSize ?? 0);
-
-        return `${PrefixParser.name}{ ` + (stringFormat.verbose ? objVerboseString
-                                                  : [objVerboseString[0], ...objVerboseString.slice(2)])
-                                               .join(`${stringFormat.lineEnding ?? ", "}${tabString}`) + "}";
+        return JSON.stringify(obj, undefined, json.space);
     }
 }
