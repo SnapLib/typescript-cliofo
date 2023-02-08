@@ -27,8 +27,8 @@ export class PrefixParser extends OperandsFlagsOptions
 {
     readonly #prefixString: string;
     readonly #strings: readonly string[];
-    // readonly #occurrenceCount: Readonly<OperandFlagOptionOccurrenceCount>;
-    readonly #jsonEntries: ReadonlyArray<readonly [string, string | readonly string[]]>;
+    readonly #occurrenceCount: Readonly<OperandFlagOptionOccurrenceCount>;
+    readonly #jsonEntries: ReadonlyArray<readonly [string, string | readonly string[] | Readonly<OperandFlagOptionOccurrenceCount>]>;
 
 
     /**
@@ -115,13 +115,14 @@ export class PrefixParser extends OperandsFlagsOptions
                operandsFlagsOptions.options );
         this.#prefixString = prefixString;
         this.#strings = Object.isFrozen(strings) ? strings : Object.freeze([...strings]);
-        // this.#occurrenceCount = Object.freeze(new OperandFlagOptionOccurrenceCount(this));
+        this.#occurrenceCount = Object.freeze(new OperandFlagOptionOccurrenceCount(this));
         this.#jsonEntries = Object.freeze([
-            ["prefixString", this.#prefixString],
+            (["prefixString", this.#prefixString]),
             ["strings", this.#strings],
             ["operands", this._operands],
             ["flags", this._flags],
-            ["options", this._options]
+            ["options", this._options],
+            ["occurrences", this.#occurrenceCount]
         ]);
     }
 

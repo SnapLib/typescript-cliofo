@@ -60,9 +60,4 @@ export class OperandFlagOptionOccurrenceCount
      *          times each one occurs as its value.
      */
     public optionsOccurrenceCountMap(): ReadonlyMap<string, number> {return this.#optionsOccurrenceCountMap;}
-
-    public toString(): string
-    {
-        return `${OperandFlagOptionOccurrenceCount.name}{operands: {${""}}}`;
-    }
 }
