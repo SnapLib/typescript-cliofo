@@ -28,8 +28,7 @@ export class PrefixParser extends OperandsFlagsOptions
 {
     readonly #prefixString: string;
     readonly #strings: readonly string[];
-    readonly #distinct: Readonly<OperandsFlagsOptions>;
-    readonly #occurrenceCount: Readonly<OperandFlagOptionOccurrenceCount>;
+    // readonly #occurrenceCount: Readonly<OperandFlagOptionOccurrenceCount>;
 
 
     /**
@@ -116,12 +115,7 @@ export class PrefixParser extends OperandsFlagsOptions
                operandsFlagsOptions.options );
         this.#prefixString = prefixString;
         this.#strings = Object.isFrozen(strings) ? strings : Object.freeze([...strings]);
-        this.#distinct = Object.freeze(new OperandsFlagsOptions(
-            Object.freeze([...new Set(this._operands)]),
-            Object.freeze([...new Set(this._flags)]),
-            Object.freeze([...new Set(this._options)])
-        ));
-        this.#occurrenceCount = Object.freeze(new OperandFlagOptionOccurrenceCount(this));
+        // this.#occurrenceCount = Object.freeze(new OperandFlagOptionOccurrenceCount(this));
     }
 
     /**
@@ -173,23 +167,14 @@ export class PrefixParser extends OperandsFlagsOptions
     public isEmpty(): boolean {return this.#strings.length === 0;}
 
     /**
-     * An object containing distinct copies of this object's parsed operands,
-     * flags, and options.
-     *
-     * @returns An object containing distinct copies of this object's parsed
-     *          operands, flags, and options.
-     */
-    public distinct(): Readonly<OperandsFlagsOptions> {return this.#distinct;}
-
-    /**
      * Returns an {@link OperandFlagOptionOccurrenceCount} object used to count
      * the occurrences of each operand, flag, and option.
      *
      * @returns An {@link OperandFlagOptionOccurrenceCount} object used to count
      * the occurrences of each operand, flag, and option.
      */
-    public occurrenceCount(): Readonly<OperandFlagOptionOccurrenceCount>
-        {return this.#occurrenceCount;}
+    // public occurrenceCount(): Readonly<OperandFlagOptionOccurrenceCount>
+    //     {return this.#occurrenceCount;}
 
     /**
      * Returns the string representation fo this object that can optionally

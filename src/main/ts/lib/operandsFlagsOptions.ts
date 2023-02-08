@@ -1,3 +1,11 @@
+interface DistinctOperandsFlagsOptions
+{
+    readonly all: readonly string[],
+    readonly operands: readonly string[],
+    readonly flags: readonly string[],
+    readonly options: readonly string[]
+}
+
 /**
  * A container for string arrays intended to be used for strings parsed to
  * operands, flags, and options.
@@ -8,6 +16,7 @@ export class OperandsFlagsOptions
     protected readonly _operands: readonly string[];
     protected readonly _flags: readonly string[];
     protected readonly _options: readonly string[];
+    readonly #distinct: Readonly<DistinctOperandsFlagsOptions>;
 
     public static readonly empty: Readonly<OperandsFlagsOptions> =
         Object.freeze(new OperandsFlagsOptions(Object.freeze([]), Object.freeze([]), Object.freeze([])));
@@ -18,6 +27,12 @@ export class OperandsFlagsOptions
         this._operands = Object.isFrozen(operands) ? operands : Object.freeze([...operands]);
         this._flags = Object.isFrozen(flags) ? flags : Object.freeze([...flags]);
         this._options = Object.isFrozen(options) ? options : Object.freeze([...options]);
+        this.#distinct = Object.freeze({
+            all: Object.freeze([...new Set(this._all)]),
+            operands: Object.freeze([...new Set(this._operands)]),
+            flags: Object.freeze([...new Set(this._operands)]),
+            options: Object.freeze([...new Set(this._operands)])
+        });
     }
 
     /**
@@ -49,4 +64,20 @@ export class OperandsFlagsOptions
      * @returns this object's option strings as an array.
      */
     public options(): readonly string[] {return this._options;}
+
+    /**
+     * An object containing distinct copies of this object's parsed operands,
+     * flags, and options.
+     *
+     * @returns An object containing distinct copies of this object's parsed
+     *          operands, flags, and options.
+     */
+    public distinct(): Readonly<DistinctOperandsFlagsOptions> {return this.#distinct;}
+
+    public static copy(operandsFlagsOptions: Readonly<OperandsFlagsOptions>): Readonly<OperandsFlagsOptions>
+    {
+        return new OperandsFlagsOptions(operandsFlagsOptions.operands(),
+                                        operandsFlagsOptions.flags(),
+                                        operandsFlagsOptions.options());
+    }
 }
