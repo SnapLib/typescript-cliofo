@@ -1,6 +1,5 @@
 import {OperandFlagOptionOccurrenceCount} from "./operandFlagOptionOccurrence.js";
 import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
-import {joinStringsFormatted} from "./util.js";
 
 /**
  * This class parses an array of `string` arguments into operands, flags, and
@@ -29,6 +28,7 @@ export class PrefixParser extends OperandsFlagsOptions
     readonly #prefixString: string;
     readonly #strings: readonly string[];
     // readonly #occurrenceCount: Readonly<OperandFlagOptionOccurrenceCount>;
+    readonly #jsonEntries: ReadonlyArray<readonly [string, unknown]>;
 
 
     /**
@@ -116,6 +116,13 @@ export class PrefixParser extends OperandsFlagsOptions
         this.#prefixString = prefixString;
         this.#strings = Object.isFrozen(strings) ? strings : Object.freeze([...strings]);
         // this.#occurrenceCount = Object.freeze(new OperandFlagOptionOccurrenceCount(this));
+        this.#jsonEntries = Object.freeze([
+            ["prefixString", this.#prefixString],
+            ["strings", this.#strings],
+            ["operands", this._operands],
+            ["flags", this._flags],
+            ["options", this._options]
+        ]);
     }
 
     /**
@@ -204,21 +211,14 @@ export class PrefixParser extends OperandsFlagsOptions
      *
      * @returns the JSON string representation of this object.
      */
-    public toJSON(json: Partial<{verbose: unknown, space: string | number}> = {verbose: false, space: 2}): string
+    public toJSON(json: Partial<{verbose: unknown, replacer: (unknown: unknown) => unknown, space: string | number}> = {}): string
     {
-        const obj: Readonly<unknown> = Object.freeze(Object.fromEntries(
-            json.verbose
-                ? [ ["prefixString", this.#prefixString],
-                    ["strings", this.#strings],
-                    ["operands", this._operands],
-                    ["flags", this._flags],
-                    ["options", this._options] ]
-                : [ ["prefixString", this.#prefixString],
-                    ["operands", this._operands],
-                    ["flags", this._flags],
-                    ["options", this._options]]
+        const obj: Readonly<object> = Object.freeze(Object.fromEntries(
+            ! json.verbose
+                ? this.#jsonEntries.filter(jsonEntry => "strings" === jsonEntry[0])
+                : this.#jsonEntries
         ));
 
-        return JSON.stringify(obj, undefined, json.space);
+        return `${PrefixParser.name} ${JSON.stringify(obj, json.replacer, json.space)}`;
     }
 }
