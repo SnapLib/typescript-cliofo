@@ -216,7 +216,7 @@ export class PrefixParser extends OperandsFlagsOptions
                 : this.#jsonEntries.filter(jsonEntry => "strings" === jsonEntry[0])
         ));
 
-        return `${PrefixParser.name} ${JSON.stringify(obj, format.replacer, format.space)}`;
+        return JSON.stringify(obj, format.replacer, format.space);
     }
 }
 
