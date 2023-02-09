@@ -181,8 +181,8 @@ export class PrefixParser extends OperandsFlagsOptions
      * @returns An {@link OperandFlagOptionOccurrenceCount} object used to count
      * the occurrences of each operand, flag, and option.
      */
-    // public occurrenceCount(): Readonly<OperandFlagOptionOccurrenceCount>
-    //     {return this.#occurrenceCount;}
+    public occurrenceCount(): Readonly<OperandFlagOptionOccurrenceCount>
+        {return this.#occurrenceCount;}
 
     /**
      * Returns the JSON string representation of this object.
