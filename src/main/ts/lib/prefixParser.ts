@@ -1,4 +1,3 @@
-import {OperandFlagOptionOccurrenceCount} from "./operandFlagOptionOccurrence.js";
 import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
 
 /**
@@ -27,8 +26,7 @@ export class PrefixParser extends OperandsFlagsOptions
 {
     readonly #prefixString: string;
     readonly #strings: readonly string[];
-    readonly #occurrenceCount: Readonly<OperandFlagOptionOccurrenceCount>;
-    readonly #jsonEntries: ReadonlyArray<readonly [string, string | readonly string[] | Readonly<OperandFlagOptionOccurrenceCount>]>;
+    readonly #jsonEntries: ReadonlyArray<readonly [string, string | readonly string[]]>;
 
 
     /**
@@ -115,14 +113,12 @@ export class PrefixParser extends OperandsFlagsOptions
                operandsFlagsOptions.options );
         this.#prefixString = prefixString;
         this.#strings = Object.isFrozen(strings) ? strings : Object.freeze([...strings]);
-        this.#occurrenceCount = Object.freeze(new OperandFlagOptionOccurrenceCount(this));
         this.#jsonEntries = Object.freeze([
             ["prefixString", this.#prefixString],
             ["strings", this.#strings],
             ["operands", this._operands],
             ["flags", this._flags],
-            ["options", this._options],
-            ["occurrences", this.#occurrenceCount]
+            ["options", this._options]
         ]);
     }
 
@@ -173,16 +169,6 @@ export class PrefixParser extends OperandsFlagsOptions
      * @returns `true` if this object contains 0 strings to parse.
      */
     public isEmpty(): boolean {return this.#strings.length === 0;}
-
-    /**
-     * Returns an {@link OperandFlagOptionOccurrenceCount} object used to count
-     * the occurrences of each operand, flag, and option.
-     *
-     * @returns An {@link OperandFlagOptionOccurrenceCount} object used to count
-     * the occurrences of each operand, flag, and option.
-     */
-    public occurrenceCount(): Readonly<OperandFlagOptionOccurrenceCount>
-        {return this.#occurrenceCount;}
 
     /**
      * Returns the JSON string representation of this object.
