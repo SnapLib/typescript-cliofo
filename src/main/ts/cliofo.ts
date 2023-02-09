@@ -1,10 +1,10 @@
-import {OperandFlagOptionOccurrenceCount} from "./lib/operandFlagOptionOccurrence.js";
+import {CliofoPrefixOccurrenceCount} from "./lib/cliofoPrefixOccurrenceCount.js";
 import {PrefixParser, copyPrefixParser} from "./lib/prefixParser.js";
 
 export class Cliofo
 {
     readonly #prefixParser: Readonly<PrefixParser>;
-    readonly #occurrenceCount: Readonly<OperandFlagOptionOccurrenceCount>;
+    readonly #occurrenceCount: Readonly<CliofoPrefixOccurrenceCount>;
     readonly #jsonEntries: ReadonlyArray<readonly [string, unknown]>;
 
     private constructor(prefixParser: Readonly<PrefixParser>)
@@ -12,7 +12,7 @@ export class Cliofo
         this.#prefixParser = Object.isFrozen(prefixParser) ? prefixParser
             : Object.freeze(copyPrefixParser(prefixParser));
 
-        this.#occurrenceCount = Object.freeze(new OperandFlagOptionOccurrenceCount(this.#prefixParser));
+        this.#occurrenceCount = Object.freeze(new CliofoPrefixOccurrenceCount(this.#prefixParser));
 
         this.#jsonEntries = Object.freeze([
             ["prefixString", this.#prefixParser.prefixString()],
@@ -24,7 +24,7 @@ export class Cliofo
     }
 
     public prefixParser(): Readonly<PrefixParser> {return this.#prefixParser;}
-    public occurrenceCount(): Readonly<OperandFlagOptionOccurrenceCount> {return this.#occurrenceCount;}
+    public occurrenceCount(): Readonly<CliofoPrefixOccurrenceCount> {return this.#occurrenceCount;}
 
     public toJSON(format: Partial<{verbose: boolean, replacer: (_: unknown) => unknown, space: string | number}> = {}): string
     {

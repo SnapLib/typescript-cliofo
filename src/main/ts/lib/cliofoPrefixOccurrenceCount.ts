@@ -1,6 +1,6 @@
 import {PrefixParser, copyPrefixParser} from "./prefixParser.js";
 
-export class OperandFlagOptionOccurrenceCount
+export class CliofoPrefixOccurrenceCount
 {
     readonly #prefixParser: Readonly<PrefixParser>;
     readonly #operandsOccurrenceCountMap: ReadonlyMap<string, number>;
