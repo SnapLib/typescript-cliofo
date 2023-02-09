@@ -212,14 +212,14 @@ export class PrefixParser extends OperandsFlagsOptions
      *
      * @returns the JSON string representation of this object.
      */
-    public toJSON(json: Partial<{verbose: boolean, replacer: (_: unknown) => unknown, space: string | number}> = {}): string
+    public toJSON(format: Partial<{verbose: boolean, replacer: (_: unknown) => unknown, space: string | number}> = {}): string
     {
         const obj: Readonly<object> = Object.freeze(Object.fromEntries(
-            ! json.verbose
-                ? this.#jsonEntries.filter(jsonEntry => "strings" === jsonEntry[0])
-                : this.#jsonEntries
+            format.verbose
+                ? this.#jsonEntries
+                : this.#jsonEntries.filter(jsonEntry => "strings" === jsonEntry[0])
         ));
 
-        return `${PrefixParser.name} ${JSON.stringify(obj, json.replacer, json.space)}`;
+        return `${PrefixParser.name} ${JSON.stringify(obj, format.replacer, format.space)}`;
     }
 }
