@@ -117,7 +117,7 @@ export class PrefixParser extends OperandsFlagsOptions
         this.#strings = Object.isFrozen(strings) ? strings : Object.freeze([...strings]);
         this.#occurrenceCount = Object.freeze(new OperandFlagOptionOccurrenceCount(this));
         this.#jsonEntries = Object.freeze([
-            (["prefixString", this.#prefixString]),
+            ["prefixString", this.#prefixString],
             ["strings", this.#strings],
             ["operands", this._operands],
             ["flags", this._flags],
