@@ -25,11 +25,11 @@ export class CliofoPrefixOccurrenceCount
             .map((optionString: string) => Object.freeze(
                  [optionString, prefixParser.options().filter(otherOptionString => optionString === otherOptionString).length] ))));
 
-        this.#jsonObj = Object.freeze(Object.fromEntries([
-            ["operands", this.#operandsOccurrenceCountMap],
-            ["flags", this.#flagsOccurrenceCountMap],
-            ["options", this.#optionsOccurrenceCountMap]
-        ]));
+        this.#jsonObj = Object.freeze({
+            operands: this.#operandsOccurrenceCountMap,
+            flags: this.#flagsOccurrenceCountMap,
+            options: this.#optionsOccurrenceCountMap
+        });
     }
 
     /**
