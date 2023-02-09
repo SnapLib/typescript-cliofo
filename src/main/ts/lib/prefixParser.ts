@@ -185,21 +185,30 @@ export class PrefixParser extends OperandsFlagsOptions
     //     {return this.#occurrenceCount;}
 
     /**
-     * Returns the JSON string representation of this object that can optionally
-     * be formatted in various ways.
+     * Returns the JSON string representation of this object.
      *
      * @remarks The `format.replacer` and `format.space` parameters are passed
      *          to the `JSON.stringify(...)` method that's called internally.
-     *          Below are the doc comments directly from the {@link JSON.parse()}
-     *          `replacer` and `space` parameters.
+     *          Below are the doc comments directly from the
+     *          {@link JSON.stringify()} `replacer` and `space` parameters.
      *
      * @param stringFormat
-     * Various options used to format the string output of this method. The
+     * Various options used to format the json string output of this method. The
      * following format options are:
      *
      * - `verbose`
      *   Boolean flag indicating whether output should include all object
      *   properties or just the main ones.
+     *
+     * - `replacer`
+     *   A function that alters the behavior of the stringification process, or
+     *   an array of strings and numbers that specifies properties of value to
+     *   be included in the output. If replacer is an array, all elements in
+     *   this array that are not strings or numbers (either primitives or
+     *   wrapper objects), including Symbol values, are completely ignored. If
+     *   replacer is anything other than a function or an array (e.g. null or
+     *   not provided), all string-keyed properties of the object are included
+     *   in the resulting JSON string.
      *
      * - `space`
      *   A `string` or `number` that's used to insert white space (including
