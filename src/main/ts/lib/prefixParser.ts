@@ -27,6 +27,7 @@ export class PrefixParser extends OperandsFlagsOptions
     readonly #prefixString: string;
     readonly #strings: readonly string[];
     readonly #jsonEntries: ReadonlyArray<readonly [string, string | readonly string[]]>;
+    readonly #isEmpty: boolean;
 
 
     /**
@@ -107,12 +108,12 @@ export class PrefixParser extends OperandsFlagsOptions
                                 flags: Object.freeze([]),
                                 options: Object.freeze([]) }
             ));
-
         super( operandsFlagsOptions.operands,
                operandsFlagsOptions.flags,
                operandsFlagsOptions.options );
         this.#prefixString = prefixString;
         this.#strings = Object.isFrozen(strings) ? strings : Object.freeze([...strings]);
+        this.#isEmpty = strings.length === 0;
         this.#jsonEntries = Object.freeze([
             ["prefixString", this.#prefixString],
             ["strings", this.#strings],
@@ -168,7 +169,7 @@ export class PrefixParser extends OperandsFlagsOptions
      *
      * @returns `true` if this object contains 0 strings to parse.
      */
-    public isEmpty(): boolean {return this.#strings.length === 0;}
+    public isEmpty(): boolean {return this.#isEmpty;}
 
     /**
      * Returns the JSON string representation of this object.
