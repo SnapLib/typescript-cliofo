@@ -212,7 +212,7 @@ export class PrefixParser extends OperandsFlagsOptions
      *
      * @returns the JSON string representation of this object.
      */
-    public toJSON(json: Partial<{verbose: unknown, replacer: (_: unknown) => unknown, space: string | number}> = {}): string
+    public toJSON(json: Partial<{verbose: boolean, replacer: (_: unknown) => unknown, space: string | number}> = {}): string
     {
         const obj: Readonly<object> = Object.freeze(Object.fromEntries(
             ! json.verbose
