@@ -107,3 +107,5 @@ export class CliofoPrefixOccurrenceCount
         return JSON.stringify(this.#jsonObj, format.replacer, format.space);
     }
 }
+
+export {CliofoPrefixOccurrenceCount as default};

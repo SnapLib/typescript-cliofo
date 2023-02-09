@@ -81,3 +81,5 @@ export class OperandsFlagsOptions
                                         operandsFlagsOptions.options());
     }
 }
+
+export {OperandsFlagsOptions as default};

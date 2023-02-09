@@ -222,3 +222,5 @@ export class PrefixParser extends OperandsFlagsOptions
 
 export const copyPrefixParser = (prefixParser: Readonly<PrefixParser>): PrefixParser =>
     new PrefixParser(prefixParser.prefixString(), prefixParser.strings());
+
+export {PrefixParser as default};
