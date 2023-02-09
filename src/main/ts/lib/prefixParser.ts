@@ -192,7 +192,7 @@ export class PrefixParser extends OperandsFlagsOptions
      *          Below are the doc comments directly from the
      *          {@link JSON.stringify()} `replacer` and `space` parameters.
      *
-     * @param stringFormat
+     * @param format
      * Various options used to format the json string output of this method. The
      * following format options are:
      *
