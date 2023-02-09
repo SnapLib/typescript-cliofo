@@ -188,6 +188,11 @@ export class PrefixParser extends OperandsFlagsOptions
      * Returns the JSON string representation of this object that can optionally
      * be formatted in various ways.
      *
+     * @remarks The `format.replacer` and `format.space` parameters are passed
+     *          to the `JSON.stringify(...)` method that's called internally.
+     *          Below are the doc comments directly from the {@link JSON.parse()}
+     *          `replacer` and `space` parameters.
+     *
      * @param stringFormat
      * Various options used to format the string output of this method. The
      * following format options are:
@@ -197,10 +202,6 @@ export class PrefixParser extends OperandsFlagsOptions
      *   properties or just the main ones.
      *
      * - `space`
-     *   This parameter is passed to the `JSON.stringify(...)` method that's
-     *   called internally. Below is the doc comment directly from
-     *   {@link JSON.parse()}:
-     *
      *   A `string` or `number` that's used to insert white space (including
      *   indentation, line break characters, etc.) into the output JSON string
      *   for readability purposes. If this is a number, it indicates the number
