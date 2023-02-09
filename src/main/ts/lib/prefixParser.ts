@@ -233,3 +233,6 @@ export class PrefixParser extends OperandsFlagsOptions
         return `${PrefixParser.name} ${JSON.stringify(obj, format.replacer, format.space)}`;
     }
 }
+
+export const copyPrefixParser = (prefixParser: Readonly<PrefixParser>): PrefixParser =>
+    new PrefixParser(prefixParser.prefixString(), prefixParser.strings());
