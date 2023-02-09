@@ -18,21 +18,21 @@ export class Cliofo
 
     public toJSON(format: Partial<{verbose: boolean, replacer: (_: unknown) => unknown, space: string | number}> = {}): string
     {
-        const jsonEntries: ReadonlyArray<readonly [string, string | readonly string[] | ReadonlyMap<string, number>]> =
-            [
-                ["prefixString", this.#parsedPrefix.prefixString()],
-                ["strings", this.#parsedPrefix.strings()],
-                ["operands", this.#parsedPrefix.operands()],
-                ["flags", this.#parsedPrefix.flags()],
-                ["options", this.#parsedPrefix.options()]
-            ];
-
         return format.verbose
-                   ? JSON.stringify(Object.fromEntries(jsonEntries), format.replacer, format.space)
-                   : JSON.stringify(Object.fromEntries(jsonEntries.filter(jsonObjEntry => ! ["prefixString", "strings"].includes(jsonObjEntry[0]))), format.replacer, format.space);
+                   ? JSON.stringify({
+                        prefixString: this.#parsedPrefix.prefixString(),
+                        strings: this.#parsedPrefix.strings(),
+                        operands: this.#parsedPrefix.operands(),
+                        flags: this.#parsedPrefix.flags(),
+                        options: this.#parsedPrefix.options()
+                    },
+                    format.replacer,
+                    format.space)
+                   : this.#occurrenceCount.toJSON({replacer: format.replacer,
+                                                   space: format.space});
     }
 }
 
 export {Cliofo as default};
 
-console.log(new Cliofo("-", process.argv.slice(2)).toJSON({space: 2}));
+console.log(new Cliofo("-", process.argv.slice(2)).toJSON({verbose: true, space: 2}));
