@@ -30,8 +30,8 @@ export class OperandsFlagsOptions
         this.#distinct = Object.freeze({
             all: Object.freeze([...new Set(this._all)]),
             operands: Object.freeze([...new Set(this._operands)]),
-            flags: Object.freeze([...new Set(this._operands)]),
-            options: Object.freeze([...new Set(this._operands)])
+            flags: Object.freeze([...new Set(this._flags)]),
+            options: Object.freeze([...new Set(this._options)])
         });
     }
 
