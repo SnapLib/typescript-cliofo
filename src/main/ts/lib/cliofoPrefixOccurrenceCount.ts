@@ -1,7 +1,6 @@
-import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
 import {CliofoPrefixParse, copyPrefixParser} from "./cliofoPrefixParse.js";
 
-export class CliofoPrefixOccurrenceCount extends OperandsFlagsOptions
+export class CliofoPrefixOccurrenceCount
 {
     public readonly prefixParser: Readonly<CliofoPrefixParse>;
 
@@ -28,13 +27,12 @@ export class CliofoPrefixOccurrenceCount extends OperandsFlagsOptions
 
     public constructor(prefixParser: Readonly<CliofoPrefixParse>)
     {
-        super(prefixParser.operands, prefixParser.flags, prefixParser.options);
         this.prefixParser = Object.isFrozen(prefixParser) ? prefixParser
             : Object.freeze(copyPrefixParser(prefixParser));
 
-        const operandKeys: readonly string[] = Object.freeze([...new Set(this.operands)]);
-        const FlagKeys: readonly string[] = Object.freeze([...new Set(this.flags)]);
-        const optionKeys: readonly string[] = Object.freeze([...new Set(this.options)]);
+        const operandKeys: readonly string[] = Object.freeze([...new Set(this.prefixParser.operands)]);
+        const FlagKeys: readonly string[] = Object.freeze([...new Set(this.prefixParser.flags)]);
+        const optionKeys: readonly string[] = Object.freeze([...new Set(this.prefixParser.options)]);
 
         this.operandsOccurrenceCountMap = Object.freeze(new Map(operandKeys.map((operandString: string) => Object.freeze(
             [operandString, prefixParser.operands.filter(otherOperandString => operandString === otherOperandString).length] ))));
