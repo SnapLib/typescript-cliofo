@@ -1,5 +1,5 @@
 import CliofoPrefixOccurrenceCount from "./lib/cliofoPrefixOccurrenceCount.js";
-import PrefixParser from "./lib/prefixParser.js";
+import PrefixParser from "./lib/cliofoPrefixParse.js";
 
 export class Cliofo
 {

@@ -1,9 +1,9 @@
 import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
-import {PrefixParser, copyPrefixParser} from "./prefixParser.js";
+import {CliofoPrefixParse, copyPrefixParser} from "./cliofoPrefixParse.js";
 
 export class CliofoPrefixOccurrenceCount extends OperandsFlagsOptions
 {
-    public readonly prefixParser: Readonly<PrefixParser>;
+    public readonly prefixParser: Readonly<CliofoPrefixParse>;
 
     /**
      * A map containing the operand strings as keys paired up with the number of
@@ -26,7 +26,7 @@ export class CliofoPrefixOccurrenceCount extends OperandsFlagsOptions
      */
     public readonly optionsOccurrenceCountMap: ReadonlyMap<string, number>;
 
-    public constructor(prefixParser: Readonly<PrefixParser>)
+    public constructor(prefixParser: Readonly<CliofoPrefixParse>)
     {
         super(prefixParser.operands, prefixParser.flags, prefixParser.options);
         this.prefixParser = Object.isFrozen(prefixParser) ? prefixParser

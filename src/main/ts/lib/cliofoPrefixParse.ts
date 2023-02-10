@@ -25,7 +25,7 @@ import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
  * - This class is immutable, All of this class' properties are readonly and any
  *   objects it returns are frozen.
  */
-export class PrefixParser extends OperandsFlagsOptions
+export class CliofoPrefixParse extends OperandsFlagsOptions
 {
     /**
      * The leading prefix string used to denote flags and options.
@@ -34,7 +34,7 @@ export class PrefixParser extends OperandsFlagsOptions
     public readonly prefixString: string;
 
     /**
-     * The strings to parse using this object's {@link PrefixParser.prefixString prefixString}.
+     * The strings to parse using this object's {@link CliofoPrefixParse.prefixString prefixString}.
      * @readonly
      */
     public readonly strings: readonly string[];
@@ -146,7 +146,7 @@ export class PrefixParser extends OperandsFlagsOptions
     public isEmpty(): boolean {return this.#isEmpty;}
 }
 
-export const copyPrefixParser = (prefixParser: Readonly<PrefixParser>): PrefixParser =>
-    new PrefixParser(prefixParser.prefixString, prefixParser.strings);
+export const copyPrefixParser = (prefixParser: Readonly<CliofoPrefixParse>): CliofoPrefixParse =>
+    new CliofoPrefixParse(prefixParser.prefixString, prefixParser.strings);
 
-export {PrefixParser as default};
+export {CliofoPrefixParse as default};
