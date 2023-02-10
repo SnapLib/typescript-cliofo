@@ -30,17 +30,13 @@ export class CliofoPrefixOccurrenceCount
         this.prefixParser = Object.isFrozen(prefixParser) ? prefixParser
             : Object.freeze(copyPrefixParser(prefixParser));
 
-        const operandKeys: readonly string[] = Object.freeze([...new Set(this.prefixParser.operands)]);
-        const FlagKeys: readonly string[] = Object.freeze([...new Set(this.prefixParser.flags)]);
-        const optionKeys: readonly string[] = Object.freeze([...new Set(this.prefixParser.options)]);
-
-        this.operandsOccurrenceCountMap = Object.freeze(new Map(operandKeys.map((operandString: string) => Object.freeze(
+        this.operandsOccurrenceCountMap = Object.freeze(new Map(Object.freeze([...new Set(this.prefixParser.operands)]).map((operandString: string) => Object.freeze(
             [operandString, prefixParser.operands.filter(otherOperandString => operandString === otherOperandString).length] ))));
 
-        this.flagsOccurrenceCountMap = Object.freeze(new Map(FlagKeys.map((flagString: string) => Object.freeze(
+        this.flagsOccurrenceCountMap = Object.freeze(new Map(Object.freeze([...new Set(this.prefixParser.flags)]).map((flagString: string) => Object.freeze(
             [flagString, prefixParser.flags.filter(otherFlagString => flagString === otherFlagString).length] ))));
 
-        this.optionsOccurrenceCountMap = Object.freeze(new Map(optionKeys.map((optionString: string) => Object.freeze(
+        this.optionsOccurrenceCountMap = Object.freeze(new Map(Object.freeze([...new Set(this.prefixParser.options)]).map((optionString: string) => Object.freeze(
             [optionString, prefixParser.options.filter(otherOptionString => optionString === otherOptionString).length] ))));
     }
 }
