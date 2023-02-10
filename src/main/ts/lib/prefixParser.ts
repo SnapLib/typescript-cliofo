@@ -5,10 +5,10 @@ import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
  * options based on a *prefix string*. The *prefix string* is used to denote if
  * a `string` is an operand, flag, or option.
  *
- * If a string isn't prefixed with a string, then it's an *operand*. If a
- * string is prefixed with only a single leading prefix string, then it's a
- * *flag*. If a string is prefixed with 2 or more adjacent leading prefix
- * strings, then it's an *option*.
+ * If a string isn't prefixed with a leading prefix string, then it's an
+ * *operand*. If a string is prefixed with only a single leading prefix string,
+ * then it's a *flag*. If a string is prefixed with 2 or more adjacent leading
+ * prefix strings, then it's an *option*.
  *
  * @remarks
  * - The flag and option strings do not include the 1 or 2 leading prefix
@@ -21,6 +21,9 @@ import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
  *   example the string `"-foo"` would be stored as the ***flags***
  *   `["f", "o", "o"]` if the leading hyphen character (`"-"`) is the prefix
  *   string.
+ *
+ * - This class is immutable, All of this class' properties are readonly and any
+ *   objects it returns are frozen.
  */
 export class PrefixParser extends OperandsFlagsOptions
 {
