@@ -63,13 +63,6 @@ export class OperandsFlagsOptions
      *          operands, flags, and options.
      */
     public distinct(): Readonly<DistinctOperandsFlagsOptions> {return this.#distinct;}
-
-    public static copy(operandsFlagsOptions: Readonly<OperandsFlagsOptions>): Readonly<OperandsFlagsOptions>
-    {
-        return new OperandsFlagsOptions(operandsFlagsOptions.operands,
-                                        operandsFlagsOptions.flags,
-                                        operandsFlagsOptions.options);
-    }
 }
 
 export {OperandsFlagsOptions as default};
