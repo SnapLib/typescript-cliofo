@@ -117,9 +117,9 @@ export class PrefixParser extends OperandsFlagsOptions
         this.#jsonEntries = Object.freeze([
             ["prefixString", this.#prefixString],
             ["strings", this.#strings],
-            ["operands", this._operands],
-            ["flags", this._flags],
-            ["options", this._options]
+            ["operands", this.operands],
+            ["flags", this.flags],
+            ["options", this.options]
         ]);
     }
 
@@ -142,7 +142,7 @@ export class PrefixParser extends OperandsFlagsOptions
      *
      * @returns The operand arguments parsed from this object's strings.
      */
-    public operands(): readonly string[] {return this._operands;}
+    // public operands(): readonly string[] {return this._operands;}
 
     /**
      * Returns the flag arguments parsed from this object's strings.
@@ -152,7 +152,7 @@ export class PrefixParser extends OperandsFlagsOptions
      *
      * @returns The operand arguments parsed from this object's strings.
      */
-    public flags(): readonly string[] {return this._flags;}
+    // public flags(): readonly string[] {return this._flags;}
 
     /**
      * Returns the option arguments parsed from this object's strings.
@@ -162,7 +162,7 @@ export class PrefixParser extends OperandsFlagsOptions
      *
      * @returns The option arguments parsed from this object's strings.
      */
-    public options(): readonly string[] {return this._options;}
+    // public options(): readonly string[] {return this._options;}
 
     /**
      * Returns `true` if this object contains 0 strings to parse.

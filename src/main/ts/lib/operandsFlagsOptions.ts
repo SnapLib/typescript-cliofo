@@ -12,10 +12,30 @@ interface DistinctOperandsFlagsOptions
  */
 export class OperandsFlagsOptions
 {
-    protected readonly _all: readonly string[];
-    protected readonly _operands: readonly string[];
-    protected readonly _flags: readonly string[];
-    protected readonly _options: readonly string[];
+    /**
+     * A readonly `string` array of this operands.
+     * @readonly
+     */
+    public readonly operands: readonly string[];
+
+    /**
+     * A readonly `string` array of flags.
+     * @readonly
+     */
+    public readonly flags: readonly string[];
+
+    /**
+     * A readonly `string` array of options.
+     * @readonly
+     */
+    public readonly options: readonly string[];
+
+    /**
+     * A readonly `string` array of operands, flags, and options.
+     * @readonly
+     */
+    public readonly all: readonly string[];
+
     readonly #distinct: Readonly<DistinctOperandsFlagsOptions>;
 
     public static readonly empty: Readonly<OperandsFlagsOptions> =
@@ -23,47 +43,17 @@ export class OperandsFlagsOptions
 
     protected constructor(operands: readonly string[], flags: readonly string[], options: readonly string[])
     {
-        this._all = Object.freeze([...operands, ...flags, ...options]);
-        this._operands = Object.isFrozen(operands) ? operands : Object.freeze([...operands]);
-        this._flags = Object.isFrozen(flags) ? flags : Object.freeze([...flags]);
-        this._options = Object.isFrozen(options) ? options : Object.freeze([...options]);
+        this.operands = Object.isFrozen(operands) ? operands : Object.freeze([...operands]);
+        this.flags = Object.isFrozen(flags) ? flags : Object.freeze([...flags]);
+        this.options = Object.isFrozen(options) ? options : Object.freeze([...options]);
+        this.all = Object.freeze([...this.operands, ...this.flags, ...this.options]);
         this.#distinct = Object.freeze({
-            all: Object.freeze([...new Set(this._all)]),
-            operands: Object.freeze([...new Set(this._operands)]),
-            flags: Object.freeze([...new Set(this._flags)]),
-            options: Object.freeze([...new Set(this._options)])
+            options: Object.freeze([...new Set(this.options)]),
+            operands: Object.freeze([...new Set(this.operands)]),
+            flags: Object.freeze([...new Set(this.flags)]),
+            all: Object.freeze([...new Set(this.all)])
         });
     }
-
-    /**
-     * Returns all of this objects operand, flag, and option strings combined
-     * into a single array.
-     *
-     * @returns all of this objects operand, flag, and option strings combined
-     *          into a single array.
-     */
-    public all(): readonly string[] {return this._all;}
-
-    /**
-     * Returns this object's operand strings as an array.
-     *
-     * @returns this object's operand strings as an array.
-     */
-    public operands(): readonly string[] {return this._operands;}
-
-    /**
-     * Returns this object's flag strings as an array.
-     *
-     * @returns this object's flag strings as an array.
-     */
-    public flags(): readonly string[] {return this._flags;}
-
-    /**
-     * Returns this object's option strings as an array.
-     *
-     * @returns this object's option strings as an array.
-     */
-    public options(): readonly string[] {return this._options;}
 
     /**
      * An object containing distinct copies of this object's parsed operands,
@@ -76,9 +66,9 @@ export class OperandsFlagsOptions
 
     public static copy(operandsFlagsOptions: Readonly<OperandsFlagsOptions>): Readonly<OperandsFlagsOptions>
     {
-        return new OperandsFlagsOptions(operandsFlagsOptions.operands(),
-                                        operandsFlagsOptions.flags(),
-                                        operandsFlagsOptions.options());
+        return new OperandsFlagsOptions(operandsFlagsOptions.operands,
+                                        operandsFlagsOptions.flags,
+                                        operandsFlagsOptions.options);
     }
 }
 

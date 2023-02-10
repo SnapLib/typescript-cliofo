@@ -15,15 +15,15 @@ export class CliofoPrefixOccurrenceCount
 
         this.#operandsOccurrenceCountMap = Object.freeze(new Map(this.#prefixParser.distinct().operands
             .map((operandString: string) => Object.freeze(
-                 [operandString, prefixParser.operands().filter(otherOperandString => operandString === otherOperandString).length] ))));
+                 [operandString, prefixParser.operands.filter(otherOperandString => operandString === otherOperandString).length] ))));
 
         this.#flagsOccurrenceCountMap = Object.freeze(new Map(this.#prefixParser.distinct().flags
             .map((flagString: string) => Object.freeze(
-                 [flagString, prefixParser.flags().filter(otherFlagString => flagString === otherFlagString).length] ))));
+                 [flagString, prefixParser.flags.filter(otherFlagString => flagString === otherFlagString).length] ))));
 
         this.#optionsOccurrenceCountMap = Object.freeze(new Map(this.#prefixParser.distinct().options
             .map((optionString: string) => Object.freeze(
-                 [optionString, prefixParser.options().filter(otherOptionString => optionString === otherOptionString).length] ))));
+                 [optionString, prefixParser.options.filter(otherOptionString => optionString === otherOptionString).length] ))));
 
         this.#jsonObj = Object.freeze({
             operands: this.#operandsOccurrenceCountMap,
