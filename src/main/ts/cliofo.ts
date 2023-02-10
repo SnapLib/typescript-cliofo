@@ -1,23 +1,23 @@
 import {OperandsFlagsOptions} from "lib/operandsFlagsOptions.js";
-import {CliofoPrefixOccurrenceCount} from "./lib/cliofoPrefixOccurrenceCount.js";
+import {CliofoPrefixCount} from "./lib/cliofoPrefixCount.js";
 import {CliofoPrefixParse} from "./lib/cliofoPrefixParse.js";
 
 export class Cliofo
 {
     public readonly parsedPrefix: Readonly<CliofoPrefixParse>;
 
-    public readonly occurrenceCount: Readonly<CliofoPrefixOccurrenceCount>;
+    public readonly occurrenceCount: Readonly<CliofoPrefixCount>;
 
     public readonly distinct: Readonly<OperandsFlagsOptions>;
 
     public constructor(prefixString: string, strings: readonly string[])
     {
         this.parsedPrefix = Object.freeze(new CliofoPrefixParse(prefixString, strings));
-        this.occurrenceCount = Object.freeze(new CliofoPrefixOccurrenceCount(this.parsedPrefix));
+        this.occurrenceCount = Object.freeze(new CliofoPrefixCount(this.parsedPrefix));
         this.distinct = Object.freeze({
-            operands: Object.freeze([...new Set(this.parsedPrefix.operands)]),
-            flags: Object.freeze([...new Set(this.parsedPrefix.flags)]),
-            options: Object.freeze([...new Set(this.parsedPrefix.options)]),
+            operands: Object.freeze([...this.occurrenceCount.operandsCountMap.keys()]),
+            flags: Object.freeze([...this.occurrenceCount.flagsCountMap.keys()]),
+            options: Object.freeze([...this.occurrenceCount.optionsCountMap.keys()]),
             all: Object.freeze([...new Set(this.parsedPrefix.all)])
         });
     }
@@ -39,9 +39,3 @@ export class Cliofo
 }
 
 export {Cliofo as default};
-
-// console.log(new Cliofo("-", process.argv.slice(2)).prefixParsed().distinct());
-// console.log(new Cliofo("-", process.argv.slice(2)).occurrenceCount().toJSON({space: 2}));
-// console.log(new Cliofo("-", process.argv.slice(2)).occurrenceCount().flagsOccurrenceCountMap());
-// console.log(new Cliofo("-", process.argv.slice(2)).toJSON({verbose: true, space: 2}));
-console.log(new Cliofo("-", process.argv.slice(2)).occurrenceCount);
