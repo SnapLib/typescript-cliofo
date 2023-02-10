@@ -36,7 +36,6 @@ export class PrefixParser extends OperandsFlagsOptions
      */
     public readonly strings: readonly string[];
 
-    readonly #jsonEntries: ReadonlyArray<readonly [string, string | readonly string[]]>;
     readonly #isEmpty: boolean;
 
 
@@ -124,13 +123,6 @@ export class PrefixParser extends OperandsFlagsOptions
         this.prefixString = prefixString;
         this.strings = Object.isFrozen(strings) ? strings : Object.freeze([...strings]);
         this.#isEmpty = strings.length === 0;
-        this.#jsonEntries = Object.freeze([
-            ["prefixString", this.prefixString],
-            ["strings", this.strings],
-            ["operands", this.operands],
-            ["flags", this.flags],
-            ["options", this.options]
-        ]);
     }
 
     /**
@@ -166,55 +158,6 @@ export class PrefixParser extends OperandsFlagsOptions
      * @returns `true` if this object contains 0 strings to parse.
      */
     public isEmpty(): boolean {return this.#isEmpty;}
-
-    /**
-     * Returns the JSON string representation of this object.
-     *
-     * @remarks The `format.replacer` and `format.space` parameters are passed
-     *          to the `JSON.stringify(...)` method that's called internally.
-     *          Below are the doc comments directly from the
-     *          {@link JSON.stringify()} `replacer` and `space` parameters.
-     *
-     * @param format
-     * Various options used to format the json string output of this method. The
-     * following format options are:
-     *
-     * - `verbose`
-     *   Boolean flag indicating whether output should include all object
-     *   properties or just the main ones.
-     *
-     * - `replacer`
-     *   A function that alters the behavior of the stringification process, or
-     *   an array of strings and numbers that specifies properties of value to
-     *   be included in the output. If replacer is an array, all elements in
-     *   this array that are not strings or numbers (either primitives or
-     *   wrapper objects), including Symbol values, are completely ignored. If
-     *   replacer is anything other than a function or an array (e.g. null or
-     *   not provided), all string-keyed properties of the object are included
-     *   in the resulting JSON string.
-     *
-     * - `space`
-     *   A `string` or `number` that's used to insert white space (including
-     *   indentation, line break characters, etc.) into the output JSON string
-     *   for readability purposes. If this is a number, it indicates the number
-     *   of space characters to be used as indentation, clamped to 10 (that is,
-     *   any number greater than 10 is treated as if it were 10). Values less
-     *   than 1 indicate that no space should be used. If this is a string, the
-     *   string (or the first 10 characters of the string, if it's longer than
-     *   that) is inserted before every nested object or array.
-     *
-     * @returns the JSON string representation of this object.
-     */
-    public toJSON(format: Partial<{verbose: boolean, replacer: (_: unknown) => unknown, space: string | number}> = {}): string
-    {
-        const obj: Readonly<object> = Object.freeze(Object.fromEntries(
-            format.verbose
-                ? this.#jsonEntries
-                : this.#jsonEntries.filter(jsonEntry => "strings" === jsonEntry[0])
-        ));
-
-        return JSON.stringify(obj, format.replacer, format.space);
-    }
 }
 
 export const copyPrefixParser = (prefixParser: Readonly<PrefixParser>): PrefixParser =>
