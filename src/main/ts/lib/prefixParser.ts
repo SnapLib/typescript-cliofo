@@ -129,23 +129,6 @@ export class PrefixParser extends OperandsFlagsOptions
     }
 
     /**
-     * Returns the operand arguments parsed from this object's strings.
-     *
-     * @returns The operand arguments parsed from this object's strings.
-     */
-    // public operands(): readonly string[] {return this._operands;}
-
-    /**
-     * Returns the flag arguments parsed from this object's strings.
-     *
-     * @remarks The leading prefix character string is omitted from these flag
-     *          strings.
-     *
-     * @returns The operand arguments parsed from this object's strings.
-     */
-    // public flags(): readonly string[] {return this._flags;}
-
-    /**
      * Returns the option arguments parsed from this object's strings.
      *
      * @remarks The leading 2 adjacent prefix character strings are omitted from
