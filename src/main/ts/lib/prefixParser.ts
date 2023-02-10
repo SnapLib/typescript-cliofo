@@ -24,8 +24,18 @@ import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
  */
 export class PrefixParser extends OperandsFlagsOptions
 {
-    readonly #prefixString: string;
-    readonly #strings: readonly string[];
+    /**
+     * The leading prefix string used to denote flags and options.
+     * @readonly
+     */
+    public readonly prefixString: string;
+
+    /**
+     * The strings to parse using this object's {@link PrefixParser.prefixString prefixString}.
+     * @readonly
+     */
+    public readonly strings: readonly string[];
+
     readonly #jsonEntries: ReadonlyArray<readonly [string, string | readonly string[]]>;
     readonly #isEmpty: boolean;
 
@@ -111,31 +121,17 @@ export class PrefixParser extends OperandsFlagsOptions
         super( operandsFlagsOptions.operands,
                operandsFlagsOptions.flags,
                operandsFlagsOptions.options );
-        this.#prefixString = prefixString;
-        this.#strings = Object.isFrozen(strings) ? strings : Object.freeze([...strings]);
+        this.prefixString = prefixString;
+        this.strings = Object.isFrozen(strings) ? strings : Object.freeze([...strings]);
         this.#isEmpty = strings.length === 0;
         this.#jsonEntries = Object.freeze([
-            ["prefixString", this.#prefixString],
-            ["strings", this.#strings],
+            ["prefixString", this.prefixString],
+            ["strings", this.strings],
             ["operands", this.operands],
             ["flags", this.flags],
             ["options", this.options]
         ]);
     }
-
-    /**
-     * Returns the string used to denote flags and options.
-     *
-     * @returns The string used to denote flags and options.
-     */
-    public prefixString(): string {return this.#prefixString;}
-
-    /**
-     * Returns this object's strings to parse.
-     *
-     * @returns This object's strings to parse.
-     */
-    public strings(): readonly string[] {return this.#strings;}
 
     /**
      * Returns the operand arguments parsed from this object's strings.
@@ -222,6 +218,6 @@ export class PrefixParser extends OperandsFlagsOptions
 }
 
 export const copyPrefixParser = (prefixParser: Readonly<PrefixParser>): PrefixParser =>
-    new PrefixParser(prefixParser.prefixString(), prefixParser.strings());
+    new PrefixParser(prefixParser.prefixString, prefixParser.strings);
 
 export {PrefixParser as default};

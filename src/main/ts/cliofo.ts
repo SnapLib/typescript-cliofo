@@ -20,8 +20,8 @@ export class Cliofo
     {
         return format.verbose
                    ? JSON.stringify({
-                        prefixString: this.#parsedPrefix.prefixString(),
-                        strings: this.#parsedPrefix.strings(),
+                        prefixString: this.#parsedPrefix.prefixString,
+                        strings: this.#parsedPrefix.strings,
                         operands: this.#parsedPrefix.operands,
                         flags: this.#parsedPrefix.flags,
                         options: this.#parsedPrefix.options
@@ -38,4 +38,5 @@ export {Cliofo as default};
 // console.log(new Cliofo("-", process.argv.slice(2)).prefixParsed().distinct());
 // console.log(new Cliofo("-", process.argv.slice(2)).occurrenceCount().toJSON({space: 2}));
 // console.log(new Cliofo("-", process.argv.slice(2)).occurrenceCount().flagsOccurrenceCountMap());
-console.log(new Cliofo("-", process.argv.slice(2)).toJSON({verbose: true, space: 2}));
+// console.log(new Cliofo("-", process.argv.slice(2)).toJSON({verbose: true, space: 2}));
+console.log(new Cliofo("-", process.argv.slice(2)).prefixParsed());
