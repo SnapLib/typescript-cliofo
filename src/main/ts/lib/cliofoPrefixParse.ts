@@ -41,7 +41,6 @@ export class CliofoPrefixParse extends OperandsFlagsOptions
 
     readonly #isEmpty: boolean;
 
-
     /**
      * Constructs an object that parses an array of `string` arguments into
      * operands, flags, and options based on a leading prefix string. The passed
