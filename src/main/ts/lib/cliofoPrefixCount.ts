@@ -27,18 +27,18 @@ export class CliofoPrefixCount
 
     public readonly allCountMap: ReadonlyMap<string, number>;
 
-    public constructor(prefixParser: Readonly<CliofoPrefixParse>)
+    public constructor(operandFlagOptionStrings: Readonly<CliofoPrefixParse>)
     {
-        this.prefixParser = freezeOperandsFlagsOptionStrings(prefixParser);
+        this.prefixParser = freezeOperandsFlagsOptionStrings(operandFlagOptionStrings);
 
         this.operandsCountMap = Object.freeze(new Map([...new Set(this.prefixParser.operands)].map(operandString => Object.freeze(
-            [operandString, prefixParser.operands.filter(otherOperandString => operandString === otherOperandString).length]) )));
+            [operandString, operandFlagOptionStrings.operands.filter(otherOperandString => operandString === otherOperandString).length]) )));
 
         this.flagsCountMap = Object.freeze(new Map([...new Set(this.prefixParser.flags)].map(flagString => Object.freeze(
-            [flagString, prefixParser.flags.filter(otherFlagString => flagString === otherFlagString).length]) )));
+            [flagString, operandFlagOptionStrings.flags.filter(otherFlagString => flagString === otherFlagString).length]) )));
 
         this.optionsCountMap = Object.freeze(new Map([...new Set(this.prefixParser.options)].map(optionString => Object.freeze(
-            [optionString, prefixParser.options.filter(otherOptionString => optionString === otherOptionString).length]) )));
+            [optionString, operandFlagOptionStrings.options.filter(otherOptionString => optionString === otherOptionString).length]) )));
 
         this.allCountMap = Object.freeze(new Map([...new Set(this.prefixParser.all)].map(operandFlagOption => Object.freeze(
             [ operandFlagOption,
@@ -46,8 +46,8 @@ export class CliofoPrefixCount
     }
 }
 
-const freezeOperandsFlagsOptionStrings = (prefixParser: CliofoPrefixParse | Readonly<CliofoPrefixParse>): Readonly<CliofoPrefixParse> =>
-    Object.isFrozen(prefixParser) ? prefixParser
-    : Object.freeze(new CliofoPrefixParse(prefixParser.prefixString, prefixParser.arguments));
+const freezeOperandsFlagsOptionStrings = (operandFlagOptionStrings: CliofoPrefixParse | Readonly<CliofoPrefixParse>): Readonly<CliofoPrefixParse> =>
+    Object.isFrozen(operandFlagOptionStrings) ? operandFlagOptionStrings
+    : Object.freeze(new CliofoPrefixParse(operandFlagOptionStrings.prefixString, operandFlagOptionStrings.arguments));
 
 export {CliofoPrefixCount as default};
