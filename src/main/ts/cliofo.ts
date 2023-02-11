@@ -22,7 +22,11 @@ export class Cliofo
         });
     }
 
-    public toJSON(format: Partial<{verbose: boolean, replacer: (_: unknown) => unknown, space: string | number}> = {}): string
+    public toJSON(format: Partial<{
+        verbose: boolean,
+        replacer?: (this: unknown, key: string, value: unknown) => unknown | (string|number)[],
+        space?: string | number
+    }> = {}): string
     {
         return format.verbose
                    ? JSON.stringify({
