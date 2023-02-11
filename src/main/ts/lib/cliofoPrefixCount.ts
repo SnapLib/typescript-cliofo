@@ -1,4 +1,4 @@
-import {CliofoPrefixParse, copyPrefixParser} from "./cliofoPrefixParse.js";
+import {CliofoPrefixParse} from "./cliofoPrefixParse.js";
 
 export class CliofoPrefixCount
 {
@@ -29,8 +29,7 @@ export class CliofoPrefixCount
 
     public constructor(prefixParser: Readonly<CliofoPrefixParse>)
     {
-        this.prefixParser = Object.isFrozen(prefixParser) ? prefixParser
-            : Object.freeze(copyPrefixParser(prefixParser));
+        this.prefixParser = freezeOperandsFlagsOptionStrings(prefixParser);
 
         this.operandsCountMap = Object.freeze(new Map([...new Set(this.prefixParser.operands)].map(operandString => Object.freeze(
             [operandString, prefixParser.operands.filter(otherOperandString => operandString === otherOperandString).length]) )));
@@ -46,5 +45,9 @@ export class CliofoPrefixCount
               this.prefixParser.all.filter(otherOperandFlagOption => operandFlagOption === otherOperandFlagOption).length]) )));
     }
 }
+
+const freezeOperandsFlagsOptionStrings = (prefixParser: CliofoPrefixParse | Readonly<CliofoPrefixParse>): Readonly<CliofoPrefixParse> =>
+    Object.isFrozen(prefixParser) ? prefixParser
+    : Object.freeze(new CliofoPrefixParse(prefixParser.prefixString, prefixParser.arguments));
 
 export {CliofoPrefixCount as default};

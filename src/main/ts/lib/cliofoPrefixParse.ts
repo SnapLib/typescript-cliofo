@@ -145,7 +145,4 @@ export class CliofoPrefixParse extends OperandsFlagsOptions
     public isEmpty(): boolean {return this.#isEmpty;}
 }
 
-export const copyPrefixParser = (prefixParser: Readonly<CliofoPrefixParse>): CliofoPrefixParse =>
-    new CliofoPrefixParse(prefixParser.prefixString, prefixParser.arguments);
-
 export {CliofoPrefixParse as default};
