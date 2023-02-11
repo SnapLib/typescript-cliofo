@@ -34,7 +34,7 @@ export class CliofoPrefixParse extends OperandsFlagsOptions
     public readonly prefixString: string;
 
     /**
-     * The strings to parse using this object's {@link CliofoPrefixParse.prefixString prefixString}.
+     * The strings to parse using this object's {@link prefixString}.
      * @readonly
      */
     public readonly arguments: readonly string[];
