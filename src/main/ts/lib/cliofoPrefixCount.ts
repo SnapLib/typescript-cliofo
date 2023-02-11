@@ -1,8 +1,8 @@
-import {CliofoPrefixParse} from "./cliofoPrefixParse.js";
+import {CliofoPrefixStrings} from "./cliofoPrefixStrings.js";
 
 export class CliofoPrefixCount
 {
-    public readonly prefixParser: Readonly<CliofoPrefixParse>;
+    public readonly prefixParser: Readonly<CliofoPrefixStrings>;
 
     /**
      * A map containing the operand strings as keys paired up with the number of
@@ -27,7 +27,7 @@ export class CliofoPrefixCount
 
     public readonly allCountMap: ReadonlyMap<string, number>;
 
-    public constructor(operandFlagOptionStrings: Readonly<CliofoPrefixParse>)
+    public constructor(operandFlagOptionStrings: Readonly<CliofoPrefixStrings>)
     {
         this.prefixParser = freezeOperandsFlagsOptionStrings(operandFlagOptionStrings);
 
@@ -46,8 +46,8 @@ export class CliofoPrefixCount
     }
 }
 
-const freezeOperandsFlagsOptionStrings = (operandFlagOptionStrings: CliofoPrefixParse | Readonly<CliofoPrefixParse>): Readonly<CliofoPrefixParse> =>
+const freezeOperandsFlagsOptionStrings = (operandFlagOptionStrings: CliofoPrefixStrings | Readonly<CliofoPrefixStrings>): Readonly<CliofoPrefixStrings> =>
     Object.isFrozen(operandFlagOptionStrings) ? operandFlagOptionStrings
-    : Object.freeze(new CliofoPrefixParse(operandFlagOptionStrings.prefixString, operandFlagOptionStrings.arguments));
+    : Object.freeze(new CliofoPrefixStrings(operandFlagOptionStrings.prefixString, operandFlagOptionStrings.arguments));
 
 export {CliofoPrefixCount as default};
