@@ -38,7 +38,7 @@ export class Cliofo
                     },
                     format.replacer,
                     format.space)
-                   : JSON.stringify(this);
+                   : JSON.stringify(this, format.replacer, format.space);
     }
 }
 
