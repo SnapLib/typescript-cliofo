@@ -25,19 +25,25 @@ export class CliofoPrefixCount
      */
     public readonly optionsCountMap: ReadonlyMap<string, number>;
 
+    public readonly allCountMap: ReadonlyMap<string, number>;
+
     public constructor(prefixParser: Readonly<CliofoPrefixParse>)
     {
         this.prefixParser = Object.isFrozen(prefixParser) ? prefixParser
             : Object.freeze(copyPrefixParser(prefixParser));
 
-        this.operandsCountMap = Object.freeze(new Map(Object.freeze([...new Set(this.prefixParser.operands)]).map((operandString: string) => Object.freeze(
-            [operandString, prefixParser.operands.filter(otherOperandString => operandString === otherOperandString).length] ))));
+        this.operandsCountMap = Object.freeze(new Map([...new Set(this.prefixParser.operands)].map(operandString => Object.freeze(
+            [operandString, prefixParser.operands.filter(otherOperandString => operandString === otherOperandString).length]) )));
 
-        this.flagsCountMap = Object.freeze(new Map(Object.freeze([...new Set(this.prefixParser.flags)]).map((flagString: string) => Object.freeze(
-            [flagString, prefixParser.flags.filter(otherFlagString => flagString === otherFlagString).length] ))));
+        this.flagsCountMap = Object.freeze(new Map([...new Set(this.prefixParser.flags)].map(flagString => Object.freeze(
+            [flagString, prefixParser.flags.filter(otherFlagString => flagString === otherFlagString).length]) )));
 
-        this.optionsCountMap = Object.freeze(new Map(Object.freeze([...new Set(this.prefixParser.options)]).map((optionString: string) => Object.freeze(
-            [optionString, prefixParser.options.filter(otherOptionString => optionString === otherOptionString).length] ))));
+        this.optionsCountMap = Object.freeze(new Map([...new Set(this.prefixParser.options)].map(optionString => Object.freeze(
+            [optionString, prefixParser.options.filter(otherOptionString => optionString === otherOptionString).length]) )));
+
+        this.allCountMap = Object.freeze(new Map([...new Set(this.prefixParser.all)].map(operandFlagOption => Object.freeze(
+            [ operandFlagOption,
+              this.prefixParser.all.filter(otherOperandFlagOption => operandFlagOption === otherOperandFlagOption).length]) )));
     }
 }
 
