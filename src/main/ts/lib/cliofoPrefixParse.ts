@@ -37,41 +37,41 @@ export class CliofoPrefixParse extends OperandsFlagsOptions
      * The strings to parse using this object's {@link CliofoPrefixParse.prefixString prefixString}.
      * @readonly
      */
-    public readonly strings: readonly string[];
+    public readonly arguments: readonly string[];
 
     readonly #isEmpty: boolean;
 
     /**
-     * Constructs an object that parses an array of `string` arguments into
-     * operands, flags, and options based on a leading prefix string. The passed
-     * prefix string argument is used to denote if a string is an operand, flag,
-     * or option.
+     * Constructs an object that parses an array of string arguments into
+     * *operands*, *flags*, and *options* based on a leading prefix `string`.
+     * The passed prefix `string` is used to denote if an argument is an
+     * operand, flag, or option.
      *
-     * Any string that starts with no prefix character string is an *operand*.
-     * Any string that starts with only a single prefix character string is a
-     * *flag*. And any string that starts with 2 or more prefix character
-     * strings is an *option*.
+     * Any ***argument*** `string` that doesn't start a leading prefix string is
+     * an *operand*. Any ***argument*** `string` that starts with only a single
+     * prefix character `string` is a *flag*. And any ***argument*** `string`
+     * that starts with 2 or more prefix strings is an *option*.
      *
      * @remarks
      * - The flag and option strings do not include the 1 or 2 leading prefix
      *   strings they were prefixed with to denote them as a flag or option. For
      *   example, the leading hyphen characters (`"-"` and `"--"`) in the
      *   strings `"-foo"` and `"--bar"` would be ignored if the prefix string is
-     *   a hyphen character.
+     *   a hyphen character(`"-"`).
      *
      * - All flag strings are parsed down to their individual characters. For
-     *   example the string `"-foo"` would be stored as the ***flags***
+     *   example, the string `"-foo"` would be stored as the ***flags***
      *   `["f", "o", "o"]` if the leading hyphen character (`"-"`) is the prefix
      *   string.
      *
-     * @param prefixString The string used to denote which strings are flags
+     * @param prefixString The string used to denote which arguments are flags
      *                     and options.
      *
-     * @param strings The strings to parse into operands, flags, and options.
+     * @param args The arguments to parse into operands, flags, and options.
      *
      * @constructor
      */
-    public constructor(prefixString: string, strings: readonly string[])
+    public constructor(prefixString: string, args: readonly string[])
     {
             const optionPrefix: string = prefixString.repeat(2);
 
@@ -81,7 +81,7 @@ export class CliofoPrefixParse extends OperandsFlagsOptions
                                                    readonly flags: readonly string[],
                                                    readonly options: readonly string[] }>
             // reduce passed strings to new array of parsed strings
-            = strings.reduce((
+            = args.reduce((
                 _operandFlagOptions: Readonly<{ readonly operands: readonly string[],
                                                 readonly flags: readonly string[],
                                                 readonly options: readonly string[] }>,
@@ -123,8 +123,8 @@ export class CliofoPrefixParse extends OperandsFlagsOptions
                operandsFlagsOptions.flags,
                operandsFlagsOptions.options );
         this.prefixString = prefixString;
-        this.strings = Object.isFrozen(strings) ? strings : Object.freeze([...strings]);
-        this.#isEmpty = strings.length === 0;
+        this.arguments = Object.isFrozen(args) ? args : Object.freeze([...args]);
+        this.#isEmpty = args.length === 0;
     }
 
     /**
@@ -146,6 +146,6 @@ export class CliofoPrefixParse extends OperandsFlagsOptions
 }
 
 export const copyPrefixParser = (prefixParser: Readonly<CliofoPrefixParse>): CliofoPrefixParse =>
-    new CliofoPrefixParse(prefixParser.prefixString, prefixParser.strings);
+    new CliofoPrefixParse(prefixParser.prefixString, prefixParser.arguments);
 
 export {CliofoPrefixParse as default};
