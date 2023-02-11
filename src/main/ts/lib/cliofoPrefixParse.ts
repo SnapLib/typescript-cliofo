@@ -3,7 +3,7 @@ import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
 /**
  * This class parses an array of `string` arguments into operands, flags, and
  * options based on a *prefix string*. The *prefix string* is used to denote if
- * a `string` is an operand, flag, or option.
+ * a `string` argument is an operand, flag, or option.
  *
  * If a string isn't prefixed with a leading prefix string, then it's an
  * *operand*. If a string is prefixed with only a single leading prefix string,
