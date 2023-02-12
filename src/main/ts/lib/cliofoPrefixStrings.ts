@@ -27,6 +27,10 @@ import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
  */
 export class CliofoPrefixStrings extends OperandsFlagsOptions
 {
+    public readonly operandStrings: readonly string[];
+    public readonly flagStrings: readonly string[];
+    public readonly optionStrings: readonly string[];
+
     /**
      * The leading prefix string used to denote flags and options.
      * @readonly
@@ -124,6 +128,9 @@ export class CliofoPrefixStrings extends OperandsFlagsOptions
                operandsFlagsOptions.options );
         this.prefixString = prefixString;
         this.arguments = Object.isFrozen(args) ? args : Object.freeze([...args]);
+        this.operandStrings = operandsFlagsOptions.operands;
+        this.flagStrings = operandsFlagsOptions.flags;
+        this.optionStrings = operandsFlagsOptions.options;
         this.#isEmpty = args.length === 0;
     }
 
