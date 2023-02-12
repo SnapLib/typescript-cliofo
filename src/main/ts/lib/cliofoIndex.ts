@@ -32,7 +32,7 @@ export class CliofoIndex
      * would be
      * @readonly
      */
-    public readonly operandsIndexMap: ReadonlyMap<string, number>;
+    public readonly operandIndexes: ReadonlyMap<string, number>;
 
     public constructor(operandFlagOptionStrings: Readonly<CliofoPrefixStrings>)
     {
@@ -41,7 +41,7 @@ export class CliofoIndex
             : Object.freeze(new CliofoPrefixStrings(operandFlagOptionStrings.prefixString,
                                                   operandFlagOptionStrings.arguments));
 
-        this.operandsIndexMap = new Map();
+        this.operandIndexes = new Map();
     }
 }
 
