@@ -46,18 +46,16 @@ export class CliofoPrefixStrings extends OperandsFlagsOptions
     public readonly optionStrings: readonly string[];
 
     /**
-     * The leading prefix string used to denote flags and options.
+     * A readonly `string` array of options.
      * @readonly
      */
-    public readonly prefixString: string;
+    public readonly allStrings: readonly string[];
 
     /**
      * The strings to parse using this object's {@link CliofoPrefixStrings.prefixString prefixString}.
      * @readonly
      */
     public readonly arguments: readonly string[];
-
-    readonly #isEmpty: boolean;
 
     /**
      * Constructs an object that parses an array of string arguments into
@@ -91,6 +89,7 @@ export class CliofoPrefixStrings extends OperandsFlagsOptions
      */
     public constructor(prefixString: string, args: readonly string[])
     {
+            super(prefixString, args);
             const optionPrefix: string = prefixString.repeat(2);
 
             // Create new array of parsed using prefix char argument to parse
@@ -107,7 +106,7 @@ export class CliofoPrefixStrings extends OperandsFlagsOptions
                 {
                     // If string doesn't start with the prefix char string,
                     // add it to operands array
-                    if ( ! aString.startsWith(prefixString))
+                    if ( ! aString.startsWith(super.prefixString))
                     {
                         return Object.freeze({
                                 operands: Object.freeze([..._operandFlagOptions.operands, aString]),
@@ -129,7 +128,7 @@ export class CliofoPrefixStrings extends OperandsFlagsOptions
                     // prefix char string to flags array
                     return Object.freeze({
                             operands: _operandFlagOptions.operands,
-                            flags: Object.freeze([..._operandFlagOptions.flags, ...aString.slice(prefixString.length)]),
+                            flags: Object.freeze([..._operandFlagOptions.flags, ...aString.slice(super.prefixString.length)]),
                             options: _operandFlagOptions.options});
                 },
                 // Initial frozen empty operands, flags, and options object
@@ -137,33 +136,13 @@ export class CliofoPrefixStrings extends OperandsFlagsOptions
                                 flags: Object.freeze([]),
                                 options: Object.freeze([]) }
             ));
-        super( operandsFlagsOptions.operands,
-               operandsFlagsOptions.flags,
-               operandsFlagsOptions.options );
-        this.prefixString = prefixString;
+
         this.arguments = Object.isFrozen(args) ? args : Object.freeze([...args]);
         this.operandStrings = operandsFlagsOptions.operands;
         this.flagStrings = operandsFlagsOptions.flags;
         this.optionStrings = operandsFlagsOptions.options;
-        this.#isEmpty = args.length === 0;
+        this.allStrings = Object.freeze([...this.operandStrings, ...this.flagStrings, ...this.optionStrings]);
     }
-
-    /**
-     * Returns the option arguments parsed from this object's strings.
-     *
-     * @remarks The leading 2 adjacent prefix character strings are omitted from
-     *          these option strings.
-     *
-     * @returns The option arguments parsed from this object's strings.
-     */
-    // public options(): readonly string[] {return this._options;}
-
-    /**
-     * Returns `true` if this object contains 0 strings to parse.
-     *
-     * @returns `true` if this object contains 0 strings to parse.
-     */
-    public isEmpty(): boolean {return this.#isEmpty;}
 }
 
 export {CliofoPrefixStrings as default};

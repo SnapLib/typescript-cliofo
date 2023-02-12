@@ -1,40 +1,32 @@
-/**
- * A container for string arrays intended to be used for strings parsed to
- * operands, flags, and options.
- */
 export class OperandsFlagsOptions
 {
+    /**
+     * The leading prefix string used to denote flags and options.
+     * @readonly
+     */
+    public readonly prefixString: string;
+
     /**
      * A readonly `string` array of this operands.
      * @readonly
      */
-    public readonly operands: readonly string[];
+    public readonly arguments: readonly string[];
 
-    /**
-     * A readonly `string` array of flags.
-     * @readonly
-     */
-    public readonly flags: readonly string[];
+    readonly #isEmpty: boolean;
 
-    /**
-     * A readonly `string` array of options.
-     * @readonly
-     */
-    public readonly options: readonly string[];
-
-    /**
-     * A readonly `string` array of operands, flags, and options.
-     * @readonly
-     */
-    public readonly all: readonly string[];
-
-    protected constructor(operands: readonly string[], flags: readonly string[], options: readonly string[])
+    protected constructor(prefixString: string, args: readonly string[])
     {
-        this.operands = Object.isFrozen(operands) ? operands : Object.freeze([...operands]);
-        this.flags = Object.isFrozen(flags) ? flags : Object.freeze([...flags]);
-        this.options = Object.isFrozen(options) ? options : Object.freeze([...options]);
-        this.all = Object.freeze([...this.operands, ...this.flags, ...this.options]);
+        this.prefixString = prefixString;
+        this.arguments = Object.isFrozen(args) ? args : Object.freeze([...args]);
+        this.#isEmpty = this.arguments.length === 0;
     }
+
+    /**
+     * Returns `true` if this object contains 0 strings to parse.
+     *
+     * @returns `true` if this object contains 0 strings to parse.
+     */
+    public IsEmpty(): boolean {return this.#isEmpty;}
 }
 
 export {OperandsFlagsOptions as default};

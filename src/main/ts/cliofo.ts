@@ -1,24 +1,24 @@
-import {OperandsFlagsOptions} from "lib/operandsFlagsOptions.js";
 import {CliofoPrefixCount} from "./lib/cliofoPrefixCount.js";
-import {CliofoPrefixParse} from "./lib/cliofoPrefixParse.js";
+import {CliofoPrefixStrings} from "./lib/cliofoPrefixStrings.js";
 
 export class Cliofo
 {
-    public readonly parsedPrefix: Readonly<CliofoPrefixParse>;
+    public readonly cliofoStrings: Readonly<CliofoPrefixStrings>;
 
     public readonly occurrenceCount: Readonly<CliofoPrefixCount>;
 
-    public readonly distinct: Readonly<OperandsFlagsOptions>;
+    public readonly distinct: Readonly<{
+        operands: readonly string[], flags: readonly string[], options: readonly string[], all: readonly string[]}>;
 
     public constructor(prefixString: string, strings: readonly string[])
     {
-        this.parsedPrefix = Object.freeze(new CliofoPrefixParse(prefixString, strings));
-        this.occurrenceCount = Object.freeze(new CliofoPrefixCount(this.parsedPrefix));
+        this.cliofoStrings = Object.freeze(new CliofoPrefixStrings(prefixString, strings));
+        this.occurrenceCount = Object.freeze(new CliofoPrefixCount(this.cliofoStrings.prefixString, this.cliofoStrings.arguments));
         this.distinct = Object.freeze({
-            operands: Object.freeze([...this.occurrenceCount.operandsCountMap.keys()]),
-            flags: Object.freeze([...this.occurrenceCount.flagsCountMap.keys()]),
-            options: Object.freeze([...this.occurrenceCount.optionsCountMap.keys()]),
-            all: Object.freeze([...new Set(this.parsedPrefix.all)])
+            operands: Object.freeze([...this.occurrenceCount.operandCounts.keys()]),
+            flags: Object.freeze([...this.occurrenceCount.flagCounts.keys()]),
+            options: Object.freeze([...this.occurrenceCount.optionCounts.keys()]),
+            all: Object.freeze([...new Set(this.cliofoStrings.allStrings)])
         });
     }
 
@@ -30,11 +30,11 @@ export class Cliofo
     {
         return format.verbose
                    ? JSON.stringify({
-                        prefixString: this.parsedPrefix.prefixString,
-                        strings: this.parsedPrefix.strings,
-                        operands: this.parsedPrefix.operands,
-                        flags: this.parsedPrefix.flags,
-                        options: this.parsedPrefix.options
+                        prefixString: this.cliofoStrings.prefixString,
+                        strings: this.cliofoStrings.arguments,
+                        operands: this.cliofoStrings.operandStrings,
+                        flags: this.cliofoStrings.flagStrings,
+                        options: this.cliofoStrings.optionStrings
                     },
                     format.replacer,
                     format.space)
@@ -43,3 +43,7 @@ export class Cliofo
 }
 
 export {Cliofo as default};
+
+const cliofo: Readonly<Cliofo> = Object.freeze(new Cliofo("-", process.argv.slice(2)));
+
+console.log(cliofo.occurrenceCount);

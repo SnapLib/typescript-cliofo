@@ -2,7 +2,7 @@ import {CliofoPrefixStrings} from "./cliofoPrefixStrings.js";
 
 export class CliofoPrefixCount
 {
-    public readonly prefixParser: Readonly<CliofoPrefixStrings>;
+    public readonly cliofoStrings: Readonly<CliofoPrefixStrings>;
 
     /**
      * A map containing the operand strings as keys paired up with the number of
@@ -27,27 +27,23 @@ export class CliofoPrefixCount
 
     public readonly allCounts: ReadonlyMap<string, number>;
 
-    public constructor(operandFlagOptionStrings: Readonly<CliofoPrefixStrings>)
+    public constructor(prefixString: string, args: readonly string[])
     {
-        this.prefixParser = freezeOperandsFlagsOptionStrings(operandFlagOptionStrings);
+        this.cliofoStrings = Object.freeze(new CliofoPrefixStrings(prefixString, args));
 
-        this.operandCounts = Object.freeze(new Map([...new Set(this.prefixParser.operands)].map(operandString => Object.freeze(
-            [operandString, operandFlagOptionStrings.operands.filter(otherOperandString => operandString === otherOperandString).length]) )));
+        this.operandCounts = Object.freeze(new Map([...new Set(this.cliofoStrings.operandStrings)].map(operandString => Object.freeze(
+            [operandString, this.cliofoStrings.operandStrings.filter(otherOperandString => operandString === otherOperandString).length]) )));
 
-        this.flagCounts = Object.freeze(new Map([...new Set(this.prefixParser.flags)].map(flagString => Object.freeze(
-            [flagString, operandFlagOptionStrings.flags.filter(otherFlagString => flagString === otherFlagString).length]) )));
+        this.flagCounts = Object.freeze(new Map([...new Set(this.cliofoStrings.flagStrings)].map(flagString => Object.freeze(
+            [flagString, this.cliofoStrings.flagStrings.filter(otherFlagString => flagString === otherFlagString).length]) )));
 
-        this.optionCounts = Object.freeze(new Map([...new Set(this.prefixParser.options)].map(optionString => Object.freeze(
-            [optionString, operandFlagOptionStrings.options.filter(otherOptionString => optionString === otherOptionString).length]) )));
+        this.optionCounts = Object.freeze(new Map([...new Set(this.cliofoStrings.optionStrings)].map(optionString => Object.freeze(
+            [optionString, this.cliofoStrings.optionStrings.filter(otherOptionString => optionString === otherOptionString).length]) )));
 
-        this.allCounts = Object.freeze(new Map([...new Set(this.prefixParser.all)].map(operandFlagOption => Object.freeze(
+        this.allCounts = Object.freeze(new Map([...new Set(this.cliofoStrings.allStrings)].map(operandFlagOption => Object.freeze(
             [ operandFlagOption,
-              this.prefixParser.all.filter(otherOperandFlagOption => operandFlagOption === otherOperandFlagOption).length]) )));
+              this.cliofoStrings.allStrings.filter(otherOperandFlagOption => operandFlagOption === otherOperandFlagOption).length]) )));
     }
 }
-
-const freezeOperandsFlagsOptionStrings = (operandFlagOptionStrings: CliofoPrefixStrings | Readonly<CliofoPrefixStrings>): Readonly<CliofoPrefixStrings> =>
-    Object.isFrozen(operandFlagOptionStrings) ? operandFlagOptionStrings
-    : Object.freeze(new CliofoPrefixStrings(operandFlagOptionStrings.prefixString, operandFlagOptionStrings.arguments));
 
 export {CliofoPrefixCount as default};

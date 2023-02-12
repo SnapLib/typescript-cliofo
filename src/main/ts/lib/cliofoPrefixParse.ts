@@ -73,55 +73,53 @@ export class CliofoPrefixParse extends OperandsFlagsOptions
      */
     public constructor(prefixString: string, args: readonly string[])
     {
-            const optionPrefix: string = prefixString.repeat(2);
+        super(prefixString, args);
+        const optionPrefix: string = prefixString.repeat(2);
 
-            // Create new array of parsed using prefix char argument to parse
-            // strings in string array argument
-            const operandsFlagsOptions: Readonly<{ readonly operands: readonly string[],
-                                                   readonly flags: readonly string[],
-                                                   readonly options: readonly string[] }>
-            // reduce passed strings to new array of parsed strings
-            = args.reduce((
-                _operandFlagOptions: Readonly<{ readonly operands: readonly string[],
+        // Create new array of parsed using prefix char argument to parse
+        // strings in string array argument
+        const operandsFlagsOptions: Readonly<{ readonly operands: readonly string[],
                                                 readonly flags: readonly string[],
-                                                readonly options: readonly string[] }>,
-                aString: string ) =>
+                                                readonly options: readonly string[] }>
+        // reduce passed strings to new array of parsed strings
+        = args.reduce((
+            _operandFlagOptions: Readonly<{ readonly operands: readonly string[],
+                                            readonly flags: readonly string[],
+                                            readonly options: readonly string[] }>,
+            aString: string ) =>
+            {
+                // If string doesn't start with the prefix char string,
+                // add it to operands array
+                if ( ! aString.startsWith(prefixString))
                 {
-                    // If string doesn't start with the prefix char string,
-                    // add it to operands array
-                    if ( ! aString.startsWith(prefixString))
-                    {
-                        return Object.freeze({
-                                operands: Object.freeze([..._operandFlagOptions.operands, aString]),
-                                flags: _operandFlagOptions.flags,
-                                options: _operandFlagOptions.options });
-                    }
-                    // If string starts with 2 or more adjacent prefix char
-                    // strings, add string without leading 2 prefix char
-                    // strings to options array
-                    else if (aString.startsWith(optionPrefix))
-                    {
-                        return Object.freeze({
-                                operands: _operandFlagOptions.operands,
-                                flags: _operandFlagOptions.flags,
-                                options: Object.freeze([..._operandFlagOptions.options, aString.slice(optionPrefix.length)]) });
-                    }
-                    // If string starts with only a single prefix char
-                    // string, add characters of string without leading
-                    // prefix char string to flags array
+                    return Object.freeze({
+                            operands: Object.freeze([..._operandFlagOptions.operands, aString]),
+                            flags: _operandFlagOptions.flags,
+                            options: _operandFlagOptions.options });
+                }
+                // If string starts with 2 or more adjacent prefix char
+                // strings, add string without leading 2 prefix char
+                // strings to options array
+                else if (aString.startsWith(optionPrefix))
+                {
                     return Object.freeze({
                             operands: _operandFlagOptions.operands,
-                            flags: Object.freeze([..._operandFlagOptions.flags, ...aString.slice(prefixString.length)]),
-                            options: _operandFlagOptions.options});
-                },
-                // Initial frozen empty operands, flags, and options object
-                Object.freeze({ operands: Object.freeze([]),
-                                flags: Object.freeze([]),
-                                options: Object.freeze([]) }
-            ));
-        super( operandsFlagsOptions.operands,
-               operandsFlagsOptions.flags,
-               operandsFlagsOptions.options );
+                            flags: _operandFlagOptions.flags,
+                            options: Object.freeze([..._operandFlagOptions.options, aString.slice(optionPrefix.length)]) });
+                }
+                // If string starts with only a single prefix char
+                // string, add characters of string without leading
+                // prefix char string to flags array
+                return Object.freeze({
+                        operands: _operandFlagOptions.operands,
+                        flags: Object.freeze([..._operandFlagOptions.flags, ...aString.slice(prefixString.length)]),
+                        options: _operandFlagOptions.options});
+            },
+            // Initial frozen empty operands, flags, and options object
+            Object.freeze({ operands: Object.freeze([]),
+                            flags: Object.freeze([]),
+                            options: Object.freeze([]) }
+        ));
         this.prefixString = prefixString;
         this.arguments = Object.isFrozen(args) ? args : Object.freeze([...args]);
         this.#isEmpty = args.length === 0;
