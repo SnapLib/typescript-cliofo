@@ -27,8 +27,22 @@ import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
  */
 export class CliofoPrefixStrings extends OperandsFlagsOptions
 {
+    /**
+     * A readonly `string` array of this operands.
+     * @readonly
+     */
     public readonly operandStrings: readonly string[];
+
+    /**
+     * A readonly `string` array of flags.
+     * @readonly
+     */
     public readonly flagStrings: readonly string[];
+
+    /**
+     * A readonly `string` array of options.
+     * @readonly
+     */
     public readonly optionStrings: readonly string[];
 
     /**
