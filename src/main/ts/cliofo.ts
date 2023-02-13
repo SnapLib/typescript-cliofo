@@ -5,24 +5,40 @@ export class Cliofo
 {
     public readonly cliofoStrings: Readonly<CliofoStrings>;
 
+    public readonly occurrenceCount: Readonly<CliofoCounts>;
+
     // TODO add indexes map object
     public readonly operand: Readonly<{ readonly strings: readonly string[],
                                         counts: ReadonlyMap<string, number> }>;
 
-    public readonly occurrenceCount: Readonly<CliofoCounts>;
+    public readonly flag: Readonly<{ readonly strings: readonly string[],
+                                     readonly counts: ReadonlyMap<string, number> }>;
+
+    public readonly option: Readonly<{ readonly strings: readonly string[],
+                                       readonly counts: ReadonlyMap<string, number> }>;
 
     public readonly distinct: Readonly<{
         operands: readonly string[], flags: readonly string[], options: readonly string[], all: readonly string[]}>;
 
-    public constructor(prefixString: string, strings: readonly string[])
+    public constructor(cliofoStrings: Readonly<CliofoStrings>)
     {
-        this.cliofoStrings = Object.freeze(new CliofoStrings(prefixString, strings));
+        this.cliofoStrings = cliofoStrings;
         this.occurrenceCount = Object.freeze(new CliofoCounts(this.cliofoStrings.prefixString, this.cliofoStrings.arguments));
 
-        this.operand = {
+        this.operand = Object.freeze({
             strings: this.cliofoStrings.operandStrings,
             counts: this.occurrenceCount.operandCounts
-        };
+        });
+
+        this.flag = Object.freeze({
+            strings: this.cliofoStrings.flagStrings,
+            counts: this.occurrenceCount.flagCounts
+        });
+
+        this.option = Object.freeze({
+            strings: this.cliofoStrings.optionStrings,
+            counts: this.occurrenceCount.optionCounts
+        });
 
         this.distinct = Object.freeze({
             operands: Object.freeze([...this.occurrenceCount.operandCounts.keys()]),
@@ -52,8 +68,11 @@ export class Cliofo
     }
 }
 
+export const cliofoArgParse = (prefixString: string, argumentStrings: readonly string[]): Readonly<Cliofo> =>
+    Object.freeze(new Cliofo(new CliofoStrings(prefixString, argumentStrings)));
+
 export {Cliofo as default};
 
-const cliofo: Readonly<Cliofo> = Object.freeze(new Cliofo("-", process.argv.slice(2)));
+const cliofo: Readonly<Cliofo> = Object.freeze(cliofoArgParse("-", process.argv.slice(2)));
 
 console.log(cliofo.occurrenceCount);
