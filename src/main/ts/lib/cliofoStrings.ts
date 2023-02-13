@@ -106,7 +106,7 @@ export class CliofoStrings extends CliofoPrefixParser
                 {
                     // If prefixString is empty or argument string doesn't start
                     // with prefixString, add it to operands array
-                    if ( this.prefixString.length === 0 || ! aString.startsWith(this.prefixString))
+                    if (this.prefixString.length === 0 || ! aString.startsWith(this.prefixString))
                     {
                         return Object.freeze({
                                 operands: Object.freeze([..._operandFlagOptions.operands, aString]),
