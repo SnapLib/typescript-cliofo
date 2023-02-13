@@ -1,6 +1,6 @@
 import {CliofoCounts} from "./lib/cliofoCounts.js";
 import {CliofoStrings} from "./lib/cliofoStrings.js";
-import {ParsedCliofoArgs} from "./lib/operandFlagOptionF.js";
+import {ParsedCliofoArgs} from "./lib/parsedCliofoArgs.js";
 
 /**
  * The root class of the entire Cliofo package. Classes from this package's
