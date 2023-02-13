@@ -100,7 +100,7 @@ export class CliofoStrings extends OperandsFlagsOptions
                 {
                     // If string doesn't start with the prefix char string,
                     // add it to operands array
-                    if ( ! aString.startsWith(super.prefixString))
+                    if ( ! aString.startsWith(this.prefixString))
                     {
                         return Object.freeze({
                                 operands: Object.freeze([..._operandFlagOptions.operands, aString]),
@@ -122,7 +122,7 @@ export class CliofoStrings extends OperandsFlagsOptions
                     // prefix char string to flags array
                     return Object.freeze({
                             operands: _operandFlagOptions.operands,
-                            flags: Object.freeze([..._operandFlagOptions.flags, ...aString.slice(super.prefixString.length)]),
+                            flags: Object.freeze([..._operandFlagOptions.flags, ...aString.slice(this.prefixString.length)]),
                             options: _operandFlagOptions.options});
                 },
                 // Initial frozen empty operands, flags, and options object
