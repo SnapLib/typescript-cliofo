@@ -50,7 +50,6 @@ console.log(cliofo.toJsonObj());
 
 ```
 
-
 ## Prefix string
 
 A ***prefix string*** is a `string` used to determine if another `string` is an
