@@ -52,12 +52,6 @@ export class CliofoStrings extends OperandsFlagsOptions
     public readonly allStrings: readonly string[];
 
     /**
-     * The strings to parse using this object's {@link CliofoStrings.prefixString prefixString}.
-     * @readonly
-     */
-    public readonly arguments: readonly string[];
-
-    /**
      * Constructs an object that parses an array of string arguments into
      * *operands*, *flags*, and *options* based on a leading prefix `string`.
      * The passed prefix `string` is used to denote if an argument is an
@@ -98,7 +92,7 @@ export class CliofoStrings extends OperandsFlagsOptions
                                                    readonly flags: readonly string[],
                                                    readonly options: readonly string[] }>
             // reduce passed strings to new array of parsed strings
-            = args.reduce((
+            = this.arguments.reduce((
                 _operandFlagOptions: Readonly<{ readonly operands: readonly string[],
                                                 readonly flags: readonly string[],
                                                 readonly options: readonly string[] }>,
@@ -137,7 +131,6 @@ export class CliofoStrings extends OperandsFlagsOptions
                                 options: Object.freeze([]) }
             ));
 
-        this.arguments = Object.isFrozen(args) ? args : Object.freeze([...args]);
         this.operandStrings = operandsFlagsOptions.operands;
         this.flagStrings = operandsFlagsOptions.flags;
         this.optionStrings = operandsFlagsOptions.options;
