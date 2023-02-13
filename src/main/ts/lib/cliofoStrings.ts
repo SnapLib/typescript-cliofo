@@ -11,19 +11,18 @@ import {CliofoPrefixParser} from "./cliofoPrefixParser.js";
  * prefix strings, then it's an *option*.
  *
  * @remarks
- * - The flag and option strings do not include the 1 or 2 leading prefix
- *   strings they were prefixed with to denote them as a flag or option. For
- *   example, the leading hyphen characters (`"-"` and `"--"`) in the strings
- *   `"-foo"` and `"--bar"` would be ignored if the prefix string is a hyphen
- *   character.
- *
  * - All flag strings are parsed down to their individual characters. For
  *   example the string `"-foo"` would be stored as the ***flags***
  *   `["f", "o", "o"]` if the leading hyphen character (`"-"`) is the prefix
  *   string.
  *
- * - This class is immutable, All of this class' properties are readonly and any
- *   objects it returns are frozen.
+ * - The flag and option strings do not include the 1 or 2 leading prefix
+ *   strings they were prefixed with to denote them as a flag or option. For
+ *   example, the leading hyphen characters (`"-"` and `"--"`) in the strings
+ *   `"-foo"` and `"--bar"` would be ignored if the prefix string is a hyphen
+ *   character(`"-"`).
+ *
+ * - This class attempts to be as immutable as possible.
  */
 export class CliofoStrings extends CliofoPrefixParser
 {
