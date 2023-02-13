@@ -1,13 +1,14 @@
 export class OperandsFlagsOptions
 {
     /**
-     * The leading prefix string used to denote flags and options.
+     * The leading prefix `string` used to denote which arguments are flags and
+     * options.
      * @readonly
      */
     public readonly prefixString: string;
 
     /**
-     * A readonly `string` array of this operands.
+     * The strings to parse using this object's {@link prefixString}.
      * @readonly
      */
     public readonly arguments: readonly string[];
