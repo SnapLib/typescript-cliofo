@@ -5,6 +5,10 @@ export class Cliofo
 {
     public readonly cliofoStrings: Readonly<CliofoStrings>;
 
+    // TODO add indexes map object
+    public readonly operand: Readonly<{ readonly strings: readonly string[],
+                                        counts: ReadonlyMap<string, number> }>;
+
     public readonly occurrenceCount: Readonly<CliofoCounts>;
 
     public readonly distinct: Readonly<{
@@ -14,6 +18,12 @@ export class Cliofo
     {
         this.cliofoStrings = Object.freeze(new CliofoStrings(prefixString, strings));
         this.occurrenceCount = Object.freeze(new CliofoCounts(this.cliofoStrings.prefixString, this.cliofoStrings.arguments));
+
+        this.operand = {
+            strings: this.cliofoStrings.operandStrings,
+            counts: this.occurrenceCount.operandCounts
+        };
+
         this.distinct = Object.freeze({
             operands: Object.freeze([...this.occurrenceCount.operandCounts.keys()]),
             flags: Object.freeze([...this.occurrenceCount.flagCounts.keys()]),
