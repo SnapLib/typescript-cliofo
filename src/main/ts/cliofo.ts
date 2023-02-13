@@ -24,54 +24,84 @@ export class Cliofo
      */
     public readonly cliofoStrings: Readonly<CliofoStrings>;
 
-    public readonly occurrenceCount: Readonly<CliofoCounts>;
-
     // TODO add indexes map object
+    /**
+     * The operand strings contained within this object's {@link cliofoStrings}
+     * string arguments when parsed with this object's {@link prefixString}.
+     * Strings that don't start with this object's {@link prefixString} are
+     * operands.
+     * @readonly
+     */
     public readonly operand: Readonly<{ strings: readonly string[],
                                         counts: ReadonlyMap<string, number> }>;
 
     /**
-     * The flag strings contained withn this object's {@link cliofoStrings}
-     * string arguments when paresed with. Flags are stored as individual characters as opposed to
-     * entire strings (like {@link operand} and {@link option} strings).
+     * The flag character strings contained withn this object's
+     * {@link cliofoStrings} string arguments when parsed with this object's
+     * {@link prefixString} string. Strings that begin with only a single
+     * leading instance of this object's {@link prefixString} are flags. The
+     * characters of each flag string are stored as individual characters as
+     * opposed to the entire string (like {@link operand} and {@link option}
+     * strings).
      * @readonly
      */
     public readonly flag: Readonly<{ strings: readonly string[],
                                      counts: ReadonlyMap<string, number> }>;
 
+    /**
+     * The operand strings contained within this object's {@link cliofoStrings}
+     * string arguments when parsed with this object's {@link prefixString}.
+     * string that start with this object's {@link prefixString} are
+     * operands.
+     * @readonly
+     */
     public readonly option: Readonly<{ strings: readonly string[],
                                        counts: ReadonlyMap<string, number> }>;
 
+    /**
+     * Contains clones of this object, except with {@link operand},
+     * {@link flag}, and {@link option} properties with all duplicate values
+     * removed.
+     */
     public readonly distinct: Readonly<{
         operands: readonly string[], flags: readonly string[], options: readonly string[], all: readonly string[]}>;
 
     public constructor(cliofoStrings: Readonly<CliofoStrings>)
     {
-        this.cliofoStrings = cliofoStrings;
-        this.prefixString = this.cliofoStrings.prefixString;
-        this.occurrenceCount = Object.freeze(new CliofoCounts(this.cliofoStrings.prefixString, this.cliofoStrings.arguments));
+        if (cliofoStrings instanceof CliofoStrings)
 
-        this.operand = Object.freeze({
+        {
+            this.cliofoStrings = cliofoStrings;
+            this.prefixString = this.cliofoStrings.prefixString;
+
+            const occurrenceCount = Object.freeze(new CliofoCounts(this.prefixString, this.cliofoStrings.arguments));
+
+            this.operand = Object.freeze({
             strings: this.cliofoStrings.operandStrings,
-            counts: this.occurrenceCount.operandCounts
-        });
+            counts: occurrenceCount.operandCounts
+            });
 
-        this.flag = Object.freeze({
-            strings: this.cliofoStrings.flagStrings,
-            counts: this.occurrenceCount.flagCounts
-        });
+            this.flag = Object.freeze({
+                strings: this.cliofoStrings.flagStrings,
+                counts: occurrenceCount.flagCounts
+            });
 
-        this.option = Object.freeze({
-            strings: this.cliofoStrings.optionStrings,
-            counts: this.occurrenceCount.optionCounts
-        });
+            this.option = Object.freeze({
+                strings: this.cliofoStrings.optionStrings,
+                counts: occurrenceCount.optionCounts
+            });
 
-        this.distinct = Object.freeze({
-            operands: Object.freeze([...this.occurrenceCount.operandCounts.keys()]),
-            flags: Object.freeze([...this.occurrenceCount.flagCounts.keys()]),
-            options: Object.freeze([...this.occurrenceCount.optionCounts.keys()]),
-            all: Object.freeze([...new Set(this.cliofoStrings.allStrings)])
-        });
+            this.distinct = Object.freeze({
+                operands: Object.freeze([...occurrenceCount.operandCounts.keys()]),
+                flags: Object.freeze([...occurrenceCount.flagCounts.keys()]),
+                options: Object.freeze([...occurrenceCount.optionCounts.keys()]),
+                all: Object.freeze([...new Set(this.cliofoStrings.allStrings)])
+            });
+        }
+        else
+        {
+            throw new Error();
+        }
     }
 
     public toJSON(format: Partial<{
@@ -116,4 +146,4 @@ export {cliofo as default};
 
 const _cliofo: Readonly<Cliofo> = Object.freeze(cliofo("-", process.argv.slice(2)));
 
-console.log(_cliofo.occurrenceCount);
+console.log(_cliofo);
