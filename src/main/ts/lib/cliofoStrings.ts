@@ -1,4 +1,4 @@
-import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
+import {CliofoPrefixParser} from "./cliofoPrefixParser.js";
 
 /**
  * This class parses an array of `string` arguments into operands, flags, and
@@ -25,7 +25,7 @@ import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
  * - This class is immutable, All of this class' properties are readonly and any
  *   objects it returns are frozen.
  */
-export class CliofoStrings extends OperandsFlagsOptions
+export class CliofoStrings extends CliofoPrefixParser
 {
     /**
      * A readonly string array of operands.
