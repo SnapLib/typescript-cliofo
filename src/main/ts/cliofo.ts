@@ -139,11 +139,7 @@ export class Cliofo
  * @returns a new {@link Cliofo} instance constructed with the provided
  *          `prefixString` and `argumentStrings` argument.
  */
-export const cliofo = (prefixString: string, argumentStrings: readonly string[]): Readonly<Cliofo> =>
+export const parseStrings = (prefixString: string, argumentStrings: readonly string[]): Readonly<Cliofo> =>
     Object.freeze(new Cliofo(new CliofoStrings(prefixString, argumentStrings)));
 
-export {cliofo as default};
-
-const _cliofo: Readonly<Cliofo> = Object.freeze(cliofo("-", process.argv.slice(2)));
-
-console.log(_cliofo);
+export {parseStrings as default};
