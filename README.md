@@ -4,7 +4,7 @@
  the concept of a prefix `string` used to parse  ***operand***, ***flag***, and
  ***option*** `string`s.
 
- ## Example
+## Example
 
 Here's an example of how this package can be used:
 
