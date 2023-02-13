@@ -28,19 +28,24 @@ import {CliofoPrefixParser} from "./cliofoPrefixParser.js";
 export class CliofoStrings extends CliofoPrefixParser
 {
     /**
-     * A readonly string array of operands.
+     * A readonly string array of operands. These include arguments that aren't
+     * prefixed with this object's {@link prefixString} or all arguments if the
+     * `prefixString` is an empty string.
      * @readonly
      */
     public readonly operandStrings: readonly string[];
 
     /**
-     * A readonly string array of flags.
+     * A readonly string array of flags. These include arguments that are
+     * prefixed with only a single instance of this object's {@link prefixString}.
      * @readonly
      */
     public readonly flagStrings: readonly string[];
 
     /**
-     * A readonly string array of options.
+     * A readonly string array of options. These include arguments that are
+     * prefixed with 2 or more adjacent instances of this object's
+     * {@link prefixString}.
      * @readonly
      */
     public readonly optionStrings: readonly string[];
