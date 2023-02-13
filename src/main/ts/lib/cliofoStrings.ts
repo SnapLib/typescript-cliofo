@@ -28,25 +28,25 @@ import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
 export class CliofoStrings extends OperandsFlagsOptions
 {
     /**
-     * A readonly `string` array of this operands.
+     * A readonly string array of operands.
      * @readonly
      */
     public readonly operandStrings: readonly string[];
 
     /**
-     * A readonly `string` array of flags.
+     * A readonly string array of flags.
      * @readonly
      */
     public readonly flagStrings: readonly string[];
 
     /**
-     * A readonly `string` array of options.
+     * A readonly string array of options.
      * @readonly
      */
     public readonly optionStrings: readonly string[];
 
     /**
-     * A readonly `string` array of options.
+     * A readonly string array of all operands, flags, and options.
      * @readonly
      */
     public readonly allStrings: readonly string[];
