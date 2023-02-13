@@ -103,8 +103,8 @@ export class CliofoStrings extends CliofoPrefixParser
                                                 readonly options: readonly string[] }>,
                 aString: string ) =>
                 {
-                    // If string doesn't start with the prefix char string, add
-                    // it to operands array
+                    // If prefixString is empty or argument string doesn't start
+                    // with prefixString, add it to operands array
                     if ( this.prefixString.length === 0 || ! aString.startsWith(this.prefixString))
                     {
                         return Object.freeze({
@@ -112,9 +112,9 @@ export class CliofoStrings extends CliofoPrefixParser
                                 flags: _operandFlagOptions.flags,
                                 options: _operandFlagOptions.options });
                     }
-                    // If string starts with 2 or more adjacent prefix char
-                    // strings, add string without leading 2 prefix char strings
-                    // to options array
+                    // If string starts with 2 or more adjacent prefix strings,
+                    // add string without leading 2 prefix char strings to
+                    // options array
                     else if (aString.startsWith(optionPrefix))
                     {
                         return Object.freeze({
@@ -122,9 +122,9 @@ export class CliofoStrings extends CliofoPrefixParser
                                 flags: _operandFlagOptions.flags,
                                 options: Object.freeze([..._operandFlagOptions.options, aString.slice(optionPrefix.length)]) });
                     }
-                    // If string starts with only a single prefix char string,
-                    // add characters of string excluding leading prefix char
-                    // string to flags array
+                    // If string starts with only a single prefix string, add
+                    // characters of string excluding leading prefix string
+                    // to flags array
                     return Object.freeze({
                             operands: _operandFlagOptions.operands,
                             flags: Object.freeze([..._operandFlagOptions.flags, ...aString.slice(this.prefixString.length)]),
