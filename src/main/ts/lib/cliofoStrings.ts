@@ -105,7 +105,7 @@ export class CliofoStrings extends CliofoPrefixParser
                 {
                     // If string doesn't start with the prefix char string, add
                     // it to operands array
-                    if ( ! aString.startsWith(this.prefixString))
+                    if ( this.prefixString.length === 0 || ! aString.startsWith(this.prefixString))
                     {
                         return Object.freeze({
                                 operands: Object.freeze([..._operandFlagOptions.operands, aString]),
