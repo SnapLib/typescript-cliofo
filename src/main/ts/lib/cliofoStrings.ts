@@ -86,20 +86,20 @@ export class CliofoStrings extends OperandsFlagsOptions
             super(prefixString, args);
             const optionPrefix: string = prefixString.repeat(2);
 
-            // Create new array of parsed using prefix char argument to parse
-            // strings in string array argument
+            // Create object containing string arguments sorted into operands,
+            // flats, and options
             const operandsFlagsOptions: Readonly<{ readonly operands: readonly string[],
                                                    readonly flags: readonly string[],
                                                    readonly options: readonly string[] }>
-            // reduce passed strings to new array of parsed strings
+            // reducing string arguments into sorted operands, flags, options object
             = this.arguments.reduce((
                 _operandFlagOptions: Readonly<{ readonly operands: readonly string[],
                                                 readonly flags: readonly string[],
                                                 readonly options: readonly string[] }>,
                 aString: string ) =>
                 {
-                    // If string doesn't start with the prefix char string,
-                    // add it to operands array
+                    // If string doesn't start with the prefix char string, add
+                    // it to operands array
                     if ( ! aString.startsWith(this.prefixString))
                     {
                         return Object.freeze({
@@ -108,8 +108,8 @@ export class CliofoStrings extends OperandsFlagsOptions
                                 options: _operandFlagOptions.options });
                     }
                     // If string starts with 2 or more adjacent prefix char
-                    // strings, add string without leading 2 prefix char
-                    // strings to options array
+                    // strings, add string without leading 2 prefix char strings
+                    // to options array
                     else if (aString.startsWith(optionPrefix))
                     {
                         return Object.freeze({
@@ -117,9 +117,9 @@ export class CliofoStrings extends OperandsFlagsOptions
                                 flags: _operandFlagOptions.flags,
                                 options: Object.freeze([..._operandFlagOptions.options, aString.slice(optionPrefix.length)]) });
                     }
-                    // If string starts with only a single prefix char
-                    // string, add characters of string without leading
-                    // prefix char string to flags array
+                    // If string starts with only a single prefix char string,
+                    // add characters of string excluding leading prefix char
+                    // string to flags array
                     return Object.freeze({
                             operands: _operandFlagOptions.operands,
                             flags: Object.freeze([..._operandFlagOptions.flags, ...aString.slice(this.prefixString.length)]),
