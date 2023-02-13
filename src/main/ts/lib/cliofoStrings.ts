@@ -37,15 +37,16 @@ export class CliofoStrings extends CliofoPrefixParser
 
     /**
      * A readonly string array of flags. These include arguments that are
-     * prefixed with only a single instance of this object's {@link prefixString}.
+     * prefixed with only a single leading instance of this object's
+     * {@link prefixString}.
      * @readonly
      */
     public readonly flagStrings: readonly string[];
 
     /**
      * A readonly string array of options. These include arguments that are
-     * prefixed with 2 or more adjacent instances of this object's
-     * {@link prefixString}.
+     * prefixed with a leading sequence of 2 or more adjacent instances of this
+     * object's {@link prefixString}.
      * @readonly
      */
     public readonly optionStrings: readonly string[];
