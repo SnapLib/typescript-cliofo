@@ -1,8 +1,8 @@
-import {CliofoPrefixStrings} from "./cliofoPrefixStrings.js";
+import {CliofoStrings} from "./cliofoStrings.js";
 
-export class CliofoPrefixCount
+export class CliofoCounts
 {
-    public readonly cliofoStrings: Readonly<CliofoPrefixStrings>;
+    public readonly cliofoStrings: Readonly<CliofoStrings>;
 
     /**
      * A map containing the operand strings as keys paired up with the number of
@@ -29,7 +29,7 @@ export class CliofoPrefixCount
 
     public constructor(prefixString: string, args: readonly string[])
     {
-        this.cliofoStrings = Object.freeze(new CliofoPrefixStrings(prefixString, args));
+        this.cliofoStrings = Object.freeze(new CliofoStrings(prefixString, args));
 
         this.operandCounts = Object.freeze(new Map([...new Set(this.cliofoStrings.operandStrings)].map(operandString => Object.freeze(
             [operandString, this.cliofoStrings.operandStrings.filter(otherOperandString => operandString === otherOperandString).length]) )));
@@ -46,4 +46,4 @@ export class CliofoPrefixCount
     }
 }
 
-export {CliofoPrefixCount as default};
+export {CliofoCounts as default};

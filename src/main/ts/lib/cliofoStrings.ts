@@ -25,7 +25,7 @@ import {OperandsFlagsOptions} from "./operandsFlagsOptions.js";
  * - This class is immutable, All of this class' properties are readonly and any
  *   objects it returns are frozen.
  */
-export class CliofoPrefixStrings extends OperandsFlagsOptions
+export class CliofoStrings extends OperandsFlagsOptions
 {
     /**
      * A readonly `string` array of this operands.
@@ -52,7 +52,7 @@ export class CliofoPrefixStrings extends OperandsFlagsOptions
     public readonly allStrings: readonly string[];
 
     /**
-     * The strings to parse using this object's {@link CliofoPrefixStrings.prefixString prefixString}.
+     * The strings to parse using this object's {@link CliofoStrings.prefixString prefixString}.
      * @readonly
      */
     public readonly arguments: readonly string[];
@@ -145,4 +145,4 @@ export class CliofoPrefixStrings extends OperandsFlagsOptions
     }
 }
 
-export {CliofoPrefixStrings as default};
+export {CliofoStrings as default};

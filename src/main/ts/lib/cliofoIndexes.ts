@@ -1,4 +1,4 @@
-import {CliofoPrefixStrings} from "./cliofoPrefixStrings.js";
+import {CliofoStrings} from "./cliofoStrings.js";
 
 /**
  * @classdesc
@@ -21,9 +21,9 @@ import {CliofoPrefixStrings} from "./cliofoPrefixStrings.js";
  * // }
  * ```
  */
-export class CliofoIndex
+export class CliofoIndexes
 {
-    public readonly operandFlagOptionStrings: Readonly<CliofoPrefixStrings>;
+    public readonly operandFlagOptionStrings: Readonly<CliofoStrings>;
 
     /**
      * A map containing the operand strings as keys paired up with their
@@ -34,15 +34,15 @@ export class CliofoIndex
      */
     public readonly operandIndexes: ReadonlyMap<string, number>;
 
-    public constructor(operandFlagOptionStrings: Readonly<CliofoPrefixStrings>)
+    public constructor(operandFlagOptionStrings: Readonly<CliofoStrings>)
     {
         this.operandFlagOptionStrings = Object.isFrozen(operandFlagOptionStrings)
             ? operandFlagOptionStrings
-            : Object.freeze(new CliofoPrefixStrings(operandFlagOptionStrings.prefixString,
+            : Object.freeze(new CliofoStrings(operandFlagOptionStrings.prefixString,
                                                   operandFlagOptionStrings.arguments));
 
         this.operandIndexes = new Map();
     }
 }
 
-export {CliofoIndex as default};
+export {CliofoIndexes as default};

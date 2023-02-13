@@ -1,19 +1,19 @@
-import {CliofoPrefixCount} from "./lib/cliofoPrefixCount.js";
-import {CliofoPrefixStrings} from "./lib/cliofoPrefixStrings.js";
+import {CliofoCounts} from "./lib/cliofoCounts.js";
+import {CliofoStrings} from "./lib/cliofoStrings.js";
 
 export class Cliofo
 {
-    public readonly cliofoStrings: Readonly<CliofoPrefixStrings>;
+    public readonly cliofoStrings: Readonly<CliofoStrings>;
 
-    public readonly occurrenceCount: Readonly<CliofoPrefixCount>;
+    public readonly occurrenceCount: Readonly<CliofoCounts>;
 
     public readonly distinct: Readonly<{
         operands: readonly string[], flags: readonly string[], options: readonly string[], all: readonly string[]}>;
 
     public constructor(prefixString: string, strings: readonly string[])
     {
-        this.cliofoStrings = Object.freeze(new CliofoPrefixStrings(prefixString, strings));
-        this.occurrenceCount = Object.freeze(new CliofoPrefixCount(this.cliofoStrings.prefixString, this.cliofoStrings.arguments));
+        this.cliofoStrings = Object.freeze(new CliofoStrings(prefixString, strings));
+        this.occurrenceCount = Object.freeze(new CliofoCounts(this.cliofoStrings.prefixString, this.cliofoStrings.arguments));
         this.distinct = Object.freeze({
             operands: Object.freeze([...this.occurrenceCount.operandCounts.keys()]),
             flags: Object.freeze([...this.occurrenceCount.flagCounts.keys()]),
