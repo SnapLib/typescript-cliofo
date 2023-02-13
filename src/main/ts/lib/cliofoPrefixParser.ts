@@ -1,3 +1,10 @@
+/**
+ * Root class of the Cliofo argument prefix parser classes contained within this
+ * package. This package only contains the properties for a `string` prefix and
+ * `string[]` of arguments. The classes that inherit from this class then
+ * implement how the prefix `string` is used to parse the strings of the
+ * `string[]` arguments.
+ */
 export class CliofoPrefixParser
 {
     /**
