@@ -8,14 +8,14 @@ export class Cliofo
     public readonly occurrenceCount: Readonly<CliofoCounts>;
 
     // TODO add indexes map object
-    public readonly operand: Readonly<{ readonly strings: readonly string[],
+    public readonly operand: Readonly<{ strings: readonly string[],
                                         counts: ReadonlyMap<string, number> }>;
 
-    public readonly flag: Readonly<{ readonly strings: readonly string[],
-                                     readonly counts: ReadonlyMap<string, number> }>;
+    public readonly flag: Readonly<{ strings: readonly string[],
+                                     counts: ReadonlyMap<string, number> }>;
 
-    public readonly option: Readonly<{ readonly strings: readonly string[],
-                                       readonly counts: ReadonlyMap<string, number> }>;
+    public readonly option: Readonly<{ strings: readonly string[],
+                                       counts: ReadonlyMap<string, number> }>;
 
     public readonly distinct: Readonly<{
         operands: readonly string[], flags: readonly string[], options: readonly string[], all: readonly string[]}>;
