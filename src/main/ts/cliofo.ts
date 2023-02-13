@@ -1,6 +1,6 @@
 import {CliofoCounts} from "./lib/cliofoCounts.js";
 import {CliofoStrings} from "./lib/cliofoStrings.js";
-import {OperandFlagOption} from "./lib/operandFlagOptionF.js";
+import {ParsedCliofoArgs} from "./lib/operandFlagOptionF.js";
 
 /**
  * The root class of the entire Cliofo package. Classes from this package's
@@ -33,7 +33,7 @@ export class Cliofo
      * operands.
      * @readonly
      */
-    public readonly operand: Readonly<OperandFlagOption>;
+    public readonly operand: Readonly<ParsedCliofoArgs>;
 
     /**
      * The flag character strings contained with this object's
@@ -45,7 +45,7 @@ export class Cliofo
      * strings).
      * @readonly
      */
-    public readonly flag: Readonly<OperandFlagOption>;
+    public readonly flag: Readonly<ParsedCliofoArgs>;
 
     /**
      * The operand strings contained within this object's {@link cliofoStrings}
@@ -54,7 +54,7 @@ export class Cliofo
      * operands.
      * @readonly
      */
-    public readonly option: Readonly<OperandFlagOption>;
+    public readonly option: Readonly<ParsedCliofoArgs>;
 
     /**
      * Contains a clone of this object, except with all duplicate values

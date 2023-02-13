@@ -1,7 +1,7 @@
-export interface OperandFlagOption
+export interface ParsedCliofoArgs
 {
     readonly strings: readonly string[]
     readonly counts: ReadonlyMap<string, number>
 }
 
-export {OperandFlagOption as default};
+export {ParsedCliofoArgs as default};
