@@ -1,7 +1,7 @@
-export interface ParsedCliofoArgs
+export interface ParsedCliofoArgument
 {
     readonly strings: readonly string[]
     readonly counts: ReadonlyMap<string, number>
 }
 
-export {ParsedCliofoArgs as default};
+export {ParsedCliofoArgument as default};

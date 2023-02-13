@@ -1,6 +1,6 @@
 import {CliofoCounts} from "./lib/cliofoCounts.js";
 import {CliofoStrings} from "./lib/cliofoStrings.js";
-import {ParsedCliofoArgs} from "./lib/parsedCliofoArgs.js";
+import {ParsedCliofoArgument} from "./lib/parsedCliofoArgument.js";
 
 /**
  * The root class of the entire Cliofo package. Classes from this package's
@@ -33,7 +33,7 @@ export class Cliofo
      * operands.
      * @readonly
      */
-    public readonly operand: Readonly<ParsedCliofoArgs>;
+    public readonly operand: Readonly<ParsedCliofoArgument>;
 
     /**
      * The flag character strings contained with this object's
@@ -45,7 +45,7 @@ export class Cliofo
      * strings).
      * @readonly
      */
-    public readonly flag: Readonly<ParsedCliofoArgs>;
+    public readonly flag: Readonly<ParsedCliofoArgument>;
 
     /**
      * The operand strings contained within this object's {@link cliofoStrings}
@@ -54,7 +54,7 @@ export class Cliofo
      * operands.
      * @readonly
      */
-    public readonly option: Readonly<ParsedCliofoArgs>;
+    public readonly option: Readonly<ParsedCliofoArgument>;
 
     /**
      * Contains a clone of this object, except with all duplicate values
