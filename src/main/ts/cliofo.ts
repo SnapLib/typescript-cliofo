@@ -1,5 +1,6 @@
 import {CliofoCounts} from "./lib/cliofoCounts.js";
 import {CliofoStrings} from "./lib/cliofoStrings.js";
+import {OperandFlagOption} from "./lib/operandFlagOptionF.js";
 
 /**
  * The root class of the entire Cliofo package. Classes from this package's
@@ -32,11 +33,10 @@ export class Cliofo
      * operands.
      * @readonly
      */
-    public readonly operand: Readonly<{ strings: readonly string[],
-                                        counts: ReadonlyMap<string, number> }>;
+    public readonly operand: Readonly<OperandFlagOption>;
 
     /**
-     * The flag character strings contained withn this object's
+     * The flag character strings contained with this object's
      * {@link cliofoStrings} string arguments when parsed with this object's
      * {@link prefixString} string. Strings that begin with only a single
      * leading instance of this object's {@link prefixString} are flags. The
@@ -45,8 +45,7 @@ export class Cliofo
      * strings).
      * @readonly
      */
-    public readonly flag: Readonly<{ strings: readonly string[],
-                                     counts: ReadonlyMap<string, number> }>;
+    public readonly flag: Readonly<OperandFlagOption>;
 
     /**
      * The operand strings contained within this object's {@link cliofoStrings}
@@ -55,12 +54,10 @@ export class Cliofo
      * operands.
      * @readonly
      */
-    public readonly option: Readonly<{ strings: readonly string[],
-                                       counts: ReadonlyMap<string, number> }>;
+    public readonly option: Readonly<OperandFlagOption>;
 
     /**
-     * Contains clones of this object, except with {@link operand},
-     * {@link flag}, and {@link option} properties with all duplicate values
+     * Contains a clone of this object, except with all duplicate values
      * removed.
      */
     public readonly distinct: Readonly<{
