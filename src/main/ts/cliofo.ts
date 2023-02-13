@@ -128,7 +128,8 @@ export class Cliofo
  * The passed `prefixString` string argument is used to parse the strings of the
  * passed `argumentStrings` string array.
  *
- * @remarks Returns a new {@link Cliofo} object constructed with the passed sarguments.
+ * @remarks Returns a new {@link Cliofo} object constructed from the passed
+ *          arguments.
  *
  * @param prefixString The leading prefix `string` used to denote which
  *                     arguments are flags and options.
@@ -143,3 +144,7 @@ export const parseStrings = (prefixString: string, argumentStrings: readonly str
     Object.freeze(new Cliofo(new CliofoStrings(prefixString, argumentStrings)));
 
 export {parseStrings as default};
+
+const _cliofo: Readonly<Cliofo> = Object.freeze(parseStrings("-", process.argv.slice(2)));
+
+console.log(_cliofo);
