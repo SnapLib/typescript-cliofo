@@ -2,7 +2,7 @@
   "name": "@snaplib/cliofo",
   "version": "0.0.1",
   "description": "Command line interface argument parser built around the concept of a prefix character, operands, flags, and options.",
-  "main": "./build/dist/cliofo.js",
+  "main": "./build/dist/Cliofo/cliofo.js",
   "author": "Snap",
   "license": "MIT",
   "private": true,
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "build": "tsc --removeComments true --skipLibCheck true --declarationMap true --sourceMap true -p ./tsconfig.json --outDir ./build/dev --declarationDir ./build/dev/types",
-    "build-dist": "tsc --declarationMap false --sourceMap false -p ./tsconfig.json --outDir ./build/dist --declarationDir ./build/dist/types",
+    "build-dist": "tsc --declarationMap false --sourceMap false -p ./tsconfig.json --outDir ./build/dist/Cliofo --declarationDir ./build/dist/Cliofo/types",
     "build-scripts": "tsc -p ./scripts/ts/tsconfig.json --outDir ./scripts",
     "build-tsdoc": "typedoc --options ./typedoc.json",
     "clean": "node ./scripts/remove.js --directory ./build",
