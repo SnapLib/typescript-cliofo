@@ -6,9 +6,9 @@ import {type CliofoStrings} from "./cliofoStrings.js";
  * The different types of Cliofo prefix parsers there are. These include types
  * such as:
  *
- * - {@link CliofoStrings}
- * - {@link CliofoCounts}
- * - {@link CliofoIndexes}
+ * - `CliofoStrings`
+ * - `CliofoCounts`
+ * - `CliofoIndexes`
  */
 export type CliofoParserType = CliofoStrings | CliofoCounts | CliofoIndexes;
 
