@@ -7,7 +7,7 @@
  *
  * @remarks This class attempts to be as immutable as possible.
  */
-export class CliofoPrefixParser
+export abstract class CliofoPrefixParser
 {
     /**
      * The leading prefix `string` used to denote which arguments are flags and
