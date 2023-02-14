@@ -38,6 +38,13 @@ export abstract class CliofoPrefixParser
      * @returns `true` if this object contains 0 strings to parse.
      */
     public IsEmpty(): boolean {return this.#isEmpty;}
+
+    public abstract jsonObj(): Readonly<{[_: string]: readonly string[] | ReadonlyMap<string, number | readonly number[]>}>;
+
+    public abstract jsonString(format: Partial<{
+        replacer?: (this: unknown, key: string, value: unknown) => unknown | (string|number)[],
+        space?: string | number
+    }>): string;
 }
 
 export {CliofoPrefixParser as default};
