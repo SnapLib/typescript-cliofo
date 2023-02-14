@@ -70,7 +70,7 @@ export class Cliofo
             this.arguments = cliofoStrings;
             this.prefixString = this.arguments.prefixString;
 
-            const occurrenceCount = Object.freeze(new CliofoCounts(cliofoStrings));
+            const occurrenceCount = Object.freeze(new CliofoCounts(this.prefixString, this.arguments.arguments));
 
             this.operand = Object.freeze({
                 strings: this.arguments.operandStrings,
