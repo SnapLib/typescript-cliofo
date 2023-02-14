@@ -6,6 +6,7 @@
  * `string[]` arguments.
  *
  * @remarks This class attempts to be as immutable as possible.
+ * @abstract
  */
 export abstract class CliofoPrefixParser
 {
