@@ -27,9 +27,10 @@ export class CliofoCounts
 
     public readonly allCounts: ReadonlyMap<string, number>;
 
-    public constructor(prefixString: string, args: readonly string[])
+    public constructor(cliofoStrings: Readonly<CliofoStrings>)
     {
-        this.cliofoStrings = Object.freeze(new CliofoStrings(prefixString, args));
+        this.cliofoStrings = Object.isFrozen(cliofoStrings) ? cliofoStrings
+                             : Object.freeze(new CliofoStrings(cliofoStrings.prefixString, cliofoStrings.arguments));
 
         this.operandCounts = Object.freeze(new Map([...new Set(this.cliofoStrings.operandStrings)].map(operandString => Object.freeze(
             [operandString, this.cliofoStrings.operandStrings.filter(otherOperandString => operandString === otherOperandString).length]) )));
