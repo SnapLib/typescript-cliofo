@@ -22,7 +22,7 @@ import {type OperandsFlagsOptions} from "./operandsFlagsOptionsStrings.js";
  *     operandStrings: [ `baz` ],
  *     flagStrings: [ 'b', 'a', 'r' ],
  *     optionStrings: [ `foo` ],
- *     operandStrings: [ `baz`, 'b', 'a', 'r', `foo` ]
+ *     allStrings: [ `baz`, 'b', 'a', 'r', `foo` ]
  * }
  * ```
  *
