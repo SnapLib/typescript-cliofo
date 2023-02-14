@@ -10,6 +10,21 @@ import {CliofoPrefixParser} from "./cliofoPrefixParser.js";
  * then it's a *flag*. If a string is prefixed with 2 or more adjacent leading
  * prefix strings, then it's an *option*.
  *
+ * @example
+ * ```typescript
+ * const cliofoStrings: CliofoStrings = new CliofoStrings("-", "--foo -bar baz");
+ *
+ * // Creates the following object:
+ * {
+ *     prefixString: '-',
+ *     arguments: [ '--foo', '-bar', 'baz' ],
+ *     operandStrings: [ `baz` ],
+ *     flagStrings: [ 'b', 'a', 'r' ],
+ *     optionStrings: [ `foo` ],
+ *     operandStrings: [ `baz`, 'b', 'a', 'r', `foo` ]
+ * }
+ * ```
+ *
  * @remarks
  * - All flag strings are parsed down to their individual characters. For
  *   example the string `"-foo"` would be stored as the ***flags***
