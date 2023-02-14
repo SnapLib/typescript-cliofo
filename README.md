@@ -7,10 +7,10 @@
 ## Example
 
 Heres is an example of how this package can be imported and used in TypeScript
-and JavaScript:
+and JavaScript (click on text to see example):
 
 <details>
-  <summary>typescript</summary>
+  <summary>&#62;&#62;typescript&#60;&#60;</summary>
 
 ```typescript
 import {Cliofo, parseStrings} from "Cliofo";
@@ -57,7 +57,7 @@ console.log(cliofo.toJsonObj());
 </details>
 
 <details>
-  <summary>javascript</summary>
+  <summary>&#62;&#62;javascript&#60;&#60;</summary>
 
 ```javascript
 import parseStrings from "Cliofo";
