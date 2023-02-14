@@ -1,4 +1,5 @@
 import {CliofoPrefixParser} from "./cliofoPrefixParser.js";
+import {type OperandsFlagsOptions} from "./operandsFlagsOptionsStrings.js";
 
 /**
  * This class parses an array of `string` arguments into operands, flags, and
@@ -108,14 +109,10 @@ export class CliofoStrings extends CliofoPrefixParser
 
             // Create object containing string arguments sorted into operands,
             // flats, and options
-            const operandsFlagsOptions: Readonly<{ operands: readonly string[],
-                                                   flags: readonly string[],
-                                                   options: readonly string[] }>
+            const operandsFlagsOptions: Readonly<OperandsFlagsOptions>
             // reducing string arguments into sorted operands, flags, options object
             = this.arguments.reduce((
-                _operandFlagOptions: Readonly<{ operands: readonly string[],
-                                                flags: readonly string[],
-                                                options: readonly string[] }>,
+                _operandFlagOptions: Readonly<OperandsFlagsOptions>,
                 aString: string ) =>
                 {
                     // If prefixString is empty or argument string doesn't start
