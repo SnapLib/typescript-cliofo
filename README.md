@@ -116,7 +116,7 @@ In the following example, `./aDirectory` is an *operand* passed to the
 javascript script `ls.js`:
 
 ```shell
-$ node ls.js -lc --all ./aDirectory
+$node ls.js -lc --all ./aDirectory
 ```
 
 ## Flag
@@ -129,7 +129,7 @@ In the following example, `"l"`,  `"c"`, and `"x"` are *flag*s passed to the
 javascript script `ls.js`:
 
 ```shell
-$ node ls.js -lc --all -x ./aDirectory
+$node ls.js -lc --all -x ./aDirectory
 ```
 
 ## Option
@@ -142,5 +142,5 @@ In the following example, `all` is an *option* passed to the
 javascript script `ls.js`:
 
 ```shell
-$ node ls.js -lc --all ./aDirectory
+$node ls.js -lc --all ./aDirectory
 ```
