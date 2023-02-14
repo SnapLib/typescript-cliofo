@@ -1,6 +1,7 @@
+import {CliofoPrefixParser} from "./cliofoPrefixParser.js";
 import {CliofoStrings} from "./cliofoStrings.js";
 
-export class CliofoCounts
+export class CliofoCounts extends CliofoPrefixParser
 {
     public readonly cliofoStrings: Readonly<CliofoStrings>;
 
@@ -29,6 +30,7 @@ export class CliofoCounts
 
     public constructor(prefixString: string, args: readonly string[])
     {
+        super(prefixString, args);
         this.cliofoStrings = Object.freeze(new CliofoStrings(prefixString, args));
 
         this.operandCounts = Object.freeze(new Map([...new Set(this.cliofoStrings.operandStrings)].map(operandString => Object.freeze(
