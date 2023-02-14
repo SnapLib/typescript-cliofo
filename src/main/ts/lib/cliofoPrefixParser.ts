@@ -4,6 +4,8 @@
  * `string[]` of arguments. The classes that inherit from this class then
  * implement how the prefix `string` is used to parse the strings of the
  * `string[]` arguments.
+ *
+ * @remarks This class attempts to be as immutable as possible.
  */
 export class CliofoPrefixParser
 {
