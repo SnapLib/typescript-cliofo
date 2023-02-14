@@ -3,8 +3,8 @@ import {CliofoStrings} from "./lib/cliofoStrings.js";
 import {ParsedCliofoArgument} from "./lib/parsedCliofoArgument.js";
 
 /**
- * The root class of the entire Cliofo package. Classes from this package's
- * library are used to parse strings into operands, flags, and options
+ * The root entry point of the entire Cliofo package. Classes from this
+ * package's library are used to parse strings into operands, flags, and options
  * based on a prefix string.
  *
  * @remarks This class doesn't directly parse/consume any string arguments.
@@ -23,11 +23,11 @@ export class Cliofo
      * The `string[]` of arguments to parse with the {@link prefixString} `string`.
      * @readonly
      */
-    public readonly cliofoStrings: Readonly<CliofoStrings>;
+    public readonly arguments: Readonly<CliofoStrings>;
 
     // TODO add indexes map object
     /**
-     * The operand strings contained within this object's {@link cliofoStrings}
+     * The operand strings contained within this object's {@link arguments}
      * string arguments when parsed with this object's {@link prefixString}.
      * Strings that don't start with this object's {@link prefixString} are
      * operands.
@@ -37,7 +37,7 @@ export class Cliofo
 
     /**
      * The flag character strings contained with this object's
-     * {@link cliofoStrings} string arguments when parsed with this object's
+     * {@link arguments} string arguments when parsed with this object's
      * {@link prefixString} string. Strings that begin with only a single
      * leading instance of this object's {@link prefixString} are flags. The
      * characters of each flag string are stored as individual characters as
@@ -48,10 +48,9 @@ export class Cliofo
     public readonly flag: Readonly<ParsedCliofoArgument>;
 
     /**
-     * The operand strings contained within this object's {@link cliofoStrings}
+     * The operand strings contained within this object's {@link arguments}
      * string arguments when parsed with this object's {@link prefixString}.
-     * string that start with this object's {@link prefixString} are
-     * operands.
+     * string that start with this object's {@link prefixString} are operands.
      * @readonly
      */
     public readonly option: Readonly<ParsedCliofoArgument>;
@@ -68,23 +67,23 @@ export class Cliofo
         if (cliofoStrings instanceof CliofoStrings)
 
         {
-            this.cliofoStrings = cliofoStrings;
-            this.prefixString = this.cliofoStrings.prefixString;
+            this.arguments = cliofoStrings;
+            this.prefixString = this.arguments.prefixString;
 
-            const occurrenceCount = Object.freeze(new CliofoCounts(this.prefixString, this.cliofoStrings.arguments));
+            const occurrenceCount = Object.freeze(new CliofoCounts(this.prefixString, this.arguments.arguments));
 
             this.operand = Object.freeze({
-            strings: this.cliofoStrings.operandStrings,
-            counts: occurrenceCount.operandCounts
+                strings: this.arguments.operandStrings,
+                counts: occurrenceCount.operandCounts
             });
 
             this.flag = Object.freeze({
-                strings: this.cliofoStrings.flagStrings,
+                strings: this.arguments.flagStrings,
                 counts: occurrenceCount.flagCounts
             });
 
             this.option = Object.freeze({
-                strings: this.cliofoStrings.optionStrings,
+                strings: this.arguments.optionStrings,
                 counts: occurrenceCount.optionCounts
             });
 
@@ -92,7 +91,7 @@ export class Cliofo
                 operands: Object.freeze([...occurrenceCount.operandCounts.keys()]),
                 flags: Object.freeze([...occurrenceCount.flagCounts.keys()]),
                 options: Object.freeze([...occurrenceCount.optionCounts.keys()]),
-                all: Object.freeze([...new Set(this.cliofoStrings.allStrings)])
+                all: Object.freeze([...new Set(this.arguments.allStrings)])
             });
         }
         else
@@ -109,11 +108,11 @@ export class Cliofo
     {
         return format.verbose
                    ? JSON.stringify({
-                        prefixString: this.cliofoStrings.prefixString,
-                        strings: this.cliofoStrings.arguments,
-                        operands: this.cliofoStrings.operandStrings,
-                        flags: this.cliofoStrings.flagStrings,
-                        options: this.cliofoStrings.optionStrings
+                        prefixString: this.arguments.prefixString,
+                        strings: this.arguments.arguments,
+                        operands: this.arguments.operandStrings,
+                        flags: this.arguments.flagStrings,
+                        options: this.arguments.optionStrings
                     },
                     format.replacer,
                     format.space)
