@@ -24,8 +24,6 @@ import {CliofoStrings} from "./cliofoStrings.js";
  */
 export class CliofoIndexes extends CliofoPrefixParser
 {
-    public readonly cliofoStrings: Readonly<CliofoStrings>;
-
     /**
      * A map containing the operand strings as keys paired up with their
      * argument index as its value. The "argument index" is the index `number`
@@ -38,7 +36,7 @@ export class CliofoIndexes extends CliofoPrefixParser
     public constructor(prefixString: string, args: readonly string[])
     {
         super(prefixString, args);
-        this.cliofoStrings = Object.freeze(new CliofoStrings(prefixString, args));
+        const cliofoStrings: Readonly<CliofoStrings> = Object.freeze(new CliofoStrings(prefixString, args));
 
         this.operandIndexes = new Map();
     }
