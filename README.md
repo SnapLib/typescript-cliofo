@@ -113,7 +113,7 @@ A ***prefix string*** is a `string` used to determine if another `string` is an
 An ***operand*** is any `string` that isn't prefixed by a *prefix string*.
 
 In the following example, `./aDirectory` is an *operand* passed to the
-javascript script `ls.js`:
+javascript script `ls.js` if a dash character (`"-"`) is the prefix string:
 
 ```shell
 $node ls.js -lc --all ./aDirectory
@@ -126,7 +126,7 @@ prefixed by only a single leading *prefix string*. The leading prefix `string`
 character(s) are not considered flag character strings.
 
 In the following example, `"l"`,  `"c"`, and `"x"` are *flag*s passed to the
-javascript script `ls.js`:
+javascript script `ls.js` if a dash character (`"-"`) is the prefix string:
 
 ```shell
 $node ls.js -lc --all -x ./aDirectory
@@ -138,8 +138,8 @@ An ***option*** is any `string` that is prefixed by 2 or more leading adjacent
 *prefix string*s. The leading 2 prefix `string`s are not considered part of the
 passed option `string`.
 
-In the following example, `all` is an *option* passed to the
-javascript script `ls.js`:
+In the following example, `all` is an *option* passed to the javascript script
+`ls.js` if a dash character (`"-"`) is the prefix string:
 
 ```shell
 $node ls.js -lc --all ./aDirectory
