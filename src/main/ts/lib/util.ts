@@ -13,6 +13,11 @@ export function isOption(prefixString: string, aString: string): boolean
     return prefixString.length !== 0 && aString.startsWith(prefixString.repeat(2));
 }
 
+/**
+ * Class containing static methods used to check if the given prefix string and
+ * string argument combo are an operand, flag, or option. These methods are used
+ * in the {@link CliofoStrings} and {@link CliofoIndexes} classes.
+ */
 export class Util
 {
     public static isOperand(prefixString: string, aString: string): boolean
