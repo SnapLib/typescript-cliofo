@@ -39,7 +39,7 @@ export abstract class CliofoPrefixParser
      */
     public IsEmpty(): boolean {return this.#isEmpty;}
 
-    public abstract jsonObj(): Readonly<{[_: string]: readonly string[] | ReadonlyMap<string, number | readonly number[]>}>;
+    public abstract jsonObj(): Readonly<{[_: string]: readonly string[] | ReadonlyMap<string, number> | ReadonlyMap<string, readonly number[]>}>;
 
     public abstract jsonString(format: Partial<{
         replacer?: (this: unknown, key: string, value: unknown) => unknown | (string|number)[],
