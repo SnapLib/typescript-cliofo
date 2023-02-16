@@ -72,8 +72,6 @@ export class CliofoStrings extends CliofoPrefixParser
      */
     public readonly allStrings: readonly string[];
 
-    readonly #jsonObj: Readonly<{[_: string]: readonly string[]}>;
-
     /**
      * Constructs an object that parses an array of string arguments into
      * *operands*, *flags*, and *options* based on a leading prefix `string`.
@@ -154,36 +152,7 @@ export class CliofoStrings extends CliofoPrefixParser
         this.flagStrings = operandsFlagsOptions.flags;
         this.optionStrings = operandsFlagsOptions.options;
         this.allStrings = Object.freeze([...this.operandStrings, ...this.flagStrings, ...this.optionStrings]);
-        this.#jsonObj = Object.freeze({
-            operandStrings: this.operandStrings,
-            flagStrings: this.flagStrings,
-            optionStrings: this.optionStrings
-        });
     }
-
-    /**
-     * Returns an object containing this object's {@link operandStrings},
-     * {@link flagStrings}, and {@link optionStrings} properties.
-     *
-     * @returns an object containing this object's {@link operandStrings},
-     * {@link flagStrings}, and {@link optionStrings} properties.
-     */
-    public jsonObj(): Readonly<{[_: string]: readonly string[]}> {return this.#jsonObj;}
-
-    /**
-     * Returns a  JSON string of this object's {@link operandStrings},
-     * {@link flagStrings}, and {@link optionStrings} properties.
-     *
-     * @param format Options to format the generated JSON string.
-     *
-     * @returns A JSON string of this object's {@link operandStrings},
-     * {@link flagStrings}, and {@link optionStrings} properties.
-     */
-    public jsonString(format: Partial<{
-        replacer?: (this: unknown, key: string, value: unknown) => unknown | (string|number)[],
-        space?: string | number
-    }> = {}): string
-    { return JSON.stringify(this.#jsonObj, format.replacer, format.space); }
 }
 
 export {CliofoStrings as default};

@@ -60,12 +60,6 @@ export class CliofoIndexes extends CliofoPrefixParser
      */
     public readonly optionIndexes: ReadonlyMap<string, readonly number[]>;
 
-    readonly #jsonObj: Readonly<{
-        operandIndexes: ReadonlyMap<string, readonly number[]>,
-        flagIndexes: ReadonlyMap<string, readonly number[]>,
-        optionIndexes: ReadonlyMap<string, readonly number[]>
-    }>;
-
     public constructor(prefixString: string, args: readonly string[])
     {
         super(prefixString, args);
@@ -91,37 +85,7 @@ export class CliofoIndexes extends CliofoPrefixParser
         },
         // Initialize frozen map of operand string keys mapped to empty number arrays as keys
         Object.freeze(new Map<string, readonly number[]>([...new Set(cliofoStrings.optionStrings)].map(optionStr => Object.freeze([optionStr, []])))));
-
-        this.#jsonObj = Object.freeze({
-            operandIndexes: this.operandIndexes,
-            flagIndexes: this.flagIndexes,
-            optionIndexes: this.optionIndexes
-        });
     }
-
-    /**
-     * Returns an object containing this object's {@link operandIndexes},
-     * {@link flagIndexes}, and {@link optionIndexes} properties.
-     *
-     * @returns an object containing this object's {@link operandIndexes},
-     * {@link flagIndexes}, and {@link optionIndexes} properties.
-     */
-    public jsonObj(): Readonly<{[_: string]: ReadonlyMap<string, readonly number[]>}> {return this.#jsonObj;}
-
-    /**
-     * Returns a  JSON string of this object's {@link operandIndexes},
-     * {@link flagIndexes}, and {@link optionIndexes} properties.
-     *
-     * @param format Options to format the generated JSON string.
-     *
-     * @returns A JSON string of this object's {@link operandIndexes},
-     * {@link flagIndexes}, and {@link optionIndexes} properties.
-     */
-    public jsonString(format: Partial<{
-        replacer?: (this: unknown, key: string, value: unknown) => unknown | (string|number)[],
-        space?: string | number
-    }> = {}): string
-    { return JSON.stringify(this.#jsonObj, format.replacer, format.space); }
 }
 
 export {CliofoIndexes as default};
