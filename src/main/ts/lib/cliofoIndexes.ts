@@ -1,5 +1,6 @@
 import {CliofoPrefixParser} from "./cliofoPrefixParser.js";
 import {CliofoStrings} from "./cliofoStrings.js";
+import {isOperand, isFlag, isOption} from "./util.js";
 
 /**
  * @classdesc
@@ -67,21 +68,21 @@ export class CliofoIndexes extends CliofoPrefixParser
 
         this.operandIndexes = cliofoStrings.arguments
             .reduce((operandIndexesMap: ReadonlyMap<string, readonly number[]>, stringArg: string, index: number) => {
-                return prefixString.length === 0 || ! stringArg.startsWith(prefixString) ? Object.freeze(new Map([...operandIndexesMap.entries()].map(operandEntry => operandEntry[0] === stringArg ? [operandEntry[0], Object.freeze([...operandEntry[1], index])] : operandEntry))) : operandIndexesMap;
+                return isOperand(prefixString, stringArg) ? Object.freeze(new Map([...operandIndexesMap.entries()].map(operandEntry => operandEntry[0] === stringArg ? [operandEntry[0], Object.freeze([...operandEntry[1], index])] : operandEntry))) : operandIndexesMap;
             },
             // Initialize frozen map of flag string keys mapped to empty number arrays as keys
             Object.freeze(new Map<string, readonly number[]>([...new Set(cliofoStrings.operandStrings)].map(operandStr => Object.freeze([operandStr, []])))));
 
         this.flagIndexes = cliofoStrings.arguments
             .reduce((flagIndexesMap: ReadonlyMap<string, readonly number[]>, stringArg: string, index: number) => {
-                return prefixString.length !== 0 && stringArg.startsWith(prefixString) && ! stringArg.startsWith(prefixString.repeat(2)) ? Object.freeze(new Map([...flagIndexesMap.entries()].map(flagEntry => stringArg.includes(flagEntry[0]) ? [flagEntry[0], Object.freeze([...flagEntry[1], index])] : flagEntry))) : flagIndexesMap;
+                return isFlag(prefixString, stringArg) ? Object.freeze(new Map([...flagIndexesMap.entries()].map(flagEntry => stringArg.includes(flagEntry[0]) ? [flagEntry[0], Object.freeze([...flagEntry[1], index])] : flagEntry))) : flagIndexesMap;
             },
             // Initialize frozen map of flag string keys mapped to empty number arrays as keys
             Object.freeze(new Map<string, readonly number[]>([...new Set(cliofoStrings.flagStrings)].map(flagStr => Object.freeze([flagStr, []])))));
 
         this.optionIndexes = cliofoStrings.arguments
         .reduce((optionIndexesMap: ReadonlyMap<string, readonly number[]>, stringArg: string, index: number) => {
-            return prefixString.length !== 0 && stringArg.startsWith(prefixString.repeat(2)) ? Object.freeze(new Map([...optionIndexesMap.entries()].map(optionEntry => optionEntry[0] === stringArg.slice(2) ? [optionEntry[0], Object.freeze([...optionEntry[1], index])] : optionEntry))) : optionIndexesMap;
+            return isOption(prefixString, stringArg) ? Object.freeze(new Map([...optionIndexesMap.entries()].map(optionEntry => optionEntry[0] === stringArg.slice(2) ? [optionEntry[0], Object.freeze([...optionEntry[1], index])] : optionEntry))) : optionIndexesMap;
         },
         // Initialize frozen map of operand string keys mapped to empty number arrays as keys
         Object.freeze(new Map<string, readonly number[]>([...new Set(cliofoStrings.optionStrings)].map(optionStr => Object.freeze([optionStr, []])))));

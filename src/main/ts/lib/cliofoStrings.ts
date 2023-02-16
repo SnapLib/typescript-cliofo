@@ -1,5 +1,6 @@
 import {CliofoPrefixParser} from "./cliofoPrefixParser.js";
 import {type OperandsFlagsOptions} from "./operandsFlagsOptionsStrings.js";
+import {isOperand, isFlag, isOption} from "./util.js";
 
 /**
  * This class parses an array of `string` arguments into operands, flags, and
@@ -117,7 +118,7 @@ export class CliofoStrings extends CliofoPrefixParser
                 {
                     // If prefixString is empty or argument string doesn't start
                     // with prefixString, add it to operands array
-                    if (this.prefixString.length === 0 || ! aString.startsWith(this.prefixString))
+                    if (isOperand(prefixString, aString))
                     {
                         return Object.freeze({
                                 operands: Object.freeze([..._operandFlagOptions.operands, aString]),
@@ -127,20 +128,28 @@ export class CliofoStrings extends CliofoPrefixParser
                     // If string starts with 2 or more adjacent prefix strings,
                     // add string without leading 2 prefix char strings to
                     // options array
-                    else if (aString.startsWith(optionPrefix))
+                    else if (isOption(prefixString, aString))
                     {
                         return Object.freeze({
                                 operands: _operandFlagOptions.operands,
                                 flags: _operandFlagOptions.flags,
                                 options: Object.freeze([..._operandFlagOptions.options, aString.slice(optionPrefix.length)]) });
                     }
-                    // If string starts with only a single prefix string, add
-                    // characters of string excluding leading prefix string
-                    // to flags array
-                    return Object.freeze({
+                    else if (isFlag(prefixString, aString))
+                    {
+                        // If string starts with only a single prefix string, add
+                        // characters of string excluding leading prefix string
+                        // to flags array
+                        return Object.freeze({
                             operands: _operandFlagOptions.operands,
                             flags: Object.freeze([..._operandFlagOptions.flags, ...aString.slice(this.prefixString.length)]),
                             options: _operandFlagOptions.options});
+                        }
+                    else
+                    {
+                        throw new Error();
+                    }
+
                 },
                 // Initial frozen empty operands, flags, and options object
                 Object.freeze({ operands: Object.freeze([]),
