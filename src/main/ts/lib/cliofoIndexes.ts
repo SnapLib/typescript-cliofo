@@ -1,5 +1,6 @@
 import {CliofoPrefixParser} from "./cliofoPrefixParser.js";
 import {CliofoStrings} from "./cliofoStrings.js";
+import {isOperand, isOption} from "./util.js";
 
 /**
  * @classdesc
@@ -31,15 +32,69 @@ export class CliofoIndexes extends CliofoPrefixParser
      * would be
      * @readonly
      */
-    public readonly operandIndexes: ReadonlyMap<string, number>;
+    public readonly operandIndexes: ReadonlyMap<string, readonly number[]>;
+
+    public readonly flagIndexes: ReadonlyMap<string, readonly number[]>;
+
+    public readonly optionIndexes: ReadonlyMap<string, readonly number[]>;
+
+    readonly #jsonObj: Readonly<{
+        operandIndexes: ReadonlyMap<string, readonly number[]>,
+        flagIndexes: ReadonlyMap<string, readonly number[]>,
+        optionIndexes: ReadonlyMap<string, readonly number[]>
+    }>;
 
     public constructor(prefixString: string, args: readonly string[])
     {
         super(prefixString, args);
         const cliofoStrings: Readonly<CliofoStrings> = Object.freeze(new CliofoStrings(prefixString, args));
 
-        this.operandIndexes = new Map();
+        this.operandIndexes = cliofoStrings.arguments
+            .reduce((operandIndexesMap: ReadonlyMap<string, readonly number[]>, stringArg: string, index: number) => {
+                return isOperand(prefixString, stringArg) ? Object.freeze(new Map([...operandIndexesMap.entries()].map(operandEntry => operandEntry[0] === stringArg ? [operandEntry[0], Object.freeze([...operandEntry[1], index])] : operandEntry))) : operandIndexesMap;
+            },
+            // Initialize frozen map of operand string keys mapped to empty number arrays as keys
+            Object.freeze(new Map<string, readonly number[]>([...new Set(cliofoStrings.operandStrings)].map(operandStr => Object.freeze([operandStr, []])))));
+
+        this.flagIndexes = new Map();
+
+        this.optionIndexes = cliofoStrings.arguments
+        .reduce((operandIndexesMap: ReadonlyMap<string, readonly number[]>, stringArg: string, index: number) => {
+            return isOption(prefixString, stringArg) ? Object.freeze(new Map([...operandIndexesMap.entries()].map(operandEntry => operandEntry[0] === stringArg.slice(2) ? [operandEntry[0], Object.freeze([...operandEntry[1], index])] : operandEntry))) : operandIndexesMap;
+        },
+        // Initialize frozen map of operand string keys mapped to empty number arrays as keys
+        Object.freeze(new Map<string, readonly number[]>([...new Set(cliofoStrings.optionStrings)].map(operandStr => Object.freeze([operandStr, []])))));
+
+        this.#jsonObj = Object.freeze({
+            operandIndexes: this.operandIndexes,
+            flagIndexes: this.flagIndexes,
+            optionIndexes: this.optionIndexes
+        });
     }
+
+    /**
+     * Returns an object containing this object's {@link operandIndexes},
+     * {@link flagIndexes}, and {@link optionIndexes} properties.
+     *
+     * @returns an object containing this object's {@link operandIndexes},
+     * {@link flagIndexes}, and {@link optionIndexes} properties.
+     */
+    public jsonObj(): Readonly<{[_: string]: ReadonlyMap<string, readonly number[]>}> {return this.#jsonObj;}
+
+    /**
+     * Returns a  JSON string of this object's {@link operandIndexes},
+     * {@link flagIndexes}, and {@link optionIndexes} properties.
+     *
+     * @param format Options to format the generated JSON string.
+     *
+     * @returns A JSON string of this object's {@link operandIndexes},
+     * {@link flagIndexes}, and {@link optionIndexes} properties.
+     */
+    public jsonString(format: Partial<{
+        replacer?: (this: unknown, key: string, value: unknown) => unknown | (string|number)[],
+        space?: string | number
+    }> = {}): string
+    { return JSON.stringify(this.#jsonObj, format.replacer, format.space); }
 }
 
 export {CliofoIndexes as default};
