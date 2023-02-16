@@ -27,14 +27,37 @@ export class CliofoIndexes extends CliofoPrefixParser
     /**
      * A map containing the operand strings as keys paired up with their
      * argument index as its value. The "argument index" is the index `number`
-     * of which `string` argument it is. For instance, the following string
-     * would be
+     * of which `string` argument it is.
+     *
+     * In the following line, `$myscript.js -la --color ./a/directory`, the
+     * string `"./a/directory"` is an operand that is at argument index 2 (it's
+     * the 3rd argument passed to the script `myscript.js`).
      * @readonly
      */
     public readonly operandIndexes: ReadonlyMap<string, readonly number[]>;
 
+    /**
+     * A map containing the flag strings as keys paired up with their
+     * argument index as its value. The "argument index" is the index `number`
+     * of which `string` argument it is.
+     *
+     * In the following line, `$myscript.js -la --color ./a/directory`, the
+     * string `"-la"` contains the flags that are at argument index 0 (they're
+     * in the 1st argument passed to the script `myscript.js`).
+     * @readonly
+     */
     public readonly flagIndexes: ReadonlyMap<string, readonly number[]>;
 
+    /**
+     * A map containing the option strings as keys paired up with their
+     * argument index as its value. The "argument index" is the index `number`
+     * of which `string` argument it is.
+     *
+     * In the following line, `$myscript.js -la --color ./a/directory`, the
+     * string `"color"` is an operand that is at argument index 1 (it's the 2nd
+     * argument passed to the script `myscript.js`).
+     * @readonly
+     */
     public readonly optionIndexes: ReadonlyMap<string, readonly number[]>;
 
     readonly #jsonObj: Readonly<{
