@@ -143,7 +143,14 @@ export class Cliofo
         {
             throw new Error();
         }
+
     }
+
+    public cliofoStrings(): Readonly<CliofoStrings> {return this.#cliofoStrings;}
+
+    public cliofoCounts(): Readonly<CliofoCounts> {return this.#cliofoCounts;}
+
+    public cliofoIndexes(): Readonly<CliofoIndexes> {return this.#cliofoIndexes;}
 }
 
 /**
