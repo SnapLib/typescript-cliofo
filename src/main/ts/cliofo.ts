@@ -1,7 +1,17 @@
 import {CliofoCounts} from "./lib/cliofoCounts.js";
 import {CliofoStrings} from "./lib/cliofoStrings.js";
-import {ParsedCliofoArgument} from "./lib/parsedCliofoArgument.js";
 import {type CliofoParserType} from "./lib/cliofoParserType.js";
+import {CliofoIndexes} from "./lib/cliofoIndexes.js";
+
+/**
+ * A container for organizing parsed Cliofo output.
+ */
+interface ParsedCliofoArgument
+{
+    readonly strings: readonly string[]
+    readonly counts: ReadonlyMap<string, number>
+    readonly indexes: ReadonlyMap<string, readonly number[]>
+}
 
 /**
  * The root entry point of the entire Cliofo package. Classes from this
@@ -26,7 +36,6 @@ export class Cliofo
      */
     public readonly arguments: Readonly<CliofoStrings>;
 
-    // TODO add indexes map object
     /**
      * The operand strings contained within this object's {@link arguments}
      * string arguments when parsed with this object's {@link prefixString}.
@@ -71,27 +80,31 @@ export class Cliofo
             this.arguments = cliofoStrings;
             this.prefixString = this.arguments.prefixString;
 
-            const occurrenceCount = Object.freeze(new CliofoCounts(this.prefixString, this.arguments.arguments));
+            const occurrenceCounts = Object.freeze(new CliofoCounts(this.prefixString, this.arguments.arguments));
+            const argIndexes = Object.freeze(new CliofoIndexes(this.prefixString, this.arguments.arguments));
 
             this.operand = Object.freeze({
                 strings: this.arguments.operandStrings,
-                counts: occurrenceCount.operandCounts
+                counts: occurrenceCounts.operandCounts,
+                indexes: argIndexes.operandIndexes
             });
 
             this.flag = Object.freeze({
                 strings: this.arguments.flagStrings,
-                counts: occurrenceCount.flagCounts
+                counts: occurrenceCounts.flagCounts,
+                indexes: argIndexes.flagIndexes
             });
 
             this.option = Object.freeze({
                 strings: this.arguments.optionStrings,
-                counts: occurrenceCount.optionCounts
+                counts: occurrenceCounts.optionCounts,
+                indexes: argIndexes.optionIndexes
             });
 
             this.distinct = Object.freeze({
-                operands: Object.freeze([...occurrenceCount.operandCounts.keys()]),
-                flags: Object.freeze([...occurrenceCount.flagCounts.keys()]),
-                options: Object.freeze([...occurrenceCount.optionCounts.keys()]),
+                operands: Object.freeze([...occurrenceCounts.operandCounts.keys()]),
+                flags: Object.freeze([...occurrenceCounts.flagCounts.keys()]),
+                options: Object.freeze([...occurrenceCounts.optionCounts.keys()]),
                 all: Object.freeze([...new Set(this.arguments.allStrings)])
             });
         }
@@ -144,4 +157,10 @@ export {parseStrings as default};
 
 const _cliofo: Readonly<Cliofo> = Object.freeze(parseStrings("-", process.argv.slice(2)));
 
-console.log(_cliofo);
+console.log(_cliofo.arguments.arguments);
+console.log("\n\n");
+console.log(_cliofo.operand.indexes);
+console.log("\n\n");
+console.log(_cliofo.flag.indexes);
+console.log("\n\n");
+console.log(_cliofo.option.indexes);
