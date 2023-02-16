@@ -18,7 +18,7 @@ export function isOption(prefixString: string, aString: string): boolean
  * string argument combo are an operand, flag, or option. These methods are used
  * in the {@link CliofoStrings} and {@link CliofoIndexes} classes.
  */
-export class Util
+export abstract class Util
 {
     public static isOperand(prefixString: string, aString: string): boolean
     {
