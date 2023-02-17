@@ -1,6 +1,7 @@
 import {CliofoPrefixParser} from "./cliofoPrefixParser.js";
-import {type OperandsFlagsOptions} from "./operandsFlagsOptionsStrings.js";
+import {type OperandsFlagsOptions} from "./../operandsFlagsOptionsStrings.js";
 import {isOperand, isFlag, isOption} from "./util.js";
+import {StringParseError} from "./stringParseError.js";
 
 /**
  * This class parses an array of `string` arguments into operands, flags, and
@@ -135,19 +136,21 @@ export class CliofoStrings extends CliofoPrefixParser
                                 flags: _operandFlagOptions.flags,
                                 options: Object.freeze([..._operandFlagOptions.options, aString.slice(optionPrefix.length)]) });
                     }
+                    // If string starts with only a single prefix string, add
+                    // characters of string excluding leading prefix string
+                    // to flags array
                     else if (isFlag(prefixString, aString))
                     {
-                        // If string starts with only a single prefix string, add
-                        // characters of string excluding leading prefix string
-                        // to flags array
                         return Object.freeze({
                             operands: _operandFlagOptions.operands,
                             flags: Object.freeze([..._operandFlagOptions.flags, ...aString.slice(this.prefixString.length)]),
                             options: _operandFlagOptions.options});
-                        }
+                    }
+                    // Throw error if prefix string and argument string can't be
+                    // parsed down to operand, flag, or option.
                     else
                     {
-                        throw new Error();
+                        throw new StringParseError(`could not parse string to operand, flag, or options: "${aString}"`, aString);
                     }
 
                 },

@@ -16,6 +16,7 @@
     "build-scripts": "tsc -p ./scripts/ts/tsconfig.json --outDir ./scripts",
     "build-tsdoc": "typedoc --options ./typedoc.json",
     "clean": "node ./scripts/remove.js --directory ./build",
+    "dev": "node build/dev/cliofo.js -dfg --directory -abc --transform -Aaxy --directory -- blep meep --a",
     "test": "env TS_NODE_PROJECT='./src/test/tsconfig.json' mocha --config ./src/test/.mocharc.cjs"
   },
   "keywords": [

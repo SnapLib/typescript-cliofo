@@ -1,7 +1,7 @@
-import {CliofoCounts} from "./lib/cliofoCounts.js";
-import {CliofoStrings} from "./lib/cliofoStrings.js";
-import {type CliofoParserType} from "./lib/cliofoParserType.js";
-import {CliofoIndexes} from "./lib/cliofoIndexes.js";
+import {CliofoCounts} from "./lib/strings_parser/cliofoCounts.js";
+import {CliofoStrings} from "./lib/strings_parser/cliofoStrings.js";
+import {type CliofoParserType} from "./lib/strings_parser/cliofoParserType.js";
+import {CliofoIndexes} from "./lib/strings_parser/cliofoIndexes.js";
 
 /**
  * The root entry point of the entire Cliofo package. Classes from this
@@ -19,6 +19,8 @@ export class Cliofo
      * @readonly
      */
     public readonly prefixString: string;
+
+    public readonly arguments: readonly string[];
 
     /**
      * The `string[]` of arguments to parse with the {@link prefixString} `string`.
@@ -65,6 +67,7 @@ export class Cliofo
         {
             this.#cliofoStrings = Object.isFrozen(parsedCliofos) ? parsedCliofos : Object.freeze(new CliofoStrings(parsedCliofos.prefixString, parsedCliofos.arguments));
             this.prefixString = this.#cliofoStrings.prefixString;
+            this.arguments = this.#cliofoStrings.arguments;
 
             this.#cliofoCounts = Object.freeze(new CliofoCounts(this.prefixString, this.#cliofoStrings.arguments));
             this.#cliofoIndexes = Object.freeze(new CliofoIndexes(this.prefixString, this.#cliofoStrings.arguments));
@@ -91,6 +94,7 @@ export class Cliofo
         {
             this.#cliofoCounts = Object.isFrozen(parsedCliofos) ? parsedCliofos : Object.freeze(new CliofoCounts(parsedCliofos.prefixString, parsedCliofos.arguments));
             this.prefixString = this.#cliofoCounts.prefixString;
+            this.arguments = this.#cliofoCounts.arguments;
 
             this.#cliofoStrings = Object.freeze(new CliofoStrings(this.prefixString, this.#cliofoCounts.arguments));
             this.#cliofoIndexes = Object.freeze(new CliofoIndexes(this.prefixString, this.#cliofoCounts.arguments));
@@ -117,6 +121,7 @@ export class Cliofo
         {
             this.#cliofoIndexes = Object.isFrozen(parsedCliofos) ? parsedCliofos : Object.freeze(new CliofoIndexes(parsedCliofos.prefixString, parsedCliofos.arguments));
             this.prefixString = this.#cliofoIndexes.prefixString;
+            this.arguments = this.#cliofoIndexes.arguments;
 
             this.#cliofoStrings = Object.freeze(new CliofoStrings(this.prefixString, this.#cliofoIndexes.arguments));
             this.#cliofoCounts = Object.freeze(new CliofoCounts(this.prefixString, this.#cliofoIndexes.arguments));
@@ -183,3 +188,9 @@ type ParsedCliofoArgument =
 };
 
 export {parseStrings as default};
+
+
+
+const _cliofo: Readonly<Cliofo> = Object.freeze(parseStrings("-", process.argv.slice(2)));
+
+console.log(_cliofo);
