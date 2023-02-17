@@ -182,8 +182,25 @@ export const parseStrings = (prefixString: string, argumentStrings: readonly str
  */
 type ParsedCliofoArgument =
 {
+    /**
+     * The parsed Cliofo operand, flag, or option strings.
+     * @readonly
+     */
     readonly strings: readonly string[]
+
+    /**
+     * The parsed Cliofo operand, flag, or option counts. This is the number of
+     * occurrences of each operand, flag, or option accessible via a map.
+     * @readonly
+     */
     readonly counts: ReadonlyMap<string, number>
+
+    /**
+     * The parsed Cliofo operand, flag, or option indexes. This is the index or
+     * indexes of the string argument that is or contains each passed operand,
+     * flag, or option.
+     * @readonly
+     */
     readonly indexes: ReadonlyMap<string, readonly number[]>
 };
 
