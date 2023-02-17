@@ -1,6 +1,6 @@
-import {type CliofoCounts} from "./cliofoCounts.js";
-import {type CliofoIndexes} from "./cliofoIndexes.js";
-import {type CliofoStrings} from "./cliofoStrings.js";
+import {type CliofoCounts} from "./cliofo-counts.js";
+import {type CliofoIndexes} from "./cliofo-indexes.js";
+import {type CliofoStrings} from "./cliofo-strings.js";
 
 /**
  * The different types of Cliofo prefix parsers there are. These include types

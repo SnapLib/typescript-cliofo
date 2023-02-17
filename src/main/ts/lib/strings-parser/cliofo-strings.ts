@@ -1,7 +1,7 @@
-import {CliofoPrefixParser} from "./cliofoPrefixParser.js";
-import {type OperandsFlagsOptions} from "../operandsFlagsOptionsStrings.js";
+import {CliofoPrefixParser} from "./cliofo-prefix-parser.js";
+import {type OperandsFlagsOptions} from "../operands-flags-options-strings.js";
 import {isOperand, isFlag, isOption} from "./util.js";
-import {StringParseError} from "./stringParseError.js";
+import {StringParseError} from "./string-parse-error.js";
 
 /**
  * This class parses an array of `string` arguments into operands, flags, and

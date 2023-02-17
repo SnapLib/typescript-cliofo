@@ -1,7 +1,7 @@
-import {CliofoCounts} from "./lib/strings-parser/cliofoCounts.js";
-import {CliofoStrings} from "./lib/strings-parser/cliofoStrings.js";
-import {type CliofoParserType} from "./lib/strings-parser/cliofoParserType.js";
-import {CliofoIndexes} from "./lib/strings-parser/cliofoIndexes.js";
+import {CliofoCounts} from "./lib/strings-parser/cliofo-counts.js";
+import {CliofoStrings} from "./lib/strings-parser/cliofo-strings.js";
+import {type CliofoParserType} from "./lib/strings-parser/cliofo-parser-type.js";
+import {CliofoIndexes} from "./lib/strings-parser/cliofo-indexes.js";
 
 /**
  * The root entry point of the entire Cliofo package. Classes from this
@@ -188,9 +188,3 @@ type ParsedCliofoArgument =
 };
 
 export {parseStrings as default};
-
-
-
-const _cliofo: Readonly<Cliofo> = Object.freeze(parseStrings("-", process.argv.slice(2)));
-
-console.log(_cliofo);
