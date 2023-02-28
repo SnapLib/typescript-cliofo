@@ -1,6 +1,9 @@
+const defaultStringValidator = () => true;
+
 /**
  * A string that can consume or is required to consume a range of 0 or more
- * `string` arguments.
+ * `string` arguments and can optionally contain a predicate used to validate
+ * consumed strings.
  *
  * @remarks There's no checks or validations performed on the min and max
  *          values to make sure they're compatible and they're both explicitly
@@ -21,10 +24,42 @@ export class StringConsumer
      */
     public readonly range: Readonly<{min: number, max: number}>;
 
-    public constructor(stringValue: string, range: Readonly<{min: number, max: number}>)
+    readonly #validator: (aString: string) => boolean;
+
+    /**
+     * Constructs an instance of a {@link StringConsumer} object.
+     *
+     * @param stringValue The `string` that's going to consume other `string`s.
+     *
+     * @param range The minimum and maximum number of `string` arguments this
+     *              object requires to consume.
+     *
+     * @param validator An optional `string` predicate that can be used to
+     *                  validate a `string` argument.
+     */
+    public constructor( stringValue: string,
+                        range: Readonly<{min: number, max: number}>,
+                        validator: (aString: string) => boolean = defaultStringValidator )
     {
         this.stringValue = stringValue;
         this.range = Object.isFrozen(range) ? range : Object.freeze({min: range.min, max: range.max});
+        this.#validator = validator;
+    }
+
+    /**
+     * Uses this object's internal `string` predicate to determine if the passed
+     * `string` is valid.
+     *
+     * @remarks If no `string` validator is set, then all passed `string`
+     *          arguments evaluate to `true`.
+     *
+     * @param aString The `string` to validate.
+     *
+     * @returns `true` if the passed string argument is valid.
+     */
+    public isValid(aString: string): boolean
+    {
+        return this.#validator(aString);
     }
 }
 
