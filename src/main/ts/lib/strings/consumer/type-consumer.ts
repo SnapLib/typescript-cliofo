@@ -1,4 +1,4 @@
-import {StringConsumer} from "./cliofo-string-consumer";
+import {StringConsumer} from "./string-consumer";
 
 export class TypeConsumer<T> extends StringConsumer
 {
