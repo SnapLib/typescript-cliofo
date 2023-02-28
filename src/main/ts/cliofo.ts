@@ -1,6 +1,5 @@
 import {CliofoCounts} from "./lib/strings/parser/cliofo-counts.js";
 import {CliofoStrings} from "./lib/strings/parser/cliofo-strings.js";
-import {type CliofoParserType} from "./lib/strings/parser/cliofo-parser-type.js";
 import {CliofoIndexes} from "./lib/strings/parser/cliofo-indexes.js";
 
 /**
@@ -61,7 +60,7 @@ export class Cliofo
     readonly #cliofoCounts: Readonly<CliofoCounts>;
     readonly #cliofoIndexes: Readonly<CliofoIndexes>;
 
-    public constructor(parsedCliofos: Readonly<CliofoParserType>)
+    public constructor(parsedCliofos: Readonly<CliofoStrings | CliofoCounts | CliofoIndexes>)
     {
         if (parsedCliofos instanceof CliofoStrings)
         {
