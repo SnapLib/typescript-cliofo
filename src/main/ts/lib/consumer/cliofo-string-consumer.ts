@@ -44,6 +44,7 @@ export class StringConsumer
  *          the specified number of string arguments.
  */
 export function createStringConsumer(stringValue: string, requiredNumOfArgsToConsume: number): Readonly<StringConsumer>;
+
 /**
  * Function to construct a new {@link StringConsumer} instance with the provided
  * minimum number of required string arguments to consume and maximum number of
@@ -67,6 +68,7 @@ export function createStringConsumer(stringValue: string, requiredNumOfArgsToCon
  *          the min required and max consumable string arguments.
  */
 export function createStringConsumer(stringValue: string, min: number, max: number): Readonly<StringConsumer>;
+
 export function createStringConsumer(stringValue: string, min: number, max?: number): Readonly<StringConsumer>
 {
     const maxRange: number = max ?? min;
