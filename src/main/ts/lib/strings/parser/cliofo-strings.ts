@@ -42,7 +42,7 @@ import {StringParseError} from "./string-parse-error.js";
  *
  * - This class attempts to be as immutable as possible.
  */
-export class CliofoStrings extends CliofoPrefixParser
+export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
 {
     /**
      * A readonly string array of operands. These include arguments that aren't

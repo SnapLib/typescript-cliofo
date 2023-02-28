@@ -23,7 +23,7 @@ import {isOperand, isFlag, isOption} from "./util.js";
  * // }
  * ```
  */
-export class CliofoIndexes extends CliofoPrefixParser
+export class CliofoIndexes extends CliofoPrefixParser<ReadonlyMap<string, readonly number[]>>
 {
     /**
      * A map containing the operand strings as keys paired up with their

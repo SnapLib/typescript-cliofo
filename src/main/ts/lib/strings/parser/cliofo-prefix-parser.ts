@@ -8,7 +8,7 @@
  * @remarks This class attempts to be as immutable as possible.
  * @abstract
  */
-export abstract class CliofoPrefixParser
+export abstract class CliofoPrefixParser<ParsedArgT>
 {
     /**
      * The leading prefix `string` used to denote which arguments are flags and

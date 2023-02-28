@@ -1,7 +1,7 @@
 import {CliofoPrefixParser} from "./cliofo-prefix-parser.js";
 import {CliofoStrings} from "./cliofo-strings.js";
 
-export class CliofoCounts extends CliofoPrefixParser
+export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>>
 {
     /**
      * A map containing the operand strings as keys paired up with the number of
