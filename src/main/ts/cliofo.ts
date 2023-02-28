@@ -1,7 +1,7 @@
-import {CliofoCounts} from "./lib/strings-parser/cliofo-counts.js";
-import {CliofoStrings} from "./lib/strings-parser/cliofo-strings.js";
-import {type CliofoParserType} from "./lib/strings-parser/cliofo-parser-type.js";
-import {CliofoIndexes} from "./lib/strings-parser/cliofo-indexes.js";
+import {CliofoCounts} from "./lib/strings/parser/cliofo-counts.js";
+import {CliofoStrings} from "./lib/strings/parser/cliofo-strings.js";
+import {type CliofoParserType} from "./lib/strings/parser/cliofo-parser-type.js";
+import {CliofoIndexes} from "./lib/strings/parser/cliofo-indexes.js";
 
 /**
  * The root entry point of the entire Cliofo package. Classes from this
