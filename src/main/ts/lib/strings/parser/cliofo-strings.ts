@@ -146,7 +146,8 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
                             options: _operandFlagOptions.options});
                     }
                     // Throw error if prefix string and argument string can't be
-                    // parsed down to operand, flag, or option.
+                    // parsed down to operand, flag, or option. This should be
+                    // impossible to throw in most circumstances.
                     else
                     {
                         throw new StringParseError(`could not parse string to operand, flag, or options: "${aString}"`, aString);
