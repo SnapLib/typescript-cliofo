@@ -56,7 +56,7 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
             )
         );
 
-        this.allCounts = Object.freeze(new Map([...new Set(cliofoStrings.allStrings)].map(operandFlagOption => Object.freeze(
+        this.allCounts = Object.freeze(new Map([...new Set([...this.operandCounts.keys(), ...this.flagCounts.keys(), ...this.optionCounts.keys()])].map(operandFlagOption => Object.freeze(
             [ operandFlagOption,
               cliofoStrings.allStrings.filter(otherOperandFlagOption => operandFlagOption === otherOperandFlagOption).length]) )));
     }
