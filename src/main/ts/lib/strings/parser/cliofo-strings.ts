@@ -110,7 +110,7 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
             const optionPrefix: string = prefixString.repeat(2);
 
             // Create object containing string arguments sorted into operands,
-            // flats, and options
+            // flags, and options
             const operandsFlagsOptions: Readonly<OperandsFlagsOptions>
             // reducing string arguments into sorted operands, flags, options object
             = this.arguments.reduce((
