@@ -64,6 +64,8 @@ export class CliofoIndexes extends CliofoPrefixParser<ReadonlyMap<string, readon
     public constructor(prefixString: string, args: readonly string[])
     {
         super(prefixString, args);
+
+        // TODO remove dependency on CliofoStrings object.
         const cliofoStrings: Readonly<CliofoStrings> = Object.freeze(new CliofoStrings(prefixString, args));
 
         this.operandIndexes = cliofoStrings.arguments
