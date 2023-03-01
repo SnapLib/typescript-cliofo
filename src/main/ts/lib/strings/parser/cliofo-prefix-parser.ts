@@ -19,6 +19,8 @@ export abstract class CliofoPrefixParser<ParsedArgT>
      */
     public readonly prefixString: string;
 
+    readonly #optionPrefixString: string;
+
     /**
      * The strings to parse using this object's {@link prefixString}.
      * @readonly
@@ -30,6 +32,7 @@ export abstract class CliofoPrefixParser<ParsedArgT>
     protected constructor(prefixString: string, args: readonly string[])
     {
         this.prefixString = prefixString;
+        this.#optionPrefixString = this.prefixString.repeat(2);
         this.arguments = Object.isFrozen(args) ? args : Object.freeze([...args]);
         this.#isEmpty = this.arguments.length === 0;
     }
@@ -40,6 +43,14 @@ export abstract class CliofoPrefixParser<ParsedArgT>
      * @returns `true` if this object contains 0 strings to parse.
      */
     public IsEmpty(): boolean {return this.#isEmpty;}
+
+    /**
+     * The prefix string used to denote option characters. This is derived from
+     * doubling the prefix string of this object.
+     *
+     * @returns The prefix string used to denote option characters.
+     */
+    public optionPrefixString(): string {return this.#optionPrefixString;}
 }
 
 export {CliofoPrefixParser as default};
