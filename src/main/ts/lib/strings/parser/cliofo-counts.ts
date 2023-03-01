@@ -1,5 +1,6 @@
 import {CliofoPrefixParser} from "./cliofo-prefix-parser.js";
 import {CliofoStrings} from "./cliofo-strings.js";
+import {isOperand, isOption} from "./util.js";
 
 export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>>
 {
@@ -31,14 +32,16 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
         super(prefixString, args);
         const cliofoStrings: Readonly<CliofoStrings> = Object.freeze(new CliofoStrings(prefixString, args));
 
-        this.operandCounts = Object.freeze(new Map([...new Set(cliofoStrings.operandStrings)].map(operandString => Object.freeze(
-            [operandString, cliofoStrings.operandStrings.filter(otherOperandString => operandString === otherOperandString).length]) )));
+
+
+
+        this.operandCounts =
+            Object.freeze(new Map([...new Set(this.arguments)].filter(aString => isOperand(this.prefixString, aString)).map(aString => [aString, this.arguments.filter(anotherString => aString === anotherString).length])));
 
         this.flagCounts = Object.freeze(new Map([...new Set(cliofoStrings.flagStrings)].map(flagString => Object.freeze(
             [flagString, cliofoStrings.flagStrings.filter(otherFlagString => flagString === otherFlagString).length]) )));
 
-        this.optionCounts = Object.freeze(new Map([...new Set(cliofoStrings.optionStrings)].map(optionString => Object.freeze(
-            [optionString, cliofoStrings.optionStrings.filter(otherOptionString => optionString === otherOptionString).length]) )));
+        this.optionCounts = Object.freeze(new Map([...new Set(this.arguments)].filter(aString => isOption(this.prefixString, aString)).map(aString => [aString.slice(this.optionPrefixString().length), this.arguments.filter(anotherString => aString === anotherString).length])));
 
         this.allCounts = Object.freeze(new Map([...new Set(cliofoStrings.allStrings)].map(operandFlagOption => Object.freeze(
             [ operandFlagOption,
