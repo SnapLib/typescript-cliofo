@@ -1,3 +1,5 @@
+export type ParsedArg<ParsedT> = {operand: ParsedT, flag: ParsedT, option: ParsedT};
+
 /**
  * Root class of the Cliofo argument prefix parser classes contained within this
  * package. This package only contains the properties for a `string` prefix and
