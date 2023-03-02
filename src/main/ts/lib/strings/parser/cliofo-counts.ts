@@ -6,6 +6,9 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
     /**
      * A map containing the operand strings as keys paired up with the number of
      * times each one occurs as its value.
+     *
+     * @public
+     * @override
      * @readonly
      */
     public readonly operand: ReadonlyMap<string, number>;
@@ -13,6 +16,9 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
     /**
      * A map containing the flag strings as keys paired up with the number of
      * times each one occurs as its value.
+     *
+     * @public
+     * @override
      * @readonly
      */
     public readonly flag: ReadonlyMap<string, number>;
@@ -20,6 +26,9 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
     /**
      * A map containing the option strings as keys paired up with the number of
      * times each one occurs as its value.
+     *
+     * @public
+     * @override
      * @readonly
      */
     public readonly option: ReadonlyMap<string, number>;

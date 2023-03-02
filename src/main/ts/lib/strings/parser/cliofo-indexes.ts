@@ -32,6 +32,9 @@ export class CliofoIndexes extends CliofoPrefixParser<ReadonlyMap<string, readon
      * In the following line, `$myscript.js -la --color ./a/directory`, the
      * string `"./a/directory"` is an operand that is at argument index 2 (it's
      * the 3rd argument passed to the script `myscript.js`).
+     *
+     * @public
+     * @override
      * @readonly
      */
     public readonly operand: ReadonlyMap<string, readonly number[]>;
@@ -44,6 +47,9 @@ export class CliofoIndexes extends CliofoPrefixParser<ReadonlyMap<string, readon
      * In the following line, `$myscript.js -la --color ./a/directory`, the
      * string `"-la"` contains the flags that are at argument index 0 (they're
      * in the 1st argument passed to the script `myscript.js`).
+     *
+     * @public
+     * @override
      * @readonly
      */
     public readonly flag: ReadonlyMap<string, readonly number[]>;
@@ -56,6 +62,9 @@ export class CliofoIndexes extends CliofoPrefixParser<ReadonlyMap<string, readon
      * In the following line, `$myscript.js -la --color ./a/directory`, the
      * string `"color"` is an operand that is at argument index 1 (it's the 2nd
      * argument passed to the script `myscript.js`).
+     *
+     * @public
+     * @override
      * @readonly
      */
     public readonly option: ReadonlyMap<string, readonly number[]>;

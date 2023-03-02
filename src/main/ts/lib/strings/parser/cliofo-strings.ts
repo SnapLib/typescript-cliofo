@@ -47,6 +47,9 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
      * A readonly string array of operands. These include arguments that aren't
      * prefixed with this object's {@link prefixString} or all arguments if the
      * `prefixString` is an empty string.
+     *
+     * @public
+     * @override
      * @readonly
      */
     public readonly operand: readonly string[];
@@ -55,6 +58,9 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
      * A readonly string array of flags. These include arguments that are
      * prefixed with only a single leading instance of this object's
      * {@link prefixString}.
+     *
+     * @public
+     * @override
      * @readonly
      */
     public readonly flag: readonly string[];
@@ -63,6 +69,9 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
      * A readonly string array of options. These include arguments that are
      * prefixed with a leading sequence of 2 or more adjacent instances of this
      * object's {@link prefixString}.
+     *
+     * @public
+     * @override
      * @readonly
      */
     public readonly option: readonly string[];

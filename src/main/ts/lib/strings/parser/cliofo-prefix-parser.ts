@@ -6,6 +6,7 @@
  * `string[]` arguments.
  *
  * @remarks This class attempts to be as immutable as possible.
+ *
  * @abstract
  */
 export abstract class CliofoPrefixParser<ParsedArgT>
@@ -13,6 +14,8 @@ export abstract class CliofoPrefixParser<ParsedArgT>
     /**
      * The leading prefix `string` used to denote which arguments are flags and
      * options.
+     *
+     * @public
      * @readonly
      */
     public readonly prefixString: string;
@@ -21,14 +24,31 @@ export abstract class CliofoPrefixParser<ParsedArgT>
 
     /**
      * The strings to parse using this object's {@link prefixString}.
+     *
+     * @public
      * @readonly
      */
     public readonly arguments: readonly string[];
 
+    /**
+     * @public
+     * @abstract
+     * @readonly
+     */
     public abstract readonly operand: ParsedArgT;
 
+    /**
+     * @public
+     * @abstract
+     * @readonly
+     */
     public abstract readonly option: ParsedArgT;
 
+    /**
+     * @public
+     * @abstract
+     * @readonly
+     */
     public abstract readonly flag: ParsedArgT;
 
     readonly #isEmpty: boolean;
@@ -45,6 +65,8 @@ export abstract class CliofoPrefixParser<ParsedArgT>
      * Returns `true` if this object contains 0 strings to parse.
      *
      * @returns `true` if this object contains 0 strings to parse.
+     *
+     * @public
      */
     public IsEmpty(): boolean {return this.#isEmpty;}
 
@@ -53,6 +75,8 @@ export abstract class CliofoPrefixParser<ParsedArgT>
      * doubling the prefix string of this object.
      *
      * @returns The prefix string used to denote option strings.
+     *
+     * @public
      */
     public optionPrefixString(): string {return this.#optionPrefixString;}
 }
