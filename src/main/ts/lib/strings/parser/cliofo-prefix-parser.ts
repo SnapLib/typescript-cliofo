@@ -34,6 +34,8 @@ export abstract class CliofoPrefixParser<ParsedStringT>
     public readonly arguments: readonly string[];
 
     /**
+     * Property to contain strings parsed to operands.
+     *
      * @public
      * @abstract
      * @readonly
@@ -41,18 +43,22 @@ export abstract class CliofoPrefixParser<ParsedStringT>
     public abstract readonly operand: ParsedStringT;
 
     /**
-     * @public
-     * @abstract
-     * @readonly
-     */
-    public abstract readonly option: ParsedStringT;
-
-    /**
+     * Property to contain strings parsed to flags.
+     *
      * @public
      * @abstract
      * @readonly
      */
     public abstract readonly flag: ParsedStringT;
+
+    /**
+     * Property to contain strings parsed to options.
+     *
+     * @public
+     * @abstract
+     * @readonly
+     */
+    public abstract readonly option: ParsedStringT;
 
     readonly #isEmpty: boolean;
 
