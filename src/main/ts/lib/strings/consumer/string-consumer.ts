@@ -27,7 +27,8 @@ export class StringConsumer
     static readonly #defaultValidator = () => true;
 
     /**
-     * Constructs an instance of a {@link StringConsumer} object.
+     * Constructs an instance of a {@link StringConsumer} object. This object
+     * represents a string on the command line that can consume other strings.
      *
      * @param stringValue The `string` that's going to consume other `string`s.
      *
