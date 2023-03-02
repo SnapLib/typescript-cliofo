@@ -1,5 +1,4 @@
 import {CliofoPrefixParser} from "./cliofo-prefix-parser.js";
-import {isOperand, isFlag, isOption} from "./util.js";
 import {StringParseError} from "./string-parse-error.js";
 
 /**

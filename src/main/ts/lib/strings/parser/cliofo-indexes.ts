@@ -1,6 +1,5 @@
 import {CliofoPrefixParser} from "./cliofo-prefix-parser.js";
 import {CliofoStrings} from "./cliofo-strings.js";
-import {isOperand, isFlag, isOption} from "./util.js";
 
 /**
  * @classdesc
