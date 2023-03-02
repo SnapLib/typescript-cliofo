@@ -106,7 +106,6 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
     public constructor(prefixString: string, args: readonly string[])
     {
             super(prefixString, args);
-            const optionPrefix: string = prefixString.repeat(2);
 
             // Create object containing string arguments sorted into operands,
             // flags, and options
@@ -118,7 +117,7 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
                 {
                     // If prefixString is empty or argument string doesn't start
                     // with prefixString, add it to operands array
-                    if (isOperand(prefixString, aString))
+                    if (prefixString.length === 0 || ! aString.startsWith(prefixString))
                     {
                         return Object.freeze({
                                 operands: Object.freeze([..._operandFlagOptions.operands, aString]),
@@ -128,17 +127,17 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
                     // If string starts with 2 or more adjacent prefix strings,
                     // add string without leading 2 prefix char strings to
                     // options array
-                    else if (isOption(prefixString, aString))
+                    else if (aString.startsWith(this.optionPrefixString()))
                     {
                         return Object.freeze({
                                 operands: _operandFlagOptions.operands,
                                 flags: _operandFlagOptions.flags,
-                                options: Object.freeze([..._operandFlagOptions.options, aString.slice(optionPrefix.length)]) });
+                                options: Object.freeze([..._operandFlagOptions.options, aString.slice(this.optionPrefixString().length)]) });
                     }
                     // If string starts with only a single prefix string, add
                     // characters of string excluding leading prefix string
                     // to flags array
-                    else if (isFlag(prefixString, aString))
+                    else if (aString.startsWith(this.prefixString))
                     {
                         return Object.freeze({
                             operands: _operandFlagOptions.operands,

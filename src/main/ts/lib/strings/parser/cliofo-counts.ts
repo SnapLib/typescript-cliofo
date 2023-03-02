@@ -1,6 +1,5 @@
 import {CliofoPrefixParser} from "./cliofo-prefix-parser.js";
 import {CliofoStrings} from "./cliofo-strings.js";
-import {isOperand, isOption} from "./util.js";
 
 export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>>
 {
@@ -35,7 +34,7 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
         this.operandCounts = Object.freeze(
             new Map(
                 [...new Set(this.arguments)]
-                    .filter(aString => isOperand(this.prefixString, aString))
+                    .filter(aString => this.prefixString.length === 0 || ! aString.startsWith(this.prefixString))
                     .map(aString =>
                         [ aString,
                           this.arguments.filter(anotherString => aString === anotherString).length ])
@@ -49,7 +48,7 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
         this.optionCounts = Object.freeze(
             new Map(
                 [...new Set(this.arguments)]
-                    .filter(aString => isOption(this.prefixString, aString))
+                    .filter(aString => this.prefixString.length !== 0 && aString.startsWith(this.optionPrefixString()))
                     .map(aString =>
                         [ aString.slice(this.optionPrefixString().length),
                           this.arguments.filter(anotherString => aString === anotherString).length ])
