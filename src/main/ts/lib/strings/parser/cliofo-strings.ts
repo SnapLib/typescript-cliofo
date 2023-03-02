@@ -46,7 +46,7 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
     /**
      * A readonly string array of operands. These include arguments that aren't
      * prefixed with this object's {@link prefixString} or all arguments if the
-     * `prefixString` is an empty string.
+     * `prefixString` is an empty string (`""`).
      *
      * @public
      * @override
