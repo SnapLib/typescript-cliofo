@@ -18,6 +18,18 @@
  * 1. If a `string` is prefixed with 2 or more adjacent leading prefix
  *    `string`s, then it's an *option*.
  *
+ * All flag strings are parsed down to their individual characters. For example
+ * the string `"-foo"` would be stored as the ***flags*** `["f", "o", "o"]` if
+ * the leading hyphen character (`"-"`) is the prefix string.
+ *
+ * The flag and option strings do not include the 1 or 2 leading prefix strings
+ * they were prefixed with to denote them as a flag or option. For example, the
+ * leading hyphen characters (`"-"` and `"--"`) in the strings `"-foo"` and
+ * `"--bar"` would be ignored if the prefix string is a hyphen character(`"-"`).
+ *
+ * If the leading prefix string is an empty string (`""`) then all string
+ * arguments are considered operands.
+ *
  * @remarks This class attempts to be as immutable as possible.
  *
  * @typeParam ParsedStringT - the type strings are parsed to as operands, flags,

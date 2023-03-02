@@ -2,26 +2,9 @@ import {CliofoPrefixParser} from "./cliofo-prefix-parser.js";
 import {StringParseError} from "./string-parse-error.js";
 
 /**
- * This class parses an array of `string` arguments into operands, flags, and
- * options based on a *prefix string*. The *prefix string* is used to denote if
- * a `string` argument is an operand, flag, or option.
- *
- * If a string isn't prefixed with a leading prefix string, then it's an
- * *operand*. If a string is prefixed with only a single leading prefix string,
- * then it's a *flag*. If a string is prefixed with 2 or more adjacent leading
- * prefix strings, then it's an *option*.
- *
- * All flag strings are parsed down to their individual characters. For example
- * the string `"-foo"` would be stored as the ***flags*** `["f", "o", "o"]` if
- * the leading hyphen character (`"-"`) is the prefix string.
- *
- * The flag and option strings do not include the 1 or 2 leading prefix strings
- * they were prefixed with to denote them as a flag or option. For example, the
- * leading hyphen characters (`"-"` and `"--"`) in the strings `"-foo"` and
- * `"--bar"` would be ignored if the prefix string is a hyphen character(`"-"`).
- *
- * If the leading prefix string is an empty string (`""`) then all string
- * arguments are considered operands.
+ * This class sorts an array of `string`s into ***operand***, ***flag***, and
+ * ***option*** string arrays based on a prefix `string`. The *prefix string*
+ * is used to denote if a `string` is an operand, flag, or option.
  *
  * @example
  * ```typescript
@@ -40,6 +23,8 @@ import {StringParseError} from "./string-parse-error.js";
  *
  * @remarks
  * This class attempts to be as immutable as possible.
+ *
+ * @see {@link CliofoPrefixParser}
  */
 export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
 {

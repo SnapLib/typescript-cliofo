@@ -21,6 +21,8 @@ import {CliofoStrings} from "./cliofo-strings.js";
  * //
  * // }
  * ```
+ *
+ * @see {@link CliofoPrefixParser}
  */
 export class CliofoIndexes extends CliofoPrefixParser<ReadonlyMap<string, readonly number[]>>
 {
