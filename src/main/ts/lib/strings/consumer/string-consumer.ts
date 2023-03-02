@@ -1,5 +1,3 @@
-const defaultStringValidator = () => true;
-
 /**
  * A string that can consume or is required to consume a range of 0 or more
  * `string` arguments and can optionally contain a predicate used to validate
@@ -26,6 +24,8 @@ export class StringConsumer
 
     readonly #validator: (aString: string) => boolean;
 
+    static readonly #defaultValidator = () => true;
+
     /**
      * Constructs an instance of a {@link StringConsumer} object.
      *
@@ -39,7 +39,7 @@ export class StringConsumer
      */
     public constructor( stringValue: string,
                         range: Readonly<{min: number, max: number}>,
-                        validator: (aString: string) => boolean = defaultStringValidator )
+                        validator: (aString: string) => boolean = StringConsumer.#defaultValidator )
     {
         this.stringValue = stringValue;
         this.range = Object.isFrozen(range) ? range : Object.freeze({min: range.min, max: range.max});
