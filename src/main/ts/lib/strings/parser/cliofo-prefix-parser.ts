@@ -7,9 +7,12 @@
  *
  * @remarks This class attempts to be as immutable as possible.
  *
+ * @typeParam ParsedStringT - the type strings are parsed to as operands, flags,
+ *                            and options.
+ *
  * @abstract
  */
-export abstract class CliofoPrefixParser<ParsedArgT>
+export abstract class CliofoPrefixParser<ParsedStringT>
 {
     /**
      * The leading prefix `string` used to denote which arguments are flags and
@@ -35,21 +38,21 @@ export abstract class CliofoPrefixParser<ParsedArgT>
      * @abstract
      * @readonly
      */
-    public abstract readonly operand: ParsedArgT;
+    public abstract readonly operand: ParsedStringT;
 
     /**
      * @public
      * @abstract
      * @readonly
      */
-    public abstract readonly option: ParsedArgT;
+    public abstract readonly option: ParsedStringT;
 
     /**
      * @public
      * @abstract
      * @readonly
      */
-    public abstract readonly flag: ParsedArgT;
+    public abstract readonly flag: ParsedStringT;
 
     readonly #isEmpty: boolean;
 
