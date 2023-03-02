@@ -49,7 +49,7 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
      * `prefixString` is an empty string.
      * @readonly
      */
-    public readonly operandStrings: readonly string[];
+    public readonly operand: readonly string[];
 
     /**
      * A readonly string array of flags. These include arguments that are
@@ -57,7 +57,7 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
      * {@link prefixString}.
      * @readonly
      */
-    public readonly flagStrings: readonly string[];
+    public readonly flag: readonly string[];
 
     /**
      * A readonly string array of options. These include arguments that are
@@ -65,13 +65,7 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
      * object's {@link prefixString}.
      * @readonly
      */
-    public readonly optionStrings: readonly string[];
-
-    /**
-     * A readonly string array of all operands, flags, and options.
-     * @readonly
-     */
-    public readonly allStrings: readonly string[];
+    public readonly option: readonly string[];
 
     /**
      * Constructs an object that parses an array of string arguments into
@@ -159,10 +153,9 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
                                 options: Object.freeze([]) }
             ));
 
-        this.operandStrings = operandsFlagsOptions.operands;
-        this.flagStrings = operandsFlagsOptions.flags;
-        this.optionStrings = operandsFlagsOptions.options;
-        this.allStrings = Object.freeze([...this.operandStrings, ...this.flagStrings, ...this.optionStrings]);
+        this.operand = operandsFlagsOptions.operands;
+        this.flag = operandsFlagsOptions.flags;
+        this.option = operandsFlagsOptions.options;
     }
 }
 

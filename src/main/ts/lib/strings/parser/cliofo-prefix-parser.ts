@@ -25,6 +25,12 @@ export abstract class CliofoPrefixParser<ParsedArgT>
      */
     public readonly arguments: readonly string[];
 
+    public abstract readonly operand: ParsedArgT;
+
+    public abstract readonly option: ParsedArgT;
+
+    public abstract readonly flag: ParsedArgT;
+
     readonly #isEmpty: boolean;
 
     protected constructor(prefixString: string, args: readonly string[])
