@@ -73,6 +73,7 @@ export abstract class CliofoPrefixParser<ParsedStringT>
      * @param strings The strings to parse to operands, flags, and options.
      *
      * @protected
+     * @constructor
      */
     protected constructor(prefixString: string, strings: readonly string[])
     {
