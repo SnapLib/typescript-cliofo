@@ -6,6 +6,18 @@
  * arguments are parsed and what types they're parsed to (via this class' type
  * parameter).
  *
+ * Below is an explanation of how this abstract class is implemented in this
+ * package. Implementations aren't limited to this:
+ *
+ * 1. If a `string` isn't prefixed with a leading prefix `string` or the leading
+ *    prefix `string` is empty, then `string` is an *operand*.
+ *
+ * 1. If a `string` is prefixed with only a single leading prefix `string`, then
+ *    `string` is a *flag*.
+ *
+ * 1. If a `string` is prefixed with 2 or more adjacent leading prefix
+ *    `string`s, then it's an *option*.
+ *
  * @remarks This class attempts to be as immutable as possible.
  *
  * @typeParam ParsedStringT - the type strings are parsed to as operands, flags,

@@ -33,10 +33,20 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
      */
     public readonly option: ReadonlyMap<string, number>;
 
-    public constructor(prefixString: string, args: readonly string[])
+    /**
+     *
+     * @param prefixString
+     * @param strings
+     *
+     * @public
+     * @constructor
+     *
+     * @todo remove internal dependency on {@link CliofoStrings}` object.
+     */
+    public constructor(prefixString: string, strings: readonly string[])
     {
-        super(prefixString, args);
-        const cliofoStrings: Readonly<CliofoStrings> = Object.freeze(new CliofoStrings(prefixString, args));
+        super(prefixString, strings);
+        const cliofoStrings: Readonly<CliofoStrings> = Object.freeze(new CliofoStrings(prefixString, strings));
 
         this.operand = Object.freeze(
             new Map(

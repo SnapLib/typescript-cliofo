@@ -77,13 +77,13 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
     public readonly option: readonly string[];
 
     /**
-     * Constructs an object that parses an array of string arguments into
-     * *operands*, *flags*, and *options* based on a leading prefix `string`.
-     * The passed prefix `string` is used to denote if an argument is an
-     * operand, flag, or option.
+     * Constructs an object that parses an array of strings into *operands*,
+     * *flags*, and *options* based on a leading prefix `string`. The passed
+     * prefix `string` is used to denote if a string is an operand, flag, or
+     * option.
      *
-     * Any ***argument*** `string` that doesn't start a leading prefix string is
-     * an *operand*. Any ***argument*** `string` that starts with only a single
+     * Any ***argument*** `string` that doesn't start with a leading prefix
+     * `string` is an *operand*. Any ***argument*** `string` that starts with only a single
      * prefix character `string` is a *flag*. And any ***argument*** `string`
      * that starts with 2 or more prefix strings is an *option*.
      *
@@ -99,16 +99,18 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
      *   `["f", "o", "o"]` if the leading hyphen character (`"-"`) is the prefix
      *   string.
      *
-     * @param prefixString The string used to denote which arguments are flags
-     *                     and options.
+     * @param prefixString The string used to denote which strings are flags
+     *                     and options (and operands).
      *
-     * @param args The arguments to parse into operands, flags, and options.
+     * @param strings The strings to sort into operands, flags, and options
+     *                based on the `prefixString`.
      *
+     * @public
      * @constructor
      */
-    public constructor(prefixString: string, args: readonly string[])
+    public constructor(prefixString: string, strings: readonly string[])
     {
-            super(prefixString, args);
+            super(prefixString, strings);
 
             // Create object containing string arguments sorted into operands,
             // flags, and options

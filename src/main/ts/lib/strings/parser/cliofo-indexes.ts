@@ -69,12 +69,26 @@ export class CliofoIndexes extends CliofoPrefixParser<ReadonlyMap<string, readon
      */
     public readonly option: ReadonlyMap<string, readonly number[]>;
 
-    public constructor(prefixString: string, args: readonly string[])
+    /**
+     * Constructs an instance of an object that parses `string` arguments into
+     * operands, flags, and options based on a leading prefix `string`.
+     *
+     * @param prefixString The prefix `string` used to denote which strings are
+     *                     flags or options (or operands).
+     *
+     * @param strings The strings to parse to operands, flags, and options.
+     *
+     * @public
+     * @constructor
+     *
+     * @todo remove internal dependency on {@link CliofoStrings}` object.
+     */
+    public constructor(prefixString: string, strings: readonly string[])
     {
-        super(prefixString, args);
+        super(prefixString, strings);
 
         // TODO remove dependency on CliofoStrings object.
-        const cliofoStrings: Readonly<CliofoStrings> = Object.freeze(new CliofoStrings(prefixString, args));
+        const cliofoStrings: Readonly<CliofoStrings> = Object.freeze(new CliofoStrings(prefixString, strings));
 
         this.operand = cliofoStrings.arguments
             .reduce((operandIndexesMap: ReadonlyMap<string, readonly number[]>, aString: string, index: number) => {
