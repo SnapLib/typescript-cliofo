@@ -25,7 +25,7 @@ import {StringParseError} from "./string-parse-error.js";
  *
  * @example
  * ```typescript
- * const cliofoStrings: CliofoStrings = new CliofoStrings("-", ["--foo", "-bar", "baz", "-Aax", '--a", "meep"]);
+ * const cliofoStrings: CliofoStrings = new CliofoStrings("-", ["--foo", "-bar", "baz", "-Aax", "--a", "meep"]);
  *
  * // Creates the following object:
  * {
