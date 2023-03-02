@@ -38,6 +38,9 @@ import {StringParseError} from "./string-parse-error.js";
  *   `"-foo"` and `"--bar"` would be ignored if the prefix string is a hyphen
  *   character(`"-"`).
  *
+ * - If the leading prefix string is an empty string (`""`) then all string
+ *   arguments are considered operands.
+ *
  * - This class attempts to be as immutable as possible.
  */
 export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
