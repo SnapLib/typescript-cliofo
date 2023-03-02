@@ -1,9 +1,10 @@
 /**
- * Root class of the Cliofo argument prefix parser classes contained within this
- * package. This package only contains the properties for a `string` prefix and
- * `string[]` of arguments. The classes that inherit from this class then
- * implement how the prefix `string` is used to parse the strings of the
- * `string[]` arguments.
+ * Root class of the *Cliofo* argument prefix parser classes contained within
+ * this package. This class contains the properties for a `string` prefix and a
+ * `string[]` of arguments to parse to operand, flag, and option properties. The
+ * classes that inherit from this class then implement how the `string`
+ * arguments are parsed and what types they're parsed to (via this class' type
+ * parameter).
  *
  * @remarks This class attempts to be as immutable as possible.
  *
@@ -62,11 +63,22 @@ export abstract class CliofoPrefixParser<ParsedStringT>
 
     readonly #isEmpty: boolean;
 
-    protected constructor(prefixString: string, args: readonly string[])
+    /**
+     * Constructs an instance of an object that parses `string` arguments into
+     * operands, flags, and options based on a leading prefix `string`.
+     *
+     * @param prefixString The prefix `string` used to denote which strings are
+     *                     flags or options (or operands).
+     *
+     * @param strings The strings to parse to operands, flags, and options.
+     *
+     * @protected
+     */
+    protected constructor(prefixString: string, strings: readonly string[])
     {
         this.prefixString = prefixString;
         this.#optionPrefixString = this.prefixString.repeat(2);
-        this.arguments = Object.isFrozen(args) ? args : Object.freeze([...args]);
+        this.arguments = Object.isFrozen(strings) ? strings : Object.freeze([...strings]);
         this.#isEmpty = this.arguments.length === 0;
     }
 
