@@ -11,37 +11,35 @@ import {StringParseError} from "./string-parse-error.js";
  * then it's a *flag*. If a string is prefixed with 2 or more adjacent leading
  * prefix strings, then it's an *option*.
  *
+ * All flag strings are parsed down to their individual characters. For example
+ * the string `"-foo"` would be stored as the ***flags*** `["f", "o", "o"]` if
+ * the leading hyphen character (`"-"`) is the prefix string.
+ *
+ * The flag and option strings do not include the 1 or 2 leading prefix strings
+ * they were prefixed with to denote them as a flag or option. For example, the
+ * leading hyphen characters (`"-"` and `"--"`) in the strings `"-foo"` and
+ * `"--bar"` would be ignored if the prefix string is a hyphen character(`"-"`).
+ *
+ * If the leading prefix string is an empty string (`""`) then all string
+ * arguments are considered operands.
+ *
  * @example
  * ```typescript
- * const cliofoStrings: CliofoStrings = new CliofoStrings("-", "--foo -bar baz");
+ * const cliofoStrings: CliofoStrings = new CliofoStrings("-", ["--foo", "-bar", "baz", "-Aax", '--a", "meep"]);
  *
  * // Creates the following object:
  * {
  *     prefixString: '-',
- *     arguments: [ '--foo', '-bar', 'baz' ],
- *     operandStrings: [ `baz` ],
- *     flagStrings: [ 'b', 'a', 'r' ],
- *     optionStrings: [ `foo` ],
- *     allStrings: [ `baz`, 'b', 'a', 'r', `foo` ]
+ *     arguments: [ '--foo', '-bar', 'baz', '--Aax', '--a', 'meep' ],
+ *     operandStrings: [ 'baz', 'meep' ],
+ *     flagStrings: [ 'b', 'a', 'r', 'A', 'a', 'x' ],
+ *     optionStrings: [ `foo`, 'a' ],
+ *     allStrings: [ `baz`, 'b', 'a', 'r', `foo`, 'A', 'a', 'x', 'a', 'meep' ]
  * }
  * ```
  *
  * @remarks
- * - All flag strings are parsed down to their individual characters. For
- *   example the string `"-foo"` would be stored as the ***flags***
- *   `["f", "o", "o"]` if the leading hyphen character (`"-"`) is the prefix
- *   string.
- *
- * - The flag and option strings do not include the 1 or 2 leading prefix
- *   strings they were prefixed with to denote them as a flag or option. For
- *   example, the leading hyphen characters (`"-"` and `"--"`) in the strings
- *   `"-foo"` and `"--bar"` would be ignored if the prefix string is a hyphen
- *   character(`"-"`).
- *
- * - If the leading prefix string is an empty string (`""`) then all string
- *   arguments are considered operands.
- *
- * - This class attempts to be as immutable as possible.
+ * This class attempts to be as immutable as possible.
  */
 export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
 {
