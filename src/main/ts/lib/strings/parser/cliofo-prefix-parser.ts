@@ -1,5 +1,3 @@
-export type ParsedArg<ParsedT> = {operand: ParsedT, flag: ParsedT, option: ParsedT};
-
 /**
  * Root class of the Cliofo argument prefix parser classes contained within this
  * package. This package only contains the properties for a `string` prefix and
@@ -45,10 +43,10 @@ export abstract class CliofoPrefixParser<ParsedArgT>
     public IsEmpty(): boolean {return this.#isEmpty;}
 
     /**
-     * The prefix string used to denote option characters. This is derived from
+     * The prefix string used to denote option strings. This is derived from
      * doubling the prefix string of this object.
      *
-     * @returns The prefix string used to denote option characters.
+     * @returns The prefix string used to denote option strings.
      */
     public optionPrefixString(): string {return this.#optionPrefixString;}
 }
