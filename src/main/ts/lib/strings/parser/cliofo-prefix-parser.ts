@@ -6,26 +6,26 @@
  * arguments are parsed and what types they're parsed to (via this class' type
  * parameter).
  *
- * Below is an explanation of how this abstract class is implemented in this
- * package. Implementations aren't limited to this:
+ * Below is an explanation of how this abstract class is implemented by other
+ * classes in this package. Implementations aren't limited to this:
  *
  * 1. If a `string` isn't prefixed with a leading prefix `string` or the leading
- *    prefix `string` is empty, then `string` is an *operand*.
+ *    prefix `string` is empty, then the `string` is an *operand*.
  *
  * 1. If a `string` is prefixed with only a single leading prefix `string`, then
- *    `string` is a *flag*.
+ *    the `string` is a *flag*.
  *
- * 1. If a `string` is prefixed with 2 or more adjacent leading prefix
- *    `string`s, then it's an *option*.
- *
- * All flag strings are parsed down to their individual characters. For example
- * the string `"-foo"` would be stored as the ***flags*** `["f", "o", "o"]` if
- * the leading hyphen character (`"-"`) is the prefix string.
+ * 1. If a `string` is prefixed with 2 or more leading prefix `string`s, then
+ *    it's an *option*.
  *
  * The flag and option strings do not include the 1 or 2 leading prefix strings
  * they were prefixed with to denote them as a flag or option. For example, the
  * leading hyphen characters (`"-"` and `"--"`) in the strings `"-foo"` and
  * `"--bar"` would be ignored if the prefix string is a hyphen character(`"-"`).
+ *
+ * All flag strings are parsed down to their individual characters. For example
+ * the string `"-foo"` would be stored as the characters `["f", "o", "o"]` if
+ * the leading hyphen character (`"-"`) is the prefix string.
  *
  * If the leading prefix string is an empty string (`""`) then all string
  * arguments are considered operands.
