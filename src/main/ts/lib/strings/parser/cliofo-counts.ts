@@ -1,5 +1,4 @@
 import {CliofoPrefixParser} from "./cliofo-prefix-parser.js";
-import {CliofoStrings} from "./cliofo-strings.js";
 
 export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>>
 {
@@ -40,13 +39,10 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
      *
      * @public
      * @constructor
-     *
-     * @todo remove internal dependency on {@link CliofoStrings}` object.
      */
     public constructor(prefixString: string, strings: readonly string[])
     {
         super(prefixString, strings);
-        const cliofoStrings: Readonly<CliofoStrings> = Object.freeze(new CliofoStrings(prefixString, strings));
 
         this.operand = Object.freeze(
             new Map(
@@ -58,9 +54,19 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
             )
         );
 
-        // TODO remove dependency on CliofoStrings object.
-        this.flag = Object.freeze(new Map([...new Set(cliofoStrings.flag)].map(flagString => Object.freeze(
-            [flagString, cliofoStrings.flag.filter(otherFlagString => flagString === otherFlagString).length]) )));
+        this.flag = Object.freeze(
+            new Map(
+                [...new Set(this.arguments)]
+                    .filter(aString =>    this.prefixString.length !== 0
+                                       && aString.startsWith(this.prefixString)
+                                       && ! aString.startsWith(this.optionPrefixString()))
+                    .flatMap(aString => [...new Set(aString.slice(this.prefixString.length))])
+                    .reduce((charArray, aChar) => {return Object.freeze([...new Set([...charArray, aChar])]);}, Object.freeze(new Array<string>()))
+                    .map(aChar =>
+                        [ aChar,
+                          this.arguments.filter(aString => aString.startsWith(this.prefixString) && ! aString.startsWith(this.optionPrefixString())).reduce((charCount, aString) => {return charCount + [...aString].filter(anotherChar => aChar === anotherChar).length;}, 0) ])
+            )
+        );
 
         this.option = Object.freeze(
             new Map(
