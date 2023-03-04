@@ -60,11 +60,30 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
                     .filter(aString =>    this.prefixString.length !== 0
                                        && aString.startsWith(this.prefixString)
                                        && ! aString.startsWith(this.optionPrefixString()))
+                    // Get every character of the string after the leading prefix string
                     .flatMap(aString => [...new Set(aString.slice(this.prefixString.length))])
-                    .reduce((charArray, aChar) => {return Object.freeze([...new Set([...charArray, aChar])]);}, Object.freeze(new Array<string>()))
+                    // Collect every string character to a distinct array of characters
+                    .reduce(
+                        (charArray, aChar) =>
+                            { return Object.freeze([...new Set([...charArray, aChar])]);},
+                        Object.freeze(new Array<string>()))
+                    // Create array of distinct character keys paired with the
+                    // number of times they occur in strings
                     .map(aChar =>
+                        // character key
                         [ aChar,
-                          this.arguments.filter(aString => aString.startsWith(this.prefixString) && ! aString.startsWith(this.optionPrefixString())).reduce((charCount, aString) => {return charCount + [...aString.slice(this.prefixString.length)].filter(anotherChar => aChar === anotherChar).length;}, 0) ])
+                          this.arguments.filter(aString =>    aString.startsWith(this.prefixString)
+                                                           && ! aString.startsWith(this.optionPrefixString()))
+                            // Count the number of characters that are in each string
+                            .reduce(
+                                (charCount, aString) =>
+                                    { return charCount
+                                        + [...aString.slice(this.prefixString.length)]
+                                          .filter(anotherChar => aChar === anotherChar).length; },
+                                0
+                            )
+                        ]
+                    )
             )
         );
 
