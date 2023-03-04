@@ -64,7 +64,7 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
                     .reduce((charArray, aChar) => {return Object.freeze([...new Set([...charArray, aChar])]);}, Object.freeze(new Array<string>()))
                     .map(aChar =>
                         [ aChar,
-                          this.arguments.filter(aString => aString.startsWith(this.prefixString) && ! aString.startsWith(this.optionPrefixString())).reduce((charCount, aString) => {return charCount + [...aString].filter(anotherChar => aChar === anotherChar).length;}, 0) ])
+                          this.arguments.filter(aString => aString.startsWith(this.prefixString) && ! aString.startsWith(this.optionPrefixString())).reduce((charCount, aString) => {return charCount + [...aString.slice(this.prefixString.length)].filter(anotherChar => aChar === anotherChar).length;}, 0) ])
             )
         );
 
