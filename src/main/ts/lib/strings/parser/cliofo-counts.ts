@@ -44,9 +44,11 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
     {
         super(prefixString, strings);
 
+        const distinctArgStrings: ReadonlyArray<string> = Object.freeze([...new Set(this.arguments)]);
+
         this.operand = Object.freeze(
             new Map(
-                [...new Set(this.arguments)]
+                distinctArgStrings
                     .filter(aString => this.prefixString.length === 0 || ! aString.startsWith(this.prefixString))
                     .map(aString =>
                         Object.freeze([ aString,
@@ -56,7 +58,7 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
 
         this.flag = Object.freeze(
             new Map(
-                [...new Set(this.arguments)]
+                distinctArgStrings
                     .filter(aString =>    this.prefixString.length !== 0
                                        && aString.startsWith(this.prefixString)
                                        && ! aString.startsWith(this.optionPrefixString()))
@@ -89,7 +91,7 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
 
         this.option = Object.freeze(
             new Map(
-                [...new Set(this.arguments)]
+                distinctArgStrings
                     .filter(aString => this.prefixString.length !== 0 && aString.startsWith(this.optionPrefixString()))
                     .map(aString =>
                         Object.freeze([
