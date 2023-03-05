@@ -68,9 +68,10 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
      * option.
      *
      * Any ***argument*** `string` that doesn't start with a leading prefix
-     * `string` is an *operand*. Any ***argument*** `string` that starts with only a single
-     * prefix character `string` is a *flag*. And any ***argument*** `string`
-     * that starts with 2 or more prefix strings is an *option*.
+     * `string` is an *operand*. Any ***argument*** `string` that starts with
+     * only a single prefix character `string` is a *flag*. And any
+     * ***argument*** `string` that starts with 2 or more prefix strings is an
+     * *option*.
      *
      * @remarks
      * - The flag and option strings do not include the 1 or 2 leading prefix
