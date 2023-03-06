@@ -100,10 +100,10 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
 
             // Create object containing string arguments sorted into operands,
             // flags, and options
-            const operandsFlagsOptions: Readonly<Record<string, readonly string[]>>
+            const operandsFlagsOptions: Readonly<Ofo>
             // reducing string arguments into sorted operands, flags, options object
             = this.arguments.reduce((
-                _operandFlagOptions: Readonly<Record<string, readonly string[]>>,
+                _operandFlagOptions: Readonly<Ofo>,
                 aString: string ) =>
                 {
                     // If prefixString is empty or argument string doesn't start
@@ -155,5 +155,11 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
         this.option = operandsFlagsOptions.options;
     }
 }
+
+type Ofo = {
+    readonly operands: readonly string[],
+    readonly flags: readonly string[],
+    readonly options: readonly string[]
+};
 
 export {CliofoStrings as default};
