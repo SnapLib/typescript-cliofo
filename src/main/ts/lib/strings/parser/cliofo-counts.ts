@@ -3,7 +3,28 @@ import {StringParseError} from "./string-parse-error.js";
 
 /**
  * This object uses a specified prefix `string` to parse strings into operands,
- * flags, and options and then count the occurrences of them.
+ * flags, and options and then count the occurrences of them in a provided
+ * `string` array.
+ *
+ * @example
+ * Below is an example of how this object sorts the strings of a string array
+ * into operands, flags, and options and then maps each one to the number of
+ * times they are present in the string array:
+ * ```typescript
+ * const cliofoCount = new CliofoCount("-", ["-foox", "bar", "--baz", "-a", "-xyz", "--baz", "meep", "--yeet"]);
+ *
+ * // Creates a CliofoCount object with the following properties:
+ * {
+ *   prefixString: '-',
+ *   arguments: [ '-foox',  'bar', '--baz', '-a', '-xyz',  '--baz', 'meep',  '--yeet' ],
+ *   operand: Map(2) { 'bar' => 1, 'meep' => 1 },
+ *   flag: Map(6) { 'f' => 1, 'o' => 2, 'a' => 1, 'x' => 2, 'y' => 1, 'z' => 1 },
+ *   option: Map(2) { 'baz' => 2, 'yeet' => 1 }
+ * }
+ *
+ * ```
+ *
+* @remarks This class attempts to be as immutable as possible.
  */
 export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>>
 {
@@ -42,8 +63,31 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
      * prefix `string` to parse the strings in the provided `string[]` into
      * operands, flags, and options and then count the occurrences of them.
      *
-     * @param prefixString
-     * @param strings
+     * @param prefixString The `string` used to denote which strings are
+     *                     operands, flags, or options.
+     *
+     * @param strings The strings to parse into operands, flags, and options and
+     *                then count the occurrences of.
+     *
+     * @example
+     * Below is an example of how this object sorts the strings of a string array
+     * into operands, flags, and options and then maps each one to the number of
+     * times they are present in the string array:
+     * ```typescript
+     * const cliofoCount = new CliofoCount("-", ["-foox", "bar", "--baz", "-a", "-xyz", "--baz", "meep", "--yeet"]);
+     *
+     * // Creates a CliofoCount object with the following properties:
+     * {
+     *   prefixString: '-',
+     *   arguments: [ '-foox',  'bar', '--baz', '-a', '-xyz',  '--baz', 'meep',  '--yeet' ],
+     *   operand: Map(2) { 'bar' => 1, 'meep' => 1 },
+     *   flag: Map(6) { 'f' => 1, 'o' => 2, 'a' => 1, 'x' => 2, 'y' => 1, 'z' => 1 },
+     *   option: Map(2) { 'baz' => 2, 'yeet' => 1 }
+     * }
+     *
+     * ```
+     *
+     * @remarks This class attempts to be as immutable as possible.
      *
      * @public
      * @constructor
