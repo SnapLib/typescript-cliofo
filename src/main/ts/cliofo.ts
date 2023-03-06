@@ -61,9 +61,9 @@ export class Cliofo
     readonly #cliofoCounts: Readonly<CliofoCounts>;
     readonly #cliofoIndexes: Readonly<CliofoIndexes>;
 
-    public constructor(parsedCliofos: Readonly<CliofoPrefixParser<readonly string[] | ReadonlyMap<string, number> | ReadonlyMap<string, readonly number[]> >>);
-    public constructor(prefixString: string, strings?: readonly string[]);
-    public constructor(prefixStringOrParsedCliofos: Readonly<CliofoPrefixParser<readonly string[] | ReadonlyMap<string, number> | ReadonlyMap<string, readonly number[]> >> | string, strings?: readonly string[])
+    public constructor(parsedCliofos: PrefixStringsNumberAndNumbersParser);
+    public constructor(prefixString: string, strings: string[]);
+    public constructor(prefixStringOrParsedCliofos: PrefixStringsNumberAndNumbersParser | string, strings?: readonly string[])
     {
         if (typeof prefixStringOrParsedCliofos === "string")
         {
@@ -182,5 +182,10 @@ type ParsedCliofoArgument =
      */
     readonly indexes: ReadonlyMap<string, readonly number[]>
 };
+
+type PrefixStringsNumberAndNumbersParser = Readonly<
+    CliofoPrefixParser<readonly string[] | ReadonlyMap<string, number>> | ReadonlyMap<string, readonly number[]> >;
+
+console.log(new Cliofo("-", process.argv.slice(2)));
 
 export {parseStrings as default};
