@@ -57,9 +57,9 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
     public readonly option: ReadonlyMap<string, number>;
 
     /**
-     * Constructs an instance of a `CliofoCount` object using the provided
-     * prefix `string` to parse the strings in the provided `string[]` into
-     * operands, flags, and options and then count the occurrences of them.
+     * Constructs an object that uses the provided prefix `string` to parse the
+     * strings in the provided `string[]` into operands, flags, and options and
+     * then count the occurrences of them.
      *
      * @param prefixString The `string` used to denote which strings are
      *                     operands, flags, or options.
