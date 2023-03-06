@@ -22,8 +22,7 @@ import {StringParseError} from "./string-parse-error.js";
  *   option: Map(2) { 'baz' => 2, 'yeet' => 1 }
  * }
  * ```
- *
-* @remarks This class attempts to be as immutable as possible.
+ * @remarks This class attempts to be as immutable as possible.
  */
 export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>>
 {
