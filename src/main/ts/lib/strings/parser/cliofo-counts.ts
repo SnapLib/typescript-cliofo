@@ -21,7 +21,6 @@ import {StringParseError} from "./string-parse-error.js";
  *   flag: Map(6) { 'f' => 1, 'o' => 2, 'a' => 1, 'x' => 2, 'y' => 1, 'z' => 1 },
  *   option: Map(2) { 'baz' => 2, 'yeet' => 1 }
  * }
- *
  * ```
  *
 * @remarks This class attempts to be as immutable as possible.
