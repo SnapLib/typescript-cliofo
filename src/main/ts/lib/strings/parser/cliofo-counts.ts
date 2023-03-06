@@ -45,9 +45,9 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
     {
         super(prefixString, strings);
 
-        const _distinctString: Readonly<{ operands: readonly string[],
-                                          flagChars: readonly string[],
-                                          options: readonly string[] }>
+        const distinctString: Readonly<{ operands: readonly string[],
+                                         flagChars: readonly string[],
+                                         options: readonly string[] }>
             = Object.freeze(
                 [...new Set(this.arguments)]
                 .reduce(
@@ -93,7 +93,7 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
 
         this.operand = Object.freeze(
             new Map(
-                _distinctString.operands
+                distinctString.operands
                     .map(aString =>
                         Object.freeze([ aString,
                           this.arguments.filter(anotherString => aString === anotherString).length ]))
@@ -102,7 +102,7 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
 
         this.flag = Object.freeze(
             new Map(
-                _distinctString.flagChars
+                distinctString.flagChars
                     // Create array of distinct character keys paired with the
                     // number of times they occur in strings
                     .map(aChar =>
@@ -125,7 +125,7 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
 
         this.option = Object.freeze(
             new Map(
-                _distinctString.options
+                distinctString.options
                     .map(aString =>
                         Object.freeze([
                             aString.slice(this.optionPrefixString().length),
