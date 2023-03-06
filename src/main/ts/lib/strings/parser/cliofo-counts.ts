@@ -11,9 +11,9 @@ import {StringParseError} from "./string-parse-error.js";
  * into operands, flags, and options and then maps each one to the number of
  * times they are present in the string array:
  * ```typescript
- * const cliofoCount = new CliofoCount("-", ["-foox", "bar", "--baz", "-a", "-xyz", "--baz", "meep", "--yeet"]);
+ * const cliofoCounts = new CliofoCounts("-", ["-foox", "bar", "--baz", "-a", "-xyz", "--baz", "meep", "--yeet"]);
  *
- * // Creates a CliofoCount object with the following properties:
+ * // Creates a CliofoCounts object with the following properties:
  * {
  *   prefixString: '-',
  *   arguments: [ '-foox',  'bar', '--baz', '-a', '-xyz',  '--baz', 'meep',  '--yeet' ],
