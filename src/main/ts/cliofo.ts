@@ -10,7 +10,7 @@ import {type CliofoPrefixParser} from "lib/strings/parser/cliofo-prefix-parser.j
  *
  * @remarks This class doesn't directly parse/consume any string arguments.
  * Functions that parse/consume command line arguments and create
- * `Cliofo` objects are provided by this package instead such as {@link cliofo}.
+ * `Cliofo` objects are provided by this package instead such as {@link Cliofo}.
  */
 export class Cliofo
 {
@@ -82,7 +82,7 @@ export class Cliofo
      *   based on the provided prefix `string`.
      */
     public constructor(prefixString: string, strings: string[]);
-    public constructor(prefixStringOrParsedCliofos: CliofoPrefixParser<unknown> | string, strings?: readonly string[])
+    constructor(prefixStringOrParsedCliofos: Readonly<CliofoPrefixParser<unknown>> | string, strings?: readonly string[])
     {
         if (typeof prefixStringOrParsedCliofos === "string")
         {
