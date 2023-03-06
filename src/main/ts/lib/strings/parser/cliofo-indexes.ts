@@ -91,7 +91,9 @@ export class CliofoIndexes extends CliofoPrefixParser<ReadonlyMap<string, readon
         super(prefixString, strings);
 
         this.operand = this.arguments
-            .reduce((operandIndexesMap: ReadonlyMap<string, readonly number[]>, aString: string, index: number) =>
+            .reduce( ( operandIndexesMap: ReadonlyMap<string, readonly number[]>,
+                       aString: string,
+                       index: number ) =>
             {
                 return this.prefixString.length === 0 || ! aString.startsWith(this.prefixString)
                     ? Object.freeze(
