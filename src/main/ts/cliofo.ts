@@ -79,8 +79,7 @@ export class Cliofo
      *   `string` is an operand, flag, or option.
      *
      * @param strings The strings to parse into operands, flags, and options
-     *   based on the provided prefix `string`. Defaults to an empty frozen
-     *   array if `null` or `undefined` is passed.
+     *   based on the provided prefix `string`.
      */
     public constructor(prefixString: string, strings: string[]);
     public constructor(prefixStringOrParsedCliofos: CliofoPrefixParser<unknown> | string, strings?: readonly string[])
