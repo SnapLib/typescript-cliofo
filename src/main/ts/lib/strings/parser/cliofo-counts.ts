@@ -1,11 +1,15 @@
 import {CliofoPrefixParser} from "./cliofo-prefix-parser.js";
 import {StringParseError} from "./string-parse-error.js";
 
+/**
+ * This object uses a specified prefix `string` to parse strings into operands,
+ * flags, and options and then count the occurrences of them.
+ */
 export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>>
 {
     /**
-     * A map containing the operand strings as keys paired up with the number of
-     * times each one occurs as its value.
+     * A map containing the operand strings as keys mapped to the number of
+     * times they occur as its value.
      *
      * @public
      * @override
@@ -14,8 +18,8 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
     public readonly operand: ReadonlyMap<string, number>;
 
     /**
-     * A map containing the flag strings as keys paired up with the number of
-     * times each one occurs as its value.
+     * A map containing the flag characters as keys mapped to the number of
+     * times they occur as its value.
      *
      * @public
      * @override
@@ -24,8 +28,8 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
     public readonly flag: ReadonlyMap<string, number>;
 
     /**
-     * A map containing the option strings as keys paired up with the number of
-     * times each one occurs as its value.
+     * A map containing the option strings as keys mapped to the number of
+     * times they occur as its value.
      *
      * @public
      * @override
@@ -34,6 +38,9 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
     public readonly option: ReadonlyMap<string, number>;
 
     /**
+     * Constructs an instance of a `CliofoCount` object using the provided
+     * prefix `string` to parse the strings in the provided `string[]` into
+     * operands, flags, and options and then count the occurrences of them.
      *
      * @param prefixString
      * @param strings
