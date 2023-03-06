@@ -61,9 +61,29 @@ export class Cliofo
     readonly #cliofoCounts: Readonly<CliofoCounts>;
     readonly #cliofoIndexes: Readonly<CliofoIndexes>;
 
-    public constructor(parsedCliofos: PrefixStringsNumberAndNumbersParser);
+    /**
+     * Constructs a new instance of a {@link Cliofo} object from a
+     * {@link CliofoPrefixParser} object.
+     *
+     * @param parsedCliofos The {@link CliofoPrefixParser} object to construct
+     * the new {@link Cliofo} object instance from.
+     */
+    public constructor(parsedCliofos: CliofoPrefixParser<unknown>);
+
+    /**
+     * Constructs a new instance of a {@link Cliofo} object using the provided
+     * `string` as the prefix `string` used to denote if a `string` is an
+     * operand, flag, or option.
+     *
+     * @param prefixString The leading prefix `string` used to denote if a
+     *   `string` is an operand, flag, or option.
+     *
+     * @param strings The strings to parse into operands, flags, and options
+     *   based on the provided prefix `string`. Defaults to an empty frozen
+     *   array if `null` or `undefined` is passed.
+     */
     public constructor(prefixString: string, strings: string[]);
-    public constructor(prefixStringOrParsedCliofos: PrefixStringsNumberAndNumbersParser | string, strings?: readonly string[])
+    public constructor(prefixStringOrParsedCliofos: CliofoPrefixParser<unknown> | string, strings?: readonly string[])
     {
         if (typeof prefixStringOrParsedCliofos === "string")
         {
@@ -82,8 +102,8 @@ export class Cliofo
                 : Object.freeze(new CliofoStrings(prefixStringOrParsedCliofos.prefixString, prefixStringOrParsedCliofos.arguments));
             this.prefixString = this.#cliofoStrings.prefixString;
             this.arguments = this.#cliofoStrings.arguments;
-            this.#cliofoCounts = Object.freeze(new CliofoCounts(this.prefixString, this.#cliofoStrings.arguments));
-            this.#cliofoIndexes = Object.freeze(new CliofoIndexes(this.prefixString, this.#cliofoStrings.arguments));
+            this.#cliofoCounts = Object.freeze(new CliofoCounts(this.prefixString, this.arguments));
+            this.#cliofoIndexes = Object.freeze(new CliofoIndexes(this.prefixString, this.arguments));
         }
         else if (prefixStringOrParsedCliofos instanceof CliofoCounts)
         {
@@ -92,8 +112,8 @@ export class Cliofo
                 : Object.freeze(new CliofoCounts(prefixStringOrParsedCliofos.prefixString, prefixStringOrParsedCliofos.arguments));
             this.prefixString = this.#cliofoCounts.prefixString;
             this.arguments = this.#cliofoCounts.arguments;
-            this.#cliofoStrings = Object.freeze(new CliofoStrings(this.prefixString, this.#cliofoCounts.arguments));
-            this.#cliofoIndexes = Object.freeze(new CliofoIndexes(this.prefixString, this.#cliofoCounts.arguments));
+            this.#cliofoStrings = Object.freeze(new CliofoStrings(this.prefixString, this.arguments));
+            this.#cliofoIndexes = Object.freeze(new CliofoIndexes(this.prefixString, this.arguments));
         }
         else if (prefixStringOrParsedCliofos instanceof CliofoIndexes)
         {
@@ -102,8 +122,8 @@ export class Cliofo
                 : Object.freeze(new CliofoIndexes(prefixStringOrParsedCliofos.prefixString, prefixStringOrParsedCliofos.arguments));
             this.prefixString = this.#cliofoIndexes.prefixString;
             this.arguments = this.#cliofoIndexes.arguments;
-            this.#cliofoStrings = Object.freeze(new CliofoStrings(this.prefixString, this.#cliofoIndexes.arguments));
-            this.#cliofoCounts = Object.freeze(new CliofoCounts(this.prefixString, this.#cliofoIndexes.arguments));
+            this.#cliofoStrings = Object.freeze(new CliofoStrings(this.prefixString, this.arguments));
+            this.#cliofoCounts = Object.freeze(new CliofoCounts(this.prefixString, this.arguments));
         }
         else
         {
@@ -182,9 +202,6 @@ type ParsedCliofoArgument =
      */
     readonly indexes: ReadonlyMap<string, readonly number[]>
 };
-
-type PrefixStringsNumberAndNumbersParser = Readonly<
-    CliofoPrefixParser<readonly string[] | ReadonlyMap<string, number>> | ReadonlyMap<string, readonly number[]> >;
 
 console.log(new Cliofo("-", process.argv.slice(2)));
 
