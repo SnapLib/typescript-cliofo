@@ -120,7 +120,14 @@ export class CliofoIndexes extends CliofoPrefixParser<ReadonlyMap<string, readon
                         : flagIndexesMap;
             },
             // Initialize frozen map of flag string keys mapped to empty number arrays as keys
-            Object.freeze(new Map<string, readonly number[]>([...new Set(this.arguments.filter(aString => this.prefixString.length !== 0 && aString.startsWith(this.prefixString) && ! aString.startsWith(this.optionPrefixString())))].map(flagStr => Object.freeze([flagStr, []])))));
+            Object.freeze(
+                new Map<string, readonly number[]>( [
+                    ...new Set(this.arguments
+                        .filter(aString => this.prefixString.length !== 0
+                                && aString.startsWith(this.prefixString)
+                                && ! aString.startsWith(this.optionPrefixString())))
+                ].map(flagStr => Object.freeze([flagStr, []])))
+            ));
 
         this.option = this.arguments
             .reduce((optionIndexesMap: ReadonlyMap<string, readonly number[]>, aString: string, index: number) => {
