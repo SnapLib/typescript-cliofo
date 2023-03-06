@@ -125,7 +125,14 @@ export class CliofoIndexes extends CliofoPrefixParser<ReadonlyMap<string, readon
                     ...new Set(this.arguments
                         .filter(aString => this.prefixString.length !== 0
                                 && aString.startsWith(this.prefixString)
-                                && ! aString.startsWith(this.optionPrefixString())))
+                                && ! aString.startsWith(this.optionPrefixString()))
+                        .flatMap(aString => [...new Set(aString.slice(this.prefixString.length))])
+                        .reduce((charSet, aChar) =>
+                        {
+                            return Object.freeze(new Set([...charSet, aChar]));
+                        },
+                        Object.freeze(new Set<string>()))
+                    )
                 ].map(flagStr => Object.freeze([flagStr, []])))
             ));
 
