@@ -1,25 +1,29 @@
 import {CliofoPrefixParser} from "./cliofo-prefix-parser.js";
 
 /**
- * @classdesc
- * Contains the *argument indexes* of each operand, flag, and option. The
- * "argument index" is the index `number` of an argument's position relative to
- * any other arguments it's passed with.
+ * This object uses a specified prefix `string` to parse strings into operands,
+ * flags, and options and then get the indexes they occur at in a provided
+ * `string` array.
  *
  * @example
- * Below is an example of some string argument indexes and how this class can
- * be used.
- * ```javascript
- * const prefixParser = new PrefixParser("-", ["--first" "-two", "--foo", "three", "-xyz" "bar"]);
- * const cliofoIndex = new CliofoIndex(prefixParser);
+ * Below is an example of how this object sorts the strings of a string array
+ * into operands, flags, and options and then maps each one to the number of
+ * times they are present in the string array:
+ * ```typescript
+ * const cliofoIndexes = new CliofoIndexes("-", ["-foox", "bar", "--baz", "-a", "-xyz", "--baz", "meep", "--yeet"]);
  *
- * console.log(cliofoIndex);
- * // prints:
- * // {
- * //   operands: Map()
- * //
- * // }
+ * // Creates a CliofoIndexes object with the following properties:
+ * {
+ *   prefixString: '-',
+ *   arguments: [ '-foox', 'bar', '--baz', '-a', '-xyz',  '--baz', 'meep',  '--yeet' ],
+ *   operand: Map(2) { 'bar' => [ 1 ], 'meep' => [ 6 ] },
+ *   flag: Map(3) { '-foox' => [ 0 ], '-a' => [ 3 ], '-xyz' => [ 4 ] },
+ *   option: Map(2) { 'baz' => [ 2, 5 ], 'yeet' => [ 7 ] }
+ * }
+ *
  * ```
+ *
+ * @remarks This class attempts to be as immutable as possible.
  *
  * @see {@link CliofoPrefixParser}
  */
