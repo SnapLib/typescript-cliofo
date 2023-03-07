@@ -33,6 +33,15 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
     public convertString(aString: string): ConvertedStringType
         { return this.stringConverter(aString); }
 
+        /**
+         * Uses this object's internal converted `string` predicate to determine
+         * if the passed `string` is valid.
+         *
+         * @param convertedString The converted `string` to test for validity.
+         *
+         * @returns the resulting `boolean` from passing the converted `string`
+         * argument to this object's internal converted `string` predicate.
+         */
     public convertedStringIsValid(convertedString: ConvertedStringType)
         { return this.convertedStringPredicate(convertedString); }
 
