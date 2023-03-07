@@ -104,6 +104,20 @@ export class StringConsumer
 export function createStringConsumer(stringValue: string, requiredNumOfArgsToConsume: number): Readonly<StringConsumer>;
 
 /**
+ * Constructs a new {@link StringConsumer} object instance with the provided
+ * string value minimum `range.min` and maximum `range.max` consumable range
+ * values.
+ *
+ * @param stringValue The `string` value of the constructed `StringConsumer`.
+ *
+ * @param range The minimum and maximum consumable range values.
+ *
+ * @returns a new {@link StringConsumer} object instance with the provided string
+ * value minimum `range.min` and maximum `range.max` consumable range values.
+ */
+export function createStringConsumer(stringValue: string, range: Partial<{min: number | null, max: number | null}>): Readonly<StringConsumer>;
+
+/**
  * Function to construct a new {@link StringConsumer} instance with the provided
  * minimum number of required string arguments to consume and maximum number of
  * string arguments that can be consumed.
@@ -127,13 +141,35 @@ export function createStringConsumer(stringValue: string, requiredNumOfArgsToCon
  */
 export function createStringConsumer(stringValue: string, min: number, max: number): Readonly<StringConsumer>;
 
-export function createStringConsumer(stringValue: string, min: number, max?: number): Readonly<StringConsumer>
+export function createStringConsumer(stringValue: string, minOrRange: number | Partial<{min: number | null, max: number | null}>, max?: number): Readonly<StringConsumer>
 {
-    const maxRange: number = max ?? min;
+    let minRange: number;
 
-    if (min > maxRange)
+    let maxRange: number;
+
+    if (typeof minOrRange === "number")
     {
-        throw new Error(`min range greater than max range: ${min} > ${maxRange}`);
+        minRange = minOrRange;
+        maxRange = max ?? minRange;
+    }
+    else
+    {
+        if (minOrRange.min === undefined || minOrRange.min === null)
+        {
+            minRange = 0;
+            maxRange = minOrRange.max ?? 0;
+        }
+        else
+        {
+            minRange = minOrRange.min;
+            maxRange = minOrRange.max ?? Infinity;
+        }
+    }
+
+
+    if (minOrRange > maxRange)
+    {
+        throw new Error(`min range greater than max range: ${minOrRange} > ${maxRange}`);
     }
 
     if (maxRange < 0)
@@ -141,7 +177,7 @@ export function createStringConsumer(stringValue: string, min: number, max?: num
         throw new Error(`max range less than 0: ${maxRange} < 0`);
     }
 
-    return Object.freeze(new StringConsumer(stringValue, Object.freeze({min: min, max: maxRange})));
+    return Object.freeze(new StringConsumer(stringValue, {min: minRange, max: maxRange}));
 
 }
 
