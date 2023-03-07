@@ -8,6 +8,7 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
      *
      * @public
      * @readonly
+     * @function
      */
     public readonly stringConverter: (aString: string) => ConvertedStringType;
 
@@ -17,6 +18,7 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
      *
      * @public
      * @readonly
+     * @function
      */
     public readonly convertedStringPredicate: (convertedString: ConvertedStringType) => boolean;
 
