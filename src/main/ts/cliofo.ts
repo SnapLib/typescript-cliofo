@@ -15,44 +15,53 @@ import {CliofoPrefixParser} from "./lib/strings/parser/cliofo-prefix-parser.js";
 export class Cliofo
 {
     /**
-     * The `string` to denote flags and options( and operands).
+     * The `string` to denote flags and options (and operands).
+     *
+     * @public
      * @readonly
      */
     public readonly prefixString: string;
 
+    /**
+     * The `string[]` of strings to parse with this object's
+     * {@link prefixString} `string into operands, flags, and options.
+     *
+     * @public
+     * @readonly
+     */
     public readonly arguments: readonly string[];
 
     /**
-     * The `string[]` of arguments to parse with the {@link prefixString} `string`.
-     * @readonly
-     */
-    // public readonly arguments: Readonly<CliofoStrings>;
-
-    /**
      * The operand strings contained within this object's {@link arguments}
-     * string arguments when parsed with this object's {@link prefixString}.
-     * Strings that don't start with this object's {@link prefixString} are
-     * operands.
+     * `string[]` when parsed with this object's {@link prefixString}. Strings
+     * that don't start with this object's {@link prefixString} are operands.
+     *
+     * @public
      * @readonly
      */
     public readonly operand: Readonly<ParsedCliofoArgument>;
 
     /**
      * The flag character strings contained with this object's
-     * {@link arguments} string arguments when parsed with this object's
-     * {@link prefixString} string. Strings that begin with only a single
+     * {@link arguments} `string[]` when parsed with this object's
+     * {@link prefixString} `string`. Strings that begin with only a single
      * leading instance of this object's {@link prefixString} are flags. The
      * characters of each flag string are stored as individual characters as
-     * opposed to the entire string (like {@link operand} and {@link option}
-     * strings).
+     * opposed to the entire string (unlike {@link operand} and {@link option}
+     * strings which consist of the entire string argument).
+     *
+     * @public
      * @readonly
      */
     public readonly flag: Readonly<ParsedCliofoArgument>;
 
     /**
-     * The operand strings contained within this object's {@link arguments}
-     * string arguments when parsed with this object's {@link prefixString}.
-     * string that start with this object's {@link prefixString} are operands.
+     * The option strings contained within this object's {@link arguments}
+     * `string[]` when parsed with this object's {@link prefixString} `string`.
+     * A `string` that starts with a sequence of 2 or more of this object's
+     * {@link prefixString} strings is an operand.
+     *
+     * @public
      * @readonly
      */
     public readonly option: Readonly<ParsedCliofoArgument>;
@@ -215,7 +224,5 @@ type ParsedCliofoArgument =
      */
     readonly indexes: ReadonlyMap<string, readonly number[]>
 };
-
-console.log(new Cliofo("-", process.argv.slice(2)));
 
 export {parseStrings as default};
