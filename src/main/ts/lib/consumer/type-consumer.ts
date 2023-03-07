@@ -11,9 +11,10 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
     public constructor( stringValue: string,
                         range: Readonly<{min: number, max: number}>,
                         stringConverter: (aString: string) => ConvertedStringType,
+                        stringPredicate: (aString: string) => boolean = StringConsumer.defaultStringPredicate(),
                         convertedStringPredicate: (convertedString: ConvertedStringType) => boolean = TypeConsumer.#defaultConvertedStringPredicate )
     {
-        super(stringValue, range);
+        super(stringValue, range, stringPredicate);
         this.stringConverter = stringConverter;
         this.convertedStringPredicate = convertedStringPredicate;
     }
@@ -33,9 +34,7 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
         { return this.stringConverter(aString); }
 
     public convertedStringIsValid(convertedString: ConvertedStringType)
-    {
-        return this.convertedStringPredicate(convertedString);
-    }
+        { return this.convertedStringPredicate(convertedString); }
 
     /**
      * Returns `true` if this object's converted string predicate is not the
