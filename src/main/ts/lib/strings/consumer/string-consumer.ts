@@ -5,7 +5,8 @@
  *
  * @remarks There's no checks or validations performed on the min and max
  *          values to make sure they're compatible and they're both explicitly
- *          required to be set. The {@link createStringConsumer} function
+ *          required to be set. The {@link createStringConsumer} function offers
+ *          a safer way to construct instances of this object.
  */
 export class StringConsumer
 {
@@ -22,9 +23,9 @@ export class StringConsumer
      */
     public readonly range: Readonly<{min: number, max: number}>;
 
-    readonly #validator: (aString: string) => boolean;
+    static readonly #defaultStringPredicate = () => false;
 
-    static readonly #defaultValidator = () => true;
+    readonly #stringPredicate: (aString: string) => boolean;
 
     /**
      * Constructs an instance of a {@link StringConsumer} object. This object
@@ -35,16 +36,16 @@ export class StringConsumer
      * @param range The minimum and maximum number of `string` arguments this
      *              object requires to consume.
      *
-     * @param validator An optional `string` predicate that can be used to
-     *                  validate a `string` argument.
+     * @param stringPredicate An optional `string` predicate that can be used to
+     *                        validate a `string`.
      */
     public constructor( stringValue: string,
                         range: Readonly<{min: number, max: number}>,
-                        validator: (aString: string) => boolean = StringConsumer.#defaultValidator )
+                        stringPredicate: (aString: string) => boolean  = StringConsumer.#defaultStringPredicate)
     {
         this.stringValue = stringValue;
         this.range = Object.isFrozen(range) ? range : Object.freeze({min: range.min, max: range.max});
-        this.#validator = validator;
+        this.#stringPredicate = stringPredicate;
     }
 
     /**
@@ -58,10 +59,31 @@ export class StringConsumer
      *
      * @returns `true` if the passed string argument is valid.
      */
-    public isValid(aString: string): boolean
+    public stringIsValid(aString: string): boolean
+        { return this.#stringPredicate(aString); }
+
+    /**
+     * Returns `true` if this object's validator `string` predicate is not the
+     * default `string` predicate.
+     *
+     * @returns `true` if this object's validator `string` predicate is not the
+     *          default `string` predicate.
+     */
+    public hasValidatorStringPredicate(): boolean
     {
-        return this.#validator(aString);
+        return this.#stringPredicate !== StringConsumer.#defaultStringPredicate;
     }
+
+    /**
+     * Returns the static default `string` predicate.
+     *
+     * @returns The static default `string` predicate.
+     *
+     * @protected
+     * @static
+     */
+    protected static defaultStringPredicate(): () => boolean
+        { return StringConsumer.#defaultStringPredicate; }
 }
 
 /**
