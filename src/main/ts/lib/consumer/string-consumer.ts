@@ -12,6 +12,8 @@ export class StringConsumer
 {
     /**
      * The `string` argument value of this `StringConsumer`.
+     *
+     * @public
      * @readonly
      */
     public readonly stringValue: string;
@@ -19,9 +21,20 @@ export class StringConsumer
     /**
      * The required minimum number of arguments and maximum number of arguments
      * this `StringConsumer` can consume.
+     *
+     * @public
      * @readonly
      */
     public readonly range: Readonly<{min: number, max: number}>;
+
+    /**
+     * `true` if this object's validator `string` predicate is not the
+     * default `string` predicate.
+     *
+     * @public
+     * @readonly
+     */
+    public readonly hasStringPredicate: boolean;
 
     static readonly #defaultStringPredicate = () => false;
 
@@ -46,6 +59,7 @@ export class StringConsumer
         this.stringValue = stringValue;
         this.range = Object.isFrozen(range) ? range : Object.freeze({min: range.min, max: range.max});
         this.#stringPredicate = stringPredicate;
+        this.hasStringPredicate = this.#stringPredicate !== StringConsumer.#defaultStringPredicate;
     }
 
     /**
@@ -61,18 +75,6 @@ export class StringConsumer
      */
     public stringIsValid(aString: string): boolean
         { return this.#stringPredicate(aString); }
-
-    /**
-     * Returns `true` if this object's validator `string` predicate is not the
-     * default `string` predicate.
-     *
-     * @returns `true` if this object's validator `string` predicate is not the
-     *          default `string` predicate.
-     */
-    public hasValidatorStringPredicate(): boolean
-    {
-        return this.#stringPredicate !== StringConsumer.#defaultStringPredicate;
-    }
 
     /**
      * Returns the static default `string` predicate.
