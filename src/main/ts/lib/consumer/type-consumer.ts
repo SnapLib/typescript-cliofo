@@ -2,8 +2,22 @@ import {StringConsumer} from "./string-consumer";
 
 export class TypeConsumer<ConvertedStringType> extends StringConsumer
 {
+    /**
+     * Function that consumes a `string` and returns a value of
+     * {@link ConvertedStringType}.
+     *
+     * @public
+     * @readonly
+     */
     public readonly stringConverter: (aString: string) => ConvertedStringType;
 
+    /**
+     * Function that consumes a {@link ConvertedStringType} argument and returns
+     * a `boolean`.
+     *
+     * @public
+     * @readonly
+     */
     public readonly convertedStringPredicate: (convertedString: ConvertedStringType) => boolean;
 
     static readonly #defaultConvertedStringPredicate = () => false;
