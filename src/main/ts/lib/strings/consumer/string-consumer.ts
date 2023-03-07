@@ -171,14 +171,14 @@ export function createStringConsumer(stringValue: string, minOrRange: number | P
         throw new Error(`min range greater than or equal to Infinity: ${minRange} >= Infinity`);
     }
 
-    if (minRange > maxRange)
-    {
-        throw new Error(`min range greater than max range: ${minRange} > ${maxRange}`);
-    }
-
     if (maxRange < 0)
     {
         throw new Error(`max range less than 0: ${maxRange} < 0`);
+    }
+
+    if (minRange > maxRange)
+    {
+        throw new Error(`min range greater than max range: ${minRange} > ${maxRange}`);
     }
 
     return Object.freeze(new StringConsumer(stringValue, {min: minRange, max: maxRange}));
