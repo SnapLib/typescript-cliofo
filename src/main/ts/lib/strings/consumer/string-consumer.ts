@@ -166,6 +166,10 @@ export function createStringConsumer(stringValue: string, minOrRange: number | P
         }
     }
 
+    if (minRange >= Infinity)
+    {
+        throw new Error(`min range greater than or equal to Infinity: ${minRange} >= Infinity`);
+    }
 
     if (minRange > maxRange)
     {
