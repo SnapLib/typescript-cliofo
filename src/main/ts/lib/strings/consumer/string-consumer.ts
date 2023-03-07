@@ -167,9 +167,9 @@ export function createStringConsumer(stringValue: string, minOrRange: number | P
     }
 
 
-    if (minOrRange > maxRange)
+    if (minRange > maxRange)
     {
-        throw new Error(`min range greater than max range: ${minOrRange} > ${maxRange}`);
+        throw new Error(`min range greater than max range: ${minRange} > ${maxRange}`);
     }
 
     if (maxRange < 0)
