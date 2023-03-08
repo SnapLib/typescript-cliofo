@@ -4,6 +4,5 @@ export class ParseError extends Error
     public constructor(message: string, argString?: string)
     {
         super(message);
-        this.argString = argString;
     }
 }
