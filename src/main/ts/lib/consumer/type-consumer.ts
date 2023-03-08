@@ -1,4 +1,4 @@
-import {ConsumerString} from "./string-consumer.js";
+import {ConsumerString} from "./consumer-string.js";
 
 export class TypeConsumer<ConvertedStringType> extends ConsumerString
 {
