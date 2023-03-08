@@ -8,7 +8,7 @@
  *          required to be set. The {@link createStringConsumer} function offers
  *          a safer way to construct instances of this object.
  */
-export class StringConsumer
+export class ConsumerString
 {
     /**
      * The `string` argument value of this `StringConsumer`.
@@ -41,7 +41,7 @@ export class StringConsumer
     readonly #stringPredicate: (aString: string) => boolean;
 
     /**
-     * Constructs an instance of a {@link StringConsumer} object. This object
+     * Constructs an instance of a {@link ConsumerString} object. This object
      * represents a string on the command line that can consume other strings.
      *
      * @param stringValue The `string` that's going to consume other `string`s.
@@ -54,12 +54,12 @@ export class StringConsumer
      */
     public constructor( stringValue: string,
                         range: Readonly<{min: number, max: number}>,
-                        stringPredicate: (aString: string) => boolean  = StringConsumer.#defaultStringPredicate)
+                        stringPredicate: (aString: string) => boolean  = ConsumerString.#defaultStringPredicate)
     {
         this.stringValue = stringValue;
         this.range = Object.isFrozen(range) ? range : Object.freeze({min: range.min, max: range.max});
         this.#stringPredicate = stringPredicate;
-        this.hasStringPredicate = this.#stringPredicate !== StringConsumer.#defaultStringPredicate;
+        this.hasStringPredicate = this.#stringPredicate !== ConsumerString.#defaultStringPredicate;
     }
 
     /**
@@ -85,11 +85,11 @@ export class StringConsumer
      * @static
      */
     protected static defaultStringPredicate(): () => boolean
-        { return StringConsumer.#defaultStringPredicate; }
+        { return ConsumerString.#defaultStringPredicate; }
 }
 
 /**
- * Function to construct a new {@link StringConsumer} instance that will require
+ * Function to construct a new {@link ConsumerString} instance that will require
  * the number of string arguments to consume based on the passed number argument.
  *
  * @remarks
@@ -100,13 +100,13 @@ export class StringConsumer
  * @param requiredNumOfArgsToConsume The number of string arguments the
  * instantiated object requires.
  *
- * @returns A newly instantiated {@link StringConsumer} object that will require
+ * @returns A newly instantiated {@link ConsumerString} object that will require
  *          the specified number of string arguments.
  */
-export function createStringConsumer(stringValue: string, requiredNumOfArgsToConsume: number): Readonly<StringConsumer>;
+export function createStringConsumer(stringValue: string, requiredNumOfArgsToConsume: number): Readonly<ConsumerString>;
 
 /**
- * Constructs a new {@link StringConsumer} object instance with the provided
+ * Constructs a new {@link ConsumerString} object instance with the provided
  * string value minimum `range.min` and maximum `range.max` consumable range
  * values.
  *
@@ -114,13 +114,13 @@ export function createStringConsumer(stringValue: string, requiredNumOfArgsToCon
  *
  * @param range The minimum and maximum consumable range values.
  *
- * @returns a new {@link StringConsumer} object instance with the provided string
+ * @returns a new {@link ConsumerString} object instance with the provided string
  * value minimum `range.min` and maximum `range.max` consumable range values.
  */
-export function createStringConsumer(stringValue: string, range: Partial<{min: number | null, max: number | null}>): Readonly<StringConsumer>;
+export function createStringConsumer(stringValue: string, range: Partial<{min: number | null, max: number | null}>): Readonly<ConsumerString>;
 
 /**
- * Function to construct a new {@link StringConsumer} instance with the provided
+ * Function to construct a new {@link ConsumerString} instance with the provided
  * minimum number of required string arguments to consume and maximum number of
  * string arguments that can be consumed.
  *
@@ -138,12 +138,12 @@ export function createStringConsumer(stringValue: string, range: Partial<{min: n
  * @param max The `max` argument denotes the maximum number of arguments the
  *            constructed `StringConsumer`can consume.
  *
- * @returns A newly instantiated {@link StringConsumer} object constructed from
+ * @returns A newly instantiated {@link ConsumerString} object constructed from
  *          the min required and max consumable string arguments.
  */
-export function createStringConsumer(stringValue: string, min: number, max: number): Readonly<StringConsumer>;
+export function createStringConsumer(stringValue: string, min: number, max: number): Readonly<ConsumerString>;
 
-export function createStringConsumer(stringValue: string, minOrRange: number | Partial<{min: number | null, max: number | null}>, max?: number): Readonly<StringConsumer>
+export function createStringConsumer(stringValue: string, minOrRange: number | Partial<{min: number | null, max: number | null}>, max?: number): Readonly<ConsumerString>
 {
     let minRange: number;
 
@@ -183,7 +183,7 @@ export function createStringConsumer(stringValue: string, minOrRange: number | P
         throw new Error(`min range greater than max range: ${minRange} > ${maxRange}`);
     }
 
-    return Object.freeze(new StringConsumer(stringValue, {min: minRange, max: maxRange}));
+    return Object.freeze(new ConsumerString(stringValue, {min: minRange, max: maxRange}));
 
 }
 

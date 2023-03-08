@@ -1,6 +1,6 @@
-import {StringConsumer} from "./string-consumer.js";
+import {ConsumerString} from "./string-consumer.js";
 
-export class TypeConsumer<ConvertedStringType> extends StringConsumer
+export class TypeConsumer<ConvertedStringType> extends ConsumerString
 {
     readonly #stringConverter: (aString: string) => ConvertedStringType;
 
@@ -11,7 +11,7 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
     public constructor( stringValue: string,
                         range: Readonly<{min: number, max: number}>,
                         stringConverter: (aString: string) => ConvertedStringType,
-                        stringPredicate: (aString: string) => boolean = StringConsumer.defaultStringPredicate(),
+                        stringPredicate: (aString: string) => boolean = ConsumerString.defaultStringPredicate(),
                         convertedStringPredicate: (convertedString: ConvertedStringType) => boolean = TypeConsumer.#defaultConvertedStringPredicate )
     {
         super(stringValue, range, stringPredicate);
