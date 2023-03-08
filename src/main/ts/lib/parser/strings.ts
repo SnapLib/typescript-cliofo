@@ -140,7 +140,7 @@ export class Strings extends PrefixParser<readonly string[]>
                     // impossible to throw in most circumstances.
                     else
                     {
-                        throw new ParseError(`could not parse string to operand, flag, or options: "${aString}"`, aString);
+                        throw new ParseError(`could not parse string to operand, flag, or options: "${aString}"`);
                     }
 
                 },

@@ -131,7 +131,7 @@ export class Counts extends PrefixParser<ReadonlyMap<string, number>>
                         }
                         else
                         {
-                            throw new ParseError(`could not parse string to operand, flag, or options: "${aString}"`, aString);
+                            throw new ParseError(`could not parse string to operand, flag, or options: "${aString}"`);
                         }
                     },
                     { operands: Object.freeze(new Array<string>()),
