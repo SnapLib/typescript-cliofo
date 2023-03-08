@@ -1,5 +1,5 @@
 import {PrefixParser} from "./prefix-parser.js";
-import {ParseError} from "./string-parse-error.js";
+import {ParseError} from "./parse-error.js";
 
 /**
  * This class sorts an array of `string`s into ***operand***, ***flag***, and
