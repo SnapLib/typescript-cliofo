@@ -85,8 +85,8 @@ export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
      *   `["f", "o", "o"]` if the leading hyphen character (`"-"`) is the prefix
      *   string.
      *
-     * @param prefixString The string used to denote which strings are flags
-     *                     and options (and operands).
+     * @param prefixString The string used to denote which strings are flags and
+     *                     options (and operands).
      *
      * @param strings The strings to sort into operands, flags, and options
      *                based on the `prefixString`.
