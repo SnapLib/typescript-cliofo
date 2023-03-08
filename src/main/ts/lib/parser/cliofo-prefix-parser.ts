@@ -37,7 +37,7 @@
  *
  * @abstract
  */
-export abstract class CliofoPrefixParser<ParsedStringT>
+export abstract class PrefixParser<ParsedStringT>
 {
     /**
      * The leading prefix `string` used to denote which arguments are flags and
@@ -127,4 +127,4 @@ export abstract class CliofoPrefixParser<ParsedStringT>
     public optionPrefixString(): string {return this.#optionPrefixString;}
 }
 
-export {CliofoPrefixParser as default};
+export {PrefixParser as default};

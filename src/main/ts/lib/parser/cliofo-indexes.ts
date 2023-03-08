@@ -1,4 +1,4 @@
-import {CliofoPrefixParser} from "./cliofo-prefix-parser.js";
+import {PrefixParser} from "./cliofo-prefix-parser.js";
 
 /**
  * This object uses a specified prefix `string` to parse strings into operands,
@@ -25,9 +25,9 @@ import {CliofoPrefixParser} from "./cliofo-prefix-parser.js";
  *
  * @remarks This class attempts to be as immutable as possible.
  *
- * @see {@link CliofoPrefixParser}
+ * @see {@link PrefixParser}
  */
-export class CliofoIndexes extends CliofoPrefixParser<ReadonlyMap<string, readonly number[]>>
+export class Indexes extends PrefixParser<ReadonlyMap<string, readonly number[]>>
 {
     /**
      * A map containing the operand strings as keys paired up with their
@@ -153,4 +153,4 @@ export class CliofoIndexes extends CliofoPrefixParser<ReadonlyMap<string, readon
     }
 }
 
-export {CliofoIndexes as default};
+export {Indexes as default};

@@ -1,4 +1,4 @@
-import {CliofoPrefixParser} from "./cliofo-prefix-parser.js";
+import {PrefixParser} from "./cliofo-prefix-parser.js";
 import {StringParseError} from "./string-parse-error.js";
 
 /**
@@ -24,9 +24,9 @@ import {StringParseError} from "./string-parse-error.js";
  * @remarks
  * This class attempts to be as immutable as possible.
  *
- * @see {@link CliofoPrefixParser}
+ * @see {@link PrefixParser}
  */
-export class CliofoStrings extends CliofoPrefixParser<readonly string[]>
+export class Strings extends PrefixParser<readonly string[]>
 {
     /**
      * A readonly string array of operands. These include arguments that aren't
@@ -162,4 +162,4 @@ type Ofo = {
     readonly options: readonly string[]
 };
 
-export {CliofoStrings as default};
+export {Strings as default};

@@ -1,4 +1,4 @@
-import {CliofoPrefixParser} from "./cliofo-prefix-parser.js";
+import {PrefixParser} from "./cliofo-prefix-parser.js";
 import {StringParseError} from "./string-parse-error.js";
 
 /**
@@ -24,7 +24,7 @@ import {StringParseError} from "./string-parse-error.js";
  * ```
  * @remarks This class attempts to be as immutable as possible.
  */
-export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>>
+export class Counts extends PrefixParser<ReadonlyMap<string, number>>
 {
     /**
      * A map containing the operand strings as keys mapped to the number of
@@ -184,4 +184,4 @@ export class CliofoCounts extends CliofoPrefixParser<ReadonlyMap<string, number>
     }
 }
 
-export {CliofoCounts as default};
+export {Counts as default};
