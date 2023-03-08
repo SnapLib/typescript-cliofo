@@ -1,4 +1,4 @@
-export class StringParseError extends Error
+export class ParseError extends Error
 {
     public readonly argString?: string;
     public constructor(message: string, argString?: string)

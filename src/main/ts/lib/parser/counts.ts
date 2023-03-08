@@ -1,5 +1,5 @@
 import {PrefixParser} from "./prefix-parser.js";
-import {StringParseError} from "./string-parse-error.js";
+import {ParseError} from "./string-parse-error.js";
 
 /**
  * This object uses a specified prefix `string` to parse strings into operands,
@@ -131,7 +131,7 @@ export class Counts extends PrefixParser<ReadonlyMap<string, number>>
                         }
                         else
                         {
-                            throw new StringParseError(`could not parse string to operand, flag, or options: "${aString}"`, aString);
+                            throw new ParseError(`could not parse string to operand, flag, or options: "${aString}"`, aString);
                         }
                     },
                     { operands: Object.freeze(new Array<string>()),

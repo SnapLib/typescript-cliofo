@@ -1,5 +1,5 @@
 import {PrefixParser} from "./prefix-parser.js";
-import {StringParseError} from "./string-parse-error.js";
+import {ParseError} from "./string-parse-error.js";
 
 /**
  * This class sorts an array of `string`s into ***operand***, ***flag***, and
@@ -140,7 +140,7 @@ export class Strings extends PrefixParser<readonly string[]>
                     // impossible to throw in most circumstances.
                     else
                     {
-                        throw new StringParseError(`could not parse string to operand, flag, or options: "${aString}"`, aString);
+                        throw new ParseError(`could not parse string to operand, flag, or options: "${aString}"`, aString);
                     }
 
                 },
