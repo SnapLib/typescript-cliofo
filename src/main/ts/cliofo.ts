@@ -1,7 +1,7 @@
-import {CliofoCounts} from "./lib/parser/cliofo-counts.js";
-import {CliofoStrings} from "./lib/parser/cliofo-strings.js";
-import {CliofoIndexes} from "./lib/parser/cliofo-indexes.js";
-import {CliofoPrefixParser} from "./lib/parser/cliofo-prefix-parser.js";
+import {Counts} from "./lib/parser/counts.js";
+import {Strings} from "./lib/parser/strings.js";
+import {Indexes} from "./lib/parser/indexes.js";
+import {PrefixParser} from "./lib/parser/prefix-parser.js";
 
 /**
  * The root entry point of the entire Cliofo package. Classes from this
@@ -66,18 +66,18 @@ export class Cliofo
      */
     public readonly option: Readonly<ParsedCliofoArgument>;
 
-    readonly #cliofoStrings: Readonly<CliofoStrings>;
-    readonly #cliofoCounts: Readonly<CliofoCounts>;
-    readonly #cliofoIndexes: Readonly<CliofoIndexes>;
+    readonly #cliofoStrings: Readonly<Strings>;
+    readonly #cliofoCounts: Readonly<Counts>;
+    readonly #cliofoIndexes: Readonly<Indexes>;
 
     /**
      * Constructs a new instance of a {@link Cliofo} object from a
-     * {@link CliofoPrefixParser} object.
+     * {@link PrefixParser} object.
      *
-     * @param parsedCliofos The {@link CliofoPrefixParser} object to construct
+     * @param parsedCliofos The {@link PrefixParser} object to construct
      * the new {@link Cliofo} object instance from.
      */
-    public constructor(parsedCliofos: CliofoPrefixParser<unknown>);
+    public constructor(parsedCliofos: PrefixParser<unknown>);
 
     /**
      * Constructs a new instance of a {@link Cliofo} object using the provided
@@ -91,7 +91,7 @@ export class Cliofo
      *   based on the provided prefix `string`.
      */
     public constructor(prefixString: string, strings: string[]);
-    constructor(prefixStringOrParsedCliofos: Readonly<CliofoPrefixParser<unknown>> | string, strings?: readonly string[])
+    constructor(prefixStringOrParsedCliofos: Readonly<PrefixParser<unknown>> | string, strings?: readonly string[])
     {
         if (typeof prefixStringOrParsedCliofos === "string")
         {
@@ -99,42 +99,42 @@ export class Cliofo
             this.arguments = strings === undefined || strings === null
                 ? Object.freeze ([])
                 : Object.isFrozen(strings) ? strings : Object.freeze([...strings]);
-            this.#cliofoStrings = Object.freeze(new CliofoStrings(this.prefixString, this.arguments));
-            this.#cliofoCounts = Object.freeze(new CliofoCounts(this.prefixString, this.arguments));
-            this.#cliofoIndexes = Object.freeze(new CliofoIndexes(this.prefixString, this.arguments));
+            this.#cliofoStrings = Object.freeze(new Strings(this.prefixString, this.arguments));
+            this.#cliofoCounts = Object.freeze(new Counts(this.prefixString, this.arguments));
+            this.#cliofoIndexes = Object.freeze(new Indexes(this.prefixString, this.arguments));
         }
-        else if (prefixStringOrParsedCliofos instanceof CliofoPrefixParser<unknown>)
+        else if (prefixStringOrParsedCliofos instanceof PrefixParser<unknown>)
         {
 
-            if (prefixStringOrParsedCliofos instanceof CliofoStrings)
+            if (prefixStringOrParsedCliofos instanceof Strings)
             {
                 this.#cliofoStrings =
                     Object.isFrozen(prefixStringOrParsedCliofos) ? prefixStringOrParsedCliofos
-                    : Object.freeze(new CliofoStrings(prefixStringOrParsedCliofos.prefixString, prefixStringOrParsedCliofos.arguments));
+                    : Object.freeze(new Strings(prefixStringOrParsedCliofos.prefixString, prefixStringOrParsedCliofos.arguments));
                 this.prefixString = this.#cliofoStrings.prefixString;
                 this.arguments = this.#cliofoStrings.arguments;
-                this.#cliofoCounts = Object.freeze(new CliofoCounts(this.prefixString, this.arguments));
-                this.#cliofoIndexes = Object.freeze(new CliofoIndexes(this.prefixString, this.arguments));
+                this.#cliofoCounts = Object.freeze(new Counts(this.prefixString, this.arguments));
+                this.#cliofoIndexes = Object.freeze(new Indexes(this.prefixString, this.arguments));
             }
-            else if (prefixStringOrParsedCliofos instanceof CliofoCounts)
+            else if (prefixStringOrParsedCliofos instanceof Counts)
             {
                 this.#cliofoCounts =
                     Object.isFrozen(prefixStringOrParsedCliofos) ? prefixStringOrParsedCliofos
-                    : Object.freeze(new CliofoCounts(prefixStringOrParsedCliofos.prefixString, prefixStringOrParsedCliofos.arguments));
+                    : Object.freeze(new Counts(prefixStringOrParsedCliofos.prefixString, prefixStringOrParsedCliofos.arguments));
                 this.prefixString = this.#cliofoCounts.prefixString;
                 this.arguments = this.#cliofoCounts.arguments;
-                this.#cliofoStrings = Object.freeze(new CliofoStrings(this.prefixString, this.arguments));
-                this.#cliofoIndexes = Object.freeze(new CliofoIndexes(this.prefixString, this.arguments));
+                this.#cliofoStrings = Object.freeze(new Strings(this.prefixString, this.arguments));
+                this.#cliofoIndexes = Object.freeze(new Indexes(this.prefixString, this.arguments));
             }
-            else if (prefixStringOrParsedCliofos instanceof CliofoIndexes)
+            else if (prefixStringOrParsedCliofos instanceof Indexes)
             {
                 this.#cliofoIndexes =
                     Object.isFrozen(prefixStringOrParsedCliofos) ? prefixStringOrParsedCliofos
-                    : Object.freeze(new CliofoIndexes(prefixStringOrParsedCliofos.prefixString, prefixStringOrParsedCliofos.arguments));
+                    : Object.freeze(new Indexes(prefixStringOrParsedCliofos.prefixString, prefixStringOrParsedCliofos.arguments));
                 this.prefixString = this.#cliofoIndexes.prefixString;
                 this.arguments = this.#cliofoIndexes.arguments;
-                this.#cliofoStrings = Object.freeze(new CliofoStrings(this.prefixString, this.arguments));
-                this.#cliofoCounts = Object.freeze(new CliofoCounts(this.prefixString, this.arguments));
+                this.#cliofoStrings = Object.freeze(new Strings(this.prefixString, this.arguments));
+                this.#cliofoCounts = Object.freeze(new Counts(this.prefixString, this.arguments));
             }
             else
             {
@@ -142,9 +142,9 @@ export class Cliofo
                 this.arguments = Object.isFrozen(prefixStringOrParsedCliofos.arguments)
                     ? prefixStringOrParsedCliofos.arguments
                     : Object.freeze([...prefixStringOrParsedCliofos.arguments]);
-                this.#cliofoStrings = Object.freeze(new CliofoStrings(this.prefixString, this.arguments));
-                this.#cliofoCounts = Object.freeze(new CliofoCounts(this.prefixString, this.arguments));
-                this.#cliofoIndexes = Object.freeze(new CliofoIndexes(this.prefixString, this.arguments));
+                this.#cliofoStrings = Object.freeze(new Strings(this.prefixString, this.arguments));
+                this.#cliofoCounts = Object.freeze(new Counts(this.prefixString, this.arguments));
+                this.#cliofoIndexes = Object.freeze(new Indexes(this.prefixString, this.arguments));
             }
         }
         else
@@ -172,11 +172,11 @@ export class Cliofo
 
     }
 
-    public cliofoStrings(): Readonly<CliofoStrings> {return this.#cliofoStrings;}
+    public cliofoStrings(): Readonly<Strings> {return this.#cliofoStrings;}
 
-    public cliofoCounts(): Readonly<CliofoCounts> {return this.#cliofoCounts;}
+    public cliofoCounts(): Readonly<Counts> {return this.#cliofoCounts;}
 
-    public cliofoIndexes(): Readonly<CliofoIndexes> {return this.#cliofoIndexes;}
+    public cliofoIndexes(): Readonly<Indexes> {return this.#cliofoIndexes;}
 }
 
 /**
@@ -196,7 +196,7 @@ export class Cliofo
  *          `prefixString` and `argumentStrings` argument.
  */
 export const parseStrings = (prefixString: string, argumentStrings: readonly string[]): Readonly<Cliofo> =>
-    Object.freeze(new Cliofo(new CliofoStrings(prefixString, argumentStrings)));
+    Object.freeze(new Cliofo(new Strings(prefixString, argumentStrings)));
 
 /**
  * A container for organizing parsed Cliofo output.

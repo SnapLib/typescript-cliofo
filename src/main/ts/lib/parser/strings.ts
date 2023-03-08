@@ -1,4 +1,4 @@
-import {PrefixParser} from "./cliofo-prefix-parser.js";
+import {PrefixParser} from "./prefix-parser.js";
 import {StringParseError} from "./string-parse-error.js";
 
 /**

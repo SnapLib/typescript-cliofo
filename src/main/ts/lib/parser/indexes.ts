@@ -1,4 +1,4 @@
-import {PrefixParser} from "./cliofo-prefix-parser.js";
+import {PrefixParser} from "./prefix-parser.js";
 
 /**
  * This object uses a specified prefix `string` to parse strings into operands,
