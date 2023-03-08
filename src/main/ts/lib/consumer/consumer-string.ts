@@ -5,7 +5,7 @@
  *
  * @remarks There's no checks or validations performed on the min and max
  *          values to make sure they're compatible and they're both explicitly
- *          required to be set. The {@link createStringConsumer} function offers
+ *          required to be set. The {@link createConsumerString} function offers
  *          a safer way to construct instances of this object.
  */
 export class ConsumerString
@@ -103,7 +103,7 @@ export class ConsumerString
  * @returns A newly instantiated {@link ConsumerString} object that will require
  *          the specified number of string arguments.
  */
-export function createStringConsumer(stringValue: string, requiredNumOfArgsToConsume: number): ConsumerString;
+export function createConsumerString(stringValue: string, requiredNumOfArgsToConsume: number): ConsumerString;
 
 /**
  * Constructs a new {@link ConsumerString} object instance with the provided
@@ -117,7 +117,7 @@ export function createStringConsumer(stringValue: string, requiredNumOfArgsToCon
  * @returns a new {@link ConsumerString} object instance with the provided string
  * value minimum `range.min` and maximum `range.max` consumable range values.
  */
-export function createStringConsumer(stringValue: string, range: Partial<{min: number | null, max: number | null}>): ConsumerString;
+export function createConsumerString(stringValue: string, range: Partial<{min: number | null, max: number | null}>): ConsumerString;
 
 /**
  * Function to construct a new {@link ConsumerString} instance with the provided
@@ -141,9 +141,9 @@ export function createStringConsumer(stringValue: string, range: Partial<{min: n
  * @returns A newly instantiated {@link ConsumerString} object constructed from
  *          the min required and max consumable string arguments.
  */
-export function createStringConsumer(stringValue: string, min: number, max: number): ConsumerString;
+export function createConsumerString(stringValue: string, min: number, max: number): ConsumerString;
 
-export function createStringConsumer(stringValue: string, minOrRange: number | Partial<{min: number | null, max: number | null}>, max?: number): ConsumerString
+export function createConsumerString(stringValue: string, minOrRange: number | Partial<{min: number | null, max: number | null}>, max?: number): ConsumerString
 {
     let minRange: number;
 
@@ -187,4 +187,4 @@ export function createStringConsumer(stringValue: string, minOrRange: number | P
 
 }
 
-export {createStringConsumer as default};
+export {createConsumerString as default};
