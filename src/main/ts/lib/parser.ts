@@ -2,6 +2,7 @@ import {Counts} from "./parser/counts.js";
 import {Strings} from "./parser/strings.js";
 import {Indexes} from "./parser/indexes.js";
 import {PrefixParser} from "./parser/prefix-parser.js";
+import {ParseError} from "./parser/parse-error.js";
 
 /**
  * Class responsible for parsing command line interface strings into operands,
@@ -145,7 +146,7 @@ export class Parser
         }
         else
         {
-            throw new Error(`could not parse "${prefixStringOrParsedCliofos}" and ${strings}`);
+            throw new ParseError(`could not parse "${prefixStringOrParsedCliofos}" and ${strings}`);
         }
 
         this.operand = Object.freeze({
