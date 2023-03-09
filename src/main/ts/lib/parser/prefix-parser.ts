@@ -37,7 +37,7 @@
  *
  * @abstract
  */
-export abstract class PrefixParser<ParsedStringT>
+export abstract class PrefixParser<ParsedStringsT>
 {
     /**
      * The leading prefix `string` used to denote which arguments are flags and
@@ -65,7 +65,7 @@ export abstract class PrefixParser<ParsedStringT>
      * @abstract
      * @readonly
      */
-    public abstract readonly operand: ParsedStringT;
+    public abstract readonly operand: ParsedStringsT;
 
     /**
      * Property to contain strings parsed to flags.
@@ -74,7 +74,7 @@ export abstract class PrefixParser<ParsedStringT>
      * @abstract
      * @readonly
      */
-    public abstract readonly flag: ParsedStringT;
+    public abstract readonly flag: ParsedStringsT;
 
     /**
      * Property to contain strings parsed to options.
@@ -83,7 +83,7 @@ export abstract class PrefixParser<ParsedStringT>
      * @abstract
      * @readonly
      */
-    public abstract readonly option: ParsedStringT;
+    public abstract readonly option: ParsedStringsT;
 
     readonly #isEmpty: boolean;
 
