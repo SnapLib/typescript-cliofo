@@ -200,25 +200,6 @@ export class Parser
 }
 
 /**
- * The passed `prefixString` string argument is used to parse the strings of the
- * passed `argumentStrings` string array.
- *
- * @remarks Returns a new {@link Parser} object constructed from the passed
- *          arguments.
- *
- * @param prefixString The leading prefix `string` used to denote which
- *                     arguments are flags and options.
- *
- * @param argumentStrings The strings to parse with the prefix string (provided
- *                        via the passed `prefixString` string argument).
- *
- * @returns a new {@link Parser} instance constructed with the provided
- *          `prefixString` and `argumentStrings` argument.
- */
-export const parseStrings = (prefixString: string, argumentStrings: readonly string[]): Readonly<Parser> =>
-    Object.freeze(new Parser(new Strings(prefixString, argumentStrings)));
-
-/**
  * A container for organizing parsed Cliofo output.
  */
 type ParsedCliofoArgument =
@@ -245,4 +226,4 @@ type ParsedCliofoArgument =
     readonly indexes: ReadonlyMap<string, readonly number[]>
 };
 
-export {parseStrings as default};
+export {Parser as default};
