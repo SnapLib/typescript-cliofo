@@ -168,10 +168,34 @@ export class Parser
 
     }
 
+    /**
+     * Getter for this object's internal {@link strings} instance.
+     *
+     * @returns This object's internal {@link strings} instance.
+     *
+     * @public
+     * @method
+     */
     public cliofoStrings(): Readonly<Strings> {return this.#cliofoStrings;}
 
+    /**
+     * Getter for this object's internal {@link counts} instance.
+     *
+     * @returns This object's internal {@link counts} instance.
+     *
+     * @public
+     * @method
+     */
     public cliofoCounts(): Readonly<Counts> {return this.#cliofoCounts;}
 
+    /**
+     * Getter for this object's internal {@link indexes} instance.
+     *
+     * @returns This object's internal {@link indexes} instance.
+     *
+     * @public
+     * @method
+     */
     public cliofoIndexes(): Readonly<Indexes> {return this.#cliofoIndexes;}
 }
 
