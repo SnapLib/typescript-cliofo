@@ -19,17 +19,19 @@ export class Parser
 
     /**
      * The `string[]` of strings to parse with this object's
-     * {@link prefixString} `string into operands, flags, and options.
+     * {@link prefixString} into operands, flags, and options.
      *
      * @public
      * @readonly
      */
-    public readonly arguments: readonly string[];
+    public readonly strings: readonly string[];
 
     /**
-     * The operand strings contained within this object's {@link arguments}
-     * `string[]` when parsed with this object's {@link prefixString}. Strings
-     * that don't start with this object's {@link prefixString} are operands.
+     * The operands contained with this object's {@link strings} when parsed
+     * with this object's {@link prefixString}. Strings that don't start with
+     * this object's {@link prefixString} are operands. If this object's
+     * {@link prefixString} is empty, then every string is interepreted as an
+     * operand.
      *
      * @public
      * @readonly
@@ -37,13 +39,12 @@ export class Parser
     public readonly operand: Readonly<ParsedCliofoArgument>;
 
     /**
-     * The flag character strings contained with this object's
-     * {@link arguments} `string[]` when parsed with this object's
-     * {@link prefixString} `string`. Strings that begin with only a single
-     * leading instance of this object's {@link prefixString} are flags. The
-     * characters of each flag string are stored as individual characters as
-     * opposed to the entire string (unlike {@link operand} and {@link option}
-     * strings which consist of the entire string argument).
+     * The flag characters contained with this object's {@link strings} when
+     * parsed with this object's {@link prefixString}. Strings that begin with
+     * only a single leading instance of this object's {@link prefixString} are
+     * flags. The characters of each flag string are stored as individual
+     * characters as opposed to the entire string (unlike operands and options
+     * which consist of the entire string).
      *
      * @public
      * @readonly
@@ -51,10 +52,10 @@ export class Parser
     public readonly flag: Readonly<ParsedCliofoArgument>;
 
     /**
-     * The option strings contained within this object's {@link arguments}
-     * `string[]` when parsed with this object's {@link prefixString} `string`.
-     * A `string` that starts with a sequence of 2 or more of this object's
-     * {@link prefixString} strings is an operand.
+     * The options contained within this object's {@link strings} when parsed
+     * with this object's {@link prefixString}. Strings that start with a
+     * sequence of 2 or more adjacent instances of this object's
+     * {@link prefixString} is an operand.
      *
      * @public
      * @readonly
@@ -91,12 +92,12 @@ export class Parser
         if (typeof prefixStringOrParsedCliofos === "string")
         {
             this.prefixString = prefixStringOrParsedCliofos;
-            this.arguments = strings === undefined || strings === null
+            this.strings = strings === undefined || strings === null
                 ? Object.freeze ([])
                 : Object.isFrozen(strings) ? strings : Object.freeze([...strings]);
-            this.#cliofoStrings = Object.freeze(new Strings(this.prefixString, this.arguments));
-            this.#cliofoCounts = Object.freeze(new Counts(this.prefixString, this.arguments));
-            this.#cliofoIndexes = Object.freeze(new Indexes(this.prefixString, this.arguments));
+            this.#cliofoStrings = Object.freeze(new Strings(this.prefixString, this.strings));
+            this.#cliofoCounts = Object.freeze(new Counts(this.prefixString, this.strings));
+            this.#cliofoIndexes = Object.freeze(new Indexes(this.prefixString, this.strings));
         }
         else if (prefixStringOrParsedCliofos instanceof PrefixParser<unknown>)
         {
@@ -107,9 +108,9 @@ export class Parser
                     Object.isFrozen(prefixStringOrParsedCliofos) ? prefixStringOrParsedCliofos
                     : Object.freeze(new Strings(prefixStringOrParsedCliofos.prefixString, prefixStringOrParsedCliofos.arguments));
                 this.prefixString = this.#cliofoStrings.prefixString;
-                this.arguments = this.#cliofoStrings.arguments;
-                this.#cliofoCounts = Object.freeze(new Counts(this.prefixString, this.arguments));
-                this.#cliofoIndexes = Object.freeze(new Indexes(this.prefixString, this.arguments));
+                this.strings = this.#cliofoStrings.arguments;
+                this.#cliofoCounts = Object.freeze(new Counts(this.prefixString, this.strings));
+                this.#cliofoIndexes = Object.freeze(new Indexes(this.prefixString, this.strings));
             }
             else if (prefixStringOrParsedCliofos instanceof Counts)
             {
@@ -117,9 +118,9 @@ export class Parser
                     Object.isFrozen(prefixStringOrParsedCliofos) ? prefixStringOrParsedCliofos
                     : Object.freeze(new Counts(prefixStringOrParsedCliofos.prefixString, prefixStringOrParsedCliofos.arguments));
                 this.prefixString = this.#cliofoCounts.prefixString;
-                this.arguments = this.#cliofoCounts.arguments;
-                this.#cliofoStrings = Object.freeze(new Strings(this.prefixString, this.arguments));
-                this.#cliofoIndexes = Object.freeze(new Indexes(this.prefixString, this.arguments));
+                this.strings = this.#cliofoCounts.arguments;
+                this.#cliofoStrings = Object.freeze(new Strings(this.prefixString, this.strings));
+                this.#cliofoIndexes = Object.freeze(new Indexes(this.prefixString, this.strings));
             }
             else if (prefixStringOrParsedCliofos instanceof Indexes)
             {
@@ -127,19 +128,19 @@ export class Parser
                     Object.isFrozen(prefixStringOrParsedCliofos) ? prefixStringOrParsedCliofos
                     : Object.freeze(new Indexes(prefixStringOrParsedCliofos.prefixString, prefixStringOrParsedCliofos.arguments));
                 this.prefixString = this.#cliofoIndexes.prefixString;
-                this.arguments = this.#cliofoIndexes.arguments;
-                this.#cliofoStrings = Object.freeze(new Strings(this.prefixString, this.arguments));
-                this.#cliofoCounts = Object.freeze(new Counts(this.prefixString, this.arguments));
+                this.strings = this.#cliofoIndexes.arguments;
+                this.#cliofoStrings = Object.freeze(new Strings(this.prefixString, this.strings));
+                this.#cliofoCounts = Object.freeze(new Counts(this.prefixString, this.strings));
             }
             else
             {
                 this.prefixString = prefixStringOrParsedCliofos.prefixString;
-                this.arguments = Object.isFrozen(prefixStringOrParsedCliofos.arguments)
+                this.strings = Object.isFrozen(prefixStringOrParsedCliofos.arguments)
                     ? prefixStringOrParsedCliofos.arguments
                     : Object.freeze([...prefixStringOrParsedCliofos.arguments]);
-                this.#cliofoStrings = Object.freeze(new Strings(this.prefixString, this.arguments));
-                this.#cliofoCounts = Object.freeze(new Counts(this.prefixString, this.arguments));
-                this.#cliofoIndexes = Object.freeze(new Indexes(this.prefixString, this.arguments));
+                this.#cliofoStrings = Object.freeze(new Strings(this.prefixString, this.strings));
+                this.#cliofoCounts = Object.freeze(new Counts(this.prefixString, this.strings));
+                this.#cliofoIndexes = Object.freeze(new Indexes(this.prefixString, this.strings));
             }
         }
         else
