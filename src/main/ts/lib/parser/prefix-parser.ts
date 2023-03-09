@@ -1,22 +1,22 @@
 /**
  * Root class of the *Cliofo* argument prefix parser classes contained within
  * this package. This class contains the properties for a `string` prefix and a
- * `string[]` of arguments to parse to operand, flag, and option properties. The
- * classes that inherit from this class then implement how the `string`
- * arguments are parsed and what types they're parsed to (via this class' type
- * parameter).
+ * `string[]` of arguments to parse to operands, flags, and options. The classes
+ * that inherit from this class then implement how the `string` arguments are
+ * parsed and what types they're parsed in to (via this class' type parameter).
  *
  * Below is an explanation of how this abstract class is implemented by other
- * classes in this package. Implementations aren't limited to this:
+ * classes in this package:
  *
  * 1. If a `string` isn't prefixed with a leading prefix `string` or the leading
- *    prefix `string` is empty, then the `string` is an *operand*.
+ *    prefix `string` is empty (`""`), then the `string` is interpreted as an
+ *    *operand*.
  *
  * 1. If a `string` is prefixed with only a single leading prefix `string`, then
- *    the `string` is a *flag*.
+ *    the `string` is interpreted as a *flag*.
  *
- * 1. If a `string` is prefixed with 2 or more leading prefix `string`s, then
- *    it's an *option*.
+ * 1. If a `string` is prefixed with a sequence of 2 or more adjacent leading
+ *    prefix strings, then it's interpreted as an *option*.
  *
  * The flag and option strings do not include the 1 or 2 leading prefix strings
  * they were prefixed with to denote them as a flag or option. For example, the
@@ -27,13 +27,10 @@
  * the string `"-foo"` would be stored as the characters `["f", "o", "o"]` if
  * the leading hyphen character (`"-"`) is the prefix string.
  *
- * If the leading prefix string is an empty string (`""`) then all string
- * arguments are considered operands.
- *
  * @remarks This class attempts to be as immutable as possible.
  *
- * @typeParam ParsedStringT - the type strings are parsed to as operands, flags,
- *                            and options.
+ * @typeParam ParsedStringsT - the type strings are parsed to as operands,
+ *                             flags, and options.
  *
  * @abstract
  */
