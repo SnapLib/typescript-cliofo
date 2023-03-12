@@ -48,13 +48,14 @@ export class ConsumerString
      *
      * @param stringPredicate An optional `string` predicate that can be used to
      *                        validate a `string`.
+     *
+     * @throws {ConsumerRangeError} If range minimum and maximum values are
+     *                              incompatible.
      */
     public constructor( stringValue: string,
                         range: Partial<{min: number, max: number}> = {min: 0, max: 0},
                         stringPredicate: (aString: string) => boolean  = ConsumerString.#defaultStringPredicate)
     {
-        this.stringValue = stringValue;
-
         const minRange: number = range.min === undefined || range.min === null
                                  ? 0 : range.min;
 
@@ -76,6 +77,7 @@ export class ConsumerString
             throw new ConsumerRangeError(`min range greater than max range: ${minRange} > ${maxRange}`);
         }
 
+        this.stringValue = stringValue;
         this.range = Object.freeze({min: minRange, max: maxRange});
         this.#stringPredicate = stringPredicate;
         this.hasStringPredicate = this.#stringPredicate !== ConsumerString.#defaultStringPredicate;
