@@ -23,6 +23,8 @@ import {ParseError} from "./parse-error.js";
  * }
  * ```
  * @remarks This class attempts to be as immutable as possible.
+ *
+ * @aee {@link PrefixParser}
  */
 export class Counts extends PrefixParser<ReadonlyMap<string, number>>
 {
