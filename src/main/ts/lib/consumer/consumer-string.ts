@@ -1,4 +1,5 @@
 import {ConsumerRangeError} from "./consumer-range-error.js";
+import {CliofoType} from "./cliofo-type.js";
 
 /**
  * A string that can consume or is required to consume a range of 0 or more
@@ -14,6 +15,14 @@ export class ConsumerString
      * @readonly
      */
     public readonly stringValue: string;
+
+    /**
+     * The command line operand, flag, or option type that this object consumes.
+     *
+     * @public
+     * @readonly
+     */
+    public readonly consumableCliofoType: CliofoType;
 
     /**
      * The required minimum number of arguments and maximum number of arguments
@@ -53,6 +62,7 @@ export class ConsumerString
      *                              incompatible.
      */
     public constructor( stringValue: string,
+                        cliofoType: CliofoType,
                         range: Partial<{min: number, max: number}> = {min: 0, max: 0},
                         stringPredicate: (aString: string) => boolean  = ConsumerString.#defaultStringPredicate)
     {
@@ -78,6 +88,7 @@ export class ConsumerString
         }
 
         this.stringValue = stringValue;
+        this.consumableCliofoType = cliofoType;
         this.range = Object.freeze({min: minRange, max: maxRange});
         this.#stringPredicate = stringPredicate;
         this.hasStringPredicate = this.#stringPredicate !== ConsumerString.#defaultStringPredicate;
@@ -110,3 +121,5 @@ export class ConsumerString
 }
 
 export {ConsumerString as default};
+
+export {CliofoType} from "./cliofo-type.js";

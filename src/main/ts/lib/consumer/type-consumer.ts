@@ -1,4 +1,5 @@
 import {ConsumerString} from "./consumer-string.js";
+import {CliofoType} from "./cliofo-type.js";
 
 export class TypeConsumer<ConvertedStringType> extends ConsumerString
 {
@@ -9,12 +10,13 @@ export class TypeConsumer<ConvertedStringType> extends ConsumerString
     static readonly #defaultConvertedStringPredicate = () => false;
 
     public constructor( stringValue: string,
+                        cliofoType: CliofoType,
                         range: Readonly<{min: number, max: number}>,
                         stringConverter: (aString: string) => ConvertedStringType,
                         stringPredicate: (aString: string) => boolean = ConsumerString.defaultStringPredicate(),
                         convertedStringPredicate: (convertedString: ConvertedStringType) => boolean = TypeConsumer.#defaultConvertedStringPredicate )
     {
-        super(stringValue, range, stringPredicate);
+        super(stringValue, cliofoType, range, stringPredicate);
         this.#stringConverter = stringConverter;
         this.#convertedStringPredicate = convertedStringPredicate;
     }
@@ -68,3 +70,5 @@ export class TypeConsumer<ConvertedStringType> extends ConsumerString
 }
 
 export {TypeConsumer as default};
+
+export {CliofoType} from "./cliofo-type.js";
