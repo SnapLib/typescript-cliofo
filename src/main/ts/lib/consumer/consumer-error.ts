@@ -1,4 +1,4 @@
-export class ParseError extends Error
+export class ConsumerError extends Error
 {
     public constructor(message: string)
     {
