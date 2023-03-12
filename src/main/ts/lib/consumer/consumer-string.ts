@@ -53,11 +53,42 @@ export class ConsumerString
      *                        validate a `string`.
      */
     public constructor( stringValue: string,
-                        range: Readonly<{min: number, max: number}>,
+                        range: Partial<{min: number, max: number}> = {min: 0, max: 0},
                         stringPredicate: (aString: string) => boolean  = ConsumerString.#defaultStringPredicate)
     {
         this.stringValue = stringValue;
-        this.range = Object.isFrozen(range) ? range : Object.freeze({min: range.min, max: range.max});
+
+        let minRange: number;
+
+        let maxRange: number;
+
+        if (range.min === undefined || range.min === null)
+        {
+            minRange = 0;
+            maxRange = range.max ?? 0;
+        }
+        else
+        {
+            minRange = range.min;
+            maxRange = range.max ?? Infinity;
+        }
+
+        if (minRange >= Infinity)
+        {
+            throw new Error(`min range greater than or equal to Infinity: ${minRange} >= Infinity`);
+        }
+
+        if (maxRange < 0)
+        {
+            throw new Error(`max range less than 0: ${maxRange} < 0`);
+        }
+
+        if (minRange > maxRange)
+        {
+            throw new Error(`min range greater than max range: ${minRange} > ${maxRange}`);
+        }
+
+        this.range = Object.freeze({min: minRange, max: maxRange});
         this.#stringPredicate = stringPredicate;
         this.hasStringPredicate = this.#stringPredicate !== ConsumerString.#defaultStringPredicate;
     }
@@ -88,103 +119,4 @@ export class ConsumerString
         { return ConsumerString.#defaultStringPredicate; }
 }
 
-/**
- * Function to construct a new {@link ConsumerString} instance that will require
- * the number of string arguments to consume based on the passed number argument.
- *
- * @remarks
- * - A string consumer can require 0 string arguments.
- *
- * @param stringValue The `string` value of the constructed `StringConsumer`.
- *
- * @param requiredNumOfArgsToConsume The number of string arguments the
- * instantiated object requires.
- *
- * @returns A newly instantiated {@link ConsumerString} object that will require
- *          the specified number of string arguments.
- */
-export function createConsumerString(stringValue: string, requiredNumOfArgsToConsume: number): ConsumerString;
-
-/**
- * Constructs a new {@link ConsumerString} object instance with the provided
- * string value minimum `range.min` and maximum `range.max` consumable range
- * values.
- *
- * @param stringValue The `string` value of the constructed `StringConsumer`.
- *
- * @param range The minimum and maximum consumable range values.
- *
- * @returns a new {@link ConsumerString} object instance with the provided string
- * value minimum `range.min` and maximum `range.max` consumable range values.
- */
-export function createConsumerString(stringValue: string, range: Partial<{min: number | null, max: number | null}>): ConsumerString;
-
-/**
- * Function to construct a new {@link ConsumerString} instance with the provided
- * minimum number of required string arguments to consume and maximum number of
- * string arguments that can be consumed.
- *
- * @remarks
- * - If the min and max arguments are equal then the constructed `StringConsumer`
- *   will require that exact number of requirements.
- *
- * - A string consumer can require/consume 0 or 0 or more arguments.
- *
- * @param stringValue The `string` value of the constructed `StringConsumer`.
- *
- * @param min Denotes the minimum required number of arguments the constructed
- *            `StringConsumer` will require.
- *
- * @param max The `max` argument denotes the maximum number of arguments the
- *            constructed `StringConsumer`can consume.
- *
- * @returns A newly instantiated {@link ConsumerString} object constructed from
- *          the min required and max consumable string arguments.
- */
-export function createConsumerString(stringValue: string, min: number, max: number): ConsumerString;
-
-export function createConsumerString(stringValue: string, minOrRange: number | Partial<{min: number | null, max: number | null}>, max?: number): ConsumerString
-{
-    let minRange: number;
-
-    let maxRange: number;
-
-    if (typeof minOrRange === "number")
-    {
-        minRange = minOrRange;
-        maxRange = max ?? minRange;
-    }
-    else
-    {
-        if (minOrRange.min === undefined || minOrRange.min === null)
-        {
-            minRange = 0;
-            maxRange = minOrRange.max ?? 0;
-        }
-        else
-        {
-            minRange = minOrRange.min;
-            maxRange = minOrRange.max ?? Infinity;
-        }
-    }
-
-    if (minRange >= Infinity)
-    {
-        throw new Error(`min range greater than or equal to Infinity: ${minRange} >= Infinity`);
-    }
-
-    if (maxRange < 0)
-    {
-        throw new Error(`max range less than 0: ${maxRange} < 0`);
-    }
-
-    if (minRange > maxRange)
-    {
-        throw new Error(`min range greater than max range: ${minRange} > ${maxRange}`);
-    }
-
-    return new ConsumerString(stringValue, {min: minRange, max: maxRange});
-
-}
-
-export {createConsumerString as default};
+export {ConsumerString as default};
