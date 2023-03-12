@@ -5,3 +5,5 @@ export class ConsumerError extends Error
         super(message);
     }
 }
+
+export {ConsumerError as default};
