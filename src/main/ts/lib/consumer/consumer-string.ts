@@ -1,5 +1,5 @@
 import {ConsumerRangeError} from "./consumer-range-error.js";
-import {CliofoType} from "./cliofo-type.js";
+import {CliofoType} from "../cliofo-type.js";
 
 /**
  * A string that can consume or is required to consume a range of 0 or more
@@ -32,15 +32,6 @@ export class ConsumerString
      * @readonly
      */
     public readonly range: Readonly<{min: number, max: number}>;
-
-    /**
-     * `true` if this object's validator `string` predicate is not the
-     * default `string` predicate.
-     *
-     * @public
-     * @readonly
-     */
-    public readonly hasStringPredicate: boolean;
 
     static readonly #defaultStringPredicate = () => false;
 
@@ -91,8 +82,10 @@ export class ConsumerString
         this.consumableCliofoType = cliofoType;
         this.range = Object.freeze({min: minRange, max: maxRange});
         this.#stringPredicate = stringPredicate;
-        this.hasStringPredicate = this.#stringPredicate !== ConsumerString.#defaultStringPredicate;
     }
+
+    public hasStringPredicate(): boolean
+        { return this.#stringPredicate !== ConsumerString.#defaultStringPredicate; }
 
     /**
      * Uses this object's internal `string` predicate to determine if the passed
@@ -122,4 +115,4 @@ export class ConsumerString
 
 export {ConsumerString as default};
 
-export {CliofoType} from "./cliofo-type.js";
+export {CliofoType} from "../cliofo-type.js";
