@@ -2,11 +2,6 @@
  * A string that can consume or is required to consume a range of 0 or more
  * `string` arguments and can optionally contain a predicate used to validate
  * consumed strings.
- *
- * @remarks There's no checks or validations performed on the min and max
- *          values to make sure they're compatible and they're both explicitly
- *          required to be set. The {@link createConsumerString} function offers
- *          a safer way to construct instances of this object.
  */
 export class ConsumerString
 {
@@ -58,20 +53,11 @@ export class ConsumerString
     {
         this.stringValue = stringValue;
 
-        let minRange: number;
+        const minRange: number = range.min === undefined || range.min === null
+                                 ? 0 : range.min;
 
-        let maxRange: number;
-
-        if (range.min === undefined || range.min === null)
-        {
-            minRange = 0;
-            maxRange = range.max ?? 0;
-        }
-        else
-        {
-            minRange = range.min;
-            maxRange = range.max ?? Infinity;
-        }
+        const maxRange: number = range.min === undefined || range.min === null
+                                 ? (range.max ?? 0) : (range.max ?? Infinity);
 
         if (minRange >= Infinity)
         {
