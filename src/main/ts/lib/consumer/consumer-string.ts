@@ -1,3 +1,5 @@
+import {ConsumerRangeError} from "./consumer-range-error.js";
+
 /**
  * A string that can consume or is required to consume a range of 0 or more
  * `string` arguments and can optionally contain a predicate used to validate
@@ -61,17 +63,17 @@ export class ConsumerString
 
         if (minRange >= Infinity)
         {
-            throw new Error(`min range greater than or equal to Infinity: ${minRange} >= Infinity`);
+            throw new ConsumerRangeError(`min range greater than or equal to Infinity: ${minRange} >= Infinity`);
         }
 
         if (maxRange < 0)
         {
-            throw new Error(`max range less than 0: ${maxRange} < 0`);
+            throw new ConsumerRangeError(`max range less than 0: ${maxRange} < 0`);
         }
 
         if (minRange > maxRange)
         {
-            throw new Error(`min range greater than max range: ${minRange} > ${maxRange}`);
+            throw new ConsumerRangeError(`min range greater than max range: ${minRange} > ${maxRange}`);
         }
 
         this.range = Object.freeze({min: minRange, max: maxRange});
