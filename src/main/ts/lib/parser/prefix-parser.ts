@@ -45,8 +45,6 @@ export abstract class PrefixParser<ParsedStringsT>
      */
     public readonly prefixString: string;
 
-    readonly #optionPrefixString: string;
-
     /**
      * The strings to parse using this object's {@link prefixString}.
      *
@@ -82,8 +80,20 @@ export abstract class PrefixParser<ParsedStringsT>
      */
     public abstract readonly option: ParsedStringsT;
 
+    readonly #optionPrefixString: string;
+
     readonly #isEmpty: boolean;
 
+    /**
+     * Creates a new {@link PrefixParser} object instance by copying the
+     * properties of another.
+     *
+     * @param other {@link PrefixParser} object instance to copy.
+     *
+     * @protected
+     * @constructor
+     */
+    protected constructor(other: Readonly<PrefixParser<ParsedStringsT>>);
     /**
      * Constructs an instance of an object that parses `string` arguments into
      * operands, flags, and options based on a leading prefix `string`.
@@ -96,12 +106,27 @@ export abstract class PrefixParser<ParsedStringsT>
      * @protected
      * @constructor
      */
-    protected constructor(prefixString: string, strings: readonly string[])
+    protected constructor(prefixString: string, strings: readonly string[]);
+    protected constructor(otherOrPrefixString: string | Readonly<PrefixParser<ParsedStringsT>>, strings?: readonly string[])
     {
-        this.prefixString = prefixString;
-        this.#optionPrefixString = this.prefixString.repeat(2);
-        this.arguments = Object.isFrozen(strings) ? strings : Object.freeze([...strings]);
-        this.#isEmpty = this.arguments.length === 0;
+        if (typeof otherOrPrefixString === "string" && strings)
+        {
+            this.prefixString = otherOrPrefixString;
+            this.#optionPrefixString = this.prefixString.repeat(2);
+            this.arguments = Object.isFrozen(strings) ? strings : Object.freeze([...strings]);
+            this.#isEmpty = this.arguments.length === 0;
+        }
+        else if (otherOrPrefixString instanceof PrefixParser<ParsedStringsT>)
+        {
+            this.prefixString = otherOrPrefixString.prefixString;
+            this.arguments = otherOrPrefixString.arguments;
+            this.#isEmpty = otherOrPrefixString.#isEmpty;
+            this.#optionPrefixString = otherOrPrefixString.#optionPrefixString;
+        }
+        else
+        {
+            throw new Error();
+        }
     }
 
     /**
