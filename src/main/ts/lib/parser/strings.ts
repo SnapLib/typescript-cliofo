@@ -91,6 +91,9 @@ export class Strings extends PrefixParser<readonly string[]>
      * @param strings The strings to sort into operands, flags, and options
      *                based on the `prefixString`.
      *
+     * @throws {ParseError} If a `string` can't be parsed to an operand, flag,
+     *                      or options.
+     *
      * @public
      * @constructor
      */

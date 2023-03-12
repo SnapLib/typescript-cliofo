@@ -87,6 +87,9 @@ export class Counts extends PrefixParser<ReadonlyMap<string, number>>
      *
      * @remarks This class attempts to be as immutable as possible.
      *
+     * @throws {ParseError} If a `string` can't be parsed to an operand, flag,
+     *                      or options.
+     *
      * @public
      * @constructor
      */
