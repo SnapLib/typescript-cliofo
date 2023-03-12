@@ -75,7 +75,7 @@ export class Parser
      * a new {@link Parser} object instance from or another Parser object to
      * copy.
      */
-    public constructor(prefixParserOrOther: Readonly<PrefixParser<unknown>> | Readonly<Parser>);
+    public constructor(prefixParserOrOther: Readonly<PrefixParser<unknown> | Parser>);
 
     /**
      * Constructs a new instance of a {@link Parser} object using the provided
@@ -88,7 +88,7 @@ export class Parser
      * @param strings The strings to parse into operands, flags, and options
      *   based on the provided prefix `string`.
      */
-    public constructor(prefixString: string, strings: string[]);
+    public constructor(prefixString: string, strings: readonly string[]);
     constructor(prefixStringOrParsedCliofosOrOther: Readonly<PrefixParser<unknown>> | string | Readonly<Parser>, strings?: readonly string[])
     {
         if (prefixStringOrParsedCliofosOrOther instanceof Parser)
