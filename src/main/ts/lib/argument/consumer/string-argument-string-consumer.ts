@@ -57,11 +57,9 @@ export class StringArgumentStringConsumer
                         range: Partial<{min: number, max: number}> = {min: 0, max: 0},
                         stringPredicate: (aString: string) => boolean  = StringArgumentStringConsumer.#defaultStringPredicate)
     {
-        const minRange: number = range.min === undefined || range.min === null
-                                 ? 0 : range.min;
+        const minRange: number = range.min ?? 0;
 
-        const maxRange: number = range.min === undefined || range.min === null
-                                 ? (range.max ?? 0) : (range.max ?? Infinity);
+        const maxRange: number = range.max ?? (range.min === undefined || range.min === null ? 0 : Infinity);
 
         if (minRange >= Infinity)
         {
