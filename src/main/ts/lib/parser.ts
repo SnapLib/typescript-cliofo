@@ -4,6 +4,7 @@ import {Indexes} from "./parser/indexes.js";
 import {PrefixParser} from "./parser/prefix-parser.js";
 import {ParseError} from "./parser/parse-error.js";
 import {type OperandFlagOption} from "./operand-flag-option.js";
+import {type StringsCountsIndexes} from "./strings-counts-indexes.js";
 
 /**
  * Class responsible for parsing command line interface strings into operands,
@@ -209,32 +210,5 @@ export class Parser implements OperandFlagOption<StringsCountsIndexes>
      */
     public cliofoIndexes(): Readonly<Indexes> {return this.#cliofoIndexes;}
 }
-
-/**
- * A container for organizing parsed Cliofo output.
- */
-type StringsCountsIndexes =
-{
-    /**
-     * The parsed Cliofo operand, flag, or option strings.
-     * @readonly
-     */
-    readonly strings: readonly string[]
-
-    /**
-     * The parsed Cliofo operand, flag, or option counts. This is the number of
-     * occurrences of each operand, flag, or option accessible via a map.
-     * @readonly
-     */
-    readonly counts: ReadonlyMap<string, number>
-
-    /**
-     * The parsed Cliofo operand, flag, or option indexes. This is the index or
-     * indexes of the string argument that is or contains each passed operand,
-     * flag, or option.
-     * @readonly
-     */
-    readonly indexes: ReadonlyMap<string, readonly number[]>
-};
 
 export {Parser as default};
