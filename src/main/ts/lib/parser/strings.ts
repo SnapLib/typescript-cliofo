@@ -115,9 +115,9 @@ export class Strings extends PrefixParser<readonly string[]>
                     if (prefixString.length === 0 || ! aString.startsWith(prefixString))
                     {
                         return Object.freeze({
-                                operands: Object.freeze([..._operandFlagOptions.operands, aString]),
-                                flags: _operandFlagOptions.flags,
-                                options: _operandFlagOptions.options });
+                                operandStrings: Object.freeze([..._operandFlagOptions.operandStrings, aString]),
+                                flagStrings: _operandFlagOptions.flagStrings,
+                                optionStrings: _operandFlagOptions.optionStrings });
                     }
                     // If string starts with 2 or more adjacent prefix strings,
                     // add string without leading 2 prefix char strings to
@@ -125,9 +125,9 @@ export class Strings extends PrefixParser<readonly string[]>
                     else if (aString.startsWith(this.optionPrefixString()))
                     {
                         return Object.freeze({
-                                operands: _operandFlagOptions.operands,
-                                flags: _operandFlagOptions.flags,
-                                options: Object.freeze([..._operandFlagOptions.options, aString.slice(this.optionPrefixString().length)]) });
+                                operandStrings: _operandFlagOptions.operandStrings,
+                                flagStrings: _operandFlagOptions.flagStrings,
+                                optionStrings: Object.freeze([..._operandFlagOptions.optionStrings, aString.slice(this.optionPrefixString().length)]) });
                     }
                     // If string starts with only a single prefix string, add
                     // characters of string excluding leading prefix string
@@ -135,31 +135,31 @@ export class Strings extends PrefixParser<readonly string[]>
                     else if (aString.startsWith(this.prefixString))
                     {
                         return Object.freeze({
-                            operands: _operandFlagOptions.operands,
-                            flags: Object.freeze([..._operandFlagOptions.flags, ...aString.slice(this.prefixString.length)]),
-                            options: _operandFlagOptions.options});
+                            operandStrings: _operandFlagOptions.operandStrings,
+                            flagStrings: Object.freeze([..._operandFlagOptions.flagStrings, ...aString.slice(this.prefixString.length)]),
+                            optionStrings: _operandFlagOptions.optionStrings});
                     }
                     // Throw error if prefix string and argument string can't be
                     // parsed down to operand, flag, or option. This should be
                     // impossible to throw in most circumstances.
                     else
                     {
-                        throw new ParseError(`could not parse string to operand, flag, or options: "${aString}"`);
+                        throw new ParseError(`could not parse string to operand, flag, or option: "${aString}"`);
                     }
 
                 },
                 // Initial frozen empty operands, flags, and options object
-                Object.freeze({ operands: Object.freeze([]),
-                                flags: Object.freeze([]),
-                                options: Object.freeze([]) }
+                Object.freeze({ operandStrings: Object.freeze([]),
+                                flagStrings: Object.freeze([]),
+                                optionStrings: Object.freeze([]) }
             ));
 
-        this.operand = operandsFlagsOptions.operands;
-        this.flag = operandsFlagsOptions.flags;
-        this.option = operandsFlagsOptions.options;
+        this.operand = operandsFlagsOptions.operandStrings;
+        this.flag = operandsFlagsOptions.flagStrings;
+        this.option = operandsFlagsOptions.optionStrings;
     }
 }
 
-type OfoStrings = {readonly [Ofo in keyof OperandFlagOption<readonly string[]> as `${Ofo}s`]: OperandFlagOption<readonly string[]>[Ofo]};
+type OfoStrings = {readonly [Ofo in keyof OperandFlagOption<readonly string[]> as `${Ofo}Strings`]: OperandFlagOption<readonly string[]>[Ofo]};
 
 export {Strings as default};
