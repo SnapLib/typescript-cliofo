@@ -9,7 +9,7 @@ import {type OperandFlagOption} from "./operand-flag-option.js";
  * Class responsible for parsing command line interface strings into operands,
  * flags, and options.
  */
-export class Parser implements OperandFlagOption<ParsedCliofoArgument>
+export class Parser implements OperandFlagOption<StringsCountsIndexes>
 {
     /**
      * The `string` to denote flags and options (and operands).
@@ -38,7 +38,7 @@ export class Parser implements OperandFlagOption<ParsedCliofoArgument>
      * @public
      * @readonly
      */
-    public readonly operand: Readonly<ParsedCliofoArgument>;
+    public readonly operand: Readonly<StringsCountsIndexes>;
 
     /**
      * The flag characters contained with this object's {@link arguments} when
@@ -51,7 +51,7 @@ export class Parser implements OperandFlagOption<ParsedCliofoArgument>
      * @public
      * @readonly
      */
-    public readonly flag: Readonly<ParsedCliofoArgument>;
+    public readonly flag: Readonly<StringsCountsIndexes>;
 
     /**
      * The options contained within this object's {@link arguments} when parsed
@@ -62,7 +62,7 @@ export class Parser implements OperandFlagOption<ParsedCliofoArgument>
      * @public
      * @readonly
      */
-    public readonly option: Readonly<ParsedCliofoArgument>;
+    public readonly option: Readonly<StringsCountsIndexes>;
 
     readonly #cliofoStrings: Readonly<Strings>;
     readonly #cliofoCounts: Readonly<Counts>;
@@ -213,7 +213,7 @@ export class Parser implements OperandFlagOption<ParsedCliofoArgument>
 /**
  * A container for organizing parsed Cliofo output.
  */
-type ParsedCliofoArgument =
+type StringsCountsIndexes =
 {
     /**
      * The parsed Cliofo operand, flag, or option strings.
