@@ -1,4 +1,4 @@
-export enum CliofoType
+export const enum CliofoType
 {
     OPERAND = "OPERAND",
     FLAG = "FLAG",
