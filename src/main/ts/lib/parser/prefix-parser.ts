@@ -1,3 +1,5 @@
+import {type OperandFlagOption} from "../operand-flag-option.js";
+
 /**
  * Root class of the *Cliofo* argument prefix parser classes contained within
  * this package. This class contains the properties for a `string` prefix and a
@@ -34,7 +36,7 @@
  *
  * @abstract
  */
-export abstract class PrefixParser<ParsedStringsT>
+export abstract class PrefixParser<ParsedStringsT> implements OperandFlagOption<ParsedStringsT>
 {
     /**
      * The leading prefix `string` used to denote which arguments are flags and
