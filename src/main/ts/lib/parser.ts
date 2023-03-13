@@ -3,12 +3,13 @@ import {Strings} from "./parser/strings.js";
 import {Indexes} from "./parser/indexes.js";
 import {PrefixParser} from "./parser/prefix-parser.js";
 import {ParseError} from "./parser/parse-error.js";
+import {type OperandFlagOption} from "./operand-flag-option.js";
 
 /**
  * Class responsible for parsing command line interface strings into operands,
  * flags, and options.
  */
-export class Parser
+export class Parser implements OperandFlagOption<ParsedCliofoArgument>
 {
     /**
      * The `string` to denote flags and options (and operands).
