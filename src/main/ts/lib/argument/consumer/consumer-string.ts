@@ -1,5 +1,5 @@
 import {ConsumerRangeError} from "./consumer-range-error.js";
-import {type CliofoType} from "../cliofo-type.js";
+import {type CliofoType} from "../../cliofo-type.js";
 
 /**
  * A string that can consume or is required to consume a range of 0 or more
@@ -115,4 +115,4 @@ export class ConsumerString
 
 export {ConsumerString as default};
 
-export {CliofoType} from "../cliofo-type.js";
+export {CliofoType} from "../../cliofo-type.js";

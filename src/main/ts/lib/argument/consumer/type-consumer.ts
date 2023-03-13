@@ -1,5 +1,5 @@
 import {ConsumerString} from "./consumer-string.js";
-import {type CliofoType} from "../cliofo-type.js";
+import {type CliofoType} from "../../cliofo-type.js";
 
 export class TypeConsumer<ConvertedStringType> extends ConsumerString
 {
@@ -71,4 +71,4 @@ export class TypeConsumer<ConvertedStringType> extends ConsumerString
 
 export {TypeConsumer as default};
 
-export {CliofoType} from "../cliofo-type.js";
+export {CliofoType} from "../../cliofo-type.js";

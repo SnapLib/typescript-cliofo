@@ -1,4 +1,4 @@
-import {CliofoType} from "lib/cliofo-type.js";
+import {CliofoType} from "../../lib/cliofo-type.js";
 
 export class StringArgument
 {
