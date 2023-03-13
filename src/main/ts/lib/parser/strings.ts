@@ -1,5 +1,6 @@
 import {PrefixParser} from "./prefix-parser.js";
 import {ParseError} from "./parse-error.js";
+import {type OperandFlagOption} from "../operand-flag-option.js";
 
 /**
  * This class sorts an array of `string`s into ***operand***, ***flag***, and
@@ -103,10 +104,10 @@ export class Strings extends PrefixParser<readonly string[]>
 
             // Create object containing string arguments sorted into operands,
             // flags, and options
-            const operandsFlagsOptions: Readonly<Ofo>
+            const operandsFlagsOptions: Readonly<OfoStrings>
             // reducing string arguments into sorted operands, flags, options object
             = this.arguments.reduce((
-                _operandFlagOptions: Readonly<Ofo>,
+                _operandFlagOptions: Readonly<OfoStrings>,
                 aString: string ) =>
                 {
                     // If prefixString is empty or argument string doesn't start
@@ -159,10 +160,6 @@ export class Strings extends PrefixParser<readonly string[]>
     }
 }
 
-type Ofo = {
-    readonly operands: readonly string[],
-    readonly flags: readonly string[],
-    readonly options: readonly string[]
-};
+type OfoStrings = {readonly [Ofo in keyof OperandFlagOption<readonly string[]> as `${Ofo}s`]: OperandFlagOption<readonly string[]>[Ofo]};
 
 export {Strings as default};
