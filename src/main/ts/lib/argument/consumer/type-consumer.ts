@@ -1,7 +1,7 @@
-import {ConsumerString} from "./consumer-string.js";
+import {StringArgumentStringConsumer} from "./string-argument-string-consumer.js";
 import {type CliofoType} from "../../cliofo-type.js";
 
-export class TypeConsumer<ConvertedStringType> extends ConsumerString
+export class TypeConsumer<ConvertedStringType> extends StringArgumentStringConsumer
 {
     readonly #stringConverter: (aString: string) => ConvertedStringType;
 
@@ -13,7 +13,7 @@ export class TypeConsumer<ConvertedStringType> extends ConsumerString
                         cliofoTypeToConsume: CliofoType,
                         range: Readonly<{min: number, max: number}>,
                         stringConverter: (aString: string) => ConvertedStringType,
-                        stringPredicate: (aString: string) => boolean = ConsumerString.defaultStringPredicate(),
+                        stringPredicate: (aString: string) => boolean = StringArgumentStringConsumer.defaultStringPredicate(),
                         convertedStringPredicate: (convertedString: ConvertedStringType) => boolean = TypeConsumer.#defaultConvertedStringPredicate )
     {
         super(stringValue, cliofoTypeToConsume, range, stringPredicate);

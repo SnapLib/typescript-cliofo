@@ -6,7 +6,7 @@ import {type CliofoType} from "../../cliofo-type.js";
  * `string` arguments and can optionally contain a predicate used to validate
  * consumed strings.
  */
-export class ConsumerString
+export class StringArgumentStringConsumer
 {
     /**
      * The `string` argument value of this `StringConsumer`.
@@ -38,7 +38,7 @@ export class ConsumerString
     readonly #stringPredicate: (aString: string) => boolean;
 
     /**
-     * Constructs an instance of a {@link ConsumerString} object. This object
+     * Constructs an instance of a {@link StringArgumentStringConsumer} object. This object
      * represents a string on the command line that can consume other strings.
      *
      * @param stringValue The `string` that's going to consume other `string`s.
@@ -55,7 +55,7 @@ export class ConsumerString
     public constructor( stringValue: string,
                         cliofoTypeToConsume: CliofoType,
                         range: Partial<{min: number, max: number}> = {min: 0, max: 0},
-                        stringPredicate: (aString: string) => boolean  = ConsumerString.#defaultStringPredicate)
+                        stringPredicate: (aString: string) => boolean  = StringArgumentStringConsumer.#defaultStringPredicate)
     {
         const minRange: number = range.min === undefined || range.min === null
                                  ? 0 : range.min;
@@ -85,7 +85,7 @@ export class ConsumerString
     }
 
     public hasStringPredicate(): boolean
-        { return this.#stringPredicate !== ConsumerString.#defaultStringPredicate; }
+        { return this.#stringPredicate !== StringArgumentStringConsumer.#defaultStringPredicate; }
 
     /**
      * Uses this object's internal `string` predicate to determine if the passed
@@ -110,9 +110,9 @@ export class ConsumerString
      * @static
      */
     protected static defaultStringPredicate(): () => boolean
-        { return ConsumerString.#defaultStringPredicate; }
+        { return StringArgumentStringConsumer.#defaultStringPredicate; }
 }
 
-export {ConsumerString as default};
+export {StringArgumentStringConsumer as default};
 
 export {CliofoType} from "../../cliofo-type.js";
