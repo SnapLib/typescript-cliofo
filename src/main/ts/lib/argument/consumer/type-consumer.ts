@@ -16,7 +16,7 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
                         range: Readonly<{min: number, max: number}>,
                         stringConverter: (aString: string) => ConvertedStringType,
                         stringPredicate: (aString: string) => boolean = StringConsumer.defaultStringPredicate(),
-                        convertedStringPredicate: (convertedString: ConvertedStringType ) => boolean = TypeConsumer.#defaultConvertedStringPredicate )
+                        convertedStringPredicate: (convertedString: ConvertedStringType) => boolean = TypeConsumer.#defaultConvertedStringPredicate )
     {
         super(prefixString, nonPrefixedString, cliofoType, cliofoTypeToConsume, range, stringPredicate);
         this.#stringConverter = stringConverter;
