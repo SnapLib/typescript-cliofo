@@ -1,21 +1,14 @@
 import {ConsumerRangeError} from "./consumer-range-error.js";
 import {type CliofoType} from "../../cliofo-type.js";
+import {StringArgument} from "../string-argument.js";
 
 /**
  * A string that can consume or is required to consume a range of 0 or more
  * `string` arguments and can optionally contain a predicate used to validate
  * consumed strings.
  */
-export class StringArgumentStringConsumer
+export class StringConsumer extends StringArgument
 {
-    /**
-     * The `string` argument value of this `StringConsumer`.
-     *
-     * @public
-     * @readonly
-     */
-    public readonly stringValue: string;
-
     /**
      * The command line operand, flag, or option type that this object consumes.
      *
@@ -37,26 +30,15 @@ export class StringArgumentStringConsumer
 
     readonly #stringPredicate: (aString: string) => boolean;
 
-    /**
-     * Constructs an instance of a {@link StringArgumentStringConsumer} object. This object
-     * represents a string on the command line that can consume other strings.
-     *
-     * @param stringValue The `string` that's going to consume other `string`s.
-     *
-     * @param range The minimum and maximum number of `string` arguments this
-     *              object requires to consume.
-     *
-     * @param stringPredicate An optional `string` predicate that can be used to
-     *                        validate a `string`.
-     *
-     * @throws {ConsumerRangeError} If range minimum and maximum values are
-     *                              incompatible.
-     */
-    public constructor( stringValue: string,
+    public constructor( prefixString: string,
+                        nonPrefixedString: string,
+                        cliofoType: CliofoType,
                         cliofoTypeToConsume: CliofoType,
                         range: Partial<{min: number, max: number}> = {min: 0, max: 0},
-                        stringPredicate: (aString: string) => boolean  = StringArgumentStringConsumer.#defaultStringPredicate)
+                        stringPredicate: (aString: string) => boolean  = StringConsumer.#defaultStringPredicate)
     {
+        super(prefixString, nonPrefixedString, cliofoType);
+
         const minRange: number = range.min ?? 0;
 
         const maxRange: number = range.max ?? (range.min === undefined || range.min === null ? 0 : Infinity);
@@ -76,14 +58,13 @@ export class StringArgumentStringConsumer
             throw new ConsumerRangeError(`min range greater than max range: ${minRange} > ${maxRange}`);
         }
 
-        this.stringValue = stringValue;
         this.cliofoTypeToConsume = cliofoTypeToConsume;
         this.range = Object.freeze({min: minRange, max: maxRange});
         this.#stringPredicate = stringPredicate;
     }
 
     public hasStringPredicate(): boolean
-        { return this.#stringPredicate !== StringArgumentStringConsumer.#defaultStringPredicate; }
+        { return this.#stringPredicate !== StringConsumer.#defaultStringPredicate; }
 
     /**
      * Uses this object's internal `string` predicate to determine if the passed
@@ -108,9 +89,9 @@ export class StringArgumentStringConsumer
      * @static
      */
     protected static defaultStringPredicate(): () => boolean
-        { return StringArgumentStringConsumer.#defaultStringPredicate; }
+        { return StringConsumer.#defaultStringPredicate; }
 }
 
-export {StringArgumentStringConsumer as default};
+export {StringConsumer as default};
 
 export {CliofoType} from "../../cliofo-type.js";
