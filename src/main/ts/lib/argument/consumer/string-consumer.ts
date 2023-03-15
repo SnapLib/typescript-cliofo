@@ -34,7 +34,7 @@ export class StringConsumer extends StringArgument
      * @public
      * @readonly
      */
-    public readonly range: Readonly<Range>;
+    public readonly range: Readonly<Range & {diff: number}>;
 
     static readonly #defaultRange: Readonly<{min: number, max: number}> = Object.freeze({min: 0, max: 0});
 
@@ -174,16 +174,15 @@ export class StringConsumer extends StringArgument
     {
         super(prefixString, nonPrefixedString, cliofoType);
 
-        const minRange: number = typeof rangeOrNumber === "number" ? rangeOrNumber : rangeOrNumber.min  ?? 0 ;
+        const minRange: number = typeof rangeOrNumber === "number"
+            ? rangeOrNumber
+            : rangeOrNumber.min  ?? 0 ;
 
         // if min and max range are undefined, set max range to 0, otherwise
         // set to infinity if only max range is undefined
         const maxRange: number = typeof rangeOrNumber === "number"
             ? rangeOrNumber
-            : rangeOrNumber.max ?? ( rangeOrNumber.min === undefined
-                                     || rangeOrNumber.min === null
-                                        ? 0
-                                        : Infinity);
+            : rangeOrNumber.max ?? (rangeOrNumber.min ? Infinity : 0);
 
         if (minRange >= Infinity)
         {
@@ -201,7 +200,10 @@ export class StringConsumer extends StringArgument
         }
 
         this.cliofoTypeToConsume = cliofoTypeToConsume;
-        this.range = Object.freeze({min: minRange, max: maxRange});
+        this.range = Object.freeze({
+            min: minRange,
+            max: maxRange,
+            diff: maxRange - (minRange >= 0 ? minRange : 0)});
         this.#stringPredicate = stringPredicate;
     }
 
