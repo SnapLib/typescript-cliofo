@@ -19,6 +19,14 @@ export class StringConsumer extends StringArgument
     public readonly cliofoTypeToConsume: CliofoType;
 
     /**
+     * A `string` predicate that can be used to validate `string` arguments.
+     *
+     * @public
+     * @readonly
+     */
+    public readonly stringPredicate: (aString: string) => boolean;
+
+    /**
      * The required minimum number of arguments and maximum number of arguments
      * this object is required to and can consume.
      *
@@ -40,8 +48,6 @@ export class StringConsumer extends StringArgument
     static readonly #defaultRange: Readonly<Range> = Object.freeze({min: 0, max: 0});
 
     static readonly #defaultStringPredicate = () => false;
-
-    readonly #stringPredicate: (aString: string) => boolean;
 
     /**
      * Constructs an instance of an object used to represent a `string` that can
@@ -205,7 +211,7 @@ export class StringConsumer extends StringArgument
         this.cliofoTypeToConsume = cliofoTypeToConsume;
         this.range = Object.freeze({ min: minRange,
                                      max: maxRange });
-        this.#stringPredicate = stringPredicate;
+        this.stringPredicate = stringPredicate;
     }
 
     /**
@@ -223,17 +229,7 @@ export class StringConsumer extends StringArgument
      * @public
      */
     public stringIsValid(aString: string): boolean
-        { return this.#stringPredicate(aString); }
-
-    /**
-     * Getter for this object's {@link #stringPredicate} property.
-     *
-     * @returns This object's `string` predicate property.
-     *
-     * @public
-     */
-    public stringPredicate(): (aString: string) => boolean
-        { return this.#stringPredicate; }
+        { return this.stringPredicate(aString); }
 
     /**
      * Returns true` if this object's `string` predicate property is not set to
@@ -245,7 +241,7 @@ export class StringConsumer extends StringArgument
      * @public
      */
     public hasStringPredicate(): boolean
-        { return this.#stringPredicate !== StringConsumer.#defaultStringPredicate; }
+        { return this.stringPredicate !== StringConsumer.#defaultStringPredicate; }
 
     /**
      * Returns the static default `{min: number, max: number}` range object.
