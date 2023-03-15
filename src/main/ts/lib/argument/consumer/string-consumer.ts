@@ -45,6 +45,8 @@ export class StringConsumer extends StringArgument
      */
     public readonly range: Readonly<Range>;
 
+    static readonly #defaultCliofoTypesToConsume: ReadonlySet<CliofoType> = Object.freeze(new Set<CliofoType>());
+
     static readonly #defaultRange: Readonly<Range> = Object.freeze({min: 0, max: 0});
 
     static readonly #defaultStringPredicate = () => false;
@@ -125,7 +127,7 @@ export class StringConsumer extends StringArgument
     public constructor( prefixString: string,
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
-                        cliofoTypesToConsume: ReadonlySet<CliofoType>,
+                        cliofoTypesToConsume?: ReadonlySet<CliofoType>,
                         range?: Partial<Range>,
                         stringPredicate?: (aString: string) => boolean );
 
@@ -169,13 +171,13 @@ export class StringConsumer extends StringArgument
     public constructor( prefixString: string,
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
-                        cliofoTypesToConsume: ReadonlySet<CliofoType>,
+                        cliofoTypesToConsume?: ReadonlySet<CliofoType>,
                         numberOfArgumentsToConsume?: number,
                         stringPredicate?: (aString: string) => boolean );
     constructor( prefixString: string,
                  nonPrefixedString: string,
                  cliofoType: CliofoType,
-                 cliofoTypesToConsume: ReadonlySet<CliofoType>,
+                 cliofoTypesToConsume: ReadonlySet<CliofoType> = StringConsumer.#defaultCliofoTypesToConsume,
                  rangeOrNumber: Partial<Range> | number = StringConsumer.#defaultRange,
                  stringPredicate: (aString: string) => boolean  = StringConsumer.#defaultStringPredicate )
     {
@@ -208,7 +210,9 @@ export class StringConsumer extends StringArgument
             throw new ConsumerRangeError(`min range greater than max range: ${minRange} > ${maxRange}`);
         }
 
-        this.cliofoTypesToConsume = cliofoTypesToConsume;
+        this.cliofoTypesToConsume = Object.isFrozen(cliofoTypesToConsume)
+            ? cliofoTypesToConsume
+            : Object.freeze(new Set(cliofoTypesToConsume));
         this.range = Object.freeze({ min: minRange,
                                      max: maxRange });
         this.stringPredicate = stringPredicate;
@@ -251,7 +255,18 @@ export class StringConsumer extends StringArgument
      * @protected
      * @static
      */
-    protected static defaultRange(): Readonly<{min: number, max: number}>
+    protected static defaultCliofoTypesToConsume(): ReadonlySet<CliofoType>
+        { return StringConsumer.#defaultCliofoTypesToConsume; }
+
+    /**
+     * Returns the static default `{min: number, max: number}` range object.
+     *
+     * @returns The static default `{min: number, max: number}` range object.
+     *
+     * @protected
+     * @static
+     */
+    protected static defaultRange(): Readonly<Range>
         { return StringConsumer.#defaultRange; }
 
     /**
