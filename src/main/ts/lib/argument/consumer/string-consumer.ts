@@ -63,6 +63,9 @@ export class StringConsumer extends StringArgument
         this.#stringPredicate = stringPredicate;
     }
 
+    public stringPredicate(): (aString: string) => boolean
+        { return this.#stringPredicate; }
+
     public hasStringPredicate(): boolean
         { return this.#stringPredicate !== StringConsumer.#defaultStringPredicate; }
 
