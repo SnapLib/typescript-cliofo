@@ -19,12 +19,24 @@ export class StringConsumer extends StringArgument
 
     /**
      * The required minimum number of arguments and maximum number of arguments
-     * this `StringConsumer` can consume.
+     * this object is required to and can consume.
+     *
+     * @property {number} range.min
+     * - The minimum number of `string` arguments this object is required to
+     *   consume. If {@link range.max} equals this property, this object will
+     *   require that number of `string` arguments to consume.
+     *
+     * @property {number} range.min
+     * - The maximum number of `string` arguments this object is capable of
+     *   consuming. If {@link range.min} equals this property, this object will
+     *   require that number of `string` arguments to consume.
      *
      * @public
      * @readonly
      */
     public readonly range: Readonly<{min: number, max: number}>;
+
+    static readonly #defaultRange: Readonly<{min: number, max: number}> = Object.freeze({min: 0, max: 0});
 
     static readonly #defaultStringPredicate = () => false;
 
@@ -33,8 +45,46 @@ export class StringConsumer extends StringArgument
     /**
      * Constructs an instance of an object used to represent a `string` that can
      * consume or is required to consume a range of 0 or more `string` arguments
-     * and can optionally contain a `string` predicate used to validate consumed
-     * strings.
+     * and can optionally contain a `string` predicate used to validate a
+     * `string`.
+     *
+     * The range and `string` predicate arguments each default to certain values
+     * if not set or set to `undefined`.
+     *
+     * The `string` predicate defaults to a method that doesn't consume any
+     * arguments and returns `false`.
+     *
+     * The minimum and maximum range argument defaults to having both its
+     * minimum and maximum ranges set to `0` and therefore does not consume any
+     * `string` arguments. This is only the case if *both* minimum and maximum
+     * range values aren't set or set to `undefined`. If one of them is set,
+     * then that alters the unset range value's default value.
+     *
+     * Setting the minimum and maximum range values equal to each other will
+     * construct an object that requires exactly that amount of `string`
+     * arguments to consume.
+     *
+     * If no minimum and max range values are specified, then the constructed
+     * object won't consume any `string` arguments (its max and min ranges are
+     * both set to `0`).
+     *
+     * If only a minimum range value is specified, then the constructed
+     * object will require *at least* that many `string` arguments to consume
+     * (the max range defaults to `Infinity`).
+     *
+     * If only a maximum range value is specified, then the constructed
+     * object can optionally consume up to that many `string` arguments (the
+     * min range defaults to `0`).
+     *
+     * The following range values will result in an error to be thrown:
+     *
+     * Setting the minimum range to a value:
+     *   - equal to or greater than `Infinity` or
+     *   - greater than the maximum range value.
+     *
+     * Setting the maximum range to a value:
+     *   - less than `0` or
+     *   - less than the minimum range value.
      *
      * @param prefixString The leading prefix `string` used to denote the
      *                     constructed consumer as an operand, flag, or option.
@@ -48,27 +98,36 @@ export class StringConsumer extends StringArgument
      * @param cliofoTypeToConsume The operand, option, or flag type the
      *                            constructed consumer consumes.
      *
-     * @param range The minimum and max ranges the constructed consumer is
-     *              required to and can consume.
+     * @param range.min The minimum number of `string` arguments the constructed
+     *                  consumer is required to consume. If `range.max` is set
+     *                  to this value, then consumer will require that number of
+     *                  `string` arguments to consume.
      *
-     * @param stringPredicate The `string` predicate that can be used to
-     *                        validate consumed `string` arguments.
+     * @param range.max The maximum number of `string` arguments the constructed
+     *                  consumer can consume. If this value is set to the same
+     *                  `range.min` value, then constructed consumer will
+     *                  require that number of `string` arguments to consume.
      *
-     * @throws {ConsumerRangeError} If passed minimum and maximum range values
-     *                              aren't valid. Such as a min range that's
-     *                              greater than a max range.
+     * @param stringPredicate a `string` predicate that can be used to validate
+     *                        `string` arguments.
+     *
+     * @throws {ConsumerRangeError} If minimum and maximum range values aren't
+     *                              valid. Such as a min range that's greater
+     *                              than a max range.
      */
     public constructor( prefixString: string,
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
                         cliofoTypeToConsume: CliofoType,
-                        range: Partial<{min: number, max: number}> = {min: 0, max: 0},
+                        range: Partial<{min: number, max: number}> = StringConsumer.#defaultRange,
                         stringPredicate: (aString: string) => boolean  = StringConsumer.#defaultStringPredicate )
     {
         super(prefixString, nonPrefixedString, cliofoType);
 
         const minRange: number = range.min ?? 0;
 
+        // if min and max range are undefined, set max range to 0, otherwise
+        // set to infinity if only max range is undefined
         const maxRange: number = range.max ?? (range.min === undefined || range.min === null ? 0 : Infinity);
 
         if (minRange >= Infinity)
@@ -129,6 +188,17 @@ export class StringConsumer extends StringArgument
      */
     public hasStringPredicate(): boolean
         { return this.#stringPredicate !== StringConsumer.#defaultStringPredicate; }
+
+    /**
+     * Returns the static default `{min: number, max: number}` range object.
+     *
+     * @returns The static default `{min: number, max: number}` range object.
+     *
+     * @protected
+     * @static
+     */
+    protected static defaultRange(): Readonly<{min: number, max: number}>
+        { return StringConsumer.#defaultRange; }
 
     /**
      * Returns the static default `string` predicate.

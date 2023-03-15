@@ -13,7 +13,7 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
                         cliofoTypeToConsume: CliofoType,
-                        range: Readonly<{min: number, max: number}>,
+                        range: Readonly<{min: number, max: number}> = StringConsumer.defaultRange(),
                         stringConverter: (aString: string) => ConvertedStringType,
                         stringPredicate: (aString: string) => boolean = StringConsumer.defaultStringPredicate(),
                         convertedStringPredicate: (convertedString: ConvertedStringType) => boolean = TypeConsumer.#defaultConvertedStringPredicate)
