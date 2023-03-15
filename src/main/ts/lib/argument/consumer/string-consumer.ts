@@ -32,15 +32,10 @@ export class StringConsumer extends StringArgument
      *   consuming. If minimum range equals this property, this object will
      *   require that number of `string` arguments to consume.
      *
-     * @property {number} range.difference
-     * - The difference between the maximum and minium range values. If the
-     *   minimum range value is less than `0`, it's treated as `0` when
-     *   calculating the difference.
-     *
      * @public
      * @readonly
      */
-    public readonly range: Readonly<Range & {readonly difference: number}>;
+    public readonly range: Readonly<Range>;
 
     static readonly #defaultRange: Readonly<Range> = Object.freeze({min: 0, max: 0});
 
@@ -208,10 +203,8 @@ export class StringConsumer extends StringArgument
         }
 
         this.cliofoTypeToConsume = cliofoTypeToConsume;
-        this.range = Object.freeze({
-            min: minRange,
-            max: maxRange,
-            difference: maxRange - (minRange >= 0 ? minRange : 0)});
+        this.range = Object.freeze({ min: minRange,
+                                     max: maxRange });
         this.#stringPredicate = stringPredicate;
     }
 
