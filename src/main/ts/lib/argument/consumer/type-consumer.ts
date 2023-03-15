@@ -12,13 +12,13 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
     public constructor( prefixString: string,
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
-                        cliofoTypeToConsume: CliofoType,
+                        cliofoTypesToConsume: ReadonlySet<CliofoType>,
                         range: Readonly<{min: number, max: number}> = StringConsumer.defaultRange(),
                         stringConverter: (aString: string) => ConvertedStringType,
                         stringPredicate: (aString: string) => boolean = StringConsumer.defaultStringPredicate(),
                         convertedStringPredicate: (convertedString: ConvertedStringType) => boolean = TypeConsumer.#defaultConvertedStringPredicate)
     {
-        super(prefixString, nonPrefixedString, cliofoType, cliofoTypeToConsume, range, stringPredicate);
+        super(prefixString, nonPrefixedString, cliofoType, cliofoTypesToConsume, range, stringPredicate);
         this.#stringConverter = stringConverter;
         this.#convertedStringPredicate = convertedStringPredicate;
     }
