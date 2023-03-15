@@ -92,6 +92,23 @@ export class StringConsumer extends StringArgument
     }
 
     /**
+     * Returns the result of passing the provided `string` argument to this
+     * object's `string` validator.
+     *
+     * @remarks If no `string` validator is set, then all passed `string`
+     *          arguments evaluate to `true`.
+     *
+     * @param aString The `string` to pass to this object's `string` validator.
+     *
+     * @returns The result of passing the provided `string` argument to this
+     *          object's `string` validator.
+     *
+     * @public
+     */
+    public stringIsValid(aString: string): boolean
+        { return this.#stringPredicate(aString); }
+
+    /**
      * Getter for this object's `string` predicate property.
      *
      * @returns This object's `string` predicate property.
@@ -112,23 +129,6 @@ export class StringConsumer extends StringArgument
      */
     public hasStringPredicate(): boolean
         { return this.#stringPredicate !== StringConsumer.#defaultStringPredicate; }
-
-    /**
-     * Returns the result of passing the provided `string` argument to this
-     * object's `string` validator.
-     *
-     * @remarks If no `string` validator is set, then all passed `string`
-     *          arguments evaluate to `true`.
-     *
-     * @param aString The `string` to pass to this object's `string` validator.
-     *
-     * @returns The result of passing the provided `string` argument to this
-     *          object's `string` validator.
-     *
-     * @public
-     */
-    public stringIsValid(aString: string): boolean
-        { return this.#stringPredicate(aString); }
 
     /**
      * Returns the static default `string` predicate.
