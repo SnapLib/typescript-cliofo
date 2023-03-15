@@ -16,22 +16,16 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
                         range: Readonly<{min: number, max: number}>,
                         stringConverter: (aString: string) => ConvertedStringType,
                         stringPredicate: (aString: string) => boolean = StringConsumer.defaultStringPredicate(),
-                        convertedStringPredicate: (convertedString: ConvertedStringType) => boolean = TypeConsumer.#defaultConvertedStringPredicate )
+                        convertedStringPredicate: (convertedString: ConvertedStringType) => boolean = TypeConsumer.#defaultConvertedStringPredicate)
     {
         super(prefixString, nonPrefixedString, cliofoType, cliofoTypeToConsume, range, stringPredicate);
         this.#stringConverter = stringConverter;
         this.#convertedStringPredicate = convertedStringPredicate;
     }
 
-    public stringConverter(): (aString: string) => ConvertedStringType
-        { return this.#stringConverter; }
-
-    public convertedStringPredicate(): (convertedString: ConvertedStringType) => boolean
-        { return this.#convertedStringPredicate; }
-
     /**
-     * Passes the provided `string` to this object's {@link #stringConverter} and
-     * returns the resulting {@link ConvertedStringType} instance.
+     * Passes the provided `string` to this object's {@link #stringConverter}
+     * and returns the resulting {@link ConvertedStringType} instance.
      *
      * @param aString The `string` to be converted to the {@link ConvertedStringType}
      *        instance via this object's {@link #stringConverter}.
@@ -40,8 +34,51 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
      *          passing the provided `string` to this object's
      *          {@link #stringConverter}.
      */
-    public converterString(stringToConvert: string): ConvertedStringType
+    public convertString(stringToConvert: string): ConvertedStringType
         { return this.#stringConverter(stringToConvert); }
+
+    /**
+     * Getter for this object's {@link #stringConverter} property.
+     *
+     * @returns This object's {@link #stringConverter} property.
+     *
+     * @public
+     */
+    public stringConverter(): (aString: string) => ConvertedStringType
+        { return this.#stringConverter; }
+
+    /**
+     * Getter for this object's {@link #convertedStringPredicate} property.
+     *
+     * @returns This object's {@link #convertedStringPredicate} property.
+     *
+     * @public
+     */
+    public convertedStringPredicate(): (convertedString: ConvertedStringType) => boolean
+        { return this.#convertedStringPredicate; }
+
+    /**
+     * Returns `true` if this object's {@link #convertedStringPredicate}
+     * property is not set to the default converted string predicate.
+     *
+     * @returns `true` if this object's converted string predicate property is
+     *          not `undefined`.
+     *
+     * @public
+     */
+    public hasConvertedStringPredicate(): boolean
+        { return this.#convertedStringPredicate === TypeConsumer.#defaultConvertedStringPredicate; }
+
+    /**
+     * Returns the static default converted string predicate.
+     *
+     * @returns The static default converted string predicate.
+     *
+     * @protected
+     * @static
+     */
+    protected static defaultConvertedStringPredicate(): () => boolean
+        { return TypeConsumer.#defaultConvertedStringPredicate; }
 }
 
 export {TypeConsumer as default};
