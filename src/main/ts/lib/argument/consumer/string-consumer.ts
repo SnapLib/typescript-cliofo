@@ -1,6 +1,7 @@
 import {ConsumerRangeError} from "./consumer-range-error.js";
 import {type CliofoType} from "../../cliofo-type.js";
 import {StringArgument} from "../string-argument.js";
+import {ConsumerRange} from "./util.js";
 
 /**
  * A string that can consume or is required to consume a range of 0 or more
@@ -54,11 +55,11 @@ export class StringConsumer extends StringArgument
      * @public
      * @readonly
      */
-    public readonly range: Readonly<Range>;
+    public readonly range: Readonly<ConsumerRange>;
 
     static readonly #defaultCliofoTypesToConsume: ReadonlySet<CliofoType> = Object.freeze(new Set<CliofoType>());
 
-    static readonly #defaultRange: Readonly<Range> = Object.freeze({min: 0, max: 0});
+    static readonly #defaultRange: Readonly<ConsumerRange> = Object.freeze({min: 0, max: 0});
 
     static readonly #defaultStringPredicate = () => false;
 
@@ -138,7 +139,7 @@ export class StringConsumer extends StringArgument
     public constructor( prefixString: string,
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
-                        range?: Partial<Range>,
+                        range?: Partial<ConsumerRange>,
                         cliofoTypesToConsume?: ReadonlySet<CliofoType>,
                         stringPredicate?: (aString: string) => boolean );
 
@@ -188,7 +189,7 @@ export class StringConsumer extends StringArgument
     constructor( prefixString: string,
                  nonPrefixedString: string,
                  cliofoType: CliofoType,
-                 rangeOrNumber: Partial<Range> | number = StringConsumer.#defaultRange,
+                 rangeOrNumber: Partial<ConsumerRange> | number = StringConsumer.#defaultRange,
                  cliofoTypesToConsume: ReadonlySet<CliofoType> = StringConsumer.#defaultCliofoTypesToConsume,
                  stringPredicate: (aString: string) => boolean  = StringConsumer.#defaultStringPredicate )
     {
@@ -224,8 +225,7 @@ export class StringConsumer extends StringArgument
         this.cliofoTypesToConsume = Object.isFrozen(cliofoTypesToConsume)
             ? cliofoTypesToConsume
             : Object.freeze(new Set(cliofoTypesToConsume));
-        this.range = Object.freeze({ min: minRange,
-                                     max: maxRange });
+        this.range = Object.freeze(new ConsumerRange(minRange, maxRange ));
         this.stringPredicate = stringPredicate;
 
         // If this object consumes 1 or more CliofoTypes, has max range greater
@@ -283,7 +283,7 @@ export class StringConsumer extends StringArgument
      * @protected
      * @static
      */
-    protected static defaultRange(): Readonly<Range>
+    protected static defaultRange(): Readonly<ConsumerRange>
         { return StringConsumer.#defaultRange; }
 
     /**
@@ -297,8 +297,6 @@ export class StringConsumer extends StringArgument
     protected static defaultStringPredicate(): () => boolean
         { return StringConsumer.#defaultStringPredicate; }
 }
-
-type Range = {readonly min: number; readonly max: number;};
 
 export {StringConsumer as default};
 
