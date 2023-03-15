@@ -39,7 +39,7 @@ export class StringConsumer extends StringArgument
      * @public
      * @readonly
      */
-    public readonly range: Readonly<Range & {difference: number}>;
+    public readonly range: Readonly<Range & {readonly difference: number}>;
 
     static readonly #defaultRange: Readonly<Range> = Object.freeze({min: 0, max: 0});
 
@@ -276,7 +276,7 @@ export class StringConsumer extends StringArgument
         { return StringConsumer.#defaultStringPredicate; }
 }
 
-type Range = {readonly min: number; readonly max: number;};
+type Range = Readonly<{readonly min: number; readonly max: number;}>;
 
 export {StringConsumer as default};
 
