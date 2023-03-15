@@ -23,20 +23,25 @@ export class StringConsumer extends StringArgument
      *
      * @property {number} range.min
      * - The minimum number of `string` arguments this object is required to
-     *   consume. If {@link range.max} equals this property, this object will
+     *   consume. If the maximum range equals this property, this object will
      *   require that number of `string` arguments to consume.
      *
      * @property {number} range.min
      * - The maximum number of `string` arguments this object is capable of
-     *   consuming. If {@link range.min} equals this property, this object will
+     *   consuming. If minimum range equals this property, this object will
      *   require that number of `string` arguments to consume.
+     *
+     * @property {number} range.min
+     * - The difference between the maximum and minium range values. If the
+     *   minimum range value is less than `0`, it's treated as `0` when
+     *   calculating the difference.
      *
      * @public
      * @readonly
      */
-    public readonly range: Readonly<Range & {diff: number}>;
+    public readonly range: Readonly<Range & {difference: number}>;
 
-    static readonly #defaultRange: Readonly<{min: number, max: number}> = Object.freeze({min: 0, max: 0});
+    static readonly #defaultRange: Readonly<Range> = Object.freeze({min: 0, max: 0});
 
     static readonly #defaultStringPredicate = () => false;
 
@@ -203,7 +208,7 @@ export class StringConsumer extends StringArgument
         this.range = Object.freeze({
             min: minRange,
             max: maxRange,
-            diff: maxRange - (minRange >= 0 ? minRange : 0)});
+            difference: maxRange - (minRange >= 0 ? minRange : 0)});
         this.#stringPredicate = stringPredicate;
     }
 
