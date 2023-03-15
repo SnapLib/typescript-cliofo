@@ -10,6 +10,17 @@ import {StringArgument} from "../string-argument.js";
 export class StringConsumer extends StringArgument
 {
     /**
+     * Returns `true` if this object actually consumes strings. That is, if this
+     * object:
+     *
+     * - consumes 1 or more type(s) of Cliofo arguments,
+     * - has a max range greater than `0`, and
+     * - has a `string` predicate set to a value other than the default string
+     *   predicate.
+     */
+    public readonly consumesStrings: boolean;
+
+    /**
      * The command line interface operand, flag, or option type(s) that this
      * object consumes.
      *
@@ -216,6 +227,12 @@ export class StringConsumer extends StringArgument
         this.range = Object.freeze({ min: minRange,
                                      max: maxRange });
         this.stringPredicate = stringPredicate;
+
+        // If this object consumes 1 or more CliofoTypes, has max range greater
+        // than 0, and has a set string predicate.
+        this.consumesStrings =    this.cliofoTypesToConsume.size !== 0
+                               && this.range.max > 0
+                               && this.stringPredicate !== StringConsumer.defaultStringPredicate();
     }
 
     /**
