@@ -109,7 +109,7 @@ export class StringConsumer extends StringArgument
         { return this.#stringPredicate(aString); }
 
     /**
-     * Getter for this object's `string` predicate property.
+     * Getter for this object's {@link #stringPredicate} property.
      *
      * @returns This object's `string` predicate property.
      *
