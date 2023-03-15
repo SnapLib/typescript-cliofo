@@ -187,7 +187,9 @@ export class StringConsumer extends StringArgument
         // set to infinity if only max range is undefined
         const maxRange: number = typeof rangeOrNumber === "number"
             ? rangeOrNumber
-            : rangeOrNumber.max ?? (rangeOrNumber.min ? Infinity : 0);
+            : rangeOrNumber.max ?? (    rangeOrNumber.min === undefined
+                                     && rangeOrNumber.min === null
+                                     ? 0 : Infinity );
 
         if (minRange >= Infinity)
         {
