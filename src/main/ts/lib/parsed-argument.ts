@@ -12,8 +12,8 @@ export class ParsedArgument
                 typeConsumer.prefixString,
                 typeConsumer.nonPrefixedString,
                 typeConsumer.cliofoType,
-                typeConsumer.cliofoTypesToConsume,
                 typeConsumer.range,
+                typeConsumer.cliofoTypesToConsume,
                 typeConsumer.stringPredicate
             ));
 
