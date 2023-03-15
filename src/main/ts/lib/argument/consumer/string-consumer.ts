@@ -10,7 +10,8 @@ import {StringArgument} from "../string-argument.js";
 export class StringConsumer extends StringArgument
 {
     /**
-     * The command line operand, flag, or option type that this object consumes.
+     * The command line interface operand, flag, or option type that this object
+     * consumes.
      *
      * @public
      * @readonly
