@@ -31,7 +31,7 @@ export class StringConsumer extends StringArgument
      *   consuming. If minimum range equals this property, this object will
      *   require that number of `string` arguments to consume.
      *
-     * @property {number} range.min
+     * @property {number} range.difference
      * - The difference between the maximum and minium range values. If the
      *   minimum range value is less than `0`, it's treated as `0` when
      *   calculating the difference.
