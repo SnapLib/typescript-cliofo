@@ -115,9 +115,6 @@ export class StringConsumer extends StringArgument
      * @param cliofoType The operand, option, or flag type of the constructed
      *                   consumer.
      *
-     * @param cliofoTypesToConsume The operand, option, or flag type the
-     *                             constructed consumer consumes.
-     *
      * @param range.min The minimum number of `string` arguments the constructed
      *                  consumer is required to consume. If `range.max` is set
      *                  to this value, then consumer will require that number of
@@ -127,6 +124,9 @@ export class StringConsumer extends StringArgument
      *                  consumer can consume. If this value is set to the same
      *                  `range.min` value, then constructed consumer will
      *                  require that number of `string` arguments to consume.
+     *
+     * @param cliofoTypesToConsume The operand, option, or flag type the
+     *                             constructed consumer consumes.
      *
      * @param stringPredicate a `string` predicate that can be used to validate
      *                        `string` arguments.
@@ -138,8 +138,8 @@ export class StringConsumer extends StringArgument
     public constructor( prefixString: string,
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
-                        cliofoTypesToConsume?: ReadonlySet<CliofoType>,
                         range?: Partial<Range>,
+                        cliofoTypesToConsume?: ReadonlySet<CliofoType>,
                         stringPredicate?: (aString: string) => boolean );
 
     /**
@@ -166,11 +166,11 @@ export class StringConsumer extends StringArgument
      * @param cliofoType The operand, option, or flag type of the constructed
      *                   consumer.
      *
-     * @param cliofoTypesToConsume The operand, option, or flag type the
-     *                             constructed consumer consumes.
-     *
      * @param numberOfArgumentsToConsume The `number` of `string` arguments the
      *     constructed object will require to consume.
+     *
+     * @param cliofoTypesToConsume The operand, option, or flag type the
+     *                             constructed consumer consumes.
      *
      * @param stringPredicate a `string` predicate that can be used to validate
      *                        `string` arguments.
@@ -182,14 +182,14 @@ export class StringConsumer extends StringArgument
     public constructor( prefixString: string,
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
-                        cliofoTypesToConsume?: ReadonlySet<CliofoType>,
                         numberOfArgumentsToConsume?: number,
+                        cliofoTypesToConsume?: ReadonlySet<CliofoType>,
                         stringPredicate?: (aString: string) => boolean );
     constructor( prefixString: string,
                  nonPrefixedString: string,
                  cliofoType: CliofoType,
-                 cliofoTypesToConsume: ReadonlySet<CliofoType> = StringConsumer.#defaultCliofoTypesToConsume,
                  rangeOrNumber: Partial<Range> | number = StringConsumer.#defaultRange,
+                 cliofoTypesToConsume: ReadonlySet<CliofoType> = StringConsumer.#defaultCliofoTypesToConsume,
                  stringPredicate: (aString: string) => boolean  = StringConsumer.#defaultStringPredicate )
     {
         super(prefixString, nonPrefixedString, cliofoType);
