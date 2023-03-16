@@ -1,7 +1,6 @@
 import {ConsumerRangeError} from "./consumer-range-error.js";
 import {type CliofoType} from "../../cliofo-type.js";
 import {StringArgument} from "../string-argument.js";
-// import {Range} from "./util.js";
 
 /**
  * A string that can consume or is required to consume a range of 0 or more
