@@ -62,6 +62,7 @@ export class StringArgument
     readonly #flagString: string;
     readonly #optionString: string;
 
+    public constructor(other: Readonly<StringArgument>);
     /**
      * Constructs a new object instance used to represent a command line
      * argument as an operand, flag, or option.
@@ -75,39 +76,61 @@ export class StringArgument
      * @param cliofoType The operand, flag, or option type of command line
      *                   argument this argument is.
      */
-    public constructor(prefixString: string, nonPrefixedString: string, cliofoType: CliofoType)
+    public constructor(prefixString: string, nonPrefixedString: string, cliofoType: CliofoType);
+    constructor(prefixStringOrOther: string | Readonly<StringArgument>, nonPrefixedString?: string, cliofoType?: CliofoType)
     {
-        this.prefixString = prefixString;
-        this.nonPrefixedString = nonPrefixedString;
-        this.#optionPrefixString = this.prefixString.length === 0 ? this.prefixString
-            : this.prefixString.repeat(2);
-        this.cliofoType = cliofoType;
+        if (typeof prefixStringOrOther === "string" && nonPrefixedString !== undefined && cliofoType !== undefined && nonPrefixedString !== null && cliofoType !== null)
+        {
+            this.prefixString = prefixStringOrOther;
+            this.nonPrefixedString = nonPrefixedString;
+            this.#optionPrefixString = this.prefixString.length === 0 ? this.prefixString
+                : this.prefixString.repeat(2);
+            this.cliofoType = cliofoType;
 
-        switch (this.cliofoType) {
-            case CliofoType.OPERAND:
-            case CliofoType.FLAG:
-                this.#prefix = this.prefixString;
-                break;
-            case CliofoType.OPTION:
-                this.#prefix = this.#optionPrefixString;
-                break;
-            default:
-                throw new Error();
+            switch (this.cliofoType) {
+                case CliofoType.OPERAND:
+                case CliofoType.FLAG:
+                    this.#prefix = this.prefixString;
+                    break;
+                case CliofoType.OPTION:
+                    this.#prefix = this.#optionPrefixString;
+                    break;
+                default:
+                    throw new Error();
+            }
+
+            this.#isOperand = this.cliofoType === CliofoType.OPERAND;
+            this.#isFlag = this.cliofoType === CliofoType.FLAG;
+            this.#isOption = this.cliofoType === CliofoType.OPTION;
+
+            this.prefixedString =  this.prefixString.length === 0 || this.#isOperand
+                ? this.nonPrefixedString : (this.#prefix += this.nonPrefixedString);
+
+            this.#flagString = this.prefixString.length === 0 || this.#isFlag
+                ? this.prefixedString : (this.prefixString += this.nonPrefixedString);
+
+            this.#optionString = this.prefixString.length === 0 || this.#isOption
+                ? this.prefixedString
+                : `${this.prefixString.repeat(2)}${this.nonPrefixedString}`;
         }
-
-        this.#isOperand = this.cliofoType === CliofoType.OPERAND;
-        this.#isFlag = this.cliofoType === CliofoType.FLAG;
-        this.#isOption = this.cliofoType === CliofoType.OPTION;
-
-        this.prefixedString =  this.prefixString.length === 0 || this.#isOperand
-            ? this.nonPrefixedString : (this.#prefix += this.nonPrefixedString);
-
-        this.#flagString = this.prefixString.length === 0 || this.#isFlag
-            ? this.prefixedString : (this.prefixString += this.nonPrefixedString);
-
-        this.#optionString = this.prefixString.length === 0 || this.#isOption
-            ? this.prefixedString
-            : `${this.prefixString.repeat(2)}${this.nonPrefixedString}`;
+        else if (prefixStringOrOther instanceof StringArgument)
+        {
+            this.prefixString = prefixStringOrOther.prefixString;
+            this.nonPrefixedString = prefixStringOrOther.nonPrefixedString;
+            this.#optionPrefixString = prefixStringOrOther.#optionPrefixString;
+            this.cliofoType = prefixStringOrOther.cliofoType;
+            this.#prefix = prefixStringOrOther.#prefix;
+            this.#isOperand = prefixStringOrOther.#isOperand;
+            this.#isFlag = prefixStringOrOther.#isFlag;
+            this.#isOption = prefixStringOrOther.#isOption;
+            this.prefixedString =  prefixStringOrOther.prefixedString;
+            this.#flagString = prefixStringOrOther.#flagString;
+            this.#optionString = prefixStringOrOther.#optionString;
+        }
+        else
+        {
+            throw new Error();
+        }
     }
 
     /**
