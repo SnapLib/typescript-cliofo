@@ -1,3 +1,4 @@
+import {ConsumerRange} from "./consumer-range.js";
 import {StringConsumer} from "./string-consumer.js";
 import {type CliofoType} from "./string-consumer.js";
 
@@ -12,13 +13,13 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
     public constructor( prefixString: string,
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
-                        range: Readonly<{min: number, max: number}> = StringConsumer.defaultRange(),
+                        rangeOrNumber: Partial<ConsumerRange> | number,
                         cliofoTypesToConsume: ReadonlySet<CliofoType>,
-                        stringConverter: (aString: string) => ConvertedStringType,
                         stringPredicate: (aString: string) => boolean = StringConsumer.defaultStringPredicate(),
+                        stringConverter: (aString: string) => ConvertedStringType,
                         convertedStringPredicate: (convertedString: ConvertedStringType) => boolean = TypeConsumer.#defaultConvertedStringPredicate)
     {
-        super(prefixString, nonPrefixedString, cliofoType, range, cliofoTypesToConsume, stringPredicate);
+        super(prefixString, nonPrefixedString, cliofoType, rangeOrNumber, cliofoTypesToConsume, stringPredicate);
         this.#stringConverter = stringConverter;
         this.#convertedStringPredicate = convertedStringPredicate;
     }

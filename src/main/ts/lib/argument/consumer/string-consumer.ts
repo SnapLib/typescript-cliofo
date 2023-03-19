@@ -1,4 +1,4 @@
-import {ConsumerRangeError} from "./consumer-range-error.js";
+import {ConsumerRange} from "./consumer-range.js";
 import {type CliofoType} from "../../cliofo-type.js";
 import {StringArgument} from "../string-argument.js";
 
@@ -54,11 +54,11 @@ export class StringConsumer extends StringArgument
      * @public
      * @readonly
      */
-    public readonly range: Readonly<Range>;
+    public readonly range: Readonly<ConsumerRange>;
 
-    static readonly #defaultCliofoTypesToConsume: ReadonlySet<CliofoType> = Object.freeze(new Set<CliofoType>());
+    static readonly #emptyCliofoTypeSet: ReadonlySet<CliofoType> = Object.freeze(new Set<CliofoType>());
 
-    static readonly #defaultRange: Readonly<Range> = Object.freeze({min: 0, max: 0});
+    static readonly #defaultRange: Readonly<ConsumerRange> = Object.freeze(new ConsumerRange(0, 0));
 
     static readonly #defaultStringPredicate = () => false;
 
@@ -135,50 +135,36 @@ export class StringConsumer extends StringArgument
     public constructor( prefixString: string,
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
-                        rangeOrNumber: Partial<Range> | number = StringConsumer.#defaultRange,
-                        cliofoTypesToConsume: ReadonlySet<CliofoType> = StringConsumer.#defaultCliofoTypesToConsume,
+                        rangeOrNumber: Partial<ConsumerRange> | number = StringConsumer.#defaultRange,
+                        cliofoTypesToConsume: ReadonlySet<CliofoType> = StringConsumer.#emptyCliofoTypeSet,
                         stringPredicate: (aString: string) => boolean  = StringConsumer.#defaultStringPredicate )
     {
         super(prefixString, nonPrefixedString, cliofoType);
 
-        let minRange: number;
-        let maxRange: number;
-
-        if (typeof rangeOrNumber === "number")
-        {
-            minRange = rangeOrNumber;
-            maxRange = rangeOrNumber;
-        }
-        else
-        {
-            minRange= rangeOrNumber.min ?? 0 ;
-
-            // if min and max range are undefined, set max range to 0, otherwise
-            // set to infinity if only max range is undefined
-            maxRange = rangeOrNumber.max ?? ( rangeOrNumber.min === undefined
-                                              && rangeOrNumber.min === null
-                                                  ? 0 : Infinity );
-        }
-
-        if (minRange >= Infinity)
-        {
-            throw new ConsumerRangeError(`min range greater than or equal to Infinity: ${minRange} >= Infinity`);
-        }
-
-        if (maxRange < 0)
-        {
-            throw new ConsumerRangeError(`max range less than 0: ${maxRange} < 0`);
-        }
-
-        if (minRange > maxRange)
-        {
-            throw new ConsumerRangeError(`min range greater than max range: ${minRange} > ${maxRange}`);
-        }
-
         this.cliofoTypesToConsume = Object.isFrozen(cliofoTypesToConsume)
             ? cliofoTypesToConsume
             : Object.freeze(new Set(cliofoTypesToConsume));
-        this.range = Object.freeze({min: minRange, max: maxRange});
+
+        if (typeof rangeOrNumber === "number")
+        {
+            this.range = Object.freeze(new ConsumerRange(rangeOrNumber, rangeOrNumber));
+        }
+        else if (rangeOrNumber instanceof ConsumerRange)
+        {
+            this.range = Object.isFrozen(rangeOrNumber) ? rangeOrNumber
+                : Object.freeze(new ConsumerRange(
+                   rangeOrNumber.min ?? 0,
+                   rangeOrNumber.min === undefined
+                       && rangeOrNumber.min === null
+                           ? 0
+                           : Infinity
+                  ));
+        }
+        else
+        {
+            throw new Error();
+        }
+
         this.stringPredicate = stringPredicate;
 
         // If this object consumes 1 or more CliofoTypes, has max range greater
@@ -218,29 +204,37 @@ export class StringConsumer extends StringArgument
         { return this.stringPredicate !== StringConsumer.#defaultStringPredicate; }
 
     /**
-     * Returns the static default `{min: number, max: number}` range object.
+     * Returns an empty `Set<`{@link CliofoType}`>` used as this class' default
+     * {@link cliofoTypesToConsume} property value. This creates a
+     * {@link StringConsumer} that doesn't consume any `string` arguments.
      *
      * @returns The static default `{min: number, max: number}` range object.
      *
      * @protected
      * @static
      */
-    protected static defaultCliofoTypesToConsume(): ReadonlySet<CliofoType>
-        { return StringConsumer.#defaultCliofoTypesToConsume; }
+    protected static emptyCliofoTypeSet(): ReadonlySet<CliofoType>
+        { return StringConsumer.#emptyCliofoTypeSet; }
 
     /**
-     * Returns the static default `{min: number, max: number}` range object.
+     * Returns the {@link ConsumerRange} object used as this class' default
+     * {@link range} property value which consists of a range with both its
+     * minimum and maximum values set to `0`. This creates a
+     * {@link StringConsumer} that doesn't consume any `string` arguments.
      *
-     * @returns The static default `{min: number, max: number}` range object.
+     * @returns The {@link ConsumerRange} object used as this class' default
+     *          {@link range} property.
      *
      * @protected
      * @static
      */
-    protected static defaultRange(): Readonly<Range>
+    protected static defaultRange(): Readonly<ConsumerRange>
         { return StringConsumer.#defaultRange; }
 
     /**
-     * Returns the static default `string` predicate.
+     * Returns the static default `string` predicate which consists of a
+     * predicate that consumes no arguments and returns `false` effectively
+     * treating every passed argument as invalid.
      *
      * @returns The static default `string` predicate.
      *
@@ -253,8 +247,8 @@ export class StringConsumer extends StringArgument
 
 export const stringArgumentToStringConsumer = (
     stringArgument: Readonly<StringArgument>,
-    rangeOrNumber: Partial<Range> | number,
-    cliofoTypesToConsume?: ReadonlySet<CliofoType>,
+    rangeOrNumber?: Partial<ConsumerRange> | number | undefined,
+    cliofoTypesToConsume?: ReadonlySet<CliofoType> | undefined,
     stringPredicate?: (aString: string) => boolean
 ): StringConsumer =>
     { return new StringConsumer( stringArgument.prefixString,
@@ -263,8 +257,6 @@ export const stringArgumentToStringConsumer = (
                                  rangeOrNumber,
                                  cliofoTypesToConsume,
                                  stringPredicate); };
-
-type Range = {readonly min: number, readonly max: number};
 
 export {StringConsumer as default};
 
