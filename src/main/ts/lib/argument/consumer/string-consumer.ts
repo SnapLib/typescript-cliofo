@@ -68,8 +68,11 @@ export class StringConsumer extends StringArgument
      * and can optionally contain a `string` predicate used to validate a
      * `string`.
      *
-     * The range and `string` predicate arguments each default to certain values
-     * if not set or set to `undefined`.
+     * If the number of arguments to consume is set to `0` then the constructed
+     * object won't consume any `string` arguments. Conversely, if set to
+     * `Infinity`, then the constructed object can consume an indefinite amount
+     * of `string` arguments. Setting this number below `0` or greater than
+     * `Infinity` will cause an error to be thrown.
      *
      * The `string` predicate defaults to a method that doesn't consume any
      * arguments and returns `false`.
@@ -115,15 +118,9 @@ export class StringConsumer extends StringArgument
      * @param cliofoType The operand, option, or flag type of the constructed
      *                   consumer.
      *
-     * @param range.min The minimum number of `string` arguments the constructed
-     *                  consumer is required to consume. If `range.max` is set
-     *                  to this value, then consumer will require that number of
-     *                  `string` arguments to consume.
-     *
-     * @param range.max The maximum number of `string` arguments the constructed
-     *                  consumer can consume. If this value is set to the same
-     *                  `range.min` value, then constructed consumer will
-     *                  require that number of `string` arguments to consume.
+     * @param rangeOrNumber A numeric range of `string` arguments this object
+     *     can consume or exact `number` of `string` arguments the constructed
+     *     object will require to consume.
      *
      * @param cliofoTypesToConsume The operand, option, or flag type the
      *                             constructed consumer consumes.
@@ -138,73 +135,30 @@ export class StringConsumer extends StringArgument
     public constructor( prefixString: string,
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
-                        range?: Partial<Range>,
-                        cliofoTypesToConsume?: ReadonlySet<CliofoType>,
-                        stringPredicate?: (aString: string) => boolean );
-
-    /**
-     * Constructs an instance of an object used to represent a `string` that can
-     * consume or is required to consume a range of 0 or more `string` arguments
-     * and can optionally contain a `string` predicate used to validate a
-     * `string`.
-     *
-     * If the number of arguments to consume is set to `0` then the constructed
-     * object won't consume any `string` arguments. Conversely, if set to
-     * `Infinity`, then an the constructed object can consume an indefinite
-     * amount of `string` arguments. Setting this number below 0 or greater than
-     * `Infinity` will cause an error to be thrown.
-     *
-     * The `string` predicate defaults to a method that doesn't consume any
-     * arguments and returns `false`.
-     *
-     * @param prefixString The leading prefix `string` used to denote the
-     *                     constructed consumer as an operand, flag, or option.
-     *
-     * @param nonPrefixedString The `string` value of the constructed consumer
-     *                          excluding any prefix characters.
-     *
-     * @param cliofoType The operand, option, or flag type of the constructed
-     *                   consumer.
-     *
-     * @param numberOfArgumentsToConsume The `number` of `string` arguments the
-     *     constructed object will require to consume.
-     *
-     * @param cliofoTypesToConsume The operand, option, or flag type the
-     *                             constructed consumer consumes.
-     *
-     * @param stringPredicate a `string` predicate that can be used to validate
-     *                        `string` arguments.
-     *
-     * @throws {ConsumerRangeError} If minimum and maximum range values aren't
-     *                              valid. Such as a min range that's greater
-     *                              than a max range.
-     */
-    public constructor( prefixString: string,
-                        nonPrefixedString: string,
-                        cliofoType: CliofoType,
-                        numberOfArgumentsToConsume?: number,
-                        cliofoTypesToConsume?: ReadonlySet<CliofoType>,
-                        stringPredicate?: (aString: string) => boolean );
-    constructor( prefixString: string,
-                 nonPrefixedString: string,
-                 cliofoType: CliofoType,
-                 rangeOrNumber: Partial<Range> | number = StringConsumer.#defaultRange,
-                 cliofoTypesToConsume: ReadonlySet<CliofoType> = StringConsumer.#defaultCliofoTypesToConsume,
-                 stringPredicate: (aString: string) => boolean  = StringConsumer.#defaultStringPredicate )
+                        rangeOrNumber: Partial<Range> | number = StringConsumer.#defaultRange,
+                        cliofoTypesToConsume: ReadonlySet<CliofoType> = StringConsumer.#defaultCliofoTypesToConsume,
+                        stringPredicate: (aString: string) => boolean  = StringConsumer.#defaultStringPredicate )
     {
         super(prefixString, nonPrefixedString, cliofoType);
 
-        const minRange: number = typeof rangeOrNumber === "number"
-            ? rangeOrNumber
-            : rangeOrNumber.min  ?? 0 ;
+        let minRange: number;
+        let maxRange: number;
 
-        // if min and max range are undefined, set max range to 0, otherwise
-        // set to infinity if only max range is undefined
-        const maxRange: number = typeof rangeOrNumber === "number"
-            ? rangeOrNumber
-            : rangeOrNumber.max ?? (    rangeOrNumber.min === undefined
-                                     && rangeOrNumber.min === null
-                                     ? 0 : Infinity );
+        if (typeof rangeOrNumber === "number")
+        {
+            minRange = rangeOrNumber;
+            maxRange = rangeOrNumber;
+        }
+        else
+        {
+            minRange= rangeOrNumber.min ?? 0 ;
+
+            // if min and max range are undefined, set max range to 0, otherwise
+            // set to infinity if only max range is undefined
+            maxRange = rangeOrNumber.max ?? ( rangeOrNumber.min === undefined
+                                              && rangeOrNumber.min === null
+                                                  ? 0 : Infinity );
+        }
 
         if (minRange >= Infinity)
         {
@@ -296,6 +250,19 @@ export class StringConsumer extends StringArgument
     protected static defaultStringPredicate(): () => boolean
         { return StringConsumer.#defaultStringPredicate; }
 }
+
+export const stringArgumentToStringConsumer = (
+    stringArgument: Readonly<StringArgument>,
+    rangeOrNumber: Partial<Range> | number,
+    cliofoTypesToConsume?: ReadonlySet<CliofoType>,
+    stringPredicate?: (aString: string) => boolean
+): StringConsumer =>
+    { return new StringConsumer( stringArgument.prefixString,
+                                 stringArgument.nonPrefixedString,
+                                 stringArgument.cliofoType,
+                                 rangeOrNumber,
+                                 cliofoTypesToConsume,
+                                 stringPredicate); };
 
 type Range = {readonly min: number, readonly max: number};
 
