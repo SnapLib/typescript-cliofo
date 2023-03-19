@@ -62,6 +62,14 @@ export class StringArgument
     readonly #flagString: string;
     readonly #optionString: string;
 
+    /**
+     * Constructs a new object instance used to represent a command line
+     * argument as an operand, flag, or option by copying the properties of
+     * another instance of itself.
+     *
+     * @param other {@link StringArgument} to copy properties from to newly
+     *              constructed object instance.
+     */
     public constructor(other: Readonly<StringArgument>);
     /**
      * Constructs a new object instance used to represent a command line
@@ -77,7 +85,10 @@ export class StringArgument
      *                   argument this argument is.
      */
     public constructor(prefixString: string, nonPrefixedString: string, cliofoType: CliofoType);
-    constructor(prefixStringOrOther: string | Readonly<StringArgument>, nonPrefixedString?: string, cliofoType?: CliofoType)
+
+    constructor( prefixStringOrOther: string | Readonly<StringArgument>,
+                 nonPrefixedString?: string,
+                 cliofoType?: CliofoType )
     {
         if (typeof prefixStringOrOther === "string" && nonPrefixedString !== undefined && cliofoType !== undefined && nonPrefixedString !== null && cliofoType !== null)
         {
