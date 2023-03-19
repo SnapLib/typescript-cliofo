@@ -171,7 +171,7 @@ export class StringConsumer extends StringArgument
         // than 0, and has a set string predicate.
         this.consumesStrings =    this.cliofoTypesToConsume.size !== 0
                                && this.range.max > 0
-                               && this.stringPredicate !== StringConsumer.defaultStringPredicate();
+                               && this.stringPredicate !== StringConsumer.#defaultStringPredicate;
     }
 
     /**
