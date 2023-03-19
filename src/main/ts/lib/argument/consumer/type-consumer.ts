@@ -13,8 +13,8 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
     public constructor( prefixString: string,
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
-                        rangeOrNumber: Partial<ConsumerRange> | number,
-                        cliofoTypesToConsume: ReadonlySet<CliofoType>,
+                        rangeOrNumber: Partial<ConsumerRange> | number = StringConsumer.defaultRange(),
+                        cliofoTypesToConsume: ReadonlySet<CliofoType> = StringConsumer.emptyCliofoTypeSet(),
                         stringPredicate: (aString: string) => boolean = StringConsumer.defaultStringPredicate(),
                         stringConverter: (aString: string) => ConvertedStringType,
                         convertedStringPredicate: (convertedString: ConvertedStringType) => boolean = TypeConsumer.#defaultConvertedStringPredicate)
