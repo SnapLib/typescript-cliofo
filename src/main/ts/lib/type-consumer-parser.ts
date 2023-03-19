@@ -1,9 +1,9 @@
-import {StringConsumer} from "./argument/consumer/string-consumer.js";
+import {TypeConsumer} from "./argument/consumer/type-consumer.js";
 import {Parser} from "./parser.js";
 
 /**
  * An object that consume a {@link Parser} object and coverts it to a set of
- * parsed {@link StringConsumer} objects.
+ * parsed {@link TypeConsumer} objects.
  */
 export class StringConsumerParser
 {
