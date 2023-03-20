@@ -90,4 +90,18 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
         { return TypeConsumer.#defaultConvertedStringPredicate; }
 }
 
+export const stringConsumerToTypeConsumer = <ConvertedStringType>(
+    stringConsumer: Readonly<StringConsumer>,
+    stringConverter: (aString: string) => ConvertedStringType,
+    convertedStringPredicate?: (convertedString: ConvertedStringType) => boolean
+): TypeConsumer<ConvertedStringType> =>
+    { return new TypeConsumer( stringConsumer.prefixString,
+                               stringConsumer.nonPrefixedString,
+                               stringConsumer.cliofoType,
+                               stringConsumer.range,
+                               stringConsumer.cliofoTypesToConsume,
+                               stringConsumer.stringPredicate,
+                               stringConverter,
+                               convertedStringPredicate); };
+
 export {TypeConsumer as default};
