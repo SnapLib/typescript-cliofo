@@ -3,9 +3,6 @@ import {type CliofoType, StringConsumer} from "./string-consumer.js";
 
 export class TypeConsumer<ConvertedStringType> extends StringConsumer
 {
-    public readonly convertedString: Readonly<{
-        value: ConvertedStringType,
-        isValid: boolean}>;
     readonly #stringConverter: (aString: string) => ConvertedStringType;
 
     readonly #convertedStringPredicate: (convertedString: ConvertedStringType) => boolean;
@@ -25,15 +22,7 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
 
         this.#stringConverter = stringConverter;
 
-        const _convertedString: Readonly<ConvertedStringType> =
-            Object.freeze(this.#stringConverter(this.nonPrefixedString));
-
         this.#convertedStringPredicate = convertedStringPredicate;
-
-        this.convertedString = Object.freeze({
-            value: _convertedString,
-            isValid: this.#convertedStringPredicate(_convertedString)
-        });
     }
 
     /**
