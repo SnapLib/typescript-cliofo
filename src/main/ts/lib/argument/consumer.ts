@@ -1,5 +1,5 @@
 import {ConsumerRange} from "./consumer/consumer-range.js";
-import {type CliofoType, UntypedStringConsumer} from "./consumer/untyped-string-consumer.js";
+import {CliofoType, UntypedStringConsumer} from "./consumer/untyped-string-consumer.js";
 
 export abstract class Consumer<ConvertedStringType> extends UntypedStringConsumer
 {
@@ -7,18 +7,16 @@ export abstract class Consumer<ConvertedStringType> extends UntypedStringConsume
 
     readonly #convertedStringPredicate: (convertedString: ConvertedStringType) => boolean;
 
-    static readonly #defaultConvertedStringPredicate = () => false;
-
     public constructor( prefixString: string,
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
-                        rangeOrNumber: Partial<ConsumerRange> | number = UntypedStringConsumer.zeroRange(),
-                        cliofoTypesToConsume: ReadonlySet<CliofoType> = UntypedStringConsumer.emptyCliofoTypeSet(),
-                        stringPredicate: (aString: string) => boolean = UntypedStringConsumer.alwaysFalsePredicate(),
+                        rangeOrNumber: Partial<ConsumerRange> | number,
+                        cliofoTypesToConsume: ReadonlySet<CliofoType>,
+                        stringPredicate: (aString: string) => boolean,
                         stringConverter: (aString: string) => ConvertedStringType,
-                        convertedStringPredicate: (convertedString: ConvertedStringType) => boolean = Consumer.#defaultConvertedStringPredicate)
+                        convertedStringPredicate: (convertedString: ConvertedStringType) => boolean )
     {
-        super(prefixString, nonPrefixedString, cliofoType, rangeOrNumber, cliofoTypesToConsume, stringPredicate);
+        super(prefixString, nonPrefixedString, cliofoType, typeof rangeOrNumber === "number" ? rangeOrNumber : rangeOrNumber, cliofoTypesToConsume, stringPredicate);
 
         this.#stringConverter = stringConverter;
 
@@ -76,18 +74,7 @@ export abstract class Consumer<ConvertedStringType> extends UntypedStringConsume
      * @public
      */
     public hasConvertedStringPredicate(): boolean
-        { return this.#convertedStringPredicate === Consumer.#defaultConvertedStringPredicate; }
-
-    /**
-     * Returns the static default converted string predicate.
-     *
-     * @returns The static default converted string predicate.
-     *
-     * @public
-     * @static
-     */
-    public static defaultConvertedStringPredicate(): () => boolean
-        { return Consumer.#defaultConvertedStringPredicate; }
+        { return this.#convertedStringPredicate !== Consumer.alwaysFalsePredicate(); }
 }
 
 export {Consumer as default};
