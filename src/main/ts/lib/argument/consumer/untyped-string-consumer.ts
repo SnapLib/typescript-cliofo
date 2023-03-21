@@ -2,6 +2,7 @@ import {ConsumerRange} from "./consumer-range.js";
 import {type CliofoType} from "../../cliofo-type.js";
 import {StringArgument} from "../string-argument.js";
 
+const emptyCliofoTypeSet: ReadonlySet<CliofoType> = Object.freeze(new Set<CliofoType>());
 const alwaysFalseReturningFunc = () => false;
 
 /**
@@ -57,8 +58,6 @@ export class UntypedStringConsumer extends StringArgument
      * @readonly
      */
     public readonly range: Readonly<ConsumerRange>;
-
-    static readonly #emptyCliofoTypeSet: ReadonlySet<CliofoType> = Object.freeze(new Set<CliofoType>());
 
     static readonly #stringIdentityFunc: (aString: string) => string = (aString: string) => aString;
 
@@ -216,7 +215,7 @@ export class UntypedStringConsumer extends StringArgument
      * @static
      */
     public static emptyCliofoTypeSet(): ReadonlySet<CliofoType>
-        { return UntypedStringConsumer.#emptyCliofoTypeSet; }
+        { return emptyCliofoTypeSet; }
 
     /**
      * Returns the {@link ConsumerRange} object used as this class' default
@@ -263,7 +262,7 @@ export class UntypedStringConsumer extends StringArgument
         { return this.#stringIdentityFunc; }
 }
 
-export function createUntypedStringConsumer(
+export function untypedStringConsumer(
     prefixString: string,
     nonPrefixedString: string,
     cliofoType: CliofoType,
