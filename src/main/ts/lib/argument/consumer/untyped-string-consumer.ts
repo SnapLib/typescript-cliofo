@@ -272,28 +272,12 @@ export function createUntypedStringConsumer(
     stringPredicate: (aString: string) => boolean = UntypedStringConsumer.alwaysFalsePredicate()
 ) : UntypedStringConsumer
 {
-    if (typeof rangeOrNumber === "number")
-    {
-        return new UntypedStringConsumer( prefixString,
-                                          nonPrefixedString,
-                                          cliofoType,
-                                          rangeOrNumber,
-                                          cliofoTypesToConsume,
-                                          stringPredicate );
-    }
-    else if (rangeOrNumber instanceof ConsumerRange)
-    {
-        return new UntypedStringConsumer( prefixString,
-                                          nonPrefixedString,
-                                          cliofoType,
-                                          rangeOrNumber,
-                                          cliofoTypesToConsume,
-                                          stringPredicate );
-    }
-    else
-    {
-        throw new Error();
-    }
+    return new UntypedStringConsumer( prefixString,
+                                      nonPrefixedString,
+                                      cliofoType,
+                                      rangeOrNumber,
+                                      cliofoTypesToConsume,
+                                      stringPredicate );
 }
 
 export function stringArgumentToStringConsumer(
@@ -303,28 +287,12 @@ export function stringArgumentToStringConsumer(
     stringPredicate: (aString: string) => boolean = UntypedStringConsumer.alwaysFalsePredicate()
 ) : UntypedStringConsumer
 {
-    if (typeof rangeOrNumber === "number")
-    {
-        return new UntypedStringConsumer( stringArgument.prefixString,
-                                          stringArgument.nonPrefixedString,
-                                          stringArgument.cliofoType,
-                                          rangeOrNumber,
-                                          cliofoTypesToConsume,
-                                          stringPredicate );
-    }
-    else if (rangeOrNumber instanceof ConsumerRange)
-    {
-        return new UntypedStringConsumer( stringArgument.prefixString,
-                                          stringArgument.nonPrefixedString,
-                                          stringArgument.cliofoType,
-                                          rangeOrNumber,
-                                          cliofoTypesToConsume,
-                                          stringPredicate );
-    }
-    else
-    {
-        throw new Error();
-    }
+    return new UntypedStringConsumer( stringArgument.prefixString,
+                                      stringArgument.nonPrefixedString,
+                                      stringArgument.cliofoType,
+                                      rangeOrNumber,
+                                      cliofoTypesToConsume,
+                                      stringPredicate );
 }
 
 export {UntypedStringConsumer as default};
