@@ -2,6 +2,7 @@ import {ConsumerRange} from "./consumer-range.js";
 import {type CliofoType} from "../../cliofo-type.js";
 import {StringArgument} from "../string-argument.js";
 
+const consumerRangeSetToZero: Readonly<ConsumerRange> = Object.freeze(new ConsumerRange(0, 0));
 const emptyCliofoTypeSet: ReadonlySet<CliofoType> = Object.freeze(new Set<CliofoType>());
 const alwaysFalseReturningFunc = () => false;
 
@@ -60,8 +61,6 @@ export class UntypedStringConsumer extends StringArgument
     public readonly range: Readonly<ConsumerRange>;
 
     static readonly #stringIdentityFunc: (aString: string) => string = (aString: string) => aString;
-
-    static readonly #consumerRangeSetToZero: Readonly<ConsumerRange> = Object.freeze(new ConsumerRange(0, 0));
 
     /**
      * Constructs an instance of an object used to represent a `string` that can
@@ -230,7 +229,7 @@ export class UntypedStringConsumer extends StringArgument
      * @static
      */
     public static zeroRange(): Readonly<ConsumerRange>
-        { return UntypedStringConsumer.#consumerRangeSetToZero; }
+        { return consumerRangeSetToZero; }
 
     /**
      * Returns the static default `string` predicate which consists of a
