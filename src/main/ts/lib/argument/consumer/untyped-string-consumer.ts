@@ -137,9 +137,9 @@ export class UntypedStringConsumer extends StringArgument
     public constructor( prefixString: string,
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
-                        rangeOrNumber: Partial<ConsumerRange> | number = UntypedStringConsumer.#consumerRangeSetToZero,
-                        cliofoTypesToConsume: ReadonlySet<CliofoType> = UntypedStringConsumer.#emptyCliofoTypeSet,
-                        stringPredicate: (aString: string) => boolean  = UntypedStringConsumer.#alwaysFalseReturningFunc )
+                        rangeOrNumber: Partial<ConsumerRange> | number,
+                        cliofoTypesToConsume: ReadonlySet<CliofoType>,
+                        stringPredicate: (aString: string) => boolean )
     {
         super(prefixString, nonPrefixedString, cliofoType);
 
@@ -263,18 +263,69 @@ export class UntypedStringConsumer extends StringArgument
         { return this.#stringIdentityFunc; }
 }
 
-export const stringArgumentToStringConsumer = (
+export function createUntypedStringConsumer(
+    prefixString: string,
+    nonPrefixedString: string,
+    cliofoType: CliofoType,
+    rangeOrNumber: Partial<ConsumerRange> | number = UntypedStringConsumer.zeroRange(),
+    cliofoTypesToConsume: ReadonlySet<CliofoType> = UntypedStringConsumer.emptyCliofoTypeSet(),
+    stringPredicate: (aString: string) => boolean = UntypedStringConsumer.alwaysFalsePredicate()
+) : UntypedStringConsumer
+{
+    if (typeof rangeOrNumber === "number")
+    {
+        return new UntypedStringConsumer( prefixString,
+                                          nonPrefixedString,
+                                          cliofoType,
+                                          rangeOrNumber,
+                                          cliofoTypesToConsume,
+                                          stringPredicate );
+    }
+    else if (rangeOrNumber instanceof ConsumerRange)
+    {
+        return new UntypedStringConsumer( prefixString,
+                                          nonPrefixedString,
+                                          cliofoType,
+                                          rangeOrNumber,
+                                          cliofoTypesToConsume,
+                                          stringPredicate );
+    }
+    else
+    {
+        throw new Error();
+    }
+}
+
+export function stringArgumentToStringConsumer(
     stringArgument: Readonly<StringArgument>,
-    rangeOrNumber?: Partial<ConsumerRange> | number | undefined,
-    cliofoTypesToConsume?: ReadonlySet<CliofoType> | undefined,
-    stringPredicate?: (aString: string) => boolean
-): UntypedStringConsumer =>
-    { return new UntypedStringConsumer( stringArgument.prefixString,
-                                 stringArgument.nonPrefixedString,
-                                 stringArgument.cliofoType,
-                                 rangeOrNumber,
-                                 cliofoTypesToConsume,
-                                 stringPredicate); };
+    rangeOrNumber: Partial<ConsumerRange> | number = UntypedStringConsumer.zeroRange(),
+    cliofoTypesToConsume: ReadonlySet<CliofoType> = UntypedStringConsumer.emptyCliofoTypeSet(),
+    stringPredicate: (aString: string) => boolean = UntypedStringConsumer.alwaysFalsePredicate()
+) : UntypedStringConsumer
+{
+    if (typeof rangeOrNumber === "number")
+    {
+        return new UntypedStringConsumer( stringArgument.prefixString,
+                                          stringArgument.nonPrefixedString,
+                                          stringArgument.cliofoType,
+                                          rangeOrNumber,
+                                          cliofoTypesToConsume,
+                                          stringPredicate );
+    }
+    else if (rangeOrNumber instanceof ConsumerRange)
+    {
+        return new UntypedStringConsumer( stringArgument.prefixString,
+                                          stringArgument.nonPrefixedString,
+                                          stringArgument.cliofoType,
+                                          rangeOrNumber,
+                                          cliofoTypesToConsume,
+                                          stringPredicate );
+    }
+    else
+    {
+        throw new Error();
+    }
+}
 
 export {UntypedStringConsumer as default};
 
