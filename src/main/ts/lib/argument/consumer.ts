@@ -1,7 +1,7 @@
 import {ConsumerRange} from "./consumer/consumer-range.js";
 import {type CliofoType, StringConsumer} from "./consumer/string-consumer.js";
 
-export class TypeConsumer<ConvertedStringType> extends StringConsumer
+export class Consumer<ConvertedStringType> extends StringConsumer
 {
     readonly #stringConverter: (aString: string) => ConvertedStringType;
 
@@ -16,7 +16,7 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
                         cliofoTypesToConsume: ReadonlySet<CliofoType> = StringConsumer.emptyCliofoTypeSet(),
                         stringPredicate: (aString: string) => boolean = StringConsumer.defaultStringPredicate(),
                         stringConverter: (aString: string) => ConvertedStringType,
-                        convertedStringPredicate: (convertedString: ConvertedStringType) => boolean = TypeConsumer.#defaultConvertedStringPredicate)
+                        convertedStringPredicate: (convertedString: ConvertedStringType) => boolean = Consumer.#defaultConvertedStringPredicate)
     {
         super(prefixString, nonPrefixedString, cliofoType, rangeOrNumber, cliofoTypesToConsume, stringPredicate);
 
@@ -76,7 +76,7 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
      * @public
      */
     public hasConvertedStringPredicate(): boolean
-        { return this.#convertedStringPredicate === TypeConsumer.#defaultConvertedStringPredicate; }
+        { return this.#convertedStringPredicate === Consumer.#defaultConvertedStringPredicate; }
 
     /**
      * Returns the static default converted string predicate.
@@ -87,15 +87,15 @@ export class TypeConsumer<ConvertedStringType> extends StringConsumer
      * @static
      */
     protected static defaultConvertedStringPredicate(): () => boolean
-        { return TypeConsumer.#defaultConvertedStringPredicate; }
+        { return Consumer.#defaultConvertedStringPredicate; }
 }
 
 export const stringConsumerToTypeConsumer = <ConvertedStringType>(
     stringConsumer: Readonly<StringConsumer>,
     stringConverter: (aString: string) => ConvertedStringType,
     convertedStringPredicate?: (convertedString: ConvertedStringType) => boolean
-): TypeConsumer<ConvertedStringType> =>
-    { return new TypeConsumer( stringConsumer.prefixString,
+): Consumer<ConvertedStringType> =>
+    { return new Consumer( stringConsumer.prefixString,
                                stringConsumer.nonPrefixedString,
                                stringConsumer.cliofoType,
                                stringConsumer.range,
@@ -104,4 +104,4 @@ export const stringConsumerToTypeConsumer = <ConvertedStringType>(
                                stringConverter,
                                convertedStringPredicate); };
 
-export {TypeConsumer as default};
+export {Consumer as default};
