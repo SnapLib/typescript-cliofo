@@ -25,25 +25,25 @@ export class StringConsumer extends Consumer<string>
     }
 }
 
-export const createStringConsumer = (
+export function createStringConsumer(
     prefixString: string,
     nonPrefixedString: string,
     cliofoType: CliofoType,
-    rangeOrNumber: Partial<ConsumerRange> | number = StringConsumer.zeroRange(),
-    cliofoTypesToConsume: ReadonlySet<CliofoType> = StringConsumer.emptyCliofoTypeSet(),
-    stringPredicate: (aString: string) => boolean = StringConsumer.alwaysFalsePredicate(),
-    stringConverter: (aString: string) => string = StringConsumer.stringIdentityFunction(),
-    convertedStringPredicate: (aString: string) => boolean = StringConsumer.defaultConvertedStringPredicate()
-): StringConsumer =>
-    new StringConsumer(
-        prefixString,
-        nonPrefixedString,
-        cliofoType,
-        rangeOrNumber,
-        cliofoTypesToConsume,
-        stringPredicate,
-        stringConverter,
-        convertedStringPredicate
-    );
+    rangeOrNumber: Partial<ConsumerRange> | number = Consumer.zeroRange(),
+    cliofoTypesToConsume: ReadonlySet<CliofoType> = Consumer.emptyCliofoTypeSet(),
+    stringPredicate: (aString: string) => boolean = Consumer.alwaysFalsePredicate(),
+    stringConverter: (aString: string) => string = Consumer.stringIdentityFunction(),
+    convertedStringPredicate: (aString: string) => boolean = Consumer.alwaysFalsePredicate()
+) : StringConsumer
+    {
+        return new StringConsumer( prefixString,
+                                   nonPrefixedString,
+                                   cliofoType,
+                                   rangeOrNumber,
+                                   cliofoTypesToConsume,
+                                   stringPredicate,
+                                   stringConverter,
+                                   convertedStringPredicate );
+    }
 
 export {StringConsumer as default};
