@@ -1,7 +1,7 @@
 import {ConsumerRange} from "./consumer/consumer-range.js";
 import {type CliofoType, StringConsumer} from "./consumer/string-consumer.js";
 
-export class Consumer<ConvertedStringType> extends StringConsumer
+export abstract class Consumer<ConvertedStringType> extends StringConsumer
 {
     readonly #stringConverter: (aString: string) => ConvertedStringType;
 
@@ -89,19 +89,5 @@ export class Consumer<ConvertedStringType> extends StringConsumer
     protected static defaultConvertedStringPredicate(): () => boolean
         { return Consumer.#defaultConvertedStringPredicate; }
 }
-
-export const stringConsumerToTypeConsumer = <ConvertedStringType>(
-    stringConsumer: Readonly<StringConsumer>,
-    stringConverter: (aString: string) => ConvertedStringType,
-    convertedStringPredicate?: (convertedString: ConvertedStringType) => boolean
-): Consumer<ConvertedStringType> =>
-    { return new Consumer( stringConsumer.prefixString,
-                               stringConsumer.nonPrefixedString,
-                               stringConsumer.cliofoType,
-                               stringConsumer.range,
-                               stringConsumer.cliofoTypesToConsume,
-                               stringConsumer.stringPredicate,
-                               stringConverter,
-                               convertedStringPredicate); };
 
 export {Consumer as default};
