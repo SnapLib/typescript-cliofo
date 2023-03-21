@@ -1,5 +1,5 @@
-import {ConsumerRange} from "./consumer-range.js";
-import {type CliofoType, StringConsumer} from "./string-consumer.js";
+import {ConsumerRange} from "./consumer/consumer-range.js";
+import {type CliofoType, StringConsumer} from "./consumer/string-consumer.js";
 
 export class TypeConsumer<ConvertedStringType> extends StringConsumer
 {

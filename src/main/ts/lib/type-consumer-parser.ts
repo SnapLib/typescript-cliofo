@@ -1,4 +1,4 @@
-import {TypeConsumer} from "./argument/consumer/type-consumer.js";
+import {TypeConsumer} from "./argument/type-consumer.js";
 import {CliofoType} from "./cliofo-type.js";
 import {Parser} from "./parser.js";
 
@@ -6,7 +6,7 @@ import {Parser} from "./parser.js";
  * An object that consume a {@link Parser} object and coverts it to a set of
  * parsed {@link TypeConsumer} objects unique to each of their argument indexes..
  */
-export class StringConsumerParser<ConvertedStringType>
+export class TypeConsumerParser<ConvertedStringType>
 {
     public readonly parser: Readonly<Parser>;
 
@@ -16,11 +16,8 @@ export class StringConsumerParser<ConvertedStringType>
 
     public constructor(
         parser: Readonly<Parser>,
-
         stringPredicate: (aString: string) => boolean,
-
         stringConverter: (aString: string) => ConvertedStringType,
-
         convertedStringPredicate: (convertedString: ConvertedStringType) => boolean)
     {
         this.parser = Object.isFrozen(parser) ? parser : Object.freeze(new Parser(parser));
@@ -43,4 +40,4 @@ export class StringConsumerParser<ConvertedStringType>
 }
  type ParsedTypeConsumer<ConvertedStringType> = TypeConsumer<ConvertedStringType> & {readonly index: number};
 
-export {StringConsumerParser as default};
+export {TypeConsumerParser as default};
