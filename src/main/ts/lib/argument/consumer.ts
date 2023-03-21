@@ -12,9 +12,9 @@ export abstract class Consumer<ConvertedStringType> extends StringConsumer
     public constructor( prefixString: string,
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
-                        rangeOrNumber: Partial<ConsumerRange> | number = StringConsumer.defaultRange(),
+                        rangeOrNumber: Partial<ConsumerRange> | number = StringConsumer.zeroRange(),
                         cliofoTypesToConsume: ReadonlySet<CliofoType> = StringConsumer.emptyCliofoTypeSet(),
-                        stringPredicate: (aString: string) => boolean = StringConsumer.defaultStringPredicate(),
+                        stringPredicate: (aString: string) => boolean = StringConsumer.alwaysFalseStringPredicate(),
                         stringConverter: (aString: string) => ConvertedStringType,
                         convertedStringPredicate: (convertedString: ConvertedStringType) => boolean = Consumer.#defaultConvertedStringPredicate)
     {

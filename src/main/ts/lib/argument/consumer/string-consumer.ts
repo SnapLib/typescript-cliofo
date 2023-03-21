@@ -58,9 +58,11 @@ export class StringConsumer extends StringArgument
 
     static readonly #emptyCliofoTypeSet: ReadonlySet<CliofoType> = Object.freeze(new Set<CliofoType>());
 
-    static readonly #defaultRange: Readonly<ConsumerRange> = Object.freeze(new ConsumerRange(0, 0));
+    static readonly #stringIdentityFunc: (aString: string) => string = (aString: string) => aString;
 
-    static readonly #defaultStringPredicate = () => false;
+    static readonly #consumerRangeSetToZero: Readonly<ConsumerRange> = Object.freeze(new ConsumerRange(0, 0));
+
+    static readonly #alwaysFalseReturningFunc = () => false;
 
     /**
      * Constructs an instance of an object used to represent a `string` that can
@@ -135,9 +137,9 @@ export class StringConsumer extends StringArgument
     public constructor( prefixString: string,
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
-                        rangeOrNumber: Partial<ConsumerRange> | number = StringConsumer.#defaultRange,
+                        rangeOrNumber: Partial<ConsumerRange> | number = StringConsumer.#consumerRangeSetToZero,
                         cliofoTypesToConsume: ReadonlySet<CliofoType> = StringConsumer.#emptyCliofoTypeSet,
-                        stringPredicate: (aString: string) => boolean  = StringConsumer.#defaultStringPredicate )
+                        stringPredicate: (aString: string) => boolean  = StringConsumer.#alwaysFalseReturningFunc )
     {
         super(prefixString, nonPrefixedString, cliofoType);
 
@@ -171,7 +173,7 @@ export class StringConsumer extends StringArgument
         // than 0, and has a set string predicate.
         this.consumesStrings =    this.cliofoTypesToConsume.size !== 0
                                && this.range.max > 0
-                               && this.stringPredicate !== StringConsumer.#defaultStringPredicate;
+                               && this.stringPredicate !== StringConsumer.#alwaysFalseReturningFunc;
     }
 
     /**
@@ -201,7 +203,7 @@ export class StringConsumer extends StringArgument
      * @public
      */
     public hasStringPredicate(): boolean
-        { return this.stringPredicate !== StringConsumer.#defaultStringPredicate; }
+        { return this.stringPredicate !== StringConsumer.#alwaysFalseReturningFunc; }
 
     /**
      * Returns an empty `Set<`{@link CliofoType}`>` used as this class' default
@@ -228,8 +230,24 @@ export class StringConsumer extends StringArgument
      * @protected
      * @static
      */
-    protected static defaultRange(): Readonly<ConsumerRange>
-        { return StringConsumer.#defaultRange; }
+    protected static zeroRange(): Readonly<ConsumerRange>
+        { return StringConsumer.#consumerRangeSetToZero; }
+
+    /**
+     * Returns the static default `string` predicate which consists of a
+     * predicate that consumes no arguments and returns `false` effectively
+     * treating every passed argument as invalid.
+     *
+     * @remarks This function does not take in any arguments. Or more accurately
+     *     it ignores them at runtime.
+     *
+     * @returns The static default `string` predicate.
+     *
+     * @protected
+     * @static
+     */
+    protected static alwaysFalseStringPredicate(): () => boolean
+        { return StringConsumer.#alwaysFalseReturningFunc; }
 
     /**
      * Returns the static default `string` predicate which consists of a
@@ -241,8 +259,8 @@ export class StringConsumer extends StringArgument
      * @protected
      * @static
      */
-    protected static defaultStringPredicate(): () => boolean
-        { return StringConsumer.#defaultStringPredicate; }
+    protected static stringIdentityFunction(): (aString: string) => string
+        { return this.#stringIdentityFunc; }
 }
 
 export const stringArgumentToStringConsumer = (
