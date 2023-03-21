@@ -1,7 +1,7 @@
 import {ConsumerRange} from "./consumer/consumer-range.js";
-import {type CliofoType, UnTypedStringConsumer} from "./consumer/untyped-string-consumer.js";
+import {type CliofoType, UntypedStringConsumer} from "./consumer/untyped-string-consumer.js";
 
-export abstract class Consumer<ConvertedStringType> extends UnTypedStringConsumer
+export abstract class Consumer<ConvertedStringType> extends UntypedStringConsumer
 {
     readonly #stringConverter: (aString: string) => ConvertedStringType;
 
@@ -12,9 +12,9 @@ export abstract class Consumer<ConvertedStringType> extends UnTypedStringConsume
     public constructor( prefixString: string,
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
-                        rangeOrNumber: Partial<ConsumerRange> | number = UnTypedStringConsumer.zeroRange(),
-                        cliofoTypesToConsume: ReadonlySet<CliofoType> = UnTypedStringConsumer.emptyCliofoTypeSet(),
-                        stringPredicate: (aString: string) => boolean = UnTypedStringConsumer.alwaysFalseStringPredicate(),
+                        rangeOrNumber: Partial<ConsumerRange> | number = UntypedStringConsumer.zeroRange(),
+                        cliofoTypesToConsume: ReadonlySet<CliofoType> = UntypedStringConsumer.emptyCliofoTypeSet(),
+                        stringPredicate: (aString: string) => boolean = UntypedStringConsumer.alwaysFalseStringPredicate(),
                         stringConverter: (aString: string) => ConvertedStringType,
                         convertedStringPredicate: (convertedString: ConvertedStringType) => boolean = Consumer.#defaultConvertedStringPredicate)
     {
