@@ -83,10 +83,10 @@ export abstract class Consumer<ConvertedStringType> extends UntypedStringConsume
      *
      * @returns The static default converted string predicate.
      *
-     * @protected
+     * @public
      * @static
      */
-    protected static defaultConvertedStringPredicate(): () => boolean
+    public static defaultConvertedStringPredicate(): () => boolean
         { return Consumer.#defaultConvertedStringPredicate; }
 }
 

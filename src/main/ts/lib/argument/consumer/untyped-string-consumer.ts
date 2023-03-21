@@ -212,10 +212,10 @@ export class UntypedStringConsumer extends StringArgument
      *
      * @returns The static default `{min: number, max: number}` range object.
      *
-     * @protected
+     * @public
      * @static
      */
-    protected static emptyCliofoTypeSet(): ReadonlySet<CliofoType>
+    public static emptyCliofoTypeSet(): ReadonlySet<CliofoType>
         { return UntypedStringConsumer.#emptyCliofoTypeSet; }
 
     /**
@@ -227,10 +227,10 @@ export class UntypedStringConsumer extends StringArgument
      * @returns The {@link ConsumerRange} object used as this class' default
      *          {@link range} property.
      *
-     * @protected
+     * @public
      * @static
      */
-    protected static zeroRange(): Readonly<ConsumerRange>
+    public static zeroRange(): Readonly<ConsumerRange>
         { return UntypedStringConsumer.#consumerRangeSetToZero; }
 
     /**
@@ -243,10 +243,10 @@ export class UntypedStringConsumer extends StringArgument
      *
      * @returns The static default `string` predicate.
      *
-     * @protected
+     * @public
      * @static
      */
-    protected static alwaysFalsePredicate(): () => boolean
+    public static alwaysFalsePredicate(): () => boolean
         { return UntypedStringConsumer.#alwaysFalseReturningFunc; }
 
     /**
@@ -256,10 +256,10 @@ export class UntypedStringConsumer extends StringArgument
      *
      * @returns The static default `string` predicate.
      *
-     * @protected
+     * @public
      * @static
      */
-    protected static stringIdentityFunction(): (aString: string) => string
+    public static stringIdentityFunction(): (aString: string) => string
         { return this.#stringIdentityFunc; }
 }
 
