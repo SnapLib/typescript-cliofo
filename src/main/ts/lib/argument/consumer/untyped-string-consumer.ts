@@ -2,6 +2,8 @@ import {ConsumerRange} from "./consumer-range.js";
 import {type CliofoType} from "../../cliofo-type.js";
 import {StringArgument} from "../string-argument.js";
 
+const alwaysFalseReturningFunc = () => false;
+
 /**
  * A string that can consume or is required to consume a range of 0 or more
  * `string` arguments and can optionally contain a `string` predicate used to
@@ -61,8 +63,6 @@ export class UntypedStringConsumer extends StringArgument
     static readonly #stringIdentityFunc: (aString: string) => string = (aString: string) => aString;
 
     static readonly #consumerRangeSetToZero: Readonly<ConsumerRange> = Object.freeze(new ConsumerRange(0, 0));
-
-    static readonly #alwaysFalseReturningFunc = () => false;
 
     /**
      * Constructs an instance of an object used to represent a `string` that can
@@ -173,7 +173,7 @@ export class UntypedStringConsumer extends StringArgument
         // than 0, and has a set string predicate.
         this.consumesStrings =    this.cliofoTypesToConsume.size !== 0
                                && this.range.max > 0
-                               && this.stringPredicate !== UntypedStringConsumer.#alwaysFalseReturningFunc;
+                               && this.stringPredicate !== alwaysFalseReturningFunc;
     }
 
     /**
@@ -203,7 +203,7 @@ export class UntypedStringConsumer extends StringArgument
      * @public
      */
     public hasStringPredicate(): boolean
-        { return this.stringPredicate !== UntypedStringConsumer.#alwaysFalseReturningFunc; }
+        { return this.stringPredicate !== alwaysFalseReturningFunc; }
 
     /**
      * Returns an empty `Set<`{@link CliofoType}`>` used as this class' default
@@ -247,7 +247,7 @@ export class UntypedStringConsumer extends StringArgument
      * @static
      */
     public static alwaysFalsePredicate(): () => boolean
-        { return UntypedStringConsumer.#alwaysFalseReturningFunc; }
+        { return alwaysFalseReturningFunc; }
 
     /**
      * Returns the static default `string` predicate which consists of a
