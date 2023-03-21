@@ -14,7 +14,7 @@ export abstract class Consumer<ConvertedStringType> extends UntypedStringConsume
                         cliofoType: CliofoType,
                         rangeOrNumber: Partial<ConsumerRange> | number = UntypedStringConsumer.zeroRange(),
                         cliofoTypesToConsume: ReadonlySet<CliofoType> = UntypedStringConsumer.emptyCliofoTypeSet(),
-                        stringPredicate: (aString: string) => boolean = UntypedStringConsumer.alwaysFalseStringPredicate(),
+                        stringPredicate: (aString: string) => boolean = UntypedStringConsumer.alwaysFalsePredicate(),
                         stringConverter: (aString: string) => ConvertedStringType,
                         convertedStringPredicate: (convertedString: ConvertedStringType) => boolean = Consumer.#defaultConvertedStringPredicate)
     {

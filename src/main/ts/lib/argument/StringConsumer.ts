@@ -10,7 +10,7 @@ export class StringConsumer extends Consumer<string>
         cliofoType: CliofoType,
         rangeOrNumber: Partial<ConsumerRange> | number = Consumer.zeroRange(),
         cliofoTypesToConsume: ReadonlySet<CliofoType> = Consumer.emptyCliofoTypeSet(),
-        stringPredicate: (aString: string) => boolean = Consumer.alwaysFalseStringPredicate(),
+        stringPredicate: (aString: string) => boolean = Consumer.alwaysFalsePredicate(),
         stringConverter: (aString: string) => string = Consumer.stringIdentityFunction(),
         convertedStringPredicate: (aString: string) => boolean = Consumer.defaultConvertedStringPredicate()
     )

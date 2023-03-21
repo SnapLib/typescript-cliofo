@@ -246,7 +246,7 @@ export class UntypedStringConsumer extends StringArgument
      * @protected
      * @static
      */
-    protected static alwaysFalseStringPredicate(): () => boolean
+    protected static alwaysFalsePredicate(): () => boolean
         { return UntypedStringConsumer.#alwaysFalseReturningFunc; }
 
     /**
