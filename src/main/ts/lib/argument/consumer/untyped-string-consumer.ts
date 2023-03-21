@@ -7,7 +7,7 @@ import {StringArgument} from "../string-argument.js";
  * `string` arguments and can optionally contain a `string` predicate used to
  * validate consumed strings.
  */
-export class StringConsumer extends StringArgument
+export class UnTypedStringConsumer extends StringArgument
 {
     /**
      * Returns `true` if this object actually consumes strings. That is, if this
@@ -137,9 +137,9 @@ export class StringConsumer extends StringArgument
     public constructor( prefixString: string,
                         nonPrefixedString: string,
                         cliofoType: CliofoType,
-                        rangeOrNumber: Partial<ConsumerRange> | number = StringConsumer.#consumerRangeSetToZero,
-                        cliofoTypesToConsume: ReadonlySet<CliofoType> = StringConsumer.#emptyCliofoTypeSet,
-                        stringPredicate: (aString: string) => boolean  = StringConsumer.#alwaysFalseReturningFunc )
+                        rangeOrNumber: Partial<ConsumerRange> | number = UnTypedStringConsumer.#consumerRangeSetToZero,
+                        cliofoTypesToConsume: ReadonlySet<CliofoType> = UnTypedStringConsumer.#emptyCliofoTypeSet,
+                        stringPredicate: (aString: string) => boolean  = UnTypedStringConsumer.#alwaysFalseReturningFunc )
     {
         super(prefixString, nonPrefixedString, cliofoType);
 
@@ -173,7 +173,7 @@ export class StringConsumer extends StringArgument
         // than 0, and has a set string predicate.
         this.consumesStrings =    this.cliofoTypesToConsume.size !== 0
                                && this.range.max > 0
-                               && this.stringPredicate !== StringConsumer.#alwaysFalseReturningFunc;
+                               && this.stringPredicate !== UnTypedStringConsumer.#alwaysFalseReturningFunc;
     }
 
     /**
@@ -203,12 +203,12 @@ export class StringConsumer extends StringArgument
      * @public
      */
     public hasStringPredicate(): boolean
-        { return this.stringPredicate !== StringConsumer.#alwaysFalseReturningFunc; }
+        { return this.stringPredicate !== UnTypedStringConsumer.#alwaysFalseReturningFunc; }
 
     /**
      * Returns an empty `Set<`{@link CliofoType}`>` used as this class' default
      * {@link cliofoTypesToConsume} property value. This creates a
-     * {@link StringConsumer} that doesn't consume any `string` arguments.
+     * {@link UnTypedStringConsumer} that doesn't consume any `string` arguments.
      *
      * @returns The static default `{min: number, max: number}` range object.
      *
@@ -216,13 +216,13 @@ export class StringConsumer extends StringArgument
      * @static
      */
     protected static emptyCliofoTypeSet(): ReadonlySet<CliofoType>
-        { return StringConsumer.#emptyCliofoTypeSet; }
+        { return UnTypedStringConsumer.#emptyCliofoTypeSet; }
 
     /**
      * Returns the {@link ConsumerRange} object used as this class' default
      * {@link range} property value which consists of a range with both its
      * minimum and maximum values set to `0`. This creates a
-     * {@link StringConsumer} that doesn't consume any `string` arguments.
+     * {@link UnTypedStringConsumer} that doesn't consume any `string` arguments.
      *
      * @returns The {@link ConsumerRange} object used as this class' default
      *          {@link range} property.
@@ -231,7 +231,7 @@ export class StringConsumer extends StringArgument
      * @static
      */
     protected static zeroRange(): Readonly<ConsumerRange>
-        { return StringConsumer.#consumerRangeSetToZero; }
+        { return UnTypedStringConsumer.#consumerRangeSetToZero; }
 
     /**
      * Returns the static default `string` predicate which consists of a
@@ -247,7 +247,7 @@ export class StringConsumer extends StringArgument
      * @static
      */
     protected static alwaysFalseStringPredicate(): () => boolean
-        { return StringConsumer.#alwaysFalseReturningFunc; }
+        { return UnTypedStringConsumer.#alwaysFalseReturningFunc; }
 
     /**
      * Returns the static default `string` predicate which consists of a
@@ -268,14 +268,14 @@ export const stringArgumentToStringConsumer = (
     rangeOrNumber?: Partial<ConsumerRange> | number | undefined,
     cliofoTypesToConsume?: ReadonlySet<CliofoType> | undefined,
     stringPredicate?: (aString: string) => boolean
-): StringConsumer =>
-    { return new StringConsumer( stringArgument.prefixString,
+): UnTypedStringConsumer =>
+    { return new UnTypedStringConsumer( stringArgument.prefixString,
                                  stringArgument.nonPrefixedString,
                                  stringArgument.cliofoType,
                                  rangeOrNumber,
                                  cliofoTypesToConsume,
                                  stringPredicate); };
 
-export {StringConsumer as default};
+export {UnTypedStringConsumer as default};
 
 export {CliofoType} from "../../cliofo-type.js";
