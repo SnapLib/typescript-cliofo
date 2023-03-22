@@ -14,6 +14,14 @@ import {type CliofoType} from "./consumer/untyped-string-consumer.js";
  */
 const stringIdentityFunction = Object.freeze((aString: string) => aString);
 
+/**
+ * A string that can consume or is required to consume a range of 0 or more
+ * `string` arguments and can optionally contain a `string` predicate used to
+ * validate consumed strings.
+ *
+ * This class is essentially an `UntypedStringConsumer` converted to a
+ * {@link Consumer `Consumer<string>`} class.
+ */
 export class StringConsumer extends Consumer<string>
 {
     public constructor(
