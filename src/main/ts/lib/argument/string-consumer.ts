@@ -103,7 +103,7 @@ export class StringConsumer extends Consumer<string>
  *                              valid. Such as a min range that's greater
  *                              than a max range.
  */
-export function createStringConsumer(
+export function stringConsumer(
     prefixString: string,
     nonPrefixedString: string,
     cliofoType: CliofoType,
@@ -152,7 +152,7 @@ export function createStringConsumer(
  *                              valid. Such as a min range that's greater
  *                              than a max range.
  */
-export function createStringConsumer(
+export function stringConsumer(
     prefixString: string,
     nonPrefixedString: string,
     cliofoType: CliofoType,
@@ -163,7 +163,7 @@ export function createStringConsumer(
     convertedStringPredicate?: (aString: string) => boolean
 ) : StringConsumer;
 
-export function createStringConsumer(
+export function stringConsumer(
     prefixString: string,
     nonPrefixedString: string,
     cliofoType: CliofoType,
