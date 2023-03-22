@@ -2,9 +2,30 @@ import {ConsumerRange} from "./consumer-range.js";
 import {type CliofoType} from "../../cliofo-type.js";
 import {StringArgument} from "../string-argument.js";
 
+/**
+ * A frozen instance of a {@link ConsumerRange} object with it's maximum and
+ * minimum values set to `0`.
+ *
+ * @constant
+ */
 const consumerRangeSetToZero: Readonly<ConsumerRange> = Object.freeze(new ConsumerRange(0, 0));
+
+/**
+ * A frozen empty {@link CliofoType} set.
+ *
+ * @constant
+ */
 const emptyCliofoTypeSet: ReadonlySet<CliofoType> = Object.freeze(new Set<CliofoType>());
-const alwaysFalseReturningFunc = () => false;
+
+/**
+ * A function that doesn't consume any arguments (ignores arguments during run
+ * time) and returns `false`.
+ *
+ * @returns `false`
+ *
+ * @constant
+ */
+const alwaysFalseReturningFunc = Object.freeze(() => false);
 
 /**
  * A string that can consume or is required to consume a range of 0 or more
