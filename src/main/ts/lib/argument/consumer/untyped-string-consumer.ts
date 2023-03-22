@@ -81,8 +81,6 @@ export class UntypedStringConsumer extends StringArgument
      */
     public readonly range: Readonly<ConsumerRange>;
 
-    static readonly #stringIdentityFunc: (aString: string) => string = (aString: string) => aString;
-
     /**
      * Constructs an instance of an object used to represent a `string` that can
      * consume or is required to consume a range of 0 or more `string` arguments
@@ -267,19 +265,6 @@ export class UntypedStringConsumer extends StringArgument
      */
     public static alwaysFalsePredicate(): () => boolean
         { return alwaysFalseReturningFunc; }
-
-    /**
-     * Returns the static default `string` predicate which consists of a
-     * predicate that consumes no arguments and returns `false` effectively
-     * treating every passed argument as invalid.
-     *
-     * @returns The static default `string` predicate.
-     *
-     * @public
-     * @static
-     */
-    public static stringIdentityFunction(): (aString: string) => string
-        { return this.#stringIdentityFunc; }
 }
 
 export function untypedStringConsumer(

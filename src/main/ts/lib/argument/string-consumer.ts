@@ -2,6 +2,18 @@ import {Consumer} from "./consumer.js";
 import {type ConsumerRange} from "./consumer/consumer-range.js";
 import {type CliofoType} from "./consumer/untyped-string-consumer.js";
 
+/**
+ * A function that takes 1 `string` argument and returns the same `string`
+ * argument.
+ *
+ * @param aString The `string` value that is returned.
+ *
+ * @returns the passed `string` argument.
+ *
+ * @constant
+ */
+const stringIdentityFunction = Object.freeze((aString: string) => aString);
+
 export class StringConsumer extends Consumer<string>
 {
     public constructor(
@@ -23,6 +35,8 @@ export class StringConsumer extends Consumer<string>
                stringConverter,
                convertedStringPredicate );
     }
+
+    public static stringIdentityFunction() { return stringIdentityFunction; }
 }
 
 /**
@@ -147,7 +161,7 @@ export function createStringConsumer(
     rangeOrNumber: Partial<ConsumerRange> | number = Consumer.zeroRange(),
     cliofoTypesToConsume: ReadonlySet<CliofoType> = Consumer.emptyCliofoTypeSet(),
     stringPredicate: (aString: string) => boolean = Consumer.alwaysFalsePredicate(),
-    stringConverter: (aString: string) => string = Consumer.stringIdentityFunction(),
+    stringConverter: (aString: string) => string = stringIdentityFunction,
     convertedStringPredicate: (aString: string) => boolean = Consumer.alwaysFalsePredicate()
 ) : StringConsumer
     {
