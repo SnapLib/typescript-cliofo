@@ -36,6 +36,15 @@ export class StringConsumer extends Consumer<string>
                convertedStringPredicate );
     }
 
+    /**
+     * Returns the static default `string` identity function that takes a
+     * `string` argument and returns the same `string` argument.
+     *
+     * @returns The static default `string` identity function.
+     *
+     * @public
+     * @static
+     */
     public static stringIdentityFunction() { return stringIdentityFunction; }
 }
 
