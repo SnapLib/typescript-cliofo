@@ -48,6 +48,8 @@ export class StringConsumer extends Consumer<string>
     public static stringIdentityFunction() { return stringIdentityFunction; }
 }
 
+export function stringConsumer(stringConsumerToCopy: StringConsumer): StringConsumer;
+
 /**
  * Constructs an instance of an object used to represent a `string` that can
  * consume 0 or more operand, flag, and/or option `string` arguments
@@ -164,9 +166,9 @@ export function stringConsumer(
 ) : StringConsumer;
 
 export function stringConsumer(
-    prefixString: string,
-    nonPrefixedString: string,
-    cliofoType: CliofoType,
+    prefixStringOrStringConsumer: string | Readonly<StringConsumer>,
+    nonPrefixedString?: string,
+    cliofoType?: CliofoType,
     rangeOrNumber: Partial<ConsumerRange> | number = Consumer.zeroRange(),
     cliofoTypesToConsume: ReadonlySet<CliofoType> = Consumer.emptyCliofoTypeSet(),
     stringPredicate: (aString: string) => boolean = Consumer.alwaysFalsePredicate(),
@@ -174,14 +176,34 @@ export function stringConsumer(
     convertedStringPredicate: (aString: string) => boolean = Consumer.alwaysFalsePredicate()
 ) : StringConsumer
     {
-        return new StringConsumer( prefixString,
-                                   nonPrefixedString,
-                                   cliofoType,
-                                   rangeOrNumber,
-                                   cliofoTypesToConsume,
-                                   stringPredicate,
-                                   stringConverter,
-                                   convertedStringPredicate );
+        if (    typeof prefixStringOrStringConsumer === "string"
+             && nonPrefixedString !== undefined && cliofoType !== undefined )
+        {
+            return new StringConsumer( prefixStringOrStringConsumer,
+                                       nonPrefixedString,
+                                       cliofoType,
+                                       rangeOrNumber,
+                                       cliofoTypesToConsume,
+                                       stringPredicate,
+                                       stringConverter,
+                                       convertedStringPredicate );
+        }
+        else if (prefixStringOrStringConsumer instanceof StringConsumer)
+        {
+            return new StringConsumer(
+                prefixStringOrStringConsumer.prefixString,
+                prefixStringOrStringConsumer.nonPrefixedString,
+                prefixStringOrStringConsumer.cliofoType,
+                prefixStringOrStringConsumer.range,
+                prefixStringOrStringConsumer.cliofoTypesToConsume,
+                prefixStringOrStringConsumer.stringPredicate(),
+                prefixStringOrStringConsumer.stringConverter(),
+                prefixStringOrStringConsumer.convertedStringPredicate());
+        }
+        else
+        {
+            throw new Error();
+        }
     }
 
 export {stringConsumer as default};

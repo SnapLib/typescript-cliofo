@@ -57,10 +57,9 @@ export class UntypedStringConsumer extends StringArgument
     /**
      * A `string` predicate that can be used to validate `string` arguments.
      *
-     * @public
      * @readonly
      */
-    public readonly stringPredicate: (aString: string) => boolean;
+    readonly #stringPredicate: (aString: string) => boolean;
 
     /**
      * The required minimum number of arguments and maximum number of arguments
@@ -184,13 +183,13 @@ export class UntypedStringConsumer extends StringArgument
             throw new Error();
         }
 
-        this.stringPredicate = stringPredicate;
+        this.#stringPredicate = stringPredicate;
 
         // If this object consumes 1 or more CliofoTypes, has max range greater
         // than 0, and has a set string predicate.
         this.consumesStrings =    this.cliofoTypesToConsume.size !== 0
                                && this.range.max > 0
-                               && this.stringPredicate !== alwaysFalseReturningFunc;
+                               && this.#stringPredicate !== alwaysFalseReturningFunc;
     }
 
     /**
@@ -208,7 +207,19 @@ export class UntypedStringConsumer extends StringArgument
      * @public
      */
     public stringIsValid(aString: string): boolean
-        { return this.stringPredicate(aString); }
+        { return this.#stringPredicate(aString); }
+
+    /**
+     * Getter for this object's {@link #stringPredicate} property that
+     * contains the function that can be used to validate consumed operand,
+     * flag, and/or option `string` arguments.
+     *
+     * @returns This object's {@link #stringPredicate} property.
+     *
+     * @public
+     */
+    public stringPredicate(): (aString: string) => boolean
+        { return this.#stringPredicate; }
 
     /**
      * Returns true` if this object's `string` predicate property is not set to
@@ -220,7 +231,7 @@ export class UntypedStringConsumer extends StringArgument
      * @public
      */
     public hasStringPredicate(): boolean
-        { return this.stringPredicate !== alwaysFalseReturningFunc; }
+        { return this.#stringPredicate !== alwaysFalseReturningFunc; }
 
     /**
      * Returns an empty `Set<`{@link CliofoType}`>` used as this class' default

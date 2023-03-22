@@ -52,10 +52,9 @@ export abstract class Consumer<ConvertedStringType> extends UntypedStringConsume
 
     /**
      * Getter for this object's {@link #convertedStringPredicate} property that
-     * contains the function that can be used to validate this object's {@link nonPrefixedString}
-     * property to an instance of this object's {@link ConvertedStringType}.
-     *
-     * Getter for this object's {@link #convertedStringPredicate} property.
+     * contains the function that can be used to validate consumed operand,
+     * flag, and/or option `string` arguments that have been converted to this
+     * object's {@link ConvertedStringType} type.
      *
      * @returns This object's {@link #convertedStringPredicate} property.
      *
