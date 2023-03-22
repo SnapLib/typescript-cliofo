@@ -184,4 +184,4 @@ export function stringConsumer(
                                    convertedStringPredicate );
     }
 
-export {StringConsumer as default};
+export {stringConsumer as default};
