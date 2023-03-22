@@ -22,9 +22,7 @@ export class StringConsumer extends Consumer<string>
         cliofoType: CliofoType,
         rangeOrNumber: Partial<ConsumerRange> | number,
         cliofoTypesToConsume: ReadonlySet<CliofoType>,
-        stringPredicate: (aString: string) => boolean,
-        stringConverter: (aString: string) => string,
-        convertedStringPredicate: (aString: string) => boolean )
+        stringPredicate: (aString: string) => boolean, )
     {
         super( prefixString,
                nonPrefixedString,
@@ -32,8 +30,8 @@ export class StringConsumer extends Consumer<string>
                rangeOrNumber,
                cliofoTypesToConsume,
                stringPredicate,
-               stringConverter,
-               convertedStringPredicate );
+               stringIdentityFunction,
+               stringPredicate );
     }
 
     /**
@@ -111,9 +109,7 @@ export function stringConsumer(
     cliofoType: CliofoType,
     range?: Partial<ConsumerRange>,
     cliofoTypesToConsume?: ReadonlySet<CliofoType>,
-    stringPredicate?: (aString: string) => boolean,
-    stringConverter?: (aString: string) => string,
-    convertedStringPredicate?: (aString: string) => boolean
+    stringPredicate?: (aString: string) => boolean
 ) : StringConsumer;
 
 /**
@@ -160,9 +156,7 @@ export function stringConsumer(
     cliofoType: CliofoType,
     numberOfArgsToConsume?: number,
     cliofoTypesToConsume?: ReadonlySet<CliofoType>,
-    stringPredicate?: (aString: string) => boolean,
-    stringConverter?: (aString: string) => string,
-    convertedStringPredicate?: (aString: string) => boolean
+    stringPredicate?: (aString: string) => boolean
 ) : StringConsumer;
 
 export function stringConsumer(
@@ -171,9 +165,7 @@ export function stringConsumer(
     cliofoType?: CliofoType,
     rangeOrNumber: Partial<ConsumerRange> | number = Consumer.zeroRange(),
     cliofoTypesToConsume: ReadonlySet<CliofoType> = Consumer.emptyCliofoTypeSet(),
-    stringPredicate: (aString: string) => boolean = Consumer.alwaysFalsePredicate(),
-    stringConverter: (aString: string) => string = stringIdentityFunction,
-    convertedStringPredicate: (aString: string) => boolean = Consumer.alwaysFalsePredicate()
+    stringPredicate: (aString: string) => boolean = Consumer.alwaysFalsePredicate()
 ) : StringConsumer
     {
         if (    typeof prefixStringOrStringConsumer === "string"
@@ -184,9 +176,7 @@ export function stringConsumer(
                                        cliofoType,
                                        rangeOrNumber,
                                        cliofoTypesToConsume,
-                                       stringPredicate,
-                                       stringConverter,
-                                       convertedStringPredicate );
+                                       stringPredicate );
         }
         else if (prefixStringOrStringConsumer instanceof StringConsumer)
         {
@@ -196,9 +186,7 @@ export function stringConsumer(
                 prefixStringOrStringConsumer.cliofoType,
                 prefixStringOrStringConsumer.range,
                 prefixStringOrStringConsumer.cliofoTypesToConsume,
-                prefixStringOrStringConsumer.stringPredicate(),
-                prefixStringOrStringConsumer.stringConverter(),
-                prefixStringOrStringConsumer.convertedStringPredicate());
+                prefixStringOrStringConsumer.stringPredicate());
         }
         else
         {
