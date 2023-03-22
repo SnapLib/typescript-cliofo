@@ -46,6 +46,13 @@ export class StringConsumer extends Consumer<string>
     public static stringIdentityFunction() { return stringIdentityFunction; }
 }
 
+/**
+ * Creates a new {@link StringConsumer} object instance by copying the
+ * properties from another `StringConsumer` object instance.
+ *
+ * @param stringConsumerToCopy The source {@link StringConsumer} object to copy
+ *     the properties from to the newly created object.
+ */
 export function stringConsumer(stringConsumerToCopy: StringConsumer): StringConsumer;
 
 /**
@@ -178,7 +185,9 @@ export function stringConsumer(
                                        cliofoTypesToConsume,
                                        stringPredicate );
         }
-        else if (prefixStringOrStringConsumer instanceof StringConsumer)
+        else if (    prefixStringOrStringConsumer instanceof StringConsumer
+                  && nonPrefixedString === undefined
+                  && cliofoType === undefined )
         {
             return new StringConsumer(
                 prefixStringOrStringConsumer.prefixString,
@@ -186,7 +195,7 @@ export function stringConsumer(
                 prefixStringOrStringConsumer.cliofoType,
                 prefixStringOrStringConsumer.range,
                 prefixStringOrStringConsumer.cliofoTypesToConsume,
-                prefixStringOrStringConsumer.stringPredicate());
+                prefixStringOrStringConsumer.stringPredicate() );
         }
         else
         {
