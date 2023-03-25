@@ -16,7 +16,7 @@ export abstract class TypeConsumer<ConvertedStringType> extends UntypedStringCon
                         stringConverter: (aString: string) => ConvertedStringType,
                         convertedStringPredicate: (convertedString: ConvertedStringType) => boolean )
     {
-        super(prefixString, nonPrefixedString, cliofoType, typeof rangeOrNumber === "number" ? rangeOrNumber : rangeOrNumber, cliofoTypesToConsume, stringPredicate);
+        super(prefixString, nonPrefixedString, cliofoType, rangeOrNumber, cliofoTypesToConsume, stringPredicate);
 
         this.#stringConverter = stringConverter;
 
