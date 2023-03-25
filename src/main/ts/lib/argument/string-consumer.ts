@@ -1,4 +1,4 @@
-import {Consumer} from "./consumer.js";
+import {TypeConsumer} from "./consumer/type-consumer.js";
 import {type ConsumerRange} from "./consumer/consumer-range.js";
 import {type CliofoType} from "./consumer/untyped-string-consumer.js";
 
@@ -20,9 +20,9 @@ const stringIdentityFunction = Object.freeze((aString: string) => aString);
  * validate consumed strings.
  *
  * This class is essentially an `UntypedStringConsumer` converted to a
- * {@link Consumer `Consumer<string>`} class.
+ * {@link TypeConsumer `TypeConsumer<string>`} class.
  */
-export class StringConsumer extends Consumer<string>
+export class StringConsumer extends TypeConsumer<string>
 {
     public constructor(
         prefixString: string,
@@ -178,9 +178,9 @@ export function stringConsumer(
     prefixStringOrStringConsumer: string | Readonly<StringConsumer>,
     nonPrefixedString?: string,
     cliofoType?: CliofoType,
-    rangeOrNumber: Partial<ConsumerRange> | number = Consumer.zeroRange(),
-    cliofoTypesToConsume: ReadonlySet<CliofoType> = Consumer.emptyCliofoTypeSet(),
-    stringPredicate: (aString: string) => boolean = Consumer.alwaysFalsePredicate()
+    rangeOrNumber: Partial<ConsumerRange> | number = TypeConsumer.zeroRange(),
+    cliofoTypesToConsume: ReadonlySet<CliofoType> = TypeConsumer.emptyCliofoTypeSet(),
+    stringPredicate: (aString: string) => boolean = TypeConsumer.alwaysFalsePredicate()
 ) : StringConsumer
     {
         if (    typeof prefixStringOrStringConsumer === "string"

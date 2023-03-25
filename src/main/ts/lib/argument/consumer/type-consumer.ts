@@ -1,7 +1,7 @@
-import {ConsumerRange} from "./consumer/consumer-range.js";
-import {CliofoType, UntypedStringConsumer} from "./consumer/untyped-string-consumer.js";
+import {ConsumerRange} from "./consumer-range.js";
+import {CliofoType, UntypedStringConsumer} from "./untyped-string-consumer.js";
 
-export abstract class Consumer<ConvertedStringType> extends UntypedStringConsumer
+export abstract class TypeConsumer<ConvertedStringType> extends UntypedStringConsumer
 {
     readonly #stringConverter: (aString: string) => ConvertedStringType;
 
@@ -73,7 +73,7 @@ export abstract class Consumer<ConvertedStringType> extends UntypedStringConsume
      * @public
      */
     public hasConvertedStringPredicate(): boolean
-        { return this.#convertedStringPredicate !== Consumer.alwaysFalsePredicate(); }
+        { return this.#convertedStringPredicate !== TypeConsumer.alwaysFalsePredicate(); }
 }
 
-export {Consumer as default};
+export {TypeConsumer as default};
