@@ -21,6 +21,8 @@ const stringIdentityFunction = Object.freeze((aString: string) => aString);
  *
  * This class is essentially an `UntypedStringConsumer` converted to a
  * {@link TypeConsumer `TypeConsumer<string>`} class.
+ *
+ * @see {@link TypeConsumer}
  */
 export class StringConsumer extends TypeConsumer<string>
 {
