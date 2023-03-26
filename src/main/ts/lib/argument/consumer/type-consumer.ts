@@ -1,20 +1,53 @@
 import {ConsumerRange} from "./consumer-range.js";
 import {CliofoType, UntypedStringConsumer} from "./untyped-string-consumer.js";
 
+/**
+ * A string that consumes a `string` argument and converts it to a type and can
+ * contain a method used for validating that converted type.
+ */
 export abstract class TypeConsumer<ConvertedStringType> extends UntypedStringConsumer
 {
     readonly #stringConverter: (aString: string) => ConvertedStringType;
 
     readonly #convertedStringPredicate: (convertedString: ConvertedStringType) => boolean;
 
-    public constructor( prefixString: string,
-                        nonPrefixedString: string,
-                        cliofoType: CliofoType,
-                        rangeOrNumber: Partial<ConsumerRange> | number,
-                        cliofoTypesToConsume: ReadonlySet<CliofoType>,
-                        stringPredicate: (aString: string) => boolean,
-                        stringConverter: (aString: string) => ConvertedStringType,
-                        convertedStringPredicate: (convertedString: ConvertedStringType) => boolean )
+    /**
+     * Constructs an instance of an object that is a `string` that consumes
+     * another  `string`
+     *
+     * @param prefixString The leading prefix `string` used to denote if a
+     *     `string` is flag or option (or operand).
+     *
+     * @param nonPrefixedString The `string` value of this `string` consuming
+     *     `string` argument excluding leading prefix `string`.
+     *
+     * @param cliofoType The type of {@link CliofoType} this `string` consuming
+     *     `string` argument is.
+     *
+     * @param rangeOrNumber The minimum and maximum number of `strings` this
+     *     object is required and can consume or the number of arguments it's
+     *     required to consume.
+     *
+     * @param cliofoTypesToConsume The operand, flag, and/or option strings this
+     *     object consumes.
+     *
+     * @param stringPredicate A `string` predicate that can be used to validate
+     *     consumed strings.
+     *
+     * @param stringConverter The function used to convert consumed strings to
+     *     this object's type specified via its type parameter.
+     *
+     * @param convertedStringPredicate A predicate that can be used to validate
+     *     consumed strings after they've been converted.
+     */
+    protected constructor( prefixString: string,
+                           nonPrefixedString: string,
+                           cliofoType: CliofoType,
+                           rangeOrNumber: Partial<ConsumerRange> | number,
+                           cliofoTypesToConsume: ReadonlySet<CliofoType>,
+                           stringPredicate: (aString: string) => boolean,
+                           stringConverter: (aString: string) => ConvertedStringType,
+                           convertedStringPredicate: (convertedString: ConvertedStringType) => boolean )
     {
         super(prefixString, nonPrefixedString, cliofoType, rangeOrNumber, cliofoTypesToConsume, stringPredicate);
         this.#stringConverter = stringConverter;
