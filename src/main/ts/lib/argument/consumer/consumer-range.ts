@@ -3,10 +3,6 @@ import {ConsumerRangeError} from "./consumer-range-error.js";
 /**
  * An object that contains a lower minimum and upper maximum bound that can be
  * used for a range.
- *
- * This class can interpret `undefined` minimum and maximum range values and can
- * return both `undefined` and/or non-`undefined` safe minimum and maximum
- * values.
  */
 export class ConsumerRange
 {
@@ -28,8 +24,8 @@ export class ConsumerRange
 
 
     /**
-     * Constructs an object instance that can has a minimum lower and/or maximum
-     * upper bound value to use for a range.
+     * Constructs an object instance that can have a minimum lower and/or
+     * maximum upper bound value to use for a range.
      *
      * @param min The lower bound to be used for this object's minimum range.
      *
