@@ -462,10 +462,10 @@ export function untypedStringConsumer(
     prefixString: string,
     nonPrefixedString: string,
     cliofoType: CliofoType,
-    rangeOrNumber: Partial<ConsumerRange> | number = UntypedStringConsumer.zeroRange(),
-    cliofoTypesToConsume: ReadonlySet<CliofoType> = UntypedStringConsumer.emptyCliofoTypeSet(),
-    stringPredicate: (aString: string) => boolean = UntypedStringConsumer.alwaysFalsePredicate(),
-    stringFormatter: (aString: string) => string = UntypedStringConsumer.stringIdentityFunction()
+    rangeOrNumber: Partial<ConsumerRange> | number = consumerRangeSetToZero,
+    cliofoTypesToConsume: ReadonlySet<CliofoType> = emptyCliofoTypeSet,
+    stringPredicate: (aString: string) => boolean = alwaysFalseReturningFunc,
+    stringFormatter: (aString: string) => string = stringIdentityFunction
 ) : UntypedStringConsumer
 {
     return new UntypedStringConsumer( prefixString,
@@ -479,10 +479,10 @@ export function untypedStringConsumer(
 
 export function stringArgumentToStringConsumer(
     stringArgument: Readonly<StringArgument>,
-    rangeOrNumber: Partial<ConsumerRange> | number = UntypedStringConsumer.zeroRange(),
-    cliofoTypesToConsume: ReadonlySet<CliofoType> = UntypedStringConsumer.emptyCliofoTypeSet(),
-    stringPredicate: (aString: string) => boolean = UntypedStringConsumer.alwaysFalsePredicate(),
-    stringFormatter: (aString: string) => string = UntypedStringConsumer.stringIdentityFunction()
+    rangeOrNumber: Partial<ConsumerRange> | number = consumerRangeSetToZero,
+    cliofoTypesToConsume: ReadonlySet<CliofoType> = emptyCliofoTypeSet,
+    stringPredicate: (aString: string) => boolean = alwaysFalseReturningFunc,
+    stringFormatter: (aString: string) => string = stringIdentityFunction
 ) : UntypedStringConsumer
 {
     return new UntypedStringConsumer( stringArgument.prefixString,
