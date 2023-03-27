@@ -100,6 +100,8 @@ export class StringArgument
 
             switch (this.cliofoType) {
                 case CliofoType.OPERAND:
+                    this.#prefix = "";
+                    break;
                 case CliofoType.FLAG:
                     this.#prefix = this.prefixString;
                     break;
@@ -115,14 +117,16 @@ export class StringArgument
             this.#isOption = this.cliofoType === CliofoType.OPTION;
 
             this.prefixedString =  this.prefixString.length === 0 || this.#isOperand
-                ? this.nonPrefixedString : (this.#prefix += this.nonPrefixedString);
+                ? this.nonPrefixedString
+                : this.#prefix + this.nonPrefixedString;
 
             this.#flagString = this.prefixString.length === 0 || this.#isFlag
-                ? this.prefixedString : (this.prefixString += this.nonPrefixedString);
+                ? this.prefixedString
+                : this.prefixString + this.nonPrefixedString;
 
             this.#optionString = this.prefixString.length === 0 || this.#isOption
                 ? this.prefixedString
-                : `${this.prefixString.repeat(2)}${this.nonPrefixedString}`;
+                : this.#optionPrefixString + this.nonPrefixedString;
         }
         else if (prefixStringOrOther instanceof StringArgument)
         {

@@ -198,8 +198,11 @@ export class UntypedStringConsumer extends StringArgument
             throw new Error();
         }
 
-        this.#stringPredicate = stringPredicate;
-        this.#stringFormatter = stringFormatter;
+        this.#stringPredicate = Object.isFrozen(stringPredicate) ? stringPredicate
+            : Object.freeze(aString => stringPredicate(aString));
+
+        this.#stringFormatter = Object.isFrozen(stringFormatter) ? stringFormatter
+            : Object.freeze(aString => stringFormatter(aString));
 
         // If this object consumes 1 or more CliofoTypes, has max range greater
         // than 0, and has a set string predicate.
