@@ -4,11 +4,14 @@ import {type CliofoType} from "./consumer/untyped-string-consumer.js";
 
 /**
  * A string that can consume or is required to consume a range of 0 or more
- * `string` arguments and can optionally contain a `string` predicate used to
- * validate consumed strings.
+ * `string` arguments and can optionally contain a `string` predicate and
+ * formatter function used to validate and format consumed strings.
  *
  * This class is essentially an `UntypedStringConsumer` converted to a
  * {@link TypeConsumer `TypeConsumer<string>`} class.
+ *
+ * @remarks
+ * The `string` formatter function is also set to the `string` converter.
  *
  * @see {@link TypeConsumer}
  */
