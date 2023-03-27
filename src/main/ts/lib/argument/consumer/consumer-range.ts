@@ -24,8 +24,15 @@ export class ConsumerRange
 
 
     /**
-     * Constructs an object instance that can have a minimum lower and/or
-     * maximum upper bound value to use for a range.
+     * Constructs an instance of an object that has a minimum lower and maximum
+     * upper bound value that can be used for a range.
+     *
+     * The following 3 validations are performed and an error is thrown if any
+     * of them are violated:
+     *
+     * - The minimum bound value is greater than or equal to `Infinity`.
+     * - The maximum bound value is less than `0`.
+     * - The minimum bound value is greater than the maximum bound value.
      *
      * @param min The lower bound to be used for this object's minimum range.
      *
