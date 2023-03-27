@@ -3,18 +3,6 @@ import {type ConsumerRange} from "./consumer/consumer-range.js";
 import {type CliofoType} from "./consumer/untyped-string-consumer.js";
 
 /**
- * A function that takes 1 `string` argument and returns the same `string`
- * argument.
- *
- * @param aString The `string` value that is returned.
- *
- * @returns the passed `string` argument.
- *
- * @constant
- */
-const stringIdentityFunction = Object.freeze((aString: string) => aString);
-
-/**
  * A string that can consume or is required to consume a range of 0 or more
  * `string` arguments and can optionally contain a `string` predicate used to
  * validate consumed strings.
@@ -45,17 +33,6 @@ export class StringConsumer extends TypeConsumer<string>
                stringFormatter,
                stringPredicate );
     }
-
-    /**
-     * Returns the static default `string` identity function that takes a
-     * `string` argument and returns the same `string` argument.
-     *
-     * @returns The static default `string` identity function.
-     *
-     * @public
-     * @static
-     */
-    public static stringIdentityFunction() { return stringIdentityFunction; }
 }
 
 /**
