@@ -41,8 +41,8 @@ const alwaysFalseReturningFunc = Object.freeze(() => false);
 
 /**
  * A string that can consume or is required to consume a range of 0 or more
- * `string` arguments and can optionally contain a `string` predicate used to
- * validate consumed strings.
+ * `string` arguments and can optionally contain a `string` predicate and
+ * formatter used to validate and format consumed strings.
  */
 export class UntypedStringConsumer extends StringArgument
 {
