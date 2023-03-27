@@ -3,6 +3,18 @@ import {type CliofoType} from "../../cliofo-type.js";
 import {StringArgument} from "../string-argument.js";
 
 /**
+ * A function that takes 1 `string` argument and returns the passed `string`
+ * argument.
+ *
+ * @param aString The `string` value that is returned.
+ *
+ * @returns the passed `string` argument.
+ *
+ * @constant
+ */
+const stringIdentityFunction = Object.freeze((aString: string) => aString);
+
+/**
  * A frozen instance of a {@link ConsumerRange} object with it's maximum and
  * minimum values set to `0`.
  *
@@ -55,13 +67,6 @@ export class UntypedStringConsumer extends StringArgument
     public readonly cliofoTypesToConsume: ReadonlySet<CliofoType>;
 
     /**
-     * A `string` predicate that can be used to validate `string` arguments.
-     *
-     * @readonly
-     */
-    readonly #stringPredicate: (aString: string) => boolean;
-
-    /**
      * The required minimum number of arguments and maximum number of arguments
      * this object is required to and can consume.
      *
@@ -79,6 +84,15 @@ export class UntypedStringConsumer extends StringArgument
      * @readonly
      */
     public readonly range: Readonly<ConsumerRange>;
+
+    /**
+     * A `string` predicate that can be used to validate `string` arguments.
+     *
+     * @readonly
+     */
+    readonly #stringPredicate: (aString: string) => boolean;
+
+    readonly #stringFormatter: (aString: string) => string;
 
     /**
      * Constructs an instance of an object used to represent a `string` that can
@@ -155,7 +169,8 @@ export class UntypedStringConsumer extends StringArgument
                         cliofoType: CliofoType,
                         rangeOrNumber: Partial<ConsumerRange> | number,
                         cliofoTypesToConsume: ReadonlySet<CliofoType>,
-                        stringPredicate: (aString: string) => boolean )
+                        stringPredicate: (aString: string) => boolean,
+                        stringFormatter: (aString: string) => string )
     {
         super(prefixString, nonPrefixedString, cliofoType);
 
@@ -184,6 +199,7 @@ export class UntypedStringConsumer extends StringArgument
         }
 
         this.#stringPredicate = stringPredicate;
+        this.#stringFormatter = stringFormatter;
 
         // If this object consumes 1 or more CliofoTypes, has max range greater
         // than 0, and has a set string predicate.
@@ -194,10 +210,11 @@ export class UntypedStringConsumer extends StringArgument
 
     /**
      * Returns the result of passing the provided `string` argument to this
-     * object's `string` validator.
+     * object's `string` formatter then passing the formatted `string` to this
+     * objects `string` predicate property.
      *
      * @remarks If no `string` validator is set, then all passed `string`
-     *          arguments evaluate to `true`.
+     *          arguments evaluate to `false`.
      *
      * @param aString The `string` to pass to this object's `string` validator.
      *
@@ -207,7 +224,20 @@ export class UntypedStringConsumer extends StringArgument
      * @public
      */
     public stringIsValid(aString: string): boolean
-        { return this.#stringPredicate(aString); }
+        { return this.#stringPredicate(this.#stringFormatter(aString)); }
+
+    /**
+     * Returns the result of passing the passed `string` argument to this
+     * object's {@link #stringFormatter} function property.
+     *
+     * @param aString The `string` to pass to this object's
+     *     {@link #stringFormatter} function property.
+     *
+     * @returns The result of passing the passed `string` argument to this
+     *     object's {@link #stringFormatter} function property.
+     */
+    public formatString(aString: string): string
+        { return this.#stringFormatter(aString); }
 
     /**
      * Getter for this object's {@link #stringPredicate} property that
@@ -222,7 +252,19 @@ export class UntypedStringConsumer extends StringArgument
         { return this.#stringPredicate; }
 
     /**
-     * Returns true` if this object's `string` predicate property is not set to
+     * Getter for this object's {@link #stringFormatter} property that
+     * contains the function that can be used to format consumed operand,
+     * flag, and/or option `string` arguments.
+     *
+     * @returns This object's {@link #stringFormat} property.
+     *
+     * @public
+     */
+    public stringFormatter(): (aString: string) => string
+        { return this.#stringFormatter; }
+
+    /**
+     * Returns `true` if this object's `string` predicate property is not set to
      * the default `string` predicate.
      *
      * @returns `true` if this object's `string` predicate property is not set
@@ -232,6 +274,18 @@ export class UntypedStringConsumer extends StringArgument
      */
     public hasStringPredicate(): boolean
         { return this.#stringPredicate !== alwaysFalseReturningFunc; }
+
+    /**
+     * Returns `true` if this object's `string` formatter property is not set to
+     * the default `string` formatter.
+     *
+     * @returns `true` if this object's `string` formatter property is not set
+     *           to the default `string` formatter.
+     *
+     * @public
+     */
+    public hasStringFormatter(): boolean
+        { return this.#stringFormatter !== stringIdentityFunction; }
 
     /**
      * Returns an empty `Set<`{@link CliofoType}`>` used as this class' default
@@ -276,6 +330,19 @@ export class UntypedStringConsumer extends StringArgument
      */
     public static alwaysFalsePredicate(): () => boolean
         { return alwaysFalseReturningFunc; }
+
+    /**
+     * Returns the static default `string` formatter function which consists of
+     * a function that consumes a `string` and returns the passed `string`
+     * argument.
+     *
+     * @returns The static default `string` formatter function.
+     *
+     * @public
+     * @static
+     */
+    public static stringIdentityFunction(): (aString:string) => string
+        { return stringIdentityFunction; }
 }
 
 /**
@@ -339,7 +406,8 @@ export function untypedStringConsumer(
     cliofoType: CliofoType,
     range?: Partial<ConsumerRange>,
     cliofoTypesToConsume?: ReadonlySet<CliofoType>,
-    stringPredicate?: (aString: string) => boolean
+    stringPredicate?: (aString: string) => boolean,
+    stringFormatter?: (aString: string) => string
 ) : UntypedStringConsumer;
 
 /**
@@ -386,7 +454,8 @@ export function untypedStringConsumer(
     cliofoType: CliofoType,
     numberOfStringsToConsume?: Partial<ConsumerRange>,
     cliofoTypesToConsume?: ReadonlySet<CliofoType>,
-    stringPredicate?: (aString: string) => boolean
+    stringPredicate?: (aString: string) => boolean,
+    stringFormatter?: (aString: string) => string
 ) : UntypedStringConsumer;
 
 export function untypedStringConsumer(
@@ -395,7 +464,8 @@ export function untypedStringConsumer(
     cliofoType: CliofoType,
     rangeOrNumber: Partial<ConsumerRange> | number = UntypedStringConsumer.zeroRange(),
     cliofoTypesToConsume: ReadonlySet<CliofoType> = UntypedStringConsumer.emptyCliofoTypeSet(),
-    stringPredicate: (aString: string) => boolean = UntypedStringConsumer.alwaysFalsePredicate()
+    stringPredicate: (aString: string) => boolean = UntypedStringConsumer.alwaysFalsePredicate(),
+    stringFormatter: (aString: string) => string = UntypedStringConsumer.stringIdentityFunction()
 ) : UntypedStringConsumer
 {
     return new UntypedStringConsumer( prefixString,
@@ -403,14 +473,16 @@ export function untypedStringConsumer(
                                       cliofoType,
                                       rangeOrNumber,
                                       cliofoTypesToConsume,
-                                      stringPredicate );
+                                      stringPredicate,
+                                      stringFormatter );
 }
 
 export function stringArgumentToStringConsumer(
     stringArgument: Readonly<StringArgument>,
     rangeOrNumber: Partial<ConsumerRange> | number = UntypedStringConsumer.zeroRange(),
     cliofoTypesToConsume: ReadonlySet<CliofoType> = UntypedStringConsumer.emptyCliofoTypeSet(),
-    stringPredicate: (aString: string) => boolean = UntypedStringConsumer.alwaysFalsePredicate()
+    stringPredicate: (aString: string) => boolean = UntypedStringConsumer.alwaysFalsePredicate(),
+    stringFormatter: (aString: string) => string = UntypedStringConsumer.stringIdentityFunction()
 ) : UntypedStringConsumer
 {
     return new UntypedStringConsumer( stringArgument.prefixString,
@@ -418,7 +490,8 @@ export function stringArgumentToStringConsumer(
                                       stringArgument.cliofoType,
                                       rangeOrNumber,
                                       cliofoTypesToConsume,
-                                      stringPredicate );
+                                      stringPredicate,
+                                      stringFormatter );
 }
 
 export {UntypedStringConsumer as default};

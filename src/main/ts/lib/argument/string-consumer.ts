@@ -18,7 +18,7 @@ const stringIdentityFunction = Object.freeze((aString: string) => aString);
  * A string that can consume or is required to consume a range of 0 or more
  * `string` arguments and can optionally contain a `string` predicate used to
  * validate consumed strings.
- *
+ string
  * This class is essentially an `UntypedStringConsumer` converted to a
  * {@link TypeConsumer `TypeConsumer<string>`} class.
  *
@@ -32,7 +32,8 @@ export class StringConsumer extends TypeConsumer<string>
         cliofoType: CliofoType,
         rangeOrNumber: Partial<ConsumerRange> | number,
         cliofoTypesToConsume: ReadonlySet<CliofoType>,
-        stringPredicate: (aString: string) => boolean, )
+        stringPredicate: (aString: string) => boolean,
+        stringFormatter: (aString: string) => string )
     {
         super( prefixString,
                nonPrefixedString,
@@ -40,7 +41,8 @@ export class StringConsumer extends TypeConsumer<string>
                rangeOrNumber,
                cliofoTypesToConsume,
                stringPredicate,
-               stringIdentityFunction,
+               stringFormatter,
+               stringFormatter,
                stringPredicate );
     }
 
@@ -126,7 +128,8 @@ export function stringConsumer(
     cliofoType: CliofoType,
     range?: Partial<ConsumerRange>,
     cliofoTypesToConsume?: ReadonlySet<CliofoType>,
-    stringPredicate?: (aString: string) => boolean
+    stringPredicate?: (aString: string) => boolean,
+    stringFormatter?: (aString: string) => string
 ) : StringConsumer;
 
 /**
@@ -173,7 +176,8 @@ export function stringConsumer(
     cliofoType: CliofoType,
     numberOfArgsToConsume?: number,
     cliofoTypesToConsume?: ReadonlySet<CliofoType>,
-    stringPredicate?: (aString: string) => boolean
+    stringPredicate?: (aString: string) => boolean,
+    stringFormatter?: (aString: string) => string
 ) : StringConsumer;
 
 export function stringConsumer(
@@ -182,7 +186,8 @@ export function stringConsumer(
     cliofoType?: CliofoType,
     rangeOrNumber: Partial<ConsumerRange> | number = TypeConsumer.zeroRange(),
     cliofoTypesToConsume: ReadonlySet<CliofoType> = TypeConsumer.emptyCliofoTypeSet(),
-    stringPredicate: (aString: string) => boolean = TypeConsumer.alwaysFalsePredicate()
+    stringPredicate: (aString: string) => boolean = TypeConsumer.alwaysFalsePredicate(),
+    stringFormatter: (aString: string) => string = TypeConsumer.stringIdentityFunction()
 ) : StringConsumer
     {
         if (    typeof prefixStringOrStringConsumer === "string"
@@ -193,7 +198,8 @@ export function stringConsumer(
                                        cliofoType,
                                        rangeOrNumber,
                                        cliofoTypesToConsume,
-                                       stringPredicate );
+                                       stringPredicate,
+                                       stringFormatter );
         }
         else if (    prefixStringOrStringConsumer instanceof StringConsumer
                   && nonPrefixedString === undefined
@@ -205,7 +211,8 @@ export function stringConsumer(
                 prefixStringOrStringConsumer.cliofoType,
                 prefixStringOrStringConsumer.range,
                 prefixStringOrStringConsumer.cliofoTypesToConsume,
-                prefixStringOrStringConsumer.stringPredicate() );
+                prefixStringOrStringConsumer.stringPredicate(),
+                prefixStringOrStringConsumer.stringFormatter() );
         }
         else
         {

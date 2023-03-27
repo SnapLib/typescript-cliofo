@@ -46,10 +46,11 @@ export abstract class TypeConsumer<ConvertedStringType> extends UntypedStringCon
                            rangeOrNumber: Partial<ConsumerRange> | number,
                            cliofoTypesToConsume: ReadonlySet<CliofoType>,
                            stringPredicate: (aString: string) => boolean,
+                           stringFormatter: (aString: string) => string,
                            stringConverter: (aString: string) => ConvertedStringType,
                            convertedStringPredicate: (convertedString: ConvertedStringType) => boolean )
     {
-        super(prefixString, nonPrefixedString, cliofoType, rangeOrNumber, cliofoTypesToConsume, stringPredicate);
+        super(prefixString, nonPrefixedString, cliofoType, rangeOrNumber, cliofoTypesToConsume, stringPredicate, stringFormatter);
         this.#stringConverter = stringConverter;
         this.#convertedStringPredicate = convertedStringPredicate;
     }
