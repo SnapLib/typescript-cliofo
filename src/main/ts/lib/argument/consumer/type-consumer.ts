@@ -1,4 +1,4 @@
-import {ConsumerRange} from "./consumer-range.js";
+import {Range} from "./range.js";
 import {CliofoType, UntypedStringConsumer} from "./untyped-string-consumer.js";
 
 /**
@@ -39,7 +39,7 @@ export abstract class TypeConsumer<ConvertedStringType> extends UntypedStringCon
      */
     protected constructor( stringValue: string,
                            cliofoType: CliofoType,
-                           rangeOrNumber: Partial<ConsumerRange> | number,
+                           rangeOrNumber: Partial<Range> | number,
                            cliofoTypesToConsume: ReadonlySet<CliofoType>,
                            stringPredicate: (aString: string) => boolean,
                            stringFormatter: (aString: string) => string,

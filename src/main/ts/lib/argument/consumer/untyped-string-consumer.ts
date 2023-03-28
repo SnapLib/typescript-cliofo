@@ -1,4 +1,4 @@
-import {ConsumerRange} from "./consumer-range.js";
+import {Range} from "./range.js";
 import {type CliofoType} from "../../cliofo-type.js";
 import {StringArgument} from "../string-argument.js";
 
@@ -15,12 +15,12 @@ import {StringArgument} from "../string-argument.js";
 const stringIdentityFunction = Object.freeze((aString: string) => aString);
 
 /**
- * A frozen instance of a {@link ConsumerRange} object with it's maximum and
+ * A frozen instance of a {@link Range} object with it's maximum and
  * minimum values set to `0`.
  *
  * @constant
  */
-const consumerRangeSetToZero: Readonly<ConsumerRange> = Object.freeze(new ConsumerRange(0, 0));
+const consumerRangeSetToZero: Readonly<Range> = Object.freeze(new Range(0, 0));
 
 /**
  * A frozen empty {@link CliofoType} set.
@@ -83,7 +83,7 @@ export class UntypedStringConsumer extends StringArgument
      * @public
      * @readonly
      */
-    public readonly range: Readonly<ConsumerRange>;
+    public readonly range: Readonly<Range>;
 
     /**
      * A `string` predicate that can be used to validate `string` arguments.
@@ -163,7 +163,7 @@ export class UntypedStringConsumer extends StringArgument
      */
     public constructor( aStringValue: string,
                         cliofoType: CliofoType,
-                        rangeOrNumber: Partial<ConsumerRange> | number,
+                        rangeOrNumber: Partial<Range> | number,
                         cliofoTypesToConsume: ReadonlySet<CliofoType>,
                         stringPredicate: (aString: string) => boolean,
                         stringFormatter: (aString: string) => string )
@@ -176,12 +176,12 @@ export class UntypedStringConsumer extends StringArgument
 
         if (typeof rangeOrNumber === "number")
         {
-            this.range = Object.freeze(new ConsumerRange(rangeOrNumber, rangeOrNumber));
+            this.range = Object.freeze(new Range(rangeOrNumber, rangeOrNumber));
         }
-        else if (rangeOrNumber instanceof ConsumerRange)
+        else if (rangeOrNumber instanceof Range)
         {
             this.range = Object.isFrozen(rangeOrNumber) ? rangeOrNumber
-                : Object.freeze(new ConsumerRange(
+                : Object.freeze(new Range(
                    rangeOrNumber.min ?? 0,
                    rangeOrNumber.min === undefined
                        && rangeOrNumber.min === null
@@ -300,18 +300,18 @@ export class UntypedStringConsumer extends StringArgument
         { return emptyCliofoTypeSet; }
 
     /**
-     * Returns the {@link ConsumerRange} object used as this class' default
+     * Returns the {@link Range} object used as this class' default
      * {@link range} property value which consists of a range with both its
      * minimum and maximum values set to `0`. This creates a
      * {@link UntypedStringConsumer} that doesn't consume any `string` arguments.
      *
-     * @returns The {@link ConsumerRange} object used as this class' default
+     * @returns The {@link Range} object used as this class' default
      *          {@link range} property.
      *
      * @public
      * @static
      */
-    public static zeroRange(): Readonly<ConsumerRange>
+    public static zeroRange(): Readonly<Range>
         { return consumerRangeSetToZero; }
 
     /**
@@ -398,7 +398,7 @@ export class UntypedStringConsumer extends StringArgument
 export function untypedStringConsumer(
     stringValue: string,
     cliofoType: CliofoType,
-    range?: Partial<ConsumerRange>,
+    range?: Partial<Range>,
     cliofoTypesToConsume?: ReadonlySet<CliofoType>,
     stringPredicate?: (aString: string) => boolean,
     stringFormatter?: (aString: string) => string
@@ -441,7 +441,7 @@ export function untypedStringConsumer(
 export function untypedStringConsumer(
     stringValue: string,
     cliofoType: CliofoType,
-    numberOfStringsToConsume?: Partial<ConsumerRange>,
+    numberOfStringsToConsume?: Partial<Range>,
     cliofoTypesToConsume?: ReadonlySet<CliofoType>,
     stringPredicate?: (aString: string) => boolean,
     stringFormatter?: (aString: string) => string
@@ -450,7 +450,7 @@ export function untypedStringConsumer(
 export function untypedStringConsumer(
     aStringValue: string,
     cliofoType: CliofoType,
-    rangeOrNumber: Partial<ConsumerRange> | number = consumerRangeSetToZero,
+    rangeOrNumber: Partial<Range> | number = consumerRangeSetToZero,
     cliofoTypesToConsume: ReadonlySet<CliofoType> = emptyCliofoTypeSet,
     stringPredicate: (aString: string) => boolean = alwaysFalseReturningFunc,
     stringFormatter: (aString: string) => string = stringIdentityFunction
@@ -466,7 +466,7 @@ export function untypedStringConsumer(
 
 export function stringArgumentToStringConsumer(
     stringArgument: Readonly<StringArgument>,
-    rangeOrNumber: Partial<ConsumerRange> | number = consumerRangeSetToZero,
+    rangeOrNumber: Partial<Range> | number = consumerRangeSetToZero,
     cliofoTypesToConsume: ReadonlySet<CliofoType> = emptyCliofoTypeSet,
     stringPredicate: (aString: string) => boolean = alwaysFalseReturningFunc,
     stringFormatter: (aString: string) => string = stringIdentityFunction

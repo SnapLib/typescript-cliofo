@@ -1,5 +1,5 @@
 import {TypeConsumer} from "./consumer/type-consumer.js";
-import {type ConsumerRange} from "./consumer/consumer-range.js";
+import {type Range} from "./consumer/range.js";
 import {type CliofoType} from "./consumer/untyped-string-consumer.js";
 
 /**
@@ -20,7 +20,7 @@ export class StringConsumer extends TypeConsumer<string>
     public constructor(
         stringValue: string,
         cliofoType: CliofoType,
-        rangeOrNumber: Partial<ConsumerRange> | number,
+        rangeOrNumber: Partial<Range> | number,
         cliofoTypesToConsume: ReadonlySet<CliofoType>,
         stringPredicate: (aString: string) => boolean,
         stringFormatter: (aString: string) => string )
@@ -99,7 +99,7 @@ export function stringConsumer(stringConsumerToCopy: StringConsumer): StringCons
 export function stringConsumer(
     stringValue: string,
     cliofoType: CliofoType,
-    range?: Partial<ConsumerRange>,
+    range?: Partial<Range>,
     cliofoTypesToConsume?: ReadonlySet<CliofoType>,
     stringPredicate?: (aString: string) => boolean,
     stringFormatter?: (aString: string) => string
@@ -151,7 +151,7 @@ export function stringConsumer(
 export function stringConsumer(
     aStringValueOrOther: string | Readonly<StringConsumer>,
     cliofoType?: CliofoType,
-    rangeOrNumber: Partial<ConsumerRange> | number = TypeConsumer.zeroRange(),
+    rangeOrNumber: Partial<Range> | number = TypeConsumer.zeroRange(),
     cliofoTypesToConsume: ReadonlySet<CliofoType> = TypeConsumer.emptyCliofoTypeSet(),
     stringPredicate: (aString: string) => boolean = TypeConsumer.alwaysFalsePredicate(),
     stringFormatter: (aString: string) => string = TypeConsumer.stringIdentityFunction()
