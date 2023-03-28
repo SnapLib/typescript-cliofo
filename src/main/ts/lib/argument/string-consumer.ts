@@ -18,16 +18,14 @@ import {type CliofoType} from "./consumer/untyped-string-consumer.js";
 export class StringConsumer extends TypeConsumer<string>
 {
     public constructor(
-        prefixString: string,
-        nonPrefixedString: string,
+        stringValue: string,
         cliofoType: CliofoType,
         rangeOrNumber: Partial<ConsumerRange> | number,
         cliofoTypesToConsume: ReadonlySet<CliofoType>,
         stringPredicate: (aString: string) => boolean,
         stringFormatter: (aString: string) => string )
     {
-        super( prefixString,
-               nonPrefixedString,
+        super( stringValue,
                cliofoType,
                rangeOrNumber,
                cliofoTypesToConsume,
@@ -80,11 +78,7 @@ export function stringConsumer(stringConsumerToCopy: StringConsumer): StringCons
  *   - less than `0` or
  *   - less than the minimum range value.
  *
- * @param prefixString The leading prefix `string` used to denote the
- *                     constructed consumer as an operand, flag, or option.
- *
- * @param nonPrefixedString The `string` value of the constructed consumer
- *                          excluding any prefix characters.
+ * @param stringValue The `string` value of the constructed object instance.
  *
  * @param cliofoType The operand, option, or flag type of the constructed
  *                   consumer.
@@ -103,8 +97,7 @@ export function stringConsumer(stringConsumerToCopy: StringConsumer): StringCons
  *                              than a max range.
  */
 export function stringConsumer(
-    prefixString: string,
-    nonPrefixedString: string,
+    stringValue: string,
     cliofoType: CliofoType,
     range?: Partial<ConsumerRange>,
     cliofoTypesToConsume?: ReadonlySet<CliofoType>,
@@ -128,11 +121,7 @@ export function stringConsumer(
  * The `string` predicate defaults to a method that doesn't consume any
  * arguments and returns `false`.
  *
- * @param prefixString The leading prefix `string` used to denote the
- *                     constructed consumer as an operand, flag, or option.
- *
- * @param nonPrefixedString The `string` value of the constructed consumer
- *                          excluding any prefix characters.
+ * @param stringValue The `string` value of the constructed object instance.
  *
  * @param cliofoType The operand, option, or flag type of the constructed
  *                   consumer.
@@ -151,8 +140,7 @@ export function stringConsumer(
  *                              than a max range.
  */
 export function stringConsumer(
-    prefixString: string,
-    nonPrefixedString: string,
+    stringValue: string,
     cliofoType: CliofoType,
     numberOfArgsToConsume?: number,
     cliofoTypesToConsume?: ReadonlySet<CliofoType>,
@@ -161,8 +149,7 @@ export function stringConsumer(
 ) : StringConsumer;
 
 export function stringConsumer(
-    prefixStringOrStringConsumer: string | Readonly<StringConsumer>,
-    nonPrefixedString?: string,
+    aStringValueOrOther: string | Readonly<StringConsumer>,
     cliofoType?: CliofoType,
     rangeOrNumber: Partial<ConsumerRange> | number = TypeConsumer.zeroRange(),
     cliofoTypesToConsume: ReadonlySet<CliofoType> = TypeConsumer.emptyCliofoTypeSet(),
@@ -170,29 +157,26 @@ export function stringConsumer(
     stringFormatter: (aString: string) => string = TypeConsumer.stringIdentityFunction()
 ) : StringConsumer
     {
-        if (    typeof prefixStringOrStringConsumer === "string"
-             && nonPrefixedString !== undefined && cliofoType !== undefined )
+        if (    typeof aStringValueOrOther === "string"
+             && aStringValueOrOther !== undefined && cliofoType !== undefined )
         {
-            return new StringConsumer( prefixStringOrStringConsumer,
-                                       nonPrefixedString,
+            return new StringConsumer( aStringValueOrOther,
                                        cliofoType,
                                        rangeOrNumber,
                                        cliofoTypesToConsume,
                                        stringPredicate,
                                        stringFormatter );
         }
-        else if (    prefixStringOrStringConsumer instanceof StringConsumer
-                  && nonPrefixedString === undefined
+        else if (    aStringValueOrOther instanceof StringConsumer
                   && cliofoType === undefined )
         {
             return new StringConsumer(
-                prefixStringOrStringConsumer.prefixString,
-                prefixStringOrStringConsumer.nonPrefixedString,
-                prefixStringOrStringConsumer.cliofoType,
-                prefixStringOrStringConsumer.range,
-                prefixStringOrStringConsumer.cliofoTypesToConsume,
-                prefixStringOrStringConsumer.stringPredicate(),
-                prefixStringOrStringConsumer.stringFormatter() );
+                aStringValueOrOther.stringValue,
+                aStringValueOrOther.cliofoType,
+                aStringValueOrOther.range,
+                aStringValueOrOther.cliofoTypesToConsume,
+                aStringValueOrOther.stringPredicate(),
+                aStringValueOrOther.stringFormatter() );
         }
         else
         {

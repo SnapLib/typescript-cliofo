@@ -15,11 +15,8 @@ export abstract class TypeConsumer<ConvertedStringType> extends UntypedStringCon
      * Constructs an instance of an object that is a `string` that consumes
      * another  `string`
      *
-     * @param prefixString The leading prefix `string` used to denote if a
-     *     `string` is flag or option (or operand).
-     *
-     * @param nonPrefixedString The `string` value of this `string` consuming
-     *     `string` argument excluding leading prefix `string`.
+     * @param stringValue The `string` value of this `string` consuming `string`
+     *     argument excluding leading prefix `string`.
      *
      * @param cliofoType The type of {@link CliofoType} this `string` consuming
      *     `string` argument is.
@@ -40,8 +37,7 @@ export abstract class TypeConsumer<ConvertedStringType> extends UntypedStringCon
      * @param convertedStringPredicate A predicate that can be used to validate
      *     consumed strings after they've been converted.
      */
-    protected constructor( prefixString: string,
-                           nonPrefixedString: string,
+    protected constructor( stringValue: string,
                            cliofoType: CliofoType,
                            rangeOrNumber: Partial<ConsumerRange> | number,
                            cliofoTypesToConsume: ReadonlySet<CliofoType>,
@@ -50,7 +46,7 @@ export abstract class TypeConsumer<ConvertedStringType> extends UntypedStringCon
                            stringConverter: (aString: string) => ConvertedStringType,
                            convertedStringPredicate: (convertedString: ConvertedStringType) => boolean )
     {
-        super(prefixString, nonPrefixedString, cliofoType, rangeOrNumber, cliofoTypesToConsume, stringPredicate, stringFormatter);
+        super(stringValue, cliofoType, rangeOrNumber, cliofoTypesToConsume, stringPredicate, stringFormatter);
         this.#stringConverter = stringConverter;
         this.#convertedStringPredicate = convertedStringPredicate;
     }
@@ -72,7 +68,7 @@ export abstract class TypeConsumer<ConvertedStringType> extends UntypedStringCon
 
     /**
      * Getter for this object's {@link #stringConverter} property that contains
-     * a function used to convert this object's {@link nonPrefixedString}
+     * a function used to convert this object's {@link stringValue}
      * property to an instance of this object's {@link ConvertedStringType}.
      *
      * @returns This object's {@link #stringConverter} property.

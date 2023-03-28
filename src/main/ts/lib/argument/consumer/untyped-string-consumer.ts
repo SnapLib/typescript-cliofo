@@ -141,10 +141,7 @@ export class UntypedStringConsumer extends StringArgument
      *   - less than `0` or
      *   - less than the minimum range value.
      *
-     * @param prefixString The leading prefix `string` used to denote the
-     *                     constructed consumer as an operand, flag, or option.
-     *
-     * @param nonPrefixedString The `string` value of the constructed consumer
+     * @param aStringValue The `string` value of the constructed consumer
      *                          excluding any prefix characters.
      *
      * @param cliofoType The operand, option, or flag type of the constructed
@@ -164,15 +161,14 @@ export class UntypedStringConsumer extends StringArgument
      *                              valid. Such as a min range that's greater
      *                              than a max range.
      */
-    public constructor( prefixString: string,
-                        nonPrefixedString: string,
+    public constructor( aStringValue: string,
                         cliofoType: CliofoType,
                         rangeOrNumber: Partial<ConsumerRange> | number,
                         cliofoTypesToConsume: ReadonlySet<CliofoType>,
                         stringPredicate: (aString: string) => boolean,
                         stringFormatter: (aString: string) => string )
     {
-        super(prefixString, nonPrefixedString, cliofoType);
+        super(aStringValue, cliofoType);
 
         this.cliofoTypesToConsume = Object.isFrozen(cliofoTypesToConsume)
             ? cliofoTypesToConsume
@@ -381,11 +377,7 @@ export class UntypedStringConsumer extends StringArgument
  *   - less than `0` or
  *   - less than the minimum range value.
  *
- * @param prefixString The leading prefix `string` used to denote the
- *                     constructed consumer as an operand, flag, or option.
- *
- * @param nonPrefixedString The `string` value of the constructed consumer
- *                          excluding any prefix characters.
+ * @param stringValue The `string` value of the constructed object instance.
  *
  * @param cliofoType The operand, option, or flag type of the constructed
  *                   consumer.
@@ -404,8 +396,7 @@ export class UntypedStringConsumer extends StringArgument
  *                              than a max range.
  */
 export function untypedStringConsumer(
-    prefixString: string,
-    nonPrefixedString: string,
+    stringValue: string,
     cliofoType: CliofoType,
     range?: Partial<ConsumerRange>,
     cliofoTypesToConsume?: ReadonlySet<CliofoType>,
@@ -429,11 +420,7 @@ export function untypedStringConsumer(
  * The `string` predicate defaults to a method that doesn't consume any
  * arguments and returns `false`.
  *
- * @param prefixString The leading prefix `string` used to denote the
- *                     constructed consumer as an operand, flag, or option.
- *
- * @param nonPrefixedString The `string` value of the constructed consumer
- *                          excluding any prefix characters.
+ * @param stringValue The `string` value of the constructed object instance.
  *
  * @param cliofoType The operand, option, or flag type of the constructed
  *                   consumer.
@@ -452,8 +439,7 @@ export function untypedStringConsumer(
  *                              than a max range.
  */
 export function untypedStringConsumer(
-    prefixString: string,
-    nonPrefixedString: string,
+    stringValue: string,
     cliofoType: CliofoType,
     numberOfStringsToConsume?: Partial<ConsumerRange>,
     cliofoTypesToConsume?: ReadonlySet<CliofoType>,
@@ -462,8 +448,7 @@ export function untypedStringConsumer(
 ) : UntypedStringConsumer;
 
 export function untypedStringConsumer(
-    prefixString: string,
-    nonPrefixedString: string,
+    aStringValue: string,
     cliofoType: CliofoType,
     rangeOrNumber: Partial<ConsumerRange> | number = consumerRangeSetToZero,
     cliofoTypesToConsume: ReadonlySet<CliofoType> = emptyCliofoTypeSet,
@@ -471,8 +456,7 @@ export function untypedStringConsumer(
     stringFormatter: (aString: string) => string = stringIdentityFunction
 ) : UntypedStringConsumer
 {
-    return new UntypedStringConsumer( prefixString,
-                                      nonPrefixedString,
+    return new UntypedStringConsumer( aStringValue,
                                       cliofoType,
                                       rangeOrNumber,
                                       cliofoTypesToConsume,
@@ -488,8 +472,7 @@ export function stringArgumentToStringConsumer(
     stringFormatter: (aString: string) => string = stringIdentityFunction
 ) : UntypedStringConsumer
 {
-    return new UntypedStringConsumer( stringArgument.prefixString,
-                                      stringArgument.nonPrefixedString,
+    return new UntypedStringConsumer( stringArgument.stringValue,
                                       stringArgument.cliofoType,
                                       rangeOrNumber,
                                       cliofoTypesToConsume,
