@@ -96,6 +96,13 @@ export class StringArgument
      */
     public isOption(): boolean { return this.#isOption; }
 
+    /**
+     * Checks another object or value for equality when compared to this object.
+     *
+     * @param other The object or value being checked for equality.
+     *
+     * @returns `true` if the passed argument is equal to this object.
+     */
     public equals(other: unknown): boolean
     {
         return other !== undefined && other !== null && other instanceof StringArgument
