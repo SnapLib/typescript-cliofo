@@ -95,6 +95,12 @@ export class StringArgument
      *          {@link CliofoType.OPTION}.
      */
     public isOption(): boolean { return this.#isOption; }
+
+    public equals(other: unknown): boolean
+    {
+        return other !== undefined && other !== null && other instanceof StringArgument
+            && this.stringValue === other.stringValue && this.cliofoType === other.cliofoType;
+    }
 }
 
 export {StringArgument as default};
