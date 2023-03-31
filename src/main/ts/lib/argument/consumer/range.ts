@@ -12,7 +12,6 @@ export class Range
     /**
      * A `number` used as the lower bound for this object's minimum range.
      *
-     * @public
      * @readonly
      */
     public readonly min: number;
@@ -20,7 +19,6 @@ export class Range
     /**
      * A `number` used as the upper bound for this object's maximum range.
      *
-     * @public
      * @readonly
      */
     public readonly max: number;
@@ -45,7 +43,6 @@ export class Range
      *                              valid. Such as a minimum range that's
      *                              greater than a maximum range.
      *
-     * @public
      * @constructor
      */
     public constructor(min: number, max: number)
@@ -67,6 +64,19 @@ export class Range
 
         this.min = min;
         this.max = max;
+    }
+
+    /**
+     * Checks another object or value for equality when compared to this object.
+     *
+     * @param other The object or value being checked for equality.
+     *
+     * @returns `true` if the passed argument is equal to this object.
+     */
+    public equals(other: unknown): boolean
+    {
+        return other !== undefined && other !== null && other instanceof Range
+            && this.min === other.min && this.max === other.max;
     }
 }
 
