@@ -52,8 +52,30 @@
  */
 export enum CliofoType
 {
+    /**
+     * Any string that is not prefixed with a leading prefix string designating
+     * it a ***FLAG*** or ***OPTION*** is interpreted as an ***OPERAND***.
+     *
+     * @readonly
+     */
     OPERAND = "OPERAND",
+
+    /**
+     * Any string that is prefixed with only a single instance of a leading
+     * prefix string designating it a ***FLAG*** or ***OPTION*** is interpreted
+     * as a ***FLAG***.
+     *
+     * @readonly
+     */
     FLAG = "FLAG",
+
+    /**
+     * Any string that is prefixed with a sequence of 2 of more instances of a
+     * leading prefix string designating it a ***FLAG*** or ***OPTION*** is
+     * interpreted as an ***OPTION***.
+     *
+     * @readonly
+     */
     OPTION = "OPTION"
 }
 
