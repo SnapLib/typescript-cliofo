@@ -1,3 +1,4 @@
+import {stringIsNumber} from "./consumer/predicate/string-is-number.js";
 import {type Range} from "./consumer/range.js";
 import {TypeConsumer} from "./consumer/type-consumer.js";
 import {type CliofoType} from "./consumer/untyped-string-consumer.js";
@@ -9,7 +10,7 @@ export class NumberConsumer extends TypeConsumer<number>
         cliofoType: CliofoType,
         rangeOrNumber: Partial<Range> | number,
         cliofoTypesToConsume: ReadonlySet<CliofoType>,
-        stringPredicate: (aString: string) => boolean,
+        stringPredicate: (aString: string) => boolean = stringIsNumber,
         stringFormatter: (aString: string) => string,
         stringToNumberConverter: (aString: string) => number,
         numberPredicate: (aNumber: number) => boolean )

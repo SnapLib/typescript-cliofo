@@ -6,24 +6,20 @@ import {Parser} from "./parser.js";
  * An object that consume a {@link Parser} object and coverts it to a set of
  * parsed {@link TypeConsumer} objects unique to each of their argument indexes..
  */
-export class TypeConsumerParser<ConvertedStringType>
+export class TypeConsumerParser
 {
     public readonly parser: Readonly<Parser>;
 
-    public readonly parsedTypeConsumers: ReadonlySet<ParsedTypeConsumer<ConvertedStringType>>;
+    public readonly parsedTypeConsumers: ReadonlySet<ParsedTypeConsumer<unknown>>;
 
-    public readonly operands: ReadonlySet<TypeConsumer<ConvertedStringType>>;
+    public readonly operands: ReadonlySet<TypeConsumer<unknown>>;
 
-    public constructor(
-        parser: Readonly<Parser>,
-        stringPredicate: (aString: string) => boolean,
-        stringConverter: (aString: string) => ConvertedStringType,
-        convertedStringPredicate: (convertedString: ConvertedStringType) => boolean)
+    public constructor(consumers: ReadonlySet<TypeConsumer<unknown>>, parser: Readonly<Parser>)
     {
         this.parser = Object.isFrozen(parser) ? parser : Object.freeze(new Parser(parser));
 
         this.parsedTypeConsumers = Parser.arguments.length === 0
-            ? Object.freeze(new Set<ParsedTypeConsumer<ConvertedStringType>>())
+            ? Object.freeze(new Set<ParsedTypeConsumer<unknown>>())
             : new Set();
 
         this.operands = new Set();
@@ -39,6 +35,6 @@ export class TypeConsumerParser<ConvertedStringType>
         // )));
     }
 }
- type ParsedTypeConsumer<ConvertedStringType> = TypeConsumer<ConvertedStringType> & {readonly index: number};
+ type ParsedTypeConsumer<ConvertedStringType> = TypeConsumer<ConvertedStringType> & {readonly prefixString: string, readonly index: number};
 
 export {TypeConsumerParser as default};
