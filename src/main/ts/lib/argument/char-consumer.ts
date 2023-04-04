@@ -1,8 +1,7 @@
 import {TypeConsumer} from "./consumer/type-consumer.js";
+import {stringIsChar} from "./consumer/predicate/string-is-char";
 import {type Range} from "./consumer/range.js";
 import {type CliofoType} from "./consumer/untyped-string-consumer.js";
-
-const charStringPredicate = Object.freeze((aString: string) => aString.length === 1);
 
 export class CharConsumer extends TypeConsumer<string>
 {
@@ -18,7 +17,7 @@ export class CharConsumer extends TypeConsumer<string>
                cliofoType,
                rangeOrNumber,
                cliofoTypesToConsume,
-               charStringPredicate,
+               stringIsChar,
                stringFormatter,
                stringFormatter,
                stringPredicate );

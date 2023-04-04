@@ -1,8 +1,7 @@
 import {NumberConsumer} from "./number-consumer.js";
+import {stringIsWholeNumber} from "./consumer/predicate/string-is-whole-number";
 import {type Range} from "./consumer/range.js";
 import {type CliofoType} from "./consumer/untyped-string-consumer.js";
-
-const wholeNumberStringPredicate = Object.freeze((aString: string) => aString.length !== 0 && [...aString].every(char => ! isNaN(Number(char))));
 
 export class WholeNumberConsumer extends NumberConsumer
 {
@@ -19,7 +18,7 @@ export class WholeNumberConsumer extends NumberConsumer
                cliofoType,
                rangeOrNumber,
                cliofoTypesToConsume,
-               wholeNumberStringPredicate,
+               stringIsWholeNumber,
                stringFormatter,
                stringToNumberConverter,
                numberPredicate );

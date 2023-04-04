@@ -1,32 +1,7 @@
 import {NumberConsumer} from "./number-consumer.js";
+import {stringIsFractionNumber} from "./consumer/predicate/string-is-fraction-number";
 import {type Range} from "./consumer/range.js";
 import {type CliofoType} from "./consumer/untyped-string-consumer.js";
-
-const fractionNumberStringPredicate = Object.freeze(
-    (aString: string) =>
-    {
-        if (aString.length < 2)
-        {
-            return false;
-        }
-
-        let decimalCharCount = 0;
-
-        for (const char of aString)
-        {
-            if (char === "." && ++decimalCharCount === 2)
-            {
-                return false;
-            }
-
-            if (char !== "." && isNaN(Number(char)))
-            {
-                return false;
-            }
-        }
-
-        return decimalCharCount === 1;
-    });
 
 export class FractionNumberConsumer extends NumberConsumer
 {
@@ -43,7 +18,7 @@ export class FractionNumberConsumer extends NumberConsumer
                cliofoType,
                rangeOrNumber,
                cliofoTypesToConsume,
-               fractionNumberStringPredicate,
+               stringIsFractionNumber,
                stringFormatter,
                stringToNumberConverter,
                numberPredicate );
