@@ -10,6 +10,6 @@
  * @function stringIsWholeNumber
  */
 export const stringIsWholeNumber =
-    Object.freeze(function(aString: string) {return aString.length !== 0 && [...aString].every(char => ! isNaN(Number(char))); });
+    Object.freeze(function(aString: string) {return aString.length !== 0 && [...aString].every(char => ! Number.isNaN(char)); });
 
     export {stringIsWholeNumber as default};

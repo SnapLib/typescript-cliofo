@@ -1,8 +1,8 @@
 /**
  * Returns `true` if the passed `string` argument contains a decimal point and
  * at least 1 integer. If a `string` contains a single period character and at
- * least 1 or more characters that when passed to `isNaN` returns `false`, then
- * it's considered a fraction number.
+ * least 1 or more characters that when passed to `Number.isNaN` returns
+ * `false`, then it's considered a fraction number.
  *
  * @param aString The `string` to check if it's a fraction number.
  *
@@ -30,7 +30,7 @@ export const stringIsFractionNumber = Object.freeze(
             }
 
             // check that all chars that aren't decimals are integers
-            if (char !== "." && isNaN(Number(char)))
+            if (char !== "." && Number.isNaN(char))
             {
                 return false;
             }
