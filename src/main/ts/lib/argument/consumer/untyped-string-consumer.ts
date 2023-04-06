@@ -92,7 +92,11 @@ export class UntypedStringConsumer extends StringArgument
      */
     readonly #stringPredicate: (aString: string) => boolean;
 
+    readonly #frozenStringPredicate: (aString: string) => boolean;
+
     readonly #stringFormatter: (aString: string) => string;
+
+    readonly #frozenStringFormatter: (aString: string) => string;
 
     /**
      * Constructs an instance of an object used to represent a `string` that can
@@ -194,11 +198,15 @@ export class UntypedStringConsumer extends StringArgument
             throw new Error();
         }
 
-        this.#stringPredicate = Object.isFrozen(stringPredicate) ? stringPredicate
-            : Object.freeze(aString => stringPredicate(aString));
+        this.#stringPredicate = stringPredicate;
 
-        this.#stringFormatter = Object.isFrozen(stringFormatter) ? stringFormatter
-            : Object.freeze(aString => stringFormatter(aString));
+        this.#frozenStringPredicate = Object.isFrozen(this.#stringPredicate) ? this.#stringPredicate
+        : Object.freeze(aString => this.#stringPredicate(aString));
+
+        this.#stringFormatter = stringFormatter;
+
+        this.#frozenStringFormatter = Object.isFrozen(this.#stringFormatter) ? this.#stringFormatter
+            : Object.freeze(aString => this.#stringFormatter(aString));
 
         // If this object consumes 1 or more CliofoTypes, has max range greater
         // than 0, and has a set string predicate.
@@ -239,28 +247,27 @@ export class UntypedStringConsumer extends StringArgument
         { return this.#stringFormatter(aString); }
 
     /**
-     * Getter for this object's {@link #stringPredicate} property that
-     * contains the function that can be used to validate consumed operand,
-     * flag, and/or option `string` arguments.
+     * Returns a frozen instance of this object's {@link #stringPredicate}
+     * property that contains the function that can be used to validate consumed
+     * operand, flag, and/or option `string` arguments.
      *
      * @returns This object's {@link #stringPredicate} property.
      *
      * @public
      */
     public stringPredicate(): (aString: string) => boolean
-        { return this.#stringPredicate; }
+        { return this.#frozenStringPredicate; }
 
     /**
-     * Getter for this object's {@link #stringFormatter} property that
-     * contains the function that can be used to format consumed operand,
-     * flag, and/or option `string` arguments.
+     * Returns a frozen instance of this object's {@link #stringFormatter}
+     * property that contains the function that can be used to format consumed
+     * operand, flag, and/or option `string` arguments.
      *
      * @returns This object's {@link #stringFormat} property.
      *
-     * @public
      */
     public stringFormatter(): (aString: string) => string
-        { return this.#stringFormatter; }
+        { return this.#frozenStringFormatter; }
 
     /**
      * Returns `true` if this object's `string` predicate property is not set to
@@ -269,7 +276,6 @@ export class UntypedStringConsumer extends StringArgument
      * @returns `true` if this object's `string` predicate property is not set
      *           to the default `string` predicate.
      *
-     * @public
      */
     public hasStringPredicate(): boolean
         { return this.#stringPredicate !== alwaysFalseReturningFunc; }
@@ -281,7 +287,6 @@ export class UntypedStringConsumer extends StringArgument
      * @returns `true` if this object's `string` formatter property is not set
      *           to the default `string` formatter.
      *
-     * @public
      */
     public hasStringFormatter(): boolean
         { return this.#stringFormatter !== stringIdentityFunction; }
@@ -293,7 +298,6 @@ export class UntypedStringConsumer extends StringArgument
      *
      * @returns The static default `{min: number, max: number}` range object.
      *
-     * @public
      * @static
      */
     public static emptyCliofoTypeSet(): ReadonlySet<CliofoType>
@@ -308,7 +312,6 @@ export class UntypedStringConsumer extends StringArgument
      * @returns The {@link Range} object used as this class' default
      *          {@link range} property.
      *
-     * @public
      * @static
      */
     public static zeroRange(): Readonly<Range>
@@ -324,7 +327,6 @@ export class UntypedStringConsumer extends StringArgument
      *
      * @returns The static default `string` predicate.
      *
-     * @public
      * @static
      */
     public static alwaysFalsePredicate(): () => boolean
@@ -337,7 +339,6 @@ export class UntypedStringConsumer extends StringArgument
      *
      * @returns The static default `string` formatter function.
      *
-     * @public
      * @static
      */
     public static stringIdentityFunction(): (aString:string) => string
