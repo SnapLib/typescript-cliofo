@@ -247,23 +247,21 @@ export class UntypedStringConsumer extends StringArgument
         { return this.#stringFormatter(aString); }
 
     /**
-     * Returns a frozen instance of this object's {@link #stringPredicate}
+     * Returns a frozen instance of this object's {@link #frozenStringPredicate}
      * property that contains the function that can be used to validate consumed
      * operand, flag, and/or option `string` arguments.
      *
-     * @returns This object's {@link #stringPredicate} property.
-     *
-     * @public
+     * @returns This object's {@link #frozenStringPredicate} property.
      */
     public stringPredicate(): (aString: string) => boolean
         { return this.#frozenStringPredicate; }
 
     /**
-     * Returns a frozen instance of this object's {@link #stringFormatter}
+     * Returns a frozen instance of this object's {@link #frozenStringFormatter}
      * property that contains the function that can be used to format consumed
      * operand, flag, and/or option `string` arguments.
      *
-     * @returns This object's {@link #stringFormat} property.
+     * @returns This object's {@link #frozenStringFormat} property.
      *
      */
     public stringFormatter(): (aString: string) => string

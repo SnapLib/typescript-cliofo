@@ -80,7 +80,7 @@ export abstract class TypeConsumer<ConvertedStringType> extends UntypedStringCon
      * convert this object's {@link stringValue} property to an instance of this
      * object's {@link ConvertedStringType}.
      *
-     * @returns This object's {@link #stringConverter} property.
+     * @returns This object's {@link #frozenStringConverter} property.
      *
      */
     public stringConverter(): (aString: string) => ConvertedStringType
@@ -93,7 +93,7 @@ export abstract class TypeConsumer<ConvertedStringType> extends UntypedStringCon
      * option `string` arguments that have been converted to this object's
      * {@link ConvertedStringType} type.
      *
-     * @returns This object's {@link #convertedStringPredicate} property.
+     * @returns This object's {@link #frozenConvertedStringPredicate} property.
      *
      */
     public convertedStringPredicate(): (convertedString: ConvertedStringType) => boolean
