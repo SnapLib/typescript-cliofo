@@ -109,6 +109,24 @@ export abstract class TypeConsumer<ConvertedStringType> extends UntypedStringCon
      */
     public hasConvertedStringPredicate(): boolean
         { return this.#convertedStringPredicate !== TypeConsumer.alwaysFalsePredicate(); }
+
+    /**
+     * Returns `true` if the passed argument is a {@link TypeConsumer}
+     * object that is equal to this {@link TypeConsumer} object.
+     *
+     * @param other Object or value to check for equality to this
+     *              {@link TypeConsumer} object.
+     *
+     * @returns `true` if the passed argument is a {@link TypeConsumer} object
+     *          that is equal to this {@link TypeConsumer} object
+     */
+    public override equals(other: unknown): boolean
+    {
+        return    super.equals(other)
+               && other instanceof TypeConsumer<ConvertedStringType>
+               && this.#stringConverter === other.#stringConverter
+               && this.#convertedStringPredicate === other.#convertedStringPredicate;
+    }
 }
 
 export {TypeConsumer as default};
