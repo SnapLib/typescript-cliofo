@@ -310,8 +310,10 @@ export class UntypedStringConsumer extends StringArgument
                  && this.#stringPredicate === other.#stringPredicate
                  && this.#stringFormatter === other.#stringFormatter
                  && this.cliofoTypesToConsume.size === other.cliofoTypesToConsume.size
-                 && [...this.cliofoTypesToConsume.values()]
-                        .every(cliofoType => other.cliofoTypesToConsume.has(cliofoType));
+                 && ( this.cliofoTypesToConsume.size === 0
+                      ? true
+                      :  [...this.cliofoTypesToConsume.values()]
+                             .every(cliofoType => other.cliofoTypesToConsume.has(cliofoType)) );
         }
 
     /**
