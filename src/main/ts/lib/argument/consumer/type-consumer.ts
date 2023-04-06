@@ -9,7 +9,11 @@ export abstract class TypeConsumer<ConvertedStringType> extends UntypedStringCon
 {
     readonly #stringConverter: (aString: string) => ConvertedStringType;
 
+    readonly #frozenStringConverter: (aString: string) => ConvertedStringType;
+
     readonly #convertedStringPredicate: (convertedString: ConvertedStringType) => boolean;
+
+    readonly #frozenConvertedStringPredicate: (convertedString: ConvertedStringType) => boolean;
 
     /**
      * Constructs an instance of an object that is a `string` that consumes
@@ -36,6 +40,8 @@ export abstract class TypeConsumer<ConvertedStringType> extends UntypedStringCon
      *
      * @param convertedStringPredicate A predicate that can be used to validate
      *     consumed strings after they've been converted.
+     *
+     * @protected
      */
     protected constructor( stringValue: string,
                            cliofoType: CliofoType,
@@ -48,7 +54,9 @@ export abstract class TypeConsumer<ConvertedStringType> extends UntypedStringCon
     {
         super(stringValue, cliofoType, rangeOrNumber, cliofoTypesToConsume, stringPredicate, stringFormatter);
         this.#stringConverter = stringConverter;
+        this.#frozenStringConverter = Object.isFrozen(this.#stringConverter) ? this.#stringConverter : Object.freeze((aString: string) => this.#stringConverter(aString));
         this.#convertedStringPredicate = convertedStringPredicate;
+        this.#frozenConvertedStringPredicate = Object.isFrozen(this.#convertedStringPredicate) ? this.#convertedStringPredicate : Object.freeze((convertedString: ConvertedStringType) => this.#convertedStringPredicate(convertedString));
     }
 
     /**
@@ -67,29 +75,29 @@ export abstract class TypeConsumer<ConvertedStringType> extends UntypedStringCon
         { return this.#stringConverter(stringToConvert); }
 
     /**
-     * Getter for this object's {@link #stringConverter} property that contains
-     * a function used to convert this object's {@link stringValue}
-     * property to an instance of this object's {@link ConvertedStringType}.
+     * Returns a frozen instance of this object's
+     * {@link #frozenStringConverter} property that contains a function used to
+     * convert this object's {@link stringValue} property to an instance of this
+     * object's {@link ConvertedStringType}.
      *
      * @returns This object's {@link #stringConverter} property.
      *
-     * @public
      */
     public stringConverter(): (aString: string) => ConvertedStringType
-        { return this.#stringConverter; }
+        { return this.#frozenStringConverter; }
 
     /**
-     * Getter for this object's {@link #convertedStringPredicate} property that
-     * contains the function that can be used to validate consumed operand,
-     * flag, and/or option `string` arguments that have been converted to this
-     * object's {@link ConvertedStringType} type.
+     * Returns a frozen instance of this object's
+     * {@link #frozenConvertedStringPredicate} property that contains the
+     * function that can be used to validate consumed operand, flag, and/or
+     * option `string` arguments that have been converted to this object's
+     * {@link ConvertedStringType} type.
      *
      * @returns This object's {@link #convertedStringPredicate} property.
      *
-     * @public
      */
     public convertedStringPredicate(): (convertedString: ConvertedStringType) => boolean
-        { return this.#convertedStringPredicate; }
+        { return this.#frozenConvertedStringPredicate; }
 
     /**
      * Returns `true` if this object's {@link #convertedStringPredicate}
@@ -98,7 +106,6 @@ export abstract class TypeConsumer<ConvertedStringType> extends UntypedStringCon
      * @returns `true` if this object's converted string predicate property is
      *          not `undefined`.
      *
-     * @public
      */
     public hasConvertedStringPredicate(): boolean
         { return this.#convertedStringPredicate !== TypeConsumer.alwaysFalsePredicate(); }
