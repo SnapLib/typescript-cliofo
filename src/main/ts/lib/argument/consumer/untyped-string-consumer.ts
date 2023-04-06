@@ -292,6 +292,29 @@ export class UntypedStringConsumer extends StringArgument
         { return this.#stringFormatter !== stringIdentityFunction; }
 
     /**
+     * Returns `true` if the passed argument is an {@link UntypedStringConsumer}
+     * object that is equal to this {@link UntypedStringConsumer} object.
+     *
+     * @param other Object or value to check to check for equality to this
+     *              {@link UntypedStringConsumer} object.
+     *
+     * @returns `true` if the passed argument is an
+     *           {@link UntypedStringConsumer} object that is equal to this
+     *           {@link UntypedStringConsumer} object
+     */
+    public equals(other: unknown): boolean
+        { return    other !== undefined && other !== null
+                 && other instanceof UntypedStringConsumer
+                 && this.range.min === other.range.min
+                 && this.range.max === other.range.max
+                 && this.#stringPredicate === other.#stringPredicate
+                 && this.#stringFormatter === other.#stringFormatter
+                 && this.cliofoTypesToConsume.size === other.cliofoTypesToConsume.size
+                 && [...this.cliofoTypesToConsume.values()]
+                        .every(cliofoType => other.cliofoTypesToConsume.has(cliofoType));
+        }
+
+    /**
      * Returns an empty `Set<`{@link CliofoType}`>` used as this class' default
      * {@link cliofoTypesToConsume} property value. This creates a
      * {@link UntypedStringConsumer} that doesn't consume any `string` arguments.
