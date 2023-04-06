@@ -301,17 +301,31 @@ export class UntypedStringConsumer extends StringArgument
      *           {@link UntypedStringConsumer} object
      */
     public equals(other: unknown): boolean
-        { return    other !== undefined && other !== null
-                 && other instanceof UntypedStringConsumer
-                 && this.range.min === other.range.min
-                 && this.range.max === other.range.max
-                 && this.#stringPredicate === other.#stringPredicate
-                 && this.#stringFormatter === other.#stringFormatter
-                 && this.cliofoTypesToConsume.size === other.cliofoTypesToConsume.size
-                 && ( this.cliofoTypesToConsume.size === 0
-                      ? true
-                      :  [...this.cliofoTypesToConsume.values()]
-                             .every(cliofoType => other.cliofoTypesToConsume.has(cliofoType)) );
+        {
+            if (other === undefined || other === null)
+            {
+                return false;
+            }
+
+            if ( ! (other instanceof UntypedStringConsumer) )
+            {
+                return false;
+            }
+
+            if (this === other)
+            {
+                return true;
+            }
+
+            return     this.range.min === other.range.min
+                    && this.range.max === other.range.max
+                    && this.#stringPredicate === other.#stringPredicate
+                    && this.#stringFormatter === other.#stringFormatter
+                    && this.cliofoTypesToConsume.size === other.cliofoTypesToConsume.size
+                    && ( this.cliofoTypesToConsume.size === 0
+                         ? true
+                             :  [...this.cliofoTypesToConsume.values()]
+                                 .every(cliofoType => other.cliofoTypesToConsume.has(cliofoType)) );
         }
 
     /**
