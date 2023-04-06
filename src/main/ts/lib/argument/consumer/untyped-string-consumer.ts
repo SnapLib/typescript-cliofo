@@ -1,6 +1,6 @@
 import {Range} from "./range.js";
 import {type CliofoType} from "../../cliofo-type.js";
-import {StringArgument} from "./string-argument";
+import {StringArgument} from "./string-argument.js";
 
 /**
  * A function that takes 1 `string` argument and returns the passed `string`
