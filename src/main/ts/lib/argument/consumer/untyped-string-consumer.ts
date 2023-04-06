@@ -295,7 +295,7 @@ export class UntypedStringConsumer extends StringArgument
      * Returns `true` if the passed argument is an {@link UntypedStringConsumer}
      * object that is equal to this {@link UntypedStringConsumer} object.
      *
-     * @param other Object or value to check to check for equality to this
+     * @param other Object or value to check for equality to this
      *              {@link UntypedStringConsumer} object.
      *
      * @returns `true` if the passed argument is an
