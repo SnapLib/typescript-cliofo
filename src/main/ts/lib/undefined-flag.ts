@@ -1,6 +1,6 @@
 import { type stringPredicate, type biStringPredicate, type ArgumentConstraint, argumentConstraint } from "./argument-constraint.js";
 import { type ArgumentString, argumentString } from "./argument-string.js";
-import { ConstrainedArgument } from "./constrained-argument-string.js";
+import { ConstrainedArgumentString } from "./constrained-argument-string.js";
 
 export const flagPrefixPredicate: stringPredicate =
     Object.freeze(
@@ -25,7 +25,7 @@ export const flagValuePredicate: biStringPredicate =
 
 export const flagArgumentConstraint: ArgumentConstraint = argumentConstraint(flagPrefixPredicate, flagValuePredicate);
 
-export class UndefinedFlag extends ConstrainedArgument
+export class UndefinedFlag extends ConstrainedArgumentString
 {
     public constructor(argumentString: ArgumentString)
     {
