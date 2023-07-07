@@ -33,9 +33,9 @@ export class UndefinedFlag extends ConstrainedArgument
     }
 }
 
-export function flag(prefixString: string, valueString: string): UndefinedFlag
+export function undefinedFlag(prefixString: string, valueString: string): UndefinedFlag
 {
     return new UndefinedFlag(argumentString(prefixString, valueString));
 }
 
-export {flag as default};
+export {undefinedFlag as default};
