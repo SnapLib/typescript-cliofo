@@ -6,20 +6,36 @@ export abstract class ConstrainedArgumentString
     readonly #argConstraint: Readonly<ArgumentConstraint>;
     readonly #argString: Readonly<ArgumentString>;
 
-    protected constructor(argumentConstraint: NonNullable<ArgumentConstraint>, argumentString: NonNullable<ArgumentString>)
+    protected constructor(other: NonNullable<ConstrainedArgumentString>);
+    protected constructor(argumentConstraint: NonNullable<ArgumentConstraint>, argumentString: NonNullable<ArgumentString>);
+    protected constructor(argumentConstraintOrOther: NonNullable<ArgumentConstraint | ConstrainedArgumentString>, argumentString?: NonNullable<ArgumentString>)
     {
-        if ( ! argumentConstraint.isValidPrefix(argumentString.prefixString))
+        if (argumentConstraintOrOther instanceof ConstrainedArgumentString)
         {
-            throw new Error(`${ConstrainedArgumentString.name}: prefix string violates constraint: "${argumentString.prefixString}"`);
+            this.#argConstraint = argumentConstraintOrOther.#argConstraint;
+            this.#argString = argumentConstraintOrOther.#argString;
         }
-
-        if ( ! argumentConstraint.isValidValue(argumentString.prefixString, argumentString.valueString))
+        else
         {
-            throw new Error(`${ConstrainedArgumentString.name}: value string violates constraint: "${argumentString.prefixString}"`);
-        }
 
-        this.#argConstraint = Object.isFrozen(argumentConstraint) ? argumentConstraint : Object.freeze(new ArgumentConstraint(argumentConstraint));
-        this.#argString = Object.isFrozen(argumentString) ? argumentString : Object.freeze(new ArgumentString(argumentString));
+            if (argumentString === undefined || argumentString === null)
+            {
+                throw new TypeError(`${ConstrainedArgumentString.name}: undefined or null argument string`);
+            }
+
+            if ( ! argumentConstraintOrOther.isValidPrefix(argumentString.prefixString))
+            {
+                throw new Error(`${ConstrainedArgumentString.name}: prefix string violates constraint: "${argumentString.prefixString}"`);
+            }
+
+            if ( ! argumentConstraintOrOther.isValidValue(argumentString.prefixString, argumentString.valueString))
+            {
+                throw new Error(`${ConstrainedArgumentString.name}: value string violates constraint: "${argumentString.prefixString}"`);
+            }
+
+            this.#argConstraint = Object.isFrozen(argumentConstraintOrOther) ? argumentConstraintOrOther : Object.freeze(new ArgumentConstraint(argumentConstraintOrOther));
+            this.#argString = Object.isFrozen(argumentString) ? argumentString : Object.freeze(new ArgumentString(argumentString));
+    }
     }
 
     public get argConstraint(): Readonly<ArgumentConstraint> { return this.#argConstraint; }
