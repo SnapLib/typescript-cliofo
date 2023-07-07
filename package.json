@@ -36,17 +36,17 @@
     "arguments"
   ],
   "devDependencies": {
-    "@types/chai": "^4.3.4",
+    "@types/chai": "^4.3.5",
     "@types/mocha": "^10.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
-    "@typescript-eslint/parser": "^5.50.0",
+    "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "@typescript-eslint/parser": "^5.61.0",
     "chai": "^4.3.7",
-    "eslint": "^8.33.0",
+    "eslint": "^8.44.0",
     "mocha": "^10.2.0",
     "mochawesome": "^7.1.3",
     "ts-node": "^10.9.1",
-    "typedoc": "^0.23.24",
-    "typescript": "^4.9.5"
+    "typedoc": "^0.24.8",
+    "typescript": "^5.1.6"
   },
   "dependencies": {
     "tslib": "^2.5.0"
