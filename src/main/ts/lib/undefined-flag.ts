@@ -1,5 +1,5 @@
 import { type stringPredicate, type biStringPredicate, type ArgumentConstraint, argumentConstraint } from "./argument-constraint.js";
-import { type ArgumentString, argumentString } from "./argument-string.js";
+import { ArgumentString, argumentString } from "./argument-string.js";
 import { ConstrainedArgumentString } from "./constrained-argument-string.js";
 
 export const flagPrefixPredicate: stringPredicate =
@@ -27,15 +27,33 @@ export const flagArgumentConstraint: ArgumentConstraint = argumentConstraint(fla
 
 export class UndefinedFlag extends ConstrainedArgumentString
 {
-    public constructor(argumentString: ArgumentString)
+    public constructor(argumentString: ArgumentString );
+    public constructor(other: UndefinedFlag );
+    constructor(argumentStringOrOther: ArgumentString | UndefinedFlag )
     {
-        super(flagArgumentConstraint, argumentString);
+        if (argumentStringOrOther instanceof ArgumentString)
+        {
+            super(flagArgumentConstraint, argumentStringOrOther);
+        }
+        else
+        {
+            super(argumentStringOrOther);
+        }
     }
 }
 
-export function undefinedFlag(prefixString: string, valueString: string): UndefinedFlag
+export function undefinedFlag(prefixString: string, valueString: string): UndefinedFlag;
+export function undefinedFlag(argumentString: ArgumentString): UndefinedFlag;
+export function undefinedFlag(prefixStringOrArgumentString: string | ArgumentString, valueString?: string): UndefinedFlag
 {
-    return new UndefinedFlag(argumentString(prefixString, valueString));
+    if (typeof prefixStringOrArgumentString === "string")
+    {
+        return new UndefinedFlag(argumentString(prefixStringOrArgumentString, valueString));
+    }
+    else
+    {
+        return new UndefinedFlag(prefixStringOrArgumentString);
+    }
 }
 
 export {undefinedFlag as default};
