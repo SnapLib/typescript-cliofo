@@ -1,5 +1,5 @@
-import { PrefixConstraintViolationError } from "./prefix-constraint-violation-error.js";
-import { ValueConstraintViolationError } from "./value-constraint-violation-error.js";
+import { PrefixConstraintViolationError } from "./error/prefix-constraint-violation-error.js";
+import { ValueConstraintViolationError } from "./error/value-constraint-violation-error.js";
 
 const ALWAYS_TRUE_STRING_PREDICATE: (aString: string) => true = Object.freeze(() => true);
 
