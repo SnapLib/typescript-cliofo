@@ -21,6 +21,7 @@ export const flagValuePredicate: biStringPredicate =
             return false;
         }
 
+        // allow empty strings and strings that don't contain leading prefix string
         return flagValueString.length === 0 || flagValueString.slice(0, flagPrefixString.length) !== flagPrefixString;
     } );
 
