@@ -45,7 +45,8 @@ export function undefinedFlag(stringNumberOrArgumentString: string | number | Ar
     {
         return new UndefinedFlag(argumentString(stringNumberOrArgumentString, valueString));
     }
-    else if (typeof stringNumberOrArgumentString === "number")
+
+    if (typeof stringNumberOrArgumentString === "number")
     {
         if ( ! Number.isInteger(stringNumberOrArgumentString))
         {
@@ -54,10 +55,8 @@ export function undefinedFlag(stringNumberOrArgumentString: string | number | Ar
 
         return new UndefinedFlag(argumentString(String.fromCodePoint(stringNumberOrArgumentString), valueString));
     }
-    else
-    {
-        return new UndefinedFlag(stringNumberOrArgumentString);
-    }
+
+    return new UndefinedFlag(stringNumberOrArgumentString);
 }
 
 export {undefinedFlag as default};
