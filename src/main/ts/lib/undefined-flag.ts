@@ -1,6 +1,7 @@
 import { type stringPredicate, type biStringPredicate, type ArgumentConstraint, argumentConstraint } from "./argument-constraint.js";
 import { ArgumentString, argumentString } from "./argument-string.js";
 import { ConstrainedArgumentString } from "./constrained-argument-string.js";
+import { PrefixConstraintViolationError } from "./error/prefix-constraint-violation-error.js";
 
 export const flagPrefixPredicate: stringPredicate =
     Object.freeze(
@@ -43,16 +44,26 @@ export class UndefinedFlag extends ConstrainedArgumentString
 }
 
 export function undefinedFlag(prefixString: string, valueString: string): UndefinedFlag;
+export function undefinedFlag(prefixCodePoint: number, valueString: string): UndefinedFlag;
 export function undefinedFlag(argumentString: ArgumentString): UndefinedFlag;
-export function undefinedFlag(prefixStringOrArgumentString: string | ArgumentString, valueString?: string): UndefinedFlag
+export function undefinedFlag(stringNumberOrArgumentString: string | number | ArgumentString, valueString?: string): UndefinedFlag
 {
-    if (typeof prefixStringOrArgumentString === "string")
+    if (typeof stringNumberOrArgumentString === "string")
     {
-        return new UndefinedFlag(argumentString(prefixStringOrArgumentString, valueString));
+        return new UndefinedFlag(argumentString(stringNumberOrArgumentString, valueString));
+    }
+    else if (typeof stringNumberOrArgumentString === "number")
+    {
+        if ( ! Number.isInteger(stringNumberOrArgumentString))
+        {
+            throw new PrefixConstraintViolationError(`passed number value is not an integer: ${stringNumberOrArgumentString}`);
+        }
+
+        return new UndefinedFlag(argumentString(String.fromCodePoint(stringNumberOrArgumentString), valueString));
     }
     else
     {
-        return new UndefinedFlag(prefixStringOrArgumentString);
+        return new UndefinedFlag(stringNumberOrArgumentString);
     }
 }
 
