@@ -13,14 +13,6 @@ export const flagPrefixPredicate: stringPredicate =
 export const flagValuePredicate: biStringPredicate =
     Object.freeze( (flagPrefixString: string, flagValueString: string) =>
     {
-        if (    flagPrefixString !== undefined
-             && flagPrefixString !== null
-             && flagValueString !== undefined
-             && flagValueString !== null )
-        {
-            return false;
-        }
-
         // allow empty strings and strings that don't contain leading prefix string
         return flagValueString.length === 0 || flagValueString.slice(0, flagPrefixString.length) !== flagPrefixString;
     } );
