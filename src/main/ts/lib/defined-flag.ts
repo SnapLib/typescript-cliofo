@@ -25,20 +25,25 @@ export class DefinedFlag extends UndefinedFlag implements DefinedArgument
     }
 }
 
-export function definedFlag(prefixString: string, valueString: string, description?: string, name?: string): DefinedFlag;
-export function definedFlag(prefixCodePoint: number, valueString: string, description?: string, name?: string): DefinedFlag;
+export function definedFlag(prefixStringOrCodePoint: string | number, valueStringOrCodePoint: string | number, description?: string, name?: string): DefinedFlag;
 export function definedFlag(undefinedFlag: UndefinedFlag, description?: string, name?: string): DefinedFlag;
-export function definedFlag(prefixStringOrUndefinedFlag: string | number | UndefinedFlag, valueStringOrDescription?: string, nameOrDescription?: string, name?: string): DefinedFlag
+export function definedFlag(prefixStringOrUndefinedFlag: string | number | UndefinedFlag, valueStringOrCodePointOrDescription?: string | number, nameOrDescription?: string, name?: string): DefinedFlag
 {
-    if (typeof prefixStringOrUndefinedFlag === "string")
+    if (prefixStringOrUndefinedFlag instanceof UndefinedFlag)
     {
-        return new DefinedFlag(undefinedFlag(prefixStringOrUndefinedFlag, valueStringOrDescription ?? ""), nameOrDescription ?? "", name ?? "");
+        return new DefinedFlag(prefixStringOrUndefinedFlag, nullableStringOrNumberToString(valueStringOrCodePointOrDescription), nameOrDescription ?? "");
     }
 
-    if (typeof prefixStringOrUndefinedFlag === "number")
-    {
-        return new DefinedFlag(undefinedFlag(prefixStringOrUndefinedFlag, valueStringOrDescription ?? ""), nameOrDescription ?? "", name ?? "");
-    }
-
-    return new DefinedFlag(prefixStringOrUndefinedFlag, valueStringOrDescription ?? "", nameOrDescription ?? "");
+    return new DefinedFlag(
+        undefinedFlag(
+            nullableStringOrNumberToString(prefixStringOrUndefinedFlag),
+            nullableStringOrNumberToString(valueStringOrCodePointOrDescription)),
+            nameOrDescription ?? "",
+            name ?? "");
 }
+
+const nullableStringOrNumberToString = function(stringOrNumber?: string | number): string
+{
+    if (stringOrNumber === undefined || stringOrNumber === null) { return ""; }
+    return typeof stringOrNumber === "string" ? stringOrNumber : String.fromCodePoint(stringOrNumber);
+};
