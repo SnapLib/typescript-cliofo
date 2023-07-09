@@ -42,16 +42,16 @@ export const flagArgumentConstraint: ArgumentConstraint = argumentConstraint(fla
 export class UndefinedFlag extends ConstrainedArgumentString
 {
     public constructor( argumentString: ArgumentString );
-    public constructor( other: UndefinedFlag );
-    constructor( argumentStringOrOther: ArgumentString | UndefinedFlag )
+    public constructor( undefinedFlag: UndefinedFlag );
+    constructor( argumentStringOrUndefinedFlag: ArgumentString | UndefinedFlag )
     {
-        if (argumentStringOrOther instanceof ArgumentString)
+        if (argumentStringOrUndefinedFlag instanceof ArgumentString)
         {
-            super(flagArgumentConstraint, argumentStringOrOther);
+            super(flagArgumentConstraint, argumentStringOrUndefinedFlag);
         }
         else
         {
-            super(argumentStringOrOther);
+            super(argumentStringOrUndefinedFlag);
         }
     }
 }
@@ -59,7 +59,8 @@ export class UndefinedFlag extends ConstrainedArgumentString
 export function undefinedFlag(prefixString: string, valueString: string): UndefinedFlag;
 export function undefinedFlag(prefixCodePoint: number, valueString: string): UndefinedFlag;
 export function undefinedFlag(argumentString: ArgumentString): UndefinedFlag;
-export function undefinedFlag(stringNumberOrArgumentString: string | number | ArgumentString, valueString?: string): UndefinedFlag
+export function undefinedFlag(undefinedFlag: UndefinedFlag): UndefinedFlag;
+export function undefinedFlag(stringNumberOrArgumentString: string | number | ArgumentString | UndefinedFlag , valueString?: string): UndefinedFlag
 {
     if (typeof stringNumberOrArgumentString === "string")
     {
@@ -74,6 +75,11 @@ export function undefinedFlag(stringNumberOrArgumentString: string | number | Ar
         }
 
         return new UndefinedFlag(argumentString(String.fromCodePoint(stringNumberOrArgumentString), valueString));
+    }
+
+    if (stringNumberOrArgumentString instanceof ArgumentString)
+    {
+        return new UndefinedFlag(stringNumberOrArgumentString);
     }
 
     return new UndefinedFlag(stringNumberOrArgumentString);
