@@ -43,9 +43,9 @@ export const flagArgumentConstraint: ArgumentConstraint = argumentConstraint(fla
 
 export class UndefinedFlag extends ConstrainedArgumentString
 {
-    public constructor(argumentString: ArgumentString );
-    public constructor(other: UndefinedFlag );
-    constructor(argumentStringOrOther: ArgumentString | UndefinedFlag )
+    public constructor( argumentString: ArgumentString );
+    public constructor( other: UndefinedFlag );
+    constructor( argumentStringOrOther: ArgumentString | UndefinedFlag )
     {
         if (argumentStringOrOther instanceof ArgumentString)
         {
