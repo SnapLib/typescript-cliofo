@@ -1,5 +1,5 @@
-import { ArgumentConstraint } from "./argument-constraint.js";
-import { ArgumentString } from "./argument-string.js";
+import { type ArgumentConstraint, argumentConstraint } from "./argument-constraint.js";
+import { type ArgumentString, argumentString as argString } from "./argument-string.js";
 
 export abstract class ConstrainedArgumentString
 {
@@ -33,9 +33,9 @@ export abstract class ConstrainedArgumentString
                 throw new Error(`${ConstrainedArgumentString.name}: value string violates constraint: "${argumentString.prefixString}"`);
             }
 
-            this.#argConstraint = Object.isFrozen(argumentConstraintOrOther) ? argumentConstraintOrOther : Object.freeze(new ArgumentConstraint(argumentConstraintOrOther));
-            this.#argString = Object.isFrozen(argumentString) ? argumentString : Object.freeze(new ArgumentString(argumentString));
-    }
+            this.#argConstraint = Object.isFrozen(argumentConstraintOrOther) ? argumentConstraintOrOther : Object.freeze(argumentConstraint(argumentConstraintOrOther));
+            this.#argString = Object.isFrozen(argumentString) ? argumentString : Object.freeze(argString(argumentString));
+        }
     }
 
     public get argConstraint(): Readonly<ArgumentConstraint> { return this.#argConstraint; }
