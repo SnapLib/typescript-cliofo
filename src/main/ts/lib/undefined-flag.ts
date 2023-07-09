@@ -15,7 +15,7 @@ import { PrefixConstraintViolationError } from "./error/prefix-constraint-violat
  *         only a single character.
  */
 export const flagPrefixPredicate: stringPredicate =
-    Object.freeze((flagPrefixString: string): boolean =>
+    Object.freeze( (flagPrefixString: string): boolean =>
         flagPrefixString !== undefined
         && flagPrefixString !== null
         && flagPrefixString.length === 1 );
