@@ -2,6 +2,7 @@ import { type stringPredicate, type biStringPredicate, type ArgumentConstraint, 
 import { ArgumentString, argumentString } from "./argument-string.js";
 import { ConstrainedArgumentString } from "./constrained-argument-string.js";
 import { PrefixConstraintViolationError } from "./error/prefix-constraint-violation-error.js";
+import { operandValuePredicate } from "./undefined-operand.js";
 
 /**
  * Predicate that consumes a `string` and returns `true` if it's not `undefined`
@@ -22,22 +23,19 @@ export const flagPrefixPredicate: stringPredicate =
 
 /**
  * Predicate that consumes 2 `string`s and returns `true` if the second `string`
- * is empty or doesn't start with the first `string` argument.
+ * argument is empty or doesn't start with the first `string` argument.
  *
  * This is used to validate the values (the part that comes after the prefix)
  * for flags.
  *
- * @param flagPrefixString The flag prefix `string` used to validate the flag value.
+ * @param flagPrefixString The prefix `string` used to validate the flag value.
  *
  * @param flagValueString The flag value `string` being validated.
  *
  * @returns `true` if the passed flag `string` value is empty or doesn't start
  *          with the flag prefix `string`.
  */
-export const flagValuePredicate: biStringPredicate =
-    Object.freeze( (flagPrefixString: string, flagValueString: string) =>
-        flagValueString.length === 0 || flagValueString.slice(0, flagPrefixString.length) !== flagPrefixString
-    );
+export const flagValuePredicate: biStringPredicate = operandValuePredicate;
 
 export const flagArgumentConstraint: ArgumentConstraint = argumentConstraint(flagPrefixPredicate, flagValuePredicate);
 
