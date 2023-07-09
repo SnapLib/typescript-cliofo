@@ -31,11 +31,17 @@ export class UndefinedOption extends ConstrainedArgumentString
 
 export function undefinedOption(prefixString: string, valueString: string): UndefinedOption;
 export function undefinedOption(argumentString: ArgumentString): UndefinedOption;
-export function undefinedOption(stringNumberOrArgumentString: string | ArgumentString, valueString?: string): UndefinedOption
+export function undefinedOption(undefinedOption: UndefinedOption): UndefinedOption;
+export function undefinedOption(stringNumberOrArgumentString: string | ArgumentString | UndefinedOption, valueString?: string): UndefinedOption
 {
     if (typeof stringNumberOrArgumentString === "string")
     {
         return new UndefinedOption(argumentString(stringNumberOrArgumentString, valueString));
+    }
+
+    if (stringNumberOrArgumentString instanceof UndefinedOption)
+    {
+        return new UndefinedOption(stringNumberOrArgumentString);
     }
 
     return new UndefinedOption(stringNumberOrArgumentString);
