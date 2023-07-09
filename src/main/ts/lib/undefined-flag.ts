@@ -15,12 +15,10 @@ import { PrefixConstraintViolationError } from "./error/prefix-constraint-violat
  *         only a single character.
  */
 export const flagPrefixPredicate: stringPredicate =
-    Object.freeze(function(flagPrefixString: string): boolean
-    {
-        return    flagPrefixString !== undefined
-               && flagPrefixString !== null
-            && flagPrefixString.length === 1;
-    });
+    Object.freeze((flagPrefixString: string): boolean =>
+        flagPrefixString !== undefined
+        && flagPrefixString !== null
+        && flagPrefixString.length === 1 );
 
 /**
  * Predicate that consumes 2 `string`s and returns `true` if the second `string`
@@ -37,11 +35,9 @@ export const flagPrefixPredicate: stringPredicate =
  *          with the flag prefix `string`.
  */
 export const flagValuePredicate: biStringPredicate =
-    Object.freeze( function(flagPrefixString: string, flagValueString: string)
-    {
-        // allow empty strings and strings that don't contain leading prefix string
-        return flagValueString.length === 0 || flagValueString.slice(0, flagPrefixString.length) !== flagPrefixString;
-    } );
+    Object.freeze( (flagPrefixString: string, flagValueString: string) =>
+        flagValueString.length === 0 || flagValueString.slice(0, flagPrefixString.length) !== flagPrefixString
+    );
 
 export const flagArgumentConstraint: ArgumentConstraint = argumentConstraint(flagPrefixPredicate, flagValuePredicate);
 
