@@ -6,7 +6,7 @@ export const optionPrefixPredicate: stringPredicate =
     Object.freeze( (optionPrefixString: string) =>
         optionPrefixString !== undefined
         && optionPrefixString !== null
-        && optionPrefixString.length >= 2 );
+        && optionPrefixString.length > 1 );
 
 export const optionValuePredicate: biStringPredicate = Object.freeze(() => true);
 
@@ -14,9 +14,9 @@ export const optionArgumentConstraint: ArgumentConstraint = argumentConstraint(o
 
 export class UndefinedOption extends ConstrainedArgumentString
 {
-    public constructor(argumentString: ArgumentString );
-    public constructor(other: UndefinedOption );
-    constructor(argumentStringOrOther: ArgumentString | UndefinedOption )
+    public constructor( argumentString: ArgumentString );
+    public constructor( other: UndefinedOption );
+    constructor( argumentStringOrOther: ArgumentString | UndefinedOption )
     {
         if (argumentStringOrOther instanceof ArgumentString)
         {
