@@ -32,19 +32,19 @@ export class UndefinedOption extends ConstrainedArgumentString
 export function undefinedOption(prefixString: string, valueString: string): UndefinedOption;
 export function undefinedOption(argumentString: ArgumentString): UndefinedOption;
 export function undefinedOption(undefinedOption: UndefinedOption): UndefinedOption;
-export function undefinedOption(stringNumberOrArgumentString: string | ArgumentString | UndefinedOption, valueString?: string): UndefinedOption
+export function undefinedOption(stringNumberArgumentStringOrUndefinedOption: string | ArgumentString | UndefinedOption, valueString?: string): UndefinedOption
 {
-    if (typeof stringNumberOrArgumentString === "string")
+    if (typeof stringNumberArgumentStringOrUndefinedOption === "string")
     {
-        return new UndefinedOption(argumentString(stringNumberOrArgumentString, valueString));
+        return new UndefinedOption(argumentString(stringNumberArgumentStringOrUndefinedOption, valueString));
     }
 
-    if (stringNumberOrArgumentString instanceof UndefinedOption)
+    if (stringNumberArgumentStringOrUndefinedOption instanceof ArgumentString)
     {
-        return new UndefinedOption(stringNumberOrArgumentString);
+        return new UndefinedOption(stringNumberArgumentStringOrUndefinedOption);
     }
 
-    return new UndefinedOption(stringNumberOrArgumentString);
+    return new UndefinedOption(stringNumberArgumentStringOrUndefinedOption);
 }
 
 export {undefinedOption as default};
