@@ -25,9 +25,9 @@ export class DefinedOption extends UndefinedOption implements DefinedArgument
     }
 }
 
-export function definedFlag(prefixString: string, valueString: string, description?: string, name?: string): DefinedOption;
-export function definedFlag(undefinedOption: UndefinedOption, description?: string, name?: string): DefinedOption;
-export function definedFlag(prefixStringOrUndefinedOption: string | UndefinedOption, valueStringOrDescription?: string, nameOrDescription?: string, name?: string): DefinedOption
+export function definedOption(prefixString: string, valueString: string, description?: string, name?: string): DefinedOption;
+export function definedOption(undefinedOption: UndefinedOption, description?: string, name?: string): DefinedOption;
+export function definedOption(prefixStringOrUndefinedOption: string | UndefinedOption, valueStringOrDescription?: string, nameOrDescription?: string, name?: string): DefinedOption
 {
     if (typeof prefixStringOrUndefinedOption === "string")
     {
@@ -40,3 +40,5 @@ export function definedFlag(prefixStringOrUndefinedOption: string | UndefinedOpt
 
     return new DefinedOption( prefixStringOrUndefinedOption, valueStringOrDescription ?? "", nameOrDescription ?? "");
 }
+
+export {definedOption as default};
