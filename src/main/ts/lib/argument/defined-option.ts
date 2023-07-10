@@ -13,8 +13,8 @@ export class DefinedOption extends UndefinedOption implements DefinedArgument
         this.#name = name;
     }
 
-    public get description() { return this.#description; }
-    public get name() { return this.#name; }
+    public get description(): string { return this.#description; }
+    public get name(): string { return this.#name; }
 
     public equals(obj: unknown): boolean
     {
