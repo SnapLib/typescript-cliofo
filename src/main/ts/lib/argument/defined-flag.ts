@@ -47,3 +47,5 @@ const nullableStringOrNumberToString = function(stringOrNumber?: string | number
     if (stringOrNumber === undefined || stringOrNumber === null) { return ""; }
     return typeof stringOrNumber === "string" ? stringOrNumber : String.fromCodePoint(stringOrNumber);
 };
+
+export {definedFlag as default};
