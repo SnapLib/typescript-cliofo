@@ -1,4 +1,4 @@
-import {inspect, InspectOptions} from "util";
+import {inspect, type InspectOptions} from "util";
 
 const EMPTY_STRING: string = "";
 
