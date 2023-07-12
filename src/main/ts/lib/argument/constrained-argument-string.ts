@@ -23,14 +23,14 @@ export abstract class ConstrainedArgumentString
                 throw new TypeError(`${ConstrainedArgumentString.name}: undefined or null argument string`);
             }
 
-            if ( ! argumentConstraintOrOther.isValidPrefix(argumentString.prefixString))
+            if ( ! argumentConstraintOrOther.isValidPrefix(argumentString.prefix))
             {
-                throw new Error(`${ConstrainedArgumentString.name}: prefix string violates constraint: "${argumentString.prefixString}"`);
+                throw new Error(`${ConstrainedArgumentString.name}: prefix string violates constraint: "${argumentString.prefix}"`);
             }
 
-            if ( ! argumentConstraintOrOther.isValidValue(argumentString.prefixString, argumentString.valueString))
+            if ( ! argumentConstraintOrOther.isValidValue(argumentString.prefix, argumentString.value))
             {
-                throw new Error(`${ConstrainedArgumentString.name}: value string violates constraint: "${argumentString.prefixString}"`);
+                throw new Error(`${ConstrainedArgumentString.name}: value string violates constraint: "${argumentString.prefix}"`);
             }
 
             this.#argConstraint = Object.isFrozen(argumentConstraintOrOther) ? argumentConstraintOrOther : Object.freeze(argumentConstraint(argumentConstraintOrOther));

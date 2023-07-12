@@ -4,8 +4,8 @@ const stringToString = (aString: string) => aString.length != 1 ? `"${aString}"`
 
 export class ArgumentString
 {
-    readonly #prefixString: string;
-    readonly #valueString: string;
+    readonly #prefix: string;
+    readonly #value: string;
     readonly #prefixedValueString: string;
     readonly #string: string;
 
@@ -16,16 +16,16 @@ export class ArgumentString
     {
         if (prefixOrOther instanceof ArgumentString)
         {
-            this.#prefixString = prefixOrOther.#prefixString;
-            this.#valueString = prefixOrOther.#valueString;
+            this.#prefix = prefixOrOther.#prefix;
+            this.#value = prefixOrOther.#value;
             this.#prefixedValueString = prefixOrOther.#prefixedValueString;
         }
         else
         {
             if (valueString)
             {
-                this.#prefixString = prefixOrOther;
-                this.#valueString = valueString;
+                this.#prefix = prefixOrOther;
+                this.#value = valueString;
                 this.#prefixedValueString = prefixOrOther + valueString;
             }
             else
@@ -34,19 +34,19 @@ export class ArgumentString
             }
         }
 
-        this.#string = `${ArgumentString.name} {prefix: ${stringToString(this.#prefixString)}, value: ${stringToString(this.#valueString)}}`;
+        this.#string = `${ArgumentString.name} {prefix: ${stringToString(this.#prefix)}, value: ${stringToString(this.#value)}}`;
     }
 
-    public get prefixString() { return this.#prefixString; }
-    public get valueString() { return this.#valueString; }
+    public get prefix() { return this.#prefix; }
+    public get value() { return this.#value; }
     public get stringValue() { return this.#prefixedValueString; }
 
 
     public equals(obj: unknown): boolean
     {
         return obj instanceof ArgumentString
-            && this.#prefixString === obj.#prefixString
-            && this.#valueString === obj.#valueString;
+            && this.#prefix === obj.#prefix
+            && this.#value === obj.#value;
     }
 
     public toString(): string { return this.#string; }
