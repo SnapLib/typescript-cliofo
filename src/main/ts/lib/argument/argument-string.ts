@@ -1,3 +1,5 @@
+import {inspect, InspectOptions} from "util";
+
 const EMPTY_STRING: string = "";
 
 const stringToString = (aString: string) => aString.length != 1 ? `"${aString}"` : `'${aString}'`;
@@ -57,6 +59,11 @@ export class ArgumentString
     }
 
     public toString(): string { return this.#string; }
+
+    public [inspect.custom](depth: number, options: InspectOptions)
+    {
+        return this.#string;
+    }
 }
 
 export function argumentString(prefixString?: string, value?: string ) : ArgumentString;
