@@ -10,9 +10,9 @@ export class ArgumentString
     readonly #jsonObj: Readonly<{prefix: string, value: string, prefixedValue: string}>;
     readonly #string: string;
 
-    public constructor( other: NonNullable<ArgumentString> );
     public constructor( prefixString: NonNullable<string>,
                         valueString: NonNullable<string> );
+    public constructor( argumentString: NonNullable<ArgumentString> );
     constructor(prefixOrOther: NonNullable<string | ArgumentString>, valueString?: string)
     {
         if (prefixOrOther instanceof ArgumentString)
