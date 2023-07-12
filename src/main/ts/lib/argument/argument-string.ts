@@ -6,7 +6,7 @@ export class ArgumentString
 {
     readonly #prefix: string;
     readonly #value: string;
-    readonly #prefixedValueString: string;
+    readonly #prefixedValue: string;
     readonly #string: string;
 
     public constructor( other: NonNullable<ArgumentString> );
@@ -18,7 +18,7 @@ export class ArgumentString
         {
             this.#prefix = prefixOrOther.#prefix;
             this.#value = prefixOrOther.#value;
-            this.#prefixedValueString = prefixOrOther.#prefixedValueString;
+            this.#prefixedValue = prefixOrOther.#prefixedValue;
         }
         else
         {
@@ -26,7 +26,7 @@ export class ArgumentString
             {
                 this.#prefix = prefixOrOther;
                 this.#value = valueString;
-                this.#prefixedValueString = prefixOrOther + valueString;
+                this.#prefixedValue = prefixOrOther + valueString;
             }
             else
             {
@@ -39,7 +39,7 @@ export class ArgumentString
 
     public get prefix() { return this.#prefix; }
     public get value() { return this.#value; }
-    public get stringValue() { return this.#prefixedValueString; }
+    public get prefixedValue() { return this.#prefixedValue; }
 
 
     public equals(obj: unknown): boolean
