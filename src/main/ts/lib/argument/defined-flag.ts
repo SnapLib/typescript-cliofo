@@ -1,12 +1,12 @@
 import { type DefinedArgument } from "./defined-argument.js";
-import { UndefinedFlag, undefinedFlag } from "./undefined-flag.js";
+import { FlagString, flagString } from "./flag-string.js";
 
-export class DefinedFlag extends UndefinedFlag implements DefinedArgument
+export class DefinedFlag extends FlagString implements DefinedArgument
 {
     readonly #description: string;
     readonly #name: string;
 
-    public constructor(undefinedFlag: UndefinedFlag, description: NonNullable<string>, name: NonNullable<string>)
+    public constructor(undefinedFlag: FlagString, description: NonNullable<string>, name: NonNullable<string>)
     {
         super(undefinedFlag);
         this.#description = description;
@@ -26,16 +26,16 @@ export class DefinedFlag extends UndefinedFlag implements DefinedArgument
 }
 
 export function definedFlag(prefixStringOrCodePoint: string | number, valueStringOrCodePoint: string | number, description?: string, name?: string): DefinedFlag;
-export function definedFlag(undefinedFlag: UndefinedFlag, description?: string, name?: string): DefinedFlag;
-export function definedFlag(prefixStringOrUndefinedFlag: string | number | UndefinedFlag, valueStringOrCodePointOrDescription?: string | number, nameOrDescription?: string, name?: string): DefinedFlag
+export function definedFlag(undefinedFlag: FlagString, description?: string, name?: string): DefinedFlag;
+export function definedFlag(prefixStringOrUndefinedFlag: string | number | FlagString, valueStringOrCodePointOrDescription?: string | number, nameOrDescription?: string, name?: string): DefinedFlag
 {
-    if (prefixStringOrUndefinedFlag instanceof UndefinedFlag)
+    if (prefixStringOrUndefinedFlag instanceof FlagString)
     {
         return new DefinedFlag(prefixStringOrUndefinedFlag, nullableStringOrNumberToString(valueStringOrCodePointOrDescription), nameOrDescription ?? "");
     }
 
     return new DefinedFlag(
-        undefinedFlag(
+        flagString(
             nullableStringOrNumberToString(prefixStringOrUndefinedFlag),
             nullableStringOrNumberToString(valueStringOrCodePointOrDescription)),
             nameOrDescription ?? "",

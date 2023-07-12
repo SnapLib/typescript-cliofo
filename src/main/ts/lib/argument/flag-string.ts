@@ -2,7 +2,7 @@ import { type stringPredicate, type biStringPredicate, type ArgumentConstraint, 
 import { ArgumentString, argumentString } from "./argument-string.js";
 import { ConstrainedArgumentString } from "./constrained-argument-string.js";
 import { PrefixConstraintViolationError } from "./error/prefix-constraint-violation-error.js";
-import { operandValuePredicate } from "./undefined-operand.js";
+import { operandValuePredicate } from "./operand-string.js";
 
 /**
  * Predicate that consumes a `string` and returns `true` if it's not `undefined`
@@ -39,11 +39,11 @@ export const flagValuePredicate: biStringPredicate = operandValuePredicate;
 
 export const flagArgumentConstraint: ArgumentConstraint = argumentConstraint(flagPrefixPredicate, flagValuePredicate);
 
-export class UndefinedFlag extends ConstrainedArgumentString
+export class FlagString extends ConstrainedArgumentString
 {
     public constructor( argumentString: ArgumentString );
-    public constructor( undefinedFlag: UndefinedFlag );
-    constructor( argumentStringOrUndefinedFlag: ArgumentString | UndefinedFlag )
+    public constructor( undefinedFlag: FlagString );
+    constructor( argumentStringOrUndefinedFlag: ArgumentString | FlagString )
     {
         if (argumentStringOrUndefinedFlag instanceof ArgumentString)
         {
@@ -56,15 +56,15 @@ export class UndefinedFlag extends ConstrainedArgumentString
     }
 }
 
-export function undefinedFlag(prefixString: string, valueString: string): UndefinedFlag;
-export function undefinedFlag(prefixCodePoint: number, valueString: string): UndefinedFlag;
-export function undefinedFlag(argumentString: ArgumentString): UndefinedFlag;
-export function undefinedFlag(undefinedFlag: UndefinedFlag): UndefinedFlag;
-export function undefinedFlag(stringNumberOrArgumentString: string | number | ArgumentString | UndefinedFlag , valueString?: string): UndefinedFlag
+export function flagString(prefixString: string, valueString: string): FlagString;
+export function flagString(prefixCodePoint: number, valueString: string): FlagString;
+export function flagString(argumentString: ArgumentString): FlagString;
+export function flagString(undefinedFlag: FlagString): FlagString;
+export function flagString(stringNumberOrArgumentString: string | number | ArgumentString | FlagString , valueString?: string): FlagString
 {
     if (typeof stringNumberOrArgumentString === "string")
     {
-        return new UndefinedFlag(argumentString(stringNumberOrArgumentString, valueString));
+        return new FlagString(argumentString(stringNumberOrArgumentString, valueString));
     }
 
     if (typeof stringNumberOrArgumentString === "number")
@@ -74,15 +74,15 @@ export function undefinedFlag(stringNumberOrArgumentString: string | number | Ar
             throw new PrefixConstraintViolationError(`passed number value is not an integer: ${stringNumberOrArgumentString}`);
         }
 
-        return new UndefinedFlag(argumentString(String.fromCodePoint(stringNumberOrArgumentString), valueString));
+        return new FlagString(argumentString(String.fromCodePoint(stringNumberOrArgumentString), valueString));
     }
 
     if (stringNumberOrArgumentString instanceof ArgumentString)
     {
-        return new UndefinedFlag(stringNumberOrArgumentString);
+        return new FlagString(stringNumberOrArgumentString);
     }
 
-    return new UndefinedFlag(stringNumberOrArgumentString);
+    return new FlagString(stringNumberOrArgumentString);
 }
 
-export {undefinedFlag as default};
+export {flagString as default};

@@ -30,11 +30,11 @@ export const operandValuePredicate: biStringPredicate =
 
 export const optionArgumentConstraint: ArgumentConstraint = argumentConstraint(operandPrefixPredicate, operandValuePredicate);
 
-export class UndefinedOperand extends ConstrainedArgumentString
+export class OperandString extends ConstrainedArgumentString
 {
     public constructor( argumentString: ArgumentString );
-    public constructor( undefinedOperand: UndefinedOperand );
-    constructor( argumentStringOrUndefinedOperand: ArgumentString | UndefinedOperand )
+    public constructor( undefinedOperand: OperandString );
+    constructor( argumentStringOrUndefinedOperand: ArgumentString | OperandString )
     {
         if (argumentStringOrUndefinedOperand instanceof ArgumentString)
         {
@@ -47,15 +47,15 @@ export class UndefinedOperand extends ConstrainedArgumentString
     }
 }
 
-export function undefinedOperand(prefixString: string, valueString: string): UndefinedOperand;
-export function undefinedOperand(prefixCodePoint: number, valueString: string): UndefinedOperand;
-export function undefinedOperand(argumentString: ArgumentString): UndefinedOperand;
-export function undefinedOperand(undefinedOperand: UndefinedOperand): UndefinedOperand;
-export function undefinedOperand(stringNumberArgumentStringOrUndefinedOperand: string | number | ArgumentString | UndefinedOperand, valueString?: string): UndefinedOperand
+export function operandString(prefixString: string, valueString: string): OperandString;
+export function operandString(prefixCodePoint: number, valueString: string): OperandString;
+export function operandString(argumentString: ArgumentString): OperandString;
+export function operandString(undefinedOperand: OperandString): OperandString;
+export function operandString(stringNumberArgumentStringOrUndefinedOperand: string | number | ArgumentString | OperandString, valueString?: string): OperandString
 {
     if (typeof stringNumberArgumentStringOrUndefinedOperand === "string")
     {
-        return new UndefinedOperand(argumentString(stringNumberArgumentStringOrUndefinedOperand, valueString));
+        return new OperandString(argumentString(stringNumberArgumentStringOrUndefinedOperand, valueString));
     }
 
     if (typeof stringNumberArgumentStringOrUndefinedOperand === "number")
@@ -65,15 +65,15 @@ export function undefinedOperand(stringNumberArgumentStringOrUndefinedOperand: s
             throw new PrefixConstraintViolationError(`passed number value is not an integer: ${stringNumberArgumentStringOrUndefinedOperand}`);
         }
 
-        return new UndefinedOperand(argumentString(String.fromCodePoint(stringNumberArgumentStringOrUndefinedOperand), valueString));
+        return new OperandString(argumentString(String.fromCodePoint(stringNumberArgumentStringOrUndefinedOperand), valueString));
     }
 
     if (stringNumberArgumentStringOrUndefinedOperand instanceof ArgumentString)
     {
-        return new UndefinedOperand(stringNumberArgumentStringOrUndefinedOperand);
+        return new OperandString(stringNumberArgumentStringOrUndefinedOperand);
     }
 
-    return new UndefinedOperand(stringNumberArgumentStringOrUndefinedOperand);
+    return new OperandString(stringNumberArgumentStringOrUndefinedOperand);
 }
 
-export {undefinedOperand as default};
+export {operandString as default};

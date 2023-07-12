@@ -1,12 +1,12 @@
 import { type DefinedArgument } from "./defined-argument.js";
-import { UndefinedOperand, undefinedOperand } from "./undefined-operand.js";
+import { OperandString, operandString } from "./operand-string.js";
 
-export class DefinedOperand extends UndefinedOperand implements DefinedArgument
+export class DefinedOperand extends OperandString implements DefinedArgument
 {
     readonly #description: string;
     readonly #name: string;
 
-    public constructor(undefinedOperand: UndefinedOperand, description: NonNullable<string>, name: NonNullable<string>)
+    public constructor(undefinedOperand: OperandString, description: NonNullable<string>, name: NonNullable<string>)
     {
         super(undefinedOperand);
         this.#description = description;
@@ -26,16 +26,16 @@ export class DefinedOperand extends UndefinedOperand implements DefinedArgument
 }
 
 export function definedOperand(prefixStringOrCodePoint: string | number, valueStringOrCodePoint: string | number, description?: string, name?: string): DefinedOperand;
-export function definedOperand(undefinedOperand: UndefinedOperand, description?: string, name?: string): DefinedOperand;
-export function definedOperand(prefixStringOrUndefinedOperand: string | number | UndefinedOperand, valueStringOrCodePointOrDescription?: string | number, nameOrDescription?: string, name?: string): DefinedOperand
+export function definedOperand(undefinedOperand: OperandString, description?: string, name?: string): DefinedOperand;
+export function definedOperand(prefixStringOrUndefinedOperand: string | number | OperandString, valueStringOrCodePointOrDescription?: string | number, nameOrDescription?: string, name?: string): DefinedOperand
 {
-    if (prefixStringOrUndefinedOperand instanceof UndefinedOperand)
+    if (prefixStringOrUndefinedOperand instanceof OperandString)
     {
         return new DefinedOperand(prefixStringOrUndefinedOperand, nullableStringOrNumberToString(valueStringOrCodePointOrDescription), nameOrDescription ?? "");
     }
 
     return new DefinedOperand(
-        undefinedOperand(
+        operandString(
             nullableStringOrNumberToString(prefixStringOrUndefinedOperand),
             nullableStringOrNumberToString(valueStringOrCodePointOrDescription)),
             nameOrDescription ?? "",

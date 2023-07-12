@@ -12,11 +12,11 @@ export const optionValuePredicate: biStringPredicate = Object.freeze(() => true)
 
 export const optionArgumentConstraint: ArgumentConstraint = argumentConstraint(optionPrefixPredicate, optionValuePredicate);
 
-export class UndefinedOption extends ConstrainedArgumentString
+export class OptionString extends ConstrainedArgumentString
 {
     public constructor( argumentString: ArgumentString );
-    public constructor( other: UndefinedOption );
-    constructor( argumentStringOrOther: ArgumentString | UndefinedOption )
+    public constructor( other: OptionString );
+    constructor( argumentStringOrOther: ArgumentString | OptionString )
     {
         if (argumentStringOrOther instanceof ArgumentString)
         {
@@ -29,22 +29,22 @@ export class UndefinedOption extends ConstrainedArgumentString
     }
 }
 
-export function undefinedOption(prefixString: string, valueString: string): UndefinedOption;
-export function undefinedOption(argumentString: ArgumentString): UndefinedOption;
-export function undefinedOption(undefinedOption: UndefinedOption): UndefinedOption;
-export function undefinedOption(stringNumberArgumentStringOrUndefinedOption: string | ArgumentString | UndefinedOption, valueString?: string): UndefinedOption
+export function optionString(prefixString: string, valueString: string): OptionString;
+export function optionString(argumentString: ArgumentString): OptionString;
+export function optionString(undefinedOption: OptionString): OptionString;
+export function optionString(stringNumberArgumentStringOrUndefinedOption: string | ArgumentString | OptionString, valueString?: string): OptionString
 {
     if (typeof stringNumberArgumentStringOrUndefinedOption === "string")
     {
-        return new UndefinedOption(argumentString(stringNumberArgumentStringOrUndefinedOption, valueString));
+        return new OptionString(argumentString(stringNumberArgumentStringOrUndefinedOption, valueString));
     }
 
     if (stringNumberArgumentStringOrUndefinedOption instanceof ArgumentString)
     {
-        return new UndefinedOption(stringNumberArgumentStringOrUndefinedOption);
+        return new OptionString(stringNumberArgumentStringOrUndefinedOption);
     }
 
-    return new UndefinedOption(stringNumberArgumentStringOrUndefinedOption);
+    return new OptionString(stringNumberArgumentStringOrUndefinedOption);
 }
 
-export {undefinedOption as default};
+export {optionString as default};

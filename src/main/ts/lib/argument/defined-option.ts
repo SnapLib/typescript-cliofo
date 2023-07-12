@@ -1,12 +1,12 @@
 import { type DefinedArgument } from "./defined-argument.js";
-import { UndefinedOption, undefinedOption } from "./undefined-option.js";
+import { OptionString, optionString } from "./option-string.js";
 
-export class DefinedOption extends UndefinedOption implements DefinedArgument
+export class DefinedOption extends OptionString implements DefinedArgument
 {
     readonly #description: string;
     readonly #name: string;
 
-    public constructor(undefinedOption: UndefinedOption, description: NonNullable<string>, name: NonNullable<string>)
+    public constructor(undefinedOption: OptionString, description: NonNullable<string>, name: NonNullable<string>)
     {
         super(undefinedOption);
         this.#description = description;
@@ -26,13 +26,13 @@ export class DefinedOption extends UndefinedOption implements DefinedArgument
 }
 
 export function definedOption(prefixString: string, valueString: string, description?: string, name?: string): DefinedOption;
-export function definedOption(undefinedOption: UndefinedOption, description?: string, name?: string): DefinedOption;
-export function definedOption(prefixStringOrUndefinedOption: string | UndefinedOption, valueStringOrDescription?: string, nameOrDescription?: string, name?: string): DefinedOption
+export function definedOption(undefinedOption: OptionString, description?: string, name?: string): DefinedOption;
+export function definedOption(prefixStringOrUndefinedOption: string | OptionString, valueStringOrDescription?: string, nameOrDescription?: string, name?: string): DefinedOption
 {
     if (typeof prefixStringOrUndefinedOption === "string")
     {
         return new DefinedOption(
-            undefinedOption( prefixStringOrUndefinedOption,
+            optionString( prefixStringOrUndefinedOption,
                              valueStringOrDescription ?? ""),
                              nameOrDescription ?? "",
                              name ?? "" );
