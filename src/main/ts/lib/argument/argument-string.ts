@@ -7,6 +7,7 @@ export class ArgumentString
     readonly #prefix: string;
     readonly #value: string;
     readonly #prefixedValue: string;
+    readonly #jsonObj: Readonly<{prefix: string, value: string, prefixedValue: string}>;
     readonly #string: string;
 
     public constructor( other: NonNullable<ArgumentString> );
@@ -34,6 +35,11 @@ export class ArgumentString
             }
         }
 
+        this.#jsonObj = Object.freeze({
+            prefix: this.#prefix,
+            value: this.#value,
+            prefixedValue: this.#prefixedValue
+        });
         this.#string = `${ArgumentString.name} {prefix: ${stringToString(this.#prefix)}, value: ${stringToString(this.#value)}}`;
     }
 
@@ -41,6 +47,7 @@ export class ArgumentString
     public get value() { return this.#value; }
     public get prefixedValue() { return this.#prefixedValue; }
 
+    public asJsonObj(): Readonly<{prefix: string, value: string, prefixedValue: string}> { return this.#jsonObj; }
 
     public equals(obj: unknown): boolean
     {
