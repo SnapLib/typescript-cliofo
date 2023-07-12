@@ -47,7 +47,7 @@ export class ArgumentString
     public get value() { return this.#value; }
     public get prefixedValue() { return this.#prefixedValue; }
 
-    public asJsonObj(): Readonly<{prefix: string, value: string, prefixedValue: string}> { return this.#jsonObj; }
+    public toJsonString(replacer?: Parameters<typeof JSON.stringify>[1], space?: string): string { return JSON.stringify(this.#jsonObj, replacer, space); }
 
     public equals(obj: unknown): boolean
     {
