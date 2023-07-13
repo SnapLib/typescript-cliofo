@@ -1,5 +1,6 @@
+import { ArgumentString, argumentString } from "./argument/argument-string.js";
 import { type ConstrainedArgumentString } from "./argument/constrained-argument-string.js";
-import { FlagString, flagString } from "./argument/flag-string.js";
+import { flagString } from "./argument/flag-string.js";
 import { operandString } from "./argument/operand-string.js";
 import { optionString } from "./argument/option-string.js";
 
@@ -39,16 +40,18 @@ export class PrefixParser
             {
                 if (stringArg.startsWith(this.#prefixString))
                 {
-                    const optionArg = optionString(this.#prefixString, stringArg.substring(this.#prefixString.length));
-                    return Object.freeze(argIndexMap.set(optionArg, Object.freeze(argIndexMap.get(optionArg)?.concat(index) ?? [index])));
+                    const optionArgString = argumentString(this.#prefixString, stringArg.substring(this.#prefixString.length));
+                    const optionStr = Array.from(argIndexMap.keys()).find(optStr => optionArgString.equals(optStr.argString)) ?? optionString(optionArgString);
+                    return Object.freeze(argIndexMap.set(optionStr, Object.freeze(argIndexMap.get(optionStr)?.concat(index) ?? [index])));
                 }
                 else if (stringArg.startsWith(this.#prefixChar))
                 {
-                    const flagStrings: readonly FlagString[] = Object.freeze(Array.from(stringArg.substring(this.#prefixChar.length)).map(flagChar => flagString(this.#prefixChar, flagChar)));
+                    const flagArgStrings: readonly ArgumentString[] = Object.freeze(Array.from(stringArg.substring(this.#prefixChar.length)).map(flagChar => argumentString(this.#prefixChar, flagChar)));
 
-                    for (const aFlagString of flagStrings)
+                    for (const flagArgString of flagArgStrings)
                     {
-                        argIndexMap.set(aFlagString, Object.freeze(argIndexMap.get(aFlagString)?.concat(index) ?? [index]));
+                        const flagStr = Array.from(argIndexMap.keys()).find(flagStr => flagArgString.equals(flagStr.argString)) ?? flagString(flagArgString);
+                        argIndexMap.set(flagStr, Object.freeze(argIndexMap.get(flagStr)?.concat(index) ?? [index]));
                     }
 
                     return Object.freeze(argIndexMap);
@@ -56,8 +59,9 @@ export class PrefixParser
                 else
                 {
 
-                    const operandArg = operandString(this.#prefixChar, stringArg);
-                    return Object.freeze(argIndexMap.set(operandArg, Object.freeze(argIndexMap.get(operandArg)?.concat(index) ?? [index])));
+                    const operandArgString = argumentString(this.#prefixChar, stringArg);
+                    const operandStr = Array.from(argIndexMap.keys()).find(operStr => operandArgString.equals(operStr.argString)) ?? operandString(operandArgString);
+                    return Object.freeze(argIndexMap.set(operandStr, Object.freeze(argIndexMap.get(operandStr)?.concat(index) ?? [index])));
                 }
             },
             Object.freeze(new Map())
