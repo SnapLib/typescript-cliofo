@@ -1,5 +1,5 @@
 import { type ConstrainedArgumentString } from "./argument/constrained-argument-string.js";
-import { flagString } from "./argument/flag-string.js";
+import { FlagString, flagString } from "./argument/flag-string.js";
 import { operandString } from "./argument/operand-string.js";
 import { optionString } from "./argument/option-string.js";
 
@@ -40,18 +40,24 @@ export class PrefixParser
                 if (stringArg.startsWith(this.#prefixString))
                 {
                     const optionArg = optionString(this.#prefixString, stringArg.substring(this.#prefixString.length));
-                    return Object.freeze(new Map(argIndexMap.set(optionArg, Object.freeze(argIndexMap.get(optionArg)?.concat(index) ?? [index]))));
+                    return Object.freeze(argIndexMap.set(optionArg, Object.freeze(argIndexMap.get(optionArg)?.concat(index) ?? [index])));
                 }
                 else if (stringArg.startsWith(this.#prefixChar))
                 {
-                    const flagArg = flagString(this.#prefixChar, stringArg.substring(this.#prefixChar.length));
-                    return Object.freeze(new Map(argIndexMap.set(flagArg, Object.freeze(argIndexMap.get(flagArg)?.concat(index) ?? [index]))));
+                    const flagStrings: readonly FlagString[] = Object.freeze(Array.from(stringArg.substring(this.#prefixChar.length)).map(flagChar => flagString(this.#prefixChar, flagChar)));
+
+                    for (const aFlagString of flagStrings)
+                    {
+                        argIndexMap.set(aFlagString, Object.freeze(argIndexMap.get(aFlagString)?.concat(index) ?? [index]));
+                    }
+
+                    return Object.freeze(argIndexMap);
                 }
                 else
                 {
 
                     const operandArg = operandString(this.#prefixChar, stringArg);
-                    return Object.freeze(new Map(argIndexMap.set(operandArg, Object.freeze(argIndexMap.get(operandArg)?.concat(index) ?? [index]))));
+                    return Object.freeze(argIndexMap.set(operandArg, Object.freeze(argIndexMap.get(operandArg)?.concat(index) ?? [index])));
                 }
             },
             Object.freeze(new Map())
