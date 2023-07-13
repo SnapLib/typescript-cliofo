@@ -1,4 +1,4 @@
-import { inspect, type InspectOptions } from "util";
+import { inspect } from "util";
 
 const stringToString = (aString: string) => aString.length != 1 ? `"${aString}"` : `'${aString}'`;
 
