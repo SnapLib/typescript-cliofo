@@ -59,7 +59,7 @@ export class ArgumentString
 
     public toString(): string { return this.#string; }
 
-    public [inspect.custom](depth: number, options: InspectOptions)
+    public [inspect.custom]()
     {
         return this.#string;
     }
