@@ -1,6 +1,4 @@
-import {inspect, type InspectOptions} from "util";
-
-const EMPTY_STRING: string = "";
+import { inspect, type InspectOptions } from "util";
 
 const stringToString = (aString: string) => aString.length != 1 ? `"${aString}"` : `'${aString}'`;
 
@@ -33,7 +31,7 @@ export class ArgumentString
             }
             else
             {
-                throw new TypeError(`${ArgumentString.name} constructor undefined or null value string`);
+                throw new TypeError(`${this.constructor.name} constructor undefined or null value string`);
             }
         }
 
@@ -42,7 +40,8 @@ export class ArgumentString
             value: this.#value,
             prefixedValue: this.#prefixedValue
         });
-        this.#string = `${ArgumentString.name} {prefix: ${stringToString(this.#prefix)}, value: ${stringToString(this.#value)}}`;
+
+        this.#string = `${this.constructor.name} {prefix: ${stringToString(this.#prefix)}, value: ${stringToString(this.#value)}}`;
     }
 
     public get prefix() { return this.#prefix; }
@@ -76,7 +75,7 @@ export function argumentString(prefixStringOrOther?: string | ArgumentString, va
     }
     else
     {
-        return new ArgumentString(prefixStringOrOther ?? EMPTY_STRING, value ?? EMPTY_STRING);
+        return new ArgumentString(prefixStringOrOther ?? "", value ?? "");
     }
 }
 
