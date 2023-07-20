@@ -65,9 +65,9 @@ export class ArgumentConstraint
 
     public equals(obj: unknown): boolean
     {
-        return obj instanceof ArgumentConstraint
-            && this.#prefixConstraint === obj.#prefixConstraint
-            && this.#valueConstraint === obj.#valueConstraint;
+        return this === obj || obj instanceof ArgumentConstraint
+               && this.#prefixConstraint === obj.#prefixConstraint
+               && this.#valueConstraint === obj.#valueConstraint;
     }
 }
 
