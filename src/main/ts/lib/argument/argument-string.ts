@@ -52,9 +52,9 @@ export class ArgumentString
 
     public equals(obj: unknown): boolean
     {
-        return obj instanceof ArgumentString
-            && this.#prefix === obj.#prefix
-            && this.#value === obj.#value;
+        return this === obj || obj instanceof ArgumentString
+               && this.#prefix === obj.#prefix
+               && this.#value === obj.#value;
     }
 
     public toString(): string { return this.#string; }
