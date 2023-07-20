@@ -49,7 +49,7 @@ export abstract class ConstrainedArgumentString
 
     public equals(obj: unknown): boolean
     {
-        return obj instanceof ConstrainedArgumentString
+        return this === obj || obj instanceof ConstrainedArgumentString
                && this.#argConstraint.equals(obj.#argConstraint)
                && this.#argString.equals(obj.#argString);
     }
