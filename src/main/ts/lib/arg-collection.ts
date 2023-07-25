@@ -33,7 +33,7 @@ export class ArgCollection
                 []));
         }
 
-        const ofo: readonly [OperandString[], FlagString[], OptionString[]] =
+        const operandFlagOptionStrings: readonly [OperandString[], FlagString[], OptionString[]] =
             this.#arguments.reduce(
                 (argStrings, argString) =>
                 {
@@ -55,8 +55,8 @@ export class ArgCollection
                 Object.freeze([ [], [], [] ]) as readonly [OperandString[], FlagString[], OptionString[]]
             );
 
-        this.#operands = Object.freeze(ofo[0]);
-        this.#flags = Object.freeze(ofo[1]);
-        this.#options = Object.freeze(ofo[2]);
+        this.#operands = Object.freeze(operandFlagOptionStrings[0]);
+        this.#flags = Object.freeze(operandFlagOptionStrings[1]);
+        this.#options = Object.freeze(operandFlagOptionStrings[2]);
     }
 }
