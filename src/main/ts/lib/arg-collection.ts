@@ -74,8 +74,5 @@ export class ArgCollection implements IterableIterator<ConstrainedArgumentString
         }
     }
 
-    [Symbol.iterator](): IterableIterator<ConstrainedArgumentString>
-    {
-        return this;
-    }
+    [Symbol.iterator] = (): IterableIterator<ConstrainedArgumentString> => this;
 }
