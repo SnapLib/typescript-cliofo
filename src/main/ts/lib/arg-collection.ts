@@ -5,12 +5,13 @@ import { OptionString } from "./argument/option-string.js";
 
 const EMPTY_CONSTRAINED_ARGS_ARRAY: readonly ConstrainedArgumentString[] = Object.freeze([]);
 
-export class ArgCollection
+export class ArgCollection implements IterableIterator<ConstrainedArgumentString>
 {
     readonly #arguments: readonly ConstrainedArgumentString[];
     readonly #operands: readonly OperandString[];
     readonly #flags: readonly FlagString[];
     readonly #options: readonly OperandString[];
+    #pointer: number = 0;
 
     public constructor(constrainedArguments: readonly ConstrainedArgumentString[])
     {
@@ -58,5 +59,23 @@ export class ArgCollection
         this.#operands = Object.freeze(operandFlagOptionStrings[0]);
         this.#flags = Object.freeze(operandFlagOptionStrings[1]);
         this.#options = Object.freeze(operandFlagOptionStrings[2]);
+    }
+
+    public next(): IteratorResult<ConstrainedArgumentString>
+    {
+        if (this.#pointer < this.#arguments.length)
+        {
+            return { done: false, value: this.#arguments[this.#pointer++] };
+        }
+        else
+        {
+            this.#pointer = 0;
+            return { done: true, value: null };
+        }
+    }
+
+    [Symbol.iterator](): IterableIterator<ConstrainedArgumentString>
+    {
+        return this;
     }
 }
