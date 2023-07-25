@@ -54,12 +54,9 @@ export abstract class ConstrainedArgumentString
                && this.#argString.equals(obj.#argString);
     }
 
-    public toString(): string { return this.#string; }
+    public toString = (): string => this.#string;
 
-    public [inspect.custom]()
-    {
-        return this.#string;
-    }
+    public [inspect.custom] = (): string => this.#string;
 }
 
 export {ConstrainedArgumentString as default};
