@@ -61,6 +61,33 @@ export class ArgCollection implements IterableIterator<ConstrainedArgumentString
         this.#options = Object.freeze(operandFlagOptionStrings[2]);
     }
 
+    public get operands(): readonly OperandString[] { return this.#operands; }
+    public get flags(): readonly FlagString[] { return this.#flags; }
+    public get options(): readonly OptionString[] { return this.#options; }
+
+    public parseIndexes(strings: readonly string[]): Map<ConstrainedArgumentString | null, number[]>
+    {
+        // TODO: parse flag strings down to individual characters
+        return strings.reduce(
+            (argIndexMap: Map<ConstrainedArgumentString | null, number[]>, argString: string, index: number) =>
+            {
+                const argKey: ConstrainedArgumentString | null = [...argIndexMap.keys()].find(arg => arg !== null && arg.argString.prefixedValue === argString) ?? null;
+
+                if (argIndexMap.has(argKey))
+                {
+                    argIndexMap.get(argKey)?.push(index);
+                }
+                else
+                {
+                    argIndexMap.set(argKey, [index]);
+                }
+
+                return argIndexMap;
+            },
+            new Map(this.#arguments.map(arg => [arg, []]))
+        );
+    }
+
     public next(): IteratorResult<ConstrainedArgumentString>
     {
         if (this.#pointer < this.#arguments.length)
@@ -74,5 +101,5 @@ export class ArgCollection implements IterableIterator<ConstrainedArgumentString
         }
     }
 
-    [Symbol.iterator] = (): IterableIterator<ConstrainedArgumentString> => this;
+    public [Symbol.iterator] = (): IterableIterator<ConstrainedArgumentString> => this;
 }
