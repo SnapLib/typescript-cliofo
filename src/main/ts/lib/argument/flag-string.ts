@@ -54,6 +54,11 @@ export class FlagString extends ConstrainedArgumentString
             super(argumentStringOrUndefinedFlag);
         }
     }
+
+    public is(aString: string): boolean
+    {
+        return aString.startsWith(this.argString.prefix) && aString.substring(this.argString.prefix.length).includes(this.argString.value);
+    }
 }
 
 export function flagString(prefixString: string, valueString: string): FlagString;

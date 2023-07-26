@@ -45,6 +45,11 @@ export class OperandString extends ConstrainedArgumentString
             super(argumentStringOrUndefinedOperand);
         }
     }
+
+    public is(aString: string): boolean
+    {
+        return ! aString.startsWith(this.argString.prefix) && this.argString.value === aString;
+    }
 }
 
 export function operandString(prefixString: string, valueString: string): OperandString;

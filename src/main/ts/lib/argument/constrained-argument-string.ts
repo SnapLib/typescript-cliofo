@@ -47,6 +47,8 @@ export abstract class ConstrainedArgumentString
     public get argConstraint(): Readonly<ArgumentConstraint> { return this.#argConstraint; }
     public get argString(): Readonly<ArgumentString> { return this.#argString; }
 
+    public abstract is(aString: string): boolean;
+
     public equals(obj: unknown): boolean
     {
         return this === obj || obj instanceof ConstrainedArgumentString

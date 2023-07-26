@@ -27,6 +27,11 @@ export class OptionString extends ConstrainedArgumentString
             super(argumentStringOrOther);
         }
     }
+
+    public is(aString: string): boolean
+    {
+        return this.argString.prefixedValue === aString;
+    }
 }
 
 export function optionString(prefixString: string, valueString: string): OptionString;
