@@ -101,5 +101,5 @@ export class ArgCollection implements IterableIterator<ConstrainedArgumentString
         }
     }
 
-    public [Symbol.iterator] = (): IterableIterator<ConstrainedArgumentString> => this;
+    public readonly [Symbol.iterator] = (): IterableIterator<ConstrainedArgumentString> => this;
 }
