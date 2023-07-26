@@ -71,7 +71,7 @@ export class ArgCollection implements IterableIterator<ConstrainedArgumentString
         return strings.reduce(
             (argIndexMap: Map<ConstrainedArgumentString | null, number[]>, argString: string, index: number) =>
             {
-                const argKey: ConstrainedArgumentString | null = [...argIndexMap.keys()].find(arg => arg !== null && arg.argString.prefixedValue === argString) ?? null;
+                const argKey: ConstrainedArgumentString | null = Array.from(argIndexMap.keys()).find(arg => arg !== null && arg.argString.prefixedValue === argString) ?? null;
 
                 if (argIndexMap.has(argKey))
                 {
