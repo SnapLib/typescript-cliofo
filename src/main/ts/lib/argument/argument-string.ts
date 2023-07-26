@@ -50,7 +50,7 @@ export class ArgumentString
     public get value() { return this.#value; }
     public get prefixedValue() { return this.#prefixedValue; }
 
-    public asJsonObj = (): ArgStringJsonObj => this.#jsonObj;
+    public asJsonObj(): ArgStringJsonObj { return this.#jsonObj; }
 
     public equals(obj: unknown): boolean
     {
@@ -61,10 +61,7 @@ export class ArgumentString
 
     public toString(): string { return this.#string; }
 
-    public [inspect.custom]()
-    {
-        return this.#string;
-    }
+    public [inspect.custom]() { return this.#string; }
 }
 
 export function argumentString(prefixString?: string, value?: string ) : ArgumentString;
