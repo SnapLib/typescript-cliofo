@@ -88,7 +88,7 @@ export class PrefixIndexParser
         this.#operands = Object.freeze(argValueIndexMaps.operands);
         this.#flags = Object.freeze(argValueIndexMaps.flags);
         this.#options = Object.freeze(argValueIndexMaps.options);
-        this.#string = `${this.constructor.name} {prefix: ${this.#prefix}, operands: ${this.#operands}, flags: ${this.#flags}, options: ${this.#options}}`;
+        this.#string = `${this.constructor.name} {prefix: ${this.#prefix}, operands: ${mapToString(this.#operands)}, flags: ${mapToString(this.#flags)}, options: ${mapToString(this.#options)}}`;
     }
 
     public get prefix(): Readonly<Prefix> { return this.#prefix; }
@@ -100,3 +100,16 @@ export class PrefixIndexParser
     public toString(): string { return this.#string; }
     public [inspect.custom]() { return this.#string; }
 }
+
+function stringToString(aString: string): string
+{
+    const quote = aString.length !== 1 ? "\"" : "'";
+    return `${quote}${aString}${quote}`;
+}
+
+function mapToString(aMap: ReadonlyMap<string, readonly number[]>): string
+{
+    return "{" + String(Array.from(aMap.entries()).map(entry => `${stringToString(entry[0])} => [${entry[1].join(", ")}]`).join(", ")) + "}";
+}
+
+export {PrefixIndexParser as default};
