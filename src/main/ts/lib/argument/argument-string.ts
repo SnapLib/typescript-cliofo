@@ -2,14 +2,11 @@ import { inspect } from "util";
 
 const stringToString = (aString: string) => aString.length != 1 ? `"${aString}"` : `'${aString}'`;
 
-type ArgStringJsonObj = Readonly<{prefix: string, value: string, prefixedValue: string}>;
-
 export class ArgumentString
 {
     readonly #prefix: string;
     readonly #value: string;
     readonly #prefixedValue: string;
-    readonly #jsonObj: ArgStringJsonObj;
     readonly #string: string;
 
     public constructor( prefixString: NonNullable<string>,
@@ -37,20 +34,12 @@ export class ArgumentString
             }
         }
 
-        this.#jsonObj = Object.freeze({
-            prefix: this.#prefix,
-            value: this.#value,
-            prefixedValue: this.#prefixedValue
-        });
-
         this.#string = `${this.constructor.name} {prefix: ${stringToString(this.#prefix)}, value: ${stringToString(this.#value)}}`;
     }
 
     public get prefix() { return this.#prefix; }
     public get value() { return this.#value; }
     public get prefixedValue() { return this.#prefixedValue; }
-
-    public asJsonObj(): ArgStringJsonObj { return this.#jsonObj; }
 
     public equals(obj: unknown): boolean
     {
