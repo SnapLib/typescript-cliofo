@@ -10,9 +10,9 @@ export class PrefixIndexParser
     readonly #options: ReadonlyMap<string, readonly number[]>;
     readonly #string: string;
 
-    public constructor(prefixChar: NonNullable<string | number>, strings: NonNullable<readonly string[]>)
+    public constructor(argumentPrefix: NonNullable<string | number | Prefix>, strings: NonNullable<readonly string[]>)
     {
-        if (prefixChar === undefined || prefixChar === null)
+        if (argumentPrefix === undefined || argumentPrefix === null)
         {
             throw new Error("undefined or null prefix char");
         }
@@ -22,18 +22,22 @@ export class PrefixIndexParser
             throw new Error("undefined or null strings");
         }
 
-        if (typeof prefixChar === "string")
+        if (typeof argumentPrefix === "string")
         {
-            if (prefixChar.length !== 1)
+            if (argumentPrefix.length !== 1)
             {
-                throw new Error(`prefix char doesn't consist of single character: "${prefixChar}"`);
+                throw new Error(`prefix char doesn't consist of single character: "${argumentPrefix}"`);
             }
 
-            this.#prefix = prefix(prefixChar);
+            this.#prefix = Object.freeze(prefix(argumentPrefix));
+        }
+        else if (typeof argumentPrefix === "number")
+        {
+            this.#prefix = Object.freeze(prefix(argumentPrefix));
         }
         else
         {
-            this.#prefix = prefix(prefixChar);
+            this.#prefix = Object.isFrozen(argumentPrefix) ? argumentPrefix : Object.freeze(prefix(argumentPrefix));
         }
 
         this.#strings = Object.isFrozen(strings) ? strings : Object.freeze(Array.from(strings));
