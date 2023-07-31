@@ -14,19 +14,19 @@ export class PrefixIndexParser
     {
         if (argumentPrefix === undefined || argumentPrefix === null)
         {
-            throw new Error("undefined or null prefix char");
+            throw new Error(`${this.constructor.name}: ${argumentPrefix} prefix`);
         }
 
         if (strings === undefined || strings === null)
         {
-            throw new Error("undefined or null strings");
+            throw new Error(`${this.constructor.name}: ${strings} strings`);
         }
 
         if (typeof argumentPrefix === "string")
         {
             if (argumentPrefix.length !== 1)
             {
-                throw new Error(`prefix char doesn't consist of single character: "${argumentPrefix}"`);
+                throw new Error(`${this.constructor.name}: prefix doesn't consist of single character: "${argumentPrefix}"`);
             }
 
             this.#prefix = Object.freeze(prefix(argumentPrefix));
@@ -49,28 +49,28 @@ export class PrefixIndexParser
                 {
                     const argValue: string = argString.substring(this.#prefix.optionString.length);
 
-                    argValueIndexes.options.set(argValue, Object.freeze(argValueIndexes.options.get(argValue)?.concat(argIndex) ?? [argIndex]));
+                    argValueIndexes[2].set(argValue, Object.freeze(argValueIndexes[2].get(argValue)?.concat(argIndex) ?? [argIndex]));
                 }
                 else if (argString.startsWith(this.#prefix.flagChar))
                 {
                     for (const char of argString.substring(this.#prefix.flagChar.length))
                     {
-                        argValueIndexes.flags.set(char, Object.freeze(argValueIndexes.flags.get(char)?.concat(argIndex) ?? [argIndex]));
+                        argValueIndexes[1].set(char, Object.freeze(argValueIndexes[1].get(char)?.concat(argIndex) ?? [argIndex]));
                     }
                 }
                 else
                 {
-                    argValueIndexes.operands.set(argString, Object.freeze(argValueIndexes.operands.get(argString)?.concat(argIndex) ?? [argIndex]));
+                    argValueIndexes[0].set(argString, Object.freeze(argValueIndexes[0].get(argString)?.concat(argIndex) ?? [argIndex]));
                 }
 
                 return argValueIndexes;
             },
-            Object.freeze({operands: new Map(), flags: new Map(), options: new Map()}) as Readonly<{operands: Map<string, readonly number[]>, flags: Map<string, readonly number[]>, options: Map<string, readonly number[]>}>
+            Object.freeze([new Map(), new Map(), new Map()]) as readonly [Map<string, readonly number[]>, Map<string, readonly number[]>, Map<string, readonly number[]>]
         );
 
-        this.#operands = Object.freeze(argValueIndexMaps.operands);
-        this.#flags = Object.freeze(argValueIndexMaps.flags);
-        this.#options = Object.freeze(argValueIndexMaps.options);
+        this.#operands = Object.freeze(argValueIndexMaps[0]);
+        this.#flags = Object.freeze(argValueIndexMaps[1]);
+        this.#options = Object.freeze(argValueIndexMaps[2]);
         this.#string = `${this.constructor.name} {prefix: ${this.#prefix}, operands: ${mapToString(this.#operands)}, flags: ${mapToString(this.#flags)}, options: ${mapToString(this.#options)}}`;
     }
 
