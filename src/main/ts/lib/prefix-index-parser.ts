@@ -1,25 +1,5 @@
 import { inspect } from "util";
-
-class Prefix
-{
-    readonly #flagChar: string;
-    readonly #optionString: string;
-    readonly #string: string;
-
-    public constructor(flagChar: string)
-    {
-        this.#flagChar = flagChar;
-        this.#optionString = this.#flagChar.repeat(2);
-        this.#string = `${this.constructor.name} {flagChar: '${this.#flagChar}', optionString: "${this.#optionString}"}`;
-    }
-
-    public get flagChar(): string { return this.#flagChar; }
-    public get optionString(): string { return this.#optionString; }
-
-    public toString(): string { return this.#string; }
-
-    public [inspect.custom]() { return this.#string; }
-}
+import { type Prefix, prefix } from "./prefix.js";
 
 export class PrefixIndexParser
 {
@@ -49,12 +29,11 @@ export class PrefixIndexParser
                 throw new Error(`prefix char doesn't consist of single character: "${prefixChar}"`);
             }
 
-            this.#prefix = Object.freeze(new Prefix(prefixChar));
+            this.#prefix = prefix(prefixChar);
         }
         else
         {
-            const _prefixChar: string = String.fromCodePoint(prefixChar);
-            this.#prefix = Object.freeze(new Prefix(_prefixChar));
+            this.#prefix = prefix(prefixChar);
         }
 
         this.#strings = Object.isFrozen(strings) ? strings : Object.freeze(Array.from(strings));
