@@ -41,6 +41,13 @@ export class Prefix
     public get flagChar(): string { return this.#flagChar; }
     public get optionString(): string { return this.#optionString; }
 
+    public equals(obj: unknown): boolean
+    {
+        return this === obj || obj instanceof Prefix
+               && this.#flagChar === obj.#flagChar
+               && this.#optionString === obj.#optionString;
+    }
+
     public toString(): string { return this.#string; }
 
     public [inspect.custom](): string { return this.#string; }
