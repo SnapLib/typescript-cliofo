@@ -22,15 +22,15 @@ export class ArgumentString
         }
         else
         {
-            if (valueString)
+            if (valueString === undefined || valueString === null)
+            {
+                throw new Error(`${this.constructor.name}: ${valueString} value string`);
+            }
+            else
             {
                 this.#prefix = prefixOrOther;
                 this.#value = valueString;
                 this.#prefixedValue = prefixOrOther + valueString;
-            }
-            else
-            {
-                throw new TypeError(`${this.constructor.name} constructor undefined or null value string`);
             }
         }
 
