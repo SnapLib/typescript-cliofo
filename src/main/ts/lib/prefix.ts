@@ -46,12 +46,12 @@ export class Prefix
     public [inspect.custom](): string { return this.#string; }
 }
 
-export function prefix(flagChar: NonNullable<string>): Readonly<Prefix>;
-export function prefix(flagCodePoint: NonNullable<number>): Readonly<Prefix>;
-export function prefix(otherPrefix: NonNullable<Prefix>): Readonly<Prefix>;
-export function prefix(flagCharOrCodePointOrOther: NonNullable<string | number | Prefix>): Readonly<Prefix>
+export function prefix(flagChar: NonNullable<string>): Prefix;
+export function prefix(flagCodePoint: NonNullable<number>): Prefix;
+export function prefix(otherPrefix: NonNullable<Prefix>): Prefix;
+export function prefix(flagCharOrCodePointOrOther: NonNullable<string | number | Prefix>): Prefix
 {
-    return Object.freeze(new Prefix(flagCharOrCodePointOrOther));
+    return new Prefix(flagCharOrCodePointOrOther);
 }
 
 
