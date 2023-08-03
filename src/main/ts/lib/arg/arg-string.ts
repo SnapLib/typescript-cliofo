@@ -1,6 +1,5 @@
+import {type StringOrStringSet} from "./string-or-string-set";
 import { inspect } from "util";
-
-type StringOrStringSet = string | ReadonlySet<string>;
 
 export abstract class ArgString<PrefixType extends StringOrStringSet>
 {
