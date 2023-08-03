@@ -37,9 +37,9 @@ export class ArgumentString
         this.#string = `${this.constructor.name} {prefix: ${stringToString(this.#prefix)}, value: ${stringToString(this.#value)}}`;
     }
 
-    public get prefix() { return this.#prefix; }
-    public get value() { return this.#value; }
-    public get prefixedValue() { return this.#prefixedValue; }
+    public get prefix(): string { return this.#prefix; }
+    public get value(): string { return this.#value; }
+    public get prefixedValue(): string { return this.#prefixedValue; }
 
     public equals(obj: unknown): boolean
     {
@@ -50,7 +50,7 @@ export class ArgumentString
 
     public toString(): string { return this.#string; }
 
-    public [inspect.custom]() { return this.#string; }
+    public [inspect.custom](): string { return this.#string; }
 }
 
 export function argumentString(prefixString?: string, value?: string ) : ArgumentString;
