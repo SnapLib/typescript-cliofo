@@ -15,7 +15,7 @@ export class StringPrefixArgString extends ArgString<string>
         this.#string = `${this.constructor.name} {prefix: ${stringToString(super.prefix)}, value: ${stringToString(super.value)}}`;
     }
 
-    public get prefixedValue(): string { return this.#prefixedValue; }
+    public override get prefixedValue(): string { return this.#prefixedValue; }
 
     public override toString(): string { return this.#string; }
 
