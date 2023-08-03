@@ -9,8 +9,9 @@ export class ArgStringConstraint<PrefixType extends StringOrStringSet>
     readonly #prefixConstraint: PrefixPredicate<PrefixType>;
     readonly #valueConstraint: ValuePredicate<PrefixType>;
 
-    public constructor( prefixConstraintOrOther: NonNullable<PrefixPredicate<PrefixType> | ArgStringConstraint<PrefixType>>,
-                 valueConstraint?: NonNullable<ValuePredicate<PrefixType>> )
+    public constructor(
+        prefixConstraintOrOther: NonNullable<PrefixPredicate<PrefixType> | ArgStringConstraint<PrefixType>>,
+        valueConstraint?: NonNullable<ValuePredicate<PrefixType>> )
     {
         if (prefixConstraintOrOther instanceof ArgStringConstraint)
         {
