@@ -26,7 +26,7 @@ export abstract class ArgString<PrefixType extends StringOrStringSet>
     public get value(): string { return this.#value; }
     public abstract get prefixedValue(): PrefixType;
 
-    public abstract equals(obj: unknown): boolean;
+    public abstract equals(obj?: unknown): boolean;
     public abstract toString(): string;
 
     public abstract [inspect.custom](): string;

@@ -25,7 +25,7 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
     public prefixes(): ReadonlyArray<string> { return this.#prefixesArray; }
     public prefixedValues(): ReadonlyArray<string> { return this.#prefixedValuesArray; }
 
-    public override equals(obj: unknown): boolean
+    public override equals(obj?: unknown): boolean
     {
         if (this === obj) { return true; }
         if ( ! (obj instanceof StringSetPrefixArgString)) { return false; }
