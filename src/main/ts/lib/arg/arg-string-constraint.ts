@@ -9,30 +9,21 @@ export class ArgStringConstraint<PrefixType extends StringOrStringSet>
     readonly #prefixConstraint: PrefixPredicate<PrefixType>;
     readonly #valueConstraint: ValuePredicate<PrefixType>;
 
-    public constructor(
-        prefixConstraintOrOther: NonNullable<PrefixPredicate<PrefixType> | ArgStringConstraint<PrefixType>>,
-        valueConstraint?: NonNullable<ValuePredicate<PrefixType>> )
+    public constructor( prefixConstraint: NonNullable<PrefixPredicate<PrefixType>>,
+                        valueConstraint: NonNullable<ValuePredicate<PrefixType>> )
     {
-        if (prefixConstraintOrOther instanceof ArgStringConstraint)
+        if (prefixConstraint === undefined || prefixConstraint === null)
         {
-            this.#prefixConstraint = prefixConstraintOrOther.#prefixConstraint;
-            this.#valueConstraint = prefixConstraintOrOther.#valueConstraint;
+            throw new TypeError(`${ArgStringConstraint.name}: ${prefixConstraint} prefix constraint`);
         }
-        else
+
+        if (valueConstraint === undefined || valueConstraint === null)
         {
-            if (prefixConstraintOrOther === undefined || prefixConstraintOrOther === null)
-            {
-                throw new Error(`${ArgStringConstraint.name}: ${prefixConstraintOrOther} prefix constraint`);
-            }
-
-            if (valueConstraint === undefined || valueConstraint === null)
-            {
-                throw new Error(`${ArgStringConstraint.name}: ${valueConstraint} value constraint`);
-            }
-
-            this.#prefixConstraint = Object.isFrozen(prefixConstraintOrOther) ? prefixConstraintOrOther : Object.freeze((prefix: PrefixType) => prefixConstraintOrOther(prefix));
-            this.#valueConstraint = Object.isFrozen(valueConstraint) ? valueConstraint : Object.freeze((prefix: PrefixType, valueString: string) => valueConstraint(prefix, valueString));
+            throw new TypeError(`${ArgStringConstraint.name}: ${valueConstraint} value constraint`);
         }
+
+        this.#prefixConstraint = Object.isFrozen(prefixConstraint) ? prefixConstraint : Object.freeze((prefix: PrefixType) => prefixConstraint(prefix));
+        this.#valueConstraint = Object.isFrozen(valueConstraint) ? valueConstraint : Object.freeze((prefix: PrefixType, valueString: string) => valueConstraint(prefix, valueString));
     }
 
     public get prefixConstraint(): PrefixPredicate<PrefixType> { return this.#prefixConstraint; }
@@ -76,10 +67,15 @@ export function argStringConstraint<PrefixType extends StringOrStringSet>(
 {
     if (prefixConstraintOrOther instanceof ArgStringConstraint)
     {
-        return new ArgStringConstraint(prefixConstraintOrOther);
+        return new ArgStringConstraint(prefixConstraintOrOther.prefixConstraint, prefixConstraintOrOther.valueConstraint);
     }
     else
     {
+        if (valueConstraint === undefined || valueConstraint === null)
+        {
+            throw new TypeError(`${argStringConstraint.name}: ${valueConstraint} value constraint.`);
+        }
+
         return new ArgStringConstraint(prefixConstraintOrOther, valueConstraint);
     }
 }
