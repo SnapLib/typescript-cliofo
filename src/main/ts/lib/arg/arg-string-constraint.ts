@@ -9,10 +9,7 @@ export class ArgStringConstraint<PrefixType extends StringOrStringSet>
     readonly #prefixConstraint: PrefixPredicate<PrefixType>;
     readonly #valueConstraint: ValuePredicate<PrefixType>;
 
-    public constructor( prefixConstraint: NonNullable<PrefixPredicate<PrefixType>>,
-                        valueConstraint: NonNullable<ValuePredicate<PrefixType>> );
-    public constructor( other: NonNullable<ArgStringConstraint<PrefixType>> );
-    constructor( prefixConstraintOrOther: NonNullable<PrefixPredicate<PrefixType> | ArgStringConstraint<PrefixType>>,
+    public constructor( prefixConstraintOrOther: NonNullable<PrefixPredicate<PrefixType> | ArgStringConstraint<PrefixType>>,
                  valueConstraint?: NonNullable<ValuePredicate<PrefixType>> )
     {
         if (prefixConstraintOrOther instanceof ArgStringConstraint)
@@ -64,4 +61,19 @@ export class ArgStringConstraint<PrefixType extends StringOrStringSet>
     }
 }
 
-export {ArgStringConstraint as default};
+export function argStringConstraint<PrefixType extends StringOrStringSet>(
+    prefixConstraint: NonNullable<PrefixPredicate<PrefixType>>,
+    valueConstraint: NonNullable<ValuePredicate<PrefixType>>
+): ArgStringConstraint<PrefixType>;
+export function argStringConstraint<PrefixType extends StringOrStringSet>(
+    other: NonNullable<ArgStringConstraint<PrefixType>>
+): ArgStringConstraint<PrefixType>;
+export function argStringConstraint<PrefixType extends StringOrStringSet>(
+    prefixConstraintOrOther: NonNullable<PrefixPredicate<PrefixType> | ArgStringConstraint<PrefixType>>,
+    valueConstraint?: ValuePredicate<PrefixType>
+): ArgStringConstraint<PrefixType>
+{
+    return new ArgStringConstraint(prefixConstraintOrOther, valueConstraint);
+}
+
+export {argStringConstraint as default};
