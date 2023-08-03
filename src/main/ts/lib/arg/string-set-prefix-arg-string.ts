@@ -17,7 +17,7 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
         this.#prefixesArray = Object.freeze(Array.from(super.prefix));
         this.#prefixedValue = Object.freeze(new Set(this.#prefixesArray.map(prefixString => prefixString + value)));
         this.#prefixedValuesArray = Object.freeze(Array.from(this.#prefixedValue));
-        this.#string = `${this.constructor.name} {prefixes: ${stringArrayToString(this.#prefixedValuesArray)}, value: ${stringToString(super.value)}}`;
+        this.#string = `${StringSetPrefixArgString.name} {prefixes: ${stringArrayToString(this.#prefixedValuesArray)}, value: ${stringToString(super.value)}}`;
     }
 
     public override get prefixedValue(): ReadonlySet<string> { return this.#prefixedValue; }

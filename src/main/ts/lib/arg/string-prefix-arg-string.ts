@@ -12,7 +12,7 @@ export class StringPrefixArgString extends ArgString<string>
     {
         super(prefix, value);
         this.#prefixedValue = super.prefix + super.value;
-        this.#string = `${this.constructor.name} {prefix: ${stringToString(super.prefix)}, value: ${stringToString(super.value)}}`;
+        this.#string = `${StringPrefixArgString.name} {prefix: ${stringToString(super.prefix)}, value: ${stringToString(super.value)}}`;
     }
 
     public override get prefixedValue(): string { return this.#prefixedValue; }
