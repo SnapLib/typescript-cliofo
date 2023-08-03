@@ -13,7 +13,7 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
 
     public constructor(prefix: NonNullable<ReadonlySet<string>>, value: NonNullable<string>)
     {
-        super(prefix, value);
+        super(Object.isFrozen(prefix) ? prefix : Object.freeze(new Set(prefix)), value);
         this.#prefixesArray = Object.freeze(Array.from(super.prefix));
         this.#prefixedValue = Object.freeze(new Set(this.#prefixesArray.map(prefixString => prefixString + value)));
         this.#prefixedValuesArray = Object.freeze(Array.from(this.#prefixedValue));
