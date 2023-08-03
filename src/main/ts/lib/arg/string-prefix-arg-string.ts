@@ -17,6 +17,12 @@ export class StringPrefixArgString extends ArgString<string>
 
     public override get prefixedValue(): string { return this.#prefixedValue; }
 
+    public override equals(obj: unknown): boolean
+    {
+        return    this === obj || obj instanceof StringPrefixArgString
+               && super.prefix === obj.prefix && super.value === obj.value;
+    }
+
     public override toString(): string { return this.#string; }
 
     public override [inspect.custom](): string { return this.#string; }
