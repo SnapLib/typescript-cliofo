@@ -36,7 +36,7 @@ export function stringPrefixArgString(prefixOrStringPrefixArgString: NonNullable
     {
         if (value === undefined || value === null)
         {
-            throw new Error(`${stringPrefixArgString.name}: ${value} value.`);
+            throw new TypeError(`${stringPrefixArgString.name}: ${value} value.`);
         }
 
         return new StringPrefixArgString(prefixOrStringPrefixArgString, value);
