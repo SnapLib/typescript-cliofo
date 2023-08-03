@@ -27,3 +27,24 @@ export class StringPrefixArgString extends ArgString<string>
 
     public override [inspect.custom](): string { return this.#string; }
 }
+
+export function stringPrefixArgString(prefix: NonNullable<string>, value: NonNullable<string>): StringPrefixArgString;
+export function stringPrefixArgString(other: NonNullable<StringPrefixArgString>): StringPrefixArgString;
+export function stringPrefixArgString(prefixOrStringPrefixArgString: NonNullable<string | StringPrefixArgString>, value?: string): StringPrefixArgString
+{
+    if (typeof prefixOrStringPrefixArgString === "string")
+    {
+        if (value === undefined || value === null)
+        {
+            throw new Error(`${stringPrefixArgString.name}: ${value} value.`);
+        }
+
+        return new StringPrefixArgString(prefixOrStringPrefixArgString, value);
+    }
+    else
+    {
+        return new StringPrefixArgString(prefixOrStringPrefixArgString.prefix, prefixOrStringPrefixArgString.value);
+    }
+}
+
+export {stringPrefixArgString as default};
