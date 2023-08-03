@@ -20,7 +20,7 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
         this.#string = `${this.constructor.name} {prefixes: ${stringArrayToString(this.#prefixedValuesArray)}, value: ${stringToString(super.value)}}`;
     }
 
-    public get prefixedValue(): ReadonlySet<string> { return this.#prefixedValue; }
+    public override get prefixedValue(): ReadonlySet<string> { return this.#prefixedValue; }
 
     public prefixes(): ReadonlyArray<string> { return this.#prefixesArray; }
     public prefixedValues(): ReadonlyArray<string> { return this.#prefixedValuesArray; }
