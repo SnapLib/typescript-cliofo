@@ -74,7 +74,14 @@ export function argStringConstraint<PrefixType extends StringOrStringSet>(
     valueConstraint?: ValuePredicate<PrefixType>
 ): ArgStringConstraint<PrefixType>
 {
-    return new ArgStringConstraint(prefixConstraintOrOther, valueConstraint);
+    if (prefixConstraintOrOther instanceof ArgStringConstraint)
+    {
+        return new ArgStringConstraint(prefixConstraintOrOther);
+    }
+    else
+    {
+        return new ArgStringConstraint(prefixConstraintOrOther, valueConstraint);
+    }
 }
 
 export {argStringConstraint as default};
