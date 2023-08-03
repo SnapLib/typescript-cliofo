@@ -1,4 +1,4 @@
-import { ArgString } from "./arg-string";
+import { ArgString } from "./arg-string.js";
 import { inspect } from "util";
 
 const stringToString = (aString: string): string => aString.length != 1 ? `"${aString}"` : `'${aString}'`;
@@ -25,7 +25,7 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
     public prefixes(): ReadonlyArray<string> { return this.#prefixesArray; }
     public prefixedValues(): ReadonlyArray<string> { return this.#prefixedValuesArray; }
 
-    public toString(): string { return this.#string; }
+    public override toString(): string { return this.#string; }
 
-    public [inspect.custom](): string { return this.#string; }
+    public override [inspect.custom](): string { return this.#string; }
 }

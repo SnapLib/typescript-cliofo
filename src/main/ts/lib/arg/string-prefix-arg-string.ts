@@ -1,4 +1,4 @@
-import { ArgString } from "./arg-string";
+import { ArgString } from "./arg-string.js";
 import { inspect } from "util";
 
 const stringToString = (aString: string) => aString.length != 1 ? `"${aString}"` : `'${aString}'`;
@@ -17,7 +17,7 @@ export class StringPrefixArgString extends ArgString<string>
 
     public get prefixedValue(): string { return this.#prefixedValue; }
 
-    public toString(): string { return this.#string; }
+    public override toString(): string { return this.#string; }
 
-    public [inspect.custom](): string { return this.#string; }
+    public override [inspect.custom](): string { return this.#string; }
 }
