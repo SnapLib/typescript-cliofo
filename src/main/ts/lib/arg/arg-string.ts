@@ -1,5 +1,6 @@
-import {type StringOrStringSet} from "./string-or-string-set.js";
 import { inspect } from "util";
+
+export type StringOrStringSet = string | ReadonlySet<string>;
 
 export abstract class ArgString<PrefixType extends StringOrStringSet>
 {
