@@ -2,7 +2,7 @@ import { type StringOrStringSet } from "./arg-string.js";
 
 export type PrefixPredicate<PrefixType extends StringOrStringSet> = (prefix: PrefixType) => boolean;
 
-export type ValuePredicate<PrefixType extends StringOrStringSet> = (prefix: PrefixType, value: string) => boolean;
+export type ValuePredicate<PrefixType extends StringOrStringSet> = (prefix: NonNullable<PrefixType>, value: string) => boolean;
 
 export class ArgStringConstraint<PrefixType extends StringOrStringSet>
 {
