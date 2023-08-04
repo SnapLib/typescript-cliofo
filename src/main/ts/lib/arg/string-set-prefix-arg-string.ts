@@ -11,9 +11,9 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
     readonly #prefixedValuesArray: ReadonlyArray<string>;
     readonly #string: string;
 
-    public constructor(prefix: NonNullable<ReadonlySet<string>>, value: NonNullable<string>)
+    public constructor(prefixes: NonNullable<ReadonlySet<string>>, value: NonNullable<string>)
     {
-        super(Object.isFrozen(prefix) ? prefix : Object.freeze(new Set(prefix)), value);
+        super(Object.isFrozen(prefixes) ? prefixes : Object.freeze(new Set(prefixes)), value);
         this.#prefixesArray = Object.freeze(Array.from(super.prefix));
         this.#prefixedValue = Object.freeze(new Set(this.#prefixesArray.map(prefixString => prefixString + value)));
         this.#prefixedValuesArray = Object.freeze(Array.from(this.#prefixedValue));
@@ -46,4 +46,21 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
     public override toString(): string { return this.#string; }
 
     public override [inspect.custom](): string { return this.#string; }
+}
+
+export function stringSetPrefixArgString(prefixes: NonNullable<ReadonlySet<string>>, value: NonNullable<string>): StringSetPrefixArgString;
+export function stringSetPrefixArgString(aStringSetPrefixArgString: NonNullable<StringSetPrefixArgString>): StringSetPrefixArgString;
+export function stringSetPrefixArgString(prefixesOrOther: NonNullable<ReadonlySet<string> | StringSetPrefixArgString>, value?: string): StringSetPrefixArgString
+{
+    if (prefixesOrOther instanceof StringSetPrefixArgString)
+    {
+        return new StringSetPrefixArgString(prefixesOrOther.prefix, prefixesOrOther.value);
+    }
+
+    if (value === undefined || value === null)
+    {
+        throw new TypeError(`${stringSetPrefixArgString.name}: ${value} value.`);
+    }
+
+    return new StringSetPrefixArgString(prefixesOrOther, value);
 }
