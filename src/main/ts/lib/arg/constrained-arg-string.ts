@@ -1,6 +1,8 @@
 import { type ArgStringConstraint, argStringConstraint as createArgStringConstraint } from "./arg-string-constraint.js";
 import { type ArgString, type StringOrStringSet } from "./arg-string.js";
 import { inspect } from "util";
+import { PrefixConstraintViolationError } from "./error/prefix-constraint-violation-error.js";
+import { ValueConstraintViolationError } from "./error/value-constraint-violation-error.js";
 
 const stringToString = (aString: string) => aString.length !== 1 ? `"${aString}"` : `'${aString}'`;
 
@@ -36,12 +38,12 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrStringSet>
 
         if ( ! argumentStringConstraint.isValidPrefix(argumentString.prefix))
         {
-            throw new Error(`${ConstrainedArgString.name}: prefix string violates constraint: {prefix${typeof argumentString.prefix === "string" ? "" : "es"}: ${stringOrStringSetToString(argumentString.prefix)}, value: ${stringToString(argumentString.value)}}`);
+            throw new PrefixConstraintViolationError(`${ConstrainedArgString.name}: prefix string violates constraint: {prefix${typeof argumentString.prefix === "string" ? "" : "es"}: ${stringOrStringSetToString(argumentString.prefix)}, value: ${stringToString(argumentString.value)}}`);
         }
 
         if ( ! argumentStringConstraint.isValidValue(argumentString.prefix, argumentString.value))
         {
-            throw new Error(`${ConstrainedArgString.name}: value string violates constraint: {prefix${typeof argumentString.prefix === "string" ? "" : "es"}: ${stringOrStringSetToString(argumentString.prefix)}, value: ${stringToString(argumentString.value)}}`);
+            throw new ValueConstraintViolationError(`${ConstrainedArgString.name}: value string violates constraint: {prefix${typeof argumentString.prefix === "string" ? "" : "es"}: ${stringOrStringSetToString(argumentString.prefix)}, value: ${stringToString(argumentString.value)}}`);
         }
 
         this.#argStringConstraint = Object.isFrozen(argumentStringConstraint) ? argumentStringConstraint : Object.freeze(createArgStringConstraint(argumentStringConstraint));

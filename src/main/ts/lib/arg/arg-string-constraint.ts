@@ -1,4 +1,6 @@
 import { type StringOrStringSet } from "./arg-string.js";
+import { PrefixConstraintViolationError } from "./error/prefix-constraint-violation-error.js";
+import { ValueConstraintViolationError } from "./error/value-constraint-violation-error.js";
 
 export type PrefixPredicate<PrefixType extends StringOrStringSet> = (prefix?: PrefixType) => boolean;
 
@@ -39,7 +41,7 @@ export class ArgStringConstraint<PrefixType extends StringOrStringSet>
             return prefix;
         }
 
-        throw new Error(message);
+        throw new PrefixConstraintViolationError(message);
     }
 
     public requireValidValue(prefix: PrefixType, valueString: string, message?: string): string
@@ -49,7 +51,7 @@ export class ArgStringConstraint<PrefixType extends StringOrStringSet>
             return valueString;
         }
 
-        throw new Error(message);
+        throw new ValueConstraintViolationError(message);
     }
 }
 
