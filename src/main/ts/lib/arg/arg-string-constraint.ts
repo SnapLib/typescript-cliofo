@@ -1,6 +1,6 @@
 import { type StringOrStringSet } from "./arg-string.js";
 
-export type PrefixPredicate<PrefixType extends StringOrStringSet> = (prefix: PrefixType) => boolean;
+export type PrefixPredicate<PrefixType extends StringOrStringSet> = (prefix?: PrefixType) => boolean;
 
 export type ValuePredicate<PrefixType extends StringOrStringSet> = (prefix: NonNullable<PrefixType>, value: string) => boolean;
 
@@ -22,7 +22,7 @@ export class ArgStringConstraint<PrefixType extends StringOrStringSet>
             throw new TypeError(`${ArgStringConstraint.name}: ${valueConstraint} value constraint`);
         }
 
-        this.#prefixConstraint = Object.isFrozen(prefixConstraint) ? prefixConstraint : Object.freeze((prefix: PrefixType) => prefixConstraint(prefix));
+        this.#prefixConstraint = Object.isFrozen(prefixConstraint) ? prefixConstraint : Object.freeze((prefix?: PrefixType) => prefixConstraint(prefix));
         this.#valueConstraint = Object.isFrozen(valueConstraint) ? valueConstraint : Object.freeze((prefix: PrefixType, valueString: string) => valueConstraint(prefix, valueString));
     }
 
