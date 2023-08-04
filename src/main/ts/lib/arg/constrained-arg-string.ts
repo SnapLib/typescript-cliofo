@@ -22,7 +22,7 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrStringSet>
     readonly #argString: Readonly<ArgString<PrefixType>>;
     readonly #string: string;
 
-    protected constructor(argumentStringConstraint: NonNullable<ArgStringConstraint<PrefixType>>, argumentString: NonNullable<ArgString<PrefixType>>)
+    protected constructor(argumentStringConstraint: NonNullable<ArgStringConstraint<PrefixType>>, argumentString: NonNullable<Readonly<ArgString<PrefixType>>>)
     {
         if (argumentStringConstraint === undefined || argumentStringConstraint === null)
         {
