@@ -22,36 +22,32 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrStringSet>
     readonly #argString: Readonly<ArgString<PrefixType>>;
     readonly #string: string;
 
-    protected constructor(argStringConstraint: NonNullable<ArgStringConstraint<PrefixType>>, argumentString: NonNullable<ArgString<PrefixType>>)
+    protected constructor(argumentStringConstraint: NonNullable<ArgStringConstraint<PrefixType>>, argumentString: NonNullable<ArgString<PrefixType>>)
     {
-        if (argStringConstraint instanceof ConstrainedArgString)
+        if (argumentStringConstraint === undefined || argumentStringConstraint === null)
         {
-            this.#argStringConstraint = argStringConstraint.#argStringConstraint;
-            this.#argString = argStringConstraint.#argString;
-        }
-        else
-        {
-
-            if (argumentString === undefined || argumentString === null)
-            {
-                throw new TypeError(`${this.constructor.name}: undefined or null argument string`);
-            }
-
-            if ( ! argStringConstraint.isValidPrefix(argumentString.prefix))
-            {
-                throw new Error(`${this.constructor.name}: prefix string violates constraint: "${argumentString.prefix}"`);
-            }
-
-            if ( ! argStringConstraint.isValidValue(argumentString.prefix, argumentString.value))
-            {
-                throw new Error(`${this.constructor.name}: value string violates constraint: "${argumentString.prefix}"`);
-            }
-
-            this.#argStringConstraint = Object.isFrozen(argStringConstraint) ? argStringConstraint : Object.freeze(createArgStringConstraint(argStringConstraint));
-            this.#argString = argumentString;
+            throw new TypeError(`${ConstrainedArgString.name}: ${argumentStringConstraint} argument string constraint.`);
         }
 
-        this.#string = `${this.constructor.name} {prefix: ${stringOrStringSetToString(this.#argString.prefix)}, value: ${stringOrStringSetToString(this.#argString.value)}}`;
+        if (argumentString === undefined || argumentString === null)
+        {
+            throw new TypeError(`${ConstrainedArgString.name}: ${argumentString} argument string.`);
+        }
+
+        if ( ! argumentStringConstraint.isValidPrefix(argumentString.prefix))
+        {
+            throw new Error(`${ConstrainedArgString.name}: prefix string violates constraint: {prefix${typeof argumentString.prefix === "string" ? "" : "es"}: ${stringOrStringSetToString(argumentString.prefix)}, value: ${stringToString(argumentString.value)}}`);
+        }
+
+        if ( ! argumentStringConstraint.isValidValue(argumentString.prefix, argumentString.value))
+        {
+            throw new Error(`${ConstrainedArgString.name}: value string violates constraint: {prefix${typeof argumentString.prefix === "string" ? "" : "es"}: ${stringOrStringSetToString(argumentString.prefix)}, value: ${stringToString(argumentString.value)}}`);
+        }
+
+        this.#argStringConstraint = Object.isFrozen(argumentStringConstraint) ? argumentStringConstraint : Object.freeze(createArgStringConstraint(argumentStringConstraint));
+        this.#argString = argumentString;
+
+        this.#string = `${ConstrainedArgString.name} {prefix: ${stringOrStringSetToString(this.#argString.prefix)}, value: ${stringOrStringSetToString(this.#argString.value)}}`;
     }
 
     public get argConstraint(): Readonly<ArgStringConstraint<PrefixType>> { return this.#argStringConstraint; }
