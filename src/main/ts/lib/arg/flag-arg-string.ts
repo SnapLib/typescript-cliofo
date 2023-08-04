@@ -12,7 +12,7 @@ export const flagValuePredicate: ValuePredicate<string> =
     Object.freeze( (prefixString: NonNullable<string>, valueString: string) =>
            valueString !== undefined
         && valueString !== null
-        && valueString.length > 0
+        && valueString.length <= 1
         && ! valueString.startsWith(prefixString) );
 
 export const flagArgStringConstraint: ArgStringConstraint<string> = argStringConstraint(flagPrefixPredicate, flagValuePredicate);
