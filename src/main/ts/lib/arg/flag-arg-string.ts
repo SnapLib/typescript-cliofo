@@ -1,6 +1,6 @@
 import { argStringConstraint, type ArgStringConstraint, type PrefixPredicate, type ValuePredicate } from "./arg-string-constraint.js";
-import { ArgString } from "./arg-string.js";
 import { ConstrainedArgString } from "./constrained-arg-string.js";
+import { StringPrefixArgString, stringPrefixArgString as stringPrefixArgString } from "./string-prefix-arg-string.js";
 
  export const flagPrefixPredicate: PrefixPredicate<string> =
     Object.freeze( (prefixString?: string): boolean =>
@@ -19,9 +19,9 @@ export const flagArgStringConstraint: ArgStringConstraint<string> = argStringCon
 
 export class FlagArgString extends ConstrainedArgString<string>
 {
-    public constructor(argumentString: NonNullable<ArgString<string>>)
+    public constructor(stringPrefixArgumentString: NonNullable<StringPrefixArgString>)
     {
-        super(flagArgStringConstraint, argumentString);
+        super(flagArgStringConstraint, Object.isFrozen(stringPrefixArgumentString) ? stringPrefixArgumentString : Object.freeze(stringPrefixArgString(stringPrefixArgumentString)));
     }
 }
 
