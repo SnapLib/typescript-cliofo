@@ -1,6 +1,6 @@
 import { argStringConstraint, type ArgStringConstraint, type PrefixPredicate, type ValuePredicate } from "./arg-string-constraint.js";
 import { ConstrainedArgString } from "./constrained-arg-string.js";
-import { StringSetPrefixArgString, stringSetPrefixArgString as stringSetPrefixArgString } from "./string-set-prefix-arg-string.js";
+import { StringSetPrefixArgString, stringSetPrefixArgString } from "./string-set-prefix-arg-string.js";
 
 const whiteSpaceRegEx: Readonly<RegExp> = Object.freeze(/\s/g);
 
