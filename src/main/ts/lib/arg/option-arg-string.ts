@@ -2,16 +2,18 @@ import { argStringConstraint, type ArgStringConstraint, type PrefixPredicate, ty
 import { ConstrainedArgString } from "./constrained-arg-string.js";
 import { StringPrefixArgString, stringPrefixArgString as stringPrefixArgString } from "./string-prefix-arg-string.js";
 
+const whiteSpaceRegEx: Readonly<RegExp> = Object.freeze(/\s/g);
+
  export const optionPrefixPredicate: PrefixPredicate<string> =
     Object.freeze( (prefixString?: string): boolean =>
            prefixString !== undefined
         && prefixString !== null
         && prefixString.length > 1
-        && ! /\s/g.test(prefixString) );
+        && ! whiteSpaceRegEx.test(prefixString) );
 
 export const optionValuePredicate: ValuePredicate<string> =
     Object.freeze( (prefixString: NonNullable<string>, valueString: string) =>
-           valueString !== undefined && valueString !== null && ! /\s/g.test(prefixString) );
+           valueString !== undefined && valueString !== null && ! whiteSpaceRegEx.test(prefixString) );
 
 export const flagArgStringConstraint: ArgStringConstraint<string> = argStringConstraint(optionPrefixPredicate, optionValuePredicate);
 

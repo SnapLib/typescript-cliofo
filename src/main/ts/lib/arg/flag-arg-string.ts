@@ -2,6 +2,8 @@ import { argStringConstraint, type ArgStringConstraint, type PrefixPredicate, ty
 import { ConstrainedArgString } from "./constrained-arg-string.js";
 import { StringPrefixArgString, stringPrefixArgString as stringPrefixArgString } from "./string-prefix-arg-string.js";
 
+const whiteSpaceRegEx: Readonly<RegExp> = Object.freeze(/\s/g);
+
 /**
  * Predicate that consumes a `string` and returns `true` if it's not `undefined`
  * or `null` and only consists of a single character.
@@ -20,7 +22,7 @@ import { StringPrefixArgString, stringPrefixArgString as stringPrefixArgString }
            prefixString !== undefined
         && prefixString !== null
         && prefixString.length === 1
-        && ! /\s/g.test(prefixString) );
+        && ! whiteSpaceRegEx.test(prefixString) );
 
 /**
  * Predicate that consumes 2 `string`s and returns `true` if the second `string`
@@ -47,7 +49,7 @@ export const flagValuePredicate: ValuePredicate<string> =
         && valueString !== null
         && valueString.length <= 1
         && ! valueString.startsWith(prefixString)
-        && ! /\s/g.test(valueString) );
+        && ! whiteSpaceRegEx.test(valueString) );
 
 export const flagArgStringConstraint: ArgStringConstraint<string> = argStringConstraint(flagPrefixPredicate, flagValuePredicate);
 
