@@ -41,7 +41,7 @@ export class OperandArgString extends ConstrainedArgString<ReadonlySet<string>>
     }
 }
 
-export function operandArgString(stringPrefixArgumentString: NonNullable<StringSetPrefixArgString>): OperandArgString;
+export function operandArgString(stringSetPrefixArgumentString: NonNullable<StringSetPrefixArgString>): OperandArgString;
 export function operandArgString(other: NonNullable<OperandArgString>): OperandArgString;
 export function operandArgString(stringSetPrefixArgumentStringOrOther: NonNullable<StringSetPrefixArgString | OperandArgString>): OperandArgString
 {
