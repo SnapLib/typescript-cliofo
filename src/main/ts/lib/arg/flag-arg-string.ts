@@ -19,7 +19,8 @@ import { StringPrefixArgString, stringPrefixArgString as stringPrefixArgString }
     Object.freeze( (prefixString?: string): boolean =>
            prefixString !== undefined
         && prefixString !== null
-        && prefixString.length === 1 );
+        && prefixString.length === 1
+        && ! /\s/.test(prefixString) );
 
 /**
  * Predicate that consumes 2 `string`s and returns `true` if the second `string`
@@ -45,7 +46,8 @@ export const flagValuePredicate: ValuePredicate<string> =
            valueString !== undefined
         && valueString !== null
         && valueString.length <= 1
-        && ! valueString.startsWith(prefixString) );
+        && ! valueString.startsWith(prefixString)
+        && ! /\s/.test(valueString) );
 
 export const flagArgStringConstraint: ArgStringConstraint<string> = argStringConstraint(flagPrefixPredicate, flagValuePredicate);
 

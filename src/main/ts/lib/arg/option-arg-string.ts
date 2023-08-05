@@ -6,11 +6,12 @@ import { StringPrefixArgString, stringPrefixArgString as stringPrefixArgString }
     Object.freeze( (prefixString?: string): boolean =>
            prefixString !== undefined
         && prefixString !== null
-        && prefixString.length > 1 );
+        && prefixString.length > 1
+        && ! /\s/.test(prefixString) );
 
 export const optionValuePredicate: ValuePredicate<string> =
     Object.freeze( (prefixString: NonNullable<string>, valueString: string) =>
-           valueString !== undefined && valueString !== null );
+           valueString !== undefined && valueString !== null && ! /\s/.test(prefixString) );
 
 export const flagArgStringConstraint: ArgStringConstraint<string> = argStringConstraint(optionPrefixPredicate, optionValuePredicate);
 
