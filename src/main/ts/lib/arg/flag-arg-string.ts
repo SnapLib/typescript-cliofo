@@ -23,7 +23,7 @@ import { StringPrefixArgString, stringPrefixArgString as stringPrefixArgString }
 
 /**
  * Predicate that consumes 2 `string`s and returns `true` if the second `string`
- * argument is 0 or 1 characters and doesn't consist of the first `string`.
+ * argument is 0 or 1 characters and doesn't start with the first `string`.
  *
  * This is used to validate the value (the part that comes after the prefix)
  * for flags.
