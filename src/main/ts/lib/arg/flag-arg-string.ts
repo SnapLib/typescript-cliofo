@@ -20,7 +20,7 @@ import { StringPrefixArgString, stringPrefixArgString as stringPrefixArgString }
            prefixString !== undefined
         && prefixString !== null
         && prefixString.length === 1
-        && ! /\s/.test(prefixString) );
+        && ! /\s/g.test(prefixString) );
 
 /**
  * Predicate that consumes 2 `string`s and returns `true` if the second `string`
@@ -47,7 +47,7 @@ export const flagValuePredicate: ValuePredicate<string> =
         && valueString !== null
         && valueString.length <= 1
         && ! valueString.startsWith(prefixString)
-        && ! /\s/.test(valueString) );
+        && ! /\s/g.test(valueString) );
 
 export const flagArgStringConstraint: ArgStringConstraint<string> = argStringConstraint(flagPrefixPredicate, flagValuePredicate);
 

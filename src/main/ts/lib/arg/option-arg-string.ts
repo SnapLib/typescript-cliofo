@@ -7,11 +7,11 @@ import { StringPrefixArgString, stringPrefixArgString as stringPrefixArgString }
            prefixString !== undefined
         && prefixString !== null
         && prefixString.length > 1
-        && ! /\s/.test(prefixString) );
+        && ! /\s/g.test(prefixString) );
 
 export const optionValuePredicate: ValuePredicate<string> =
     Object.freeze( (prefixString: NonNullable<string>, valueString: string) =>
-           valueString !== undefined && valueString !== null && ! /\s/.test(prefixString) );
+           valueString !== undefined && valueString !== null && ! /\s/g.test(prefixString) );
 
 export const flagArgStringConstraint: ArgStringConstraint<string> = argStringConstraint(optionPrefixPredicate, optionValuePredicate);
 
