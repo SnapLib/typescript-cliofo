@@ -61,4 +61,18 @@ export class FlagArgString extends ConstrainedArgString<string>
     }
 }
 
-export {FlagArgString as default};
+export function flagArgString(stringPrefixArgumentString: NonNullable<StringPrefixArgString>): FlagArgString;
+export function flagArgString(other: NonNullable<FlagArgString>): FlagArgString;
+export function flagArgString(stringPrefixArgumentStringOrOther: NonNullable<StringPrefixArgString | FlagArgString>): FlagArgString
+{
+    if (stringPrefixArgumentStringOrOther instanceof StringPrefixArgString)
+    {
+        return new FlagArgString(stringPrefixArgumentStringOrOther);
+    }
+    else
+    {
+        return new FlagArgString(stringPrefixArgString(stringPrefixArgumentStringOrOther.argString.prefix, stringPrefixArgumentStringOrOther.argString.value));
+    }
+}
+
+export {flagArgString as default};

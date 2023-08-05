@@ -25,4 +25,18 @@ export class OptionArgString extends ConstrainedArgString<string>
     }
 }
 
-export {OptionArgString as default};
+export function optionArgString(stringPrefixArgumentString: NonNullable<StringPrefixArgString>): OptionArgString;
+export function optionArgString(other: NonNullable<OptionArgString>): OptionArgString;
+export function optionArgString(stringPrefixArgumentStringOrOther: NonNullable<StringPrefixArgString | OptionArgString>): OptionArgString
+{
+    if (stringPrefixArgumentStringOrOther instanceof StringPrefixArgString)
+    {
+        return new OptionArgString(stringPrefixArgumentStringOrOther);
+    }
+    else
+    {
+        return new OptionArgString(stringPrefixArgString(stringPrefixArgumentStringOrOther.argString.prefix, stringPrefixArgumentStringOrOther.argString.value));
+    }
+}
+
+export {optionArgString as default};
