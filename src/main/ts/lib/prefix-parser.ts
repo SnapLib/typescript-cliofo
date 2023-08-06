@@ -1,4 +1,4 @@
-import { ArgumentString, argumentString } from "./argument/argument-string.js";
+import { ArgumentString, argumentString } from "./argument/arg-string.js";
 import { type ConstrainedArgumentString } from "./argument/constrained-argument-string.js";
 import { flagString } from "./argument/flag-string.js";
 import { operandString } from "./argument/operand-string.js";
