@@ -1,10 +1,3 @@
-import { optionString } from "./lib/argument/option-string.js";
-import { ArgCollection } from "./lib/arg-collection.js";
-import { flagString } from "./lib/argument/flag-string.js";
+import { PrefixIndexParser } from "./lib/prefix-index-parser.js";
 
-const argCollection = new ArgCollection([
-    flagString("-", "a"),
-    optionString("--", "directory")
-]);
-
-console.log(argCollection.parseIndexes(process.argv.slice(2)));
+console.log(new PrefixIndexParser("-", process.argv.slice(2)));
