@@ -1,7 +1,7 @@
 import { inspect } from "util";
 import { type Prefix, prefix } from "./prefix.js";
 
-export class PrefixIndexParser
+export class PrefixIndexParser implements IterableIterator<readonly [string, readonly number[]]>
 {
     readonly #prefix: Readonly<Prefix>;
     readonly #strings: readonly string[];
@@ -9,6 +9,9 @@ export class PrefixIndexParser
     readonly #flags: ReadonlyMap<string, readonly number[]>;
     readonly #options: ReadonlyMap<string, readonly number[]>;
     readonly #string: string;
+
+    readonly #operandFlagOptionIndexEntries: readonly [string, readonly number[]][];
+    #iterIndex: number = 0;
 
     public constructor(argumentPrefix: NonNullable<string | number | Prefix>, strings: NonNullable<readonly string[]>)
     {
@@ -72,6 +75,8 @@ export class PrefixIndexParser
         this.#flags = Object.freeze(argValueIndexMaps[1]);
         this.#options = Object.freeze(argValueIndexMaps[2]);
         this.#string = `${this.constructor.name} {prefix: ${this.#prefix}, operands: ${mapToString(this.#operands)}, flags: ${mapToString(this.#flags)}, options: ${mapToString(this.#options)}}`;
+
+        this.#operandFlagOptionIndexEntries = Object.freeze([...this.#operands.entries(), ...this.#flags.entries(), ...this.#options.entries()]);
     }
 
     public get prefix(): Readonly<Prefix> { return this.#prefix; }
@@ -79,6 +84,24 @@ export class PrefixIndexParser
     public get operands(): ReadonlyMap<string, readonly number[]> { return this.#operands; }
     public get flags(): ReadonlyMap<string, readonly number[]> { return this.#flags; }
     public get options(): ReadonlyMap<string, readonly number[]> { return this.#options; }
+
+    public next(): IteratorResult<readonly [string, readonly number[]]>
+    {
+        if (this.#iterIndex < this.#operandFlagOptionIndexEntries.length)
+        {
+            return { done: false, value: this.#operandFlagOptionIndexEntries[this.#iterIndex++] };
+        }
+        else
+        {
+            this.#iterIndex = 0; // reset the pointer to start for new iterations
+            return { done: true, value: null };
+        }
+    }
+
+    public [Symbol.iterator](): IterableIterator<readonly [string, readonly number[]]>
+    {
+        return this;
+    }
 
     public toString(): string { return this.#string; }
     public [inspect.custom]() { return this.#string; }
