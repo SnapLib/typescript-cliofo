@@ -118,4 +118,25 @@ function mapToString(aMap: ReadonlyMap<string, readonly number[]>): string
     return "{" + String(Array.from(aMap.entries()).map(entry => `${stringToString(entry[0])} => [${entry[1].join(", ")}]`).join(", ")) + "}";
 }
 
-export {PrefixIndexParser as default};
+export function prefixIndexParser(prefixChar: NonNullable<string>, stringsToParse: NonNullable<readonly string[]>): PrefixIndexParser;
+export function prefixIndexParser(prefixCodePoint: NonNullable<number>, stringsToParse: NonNullable<readonly string[]>): PrefixIndexParser;
+export function prefixIndexParser(prefix: NonNullable<Prefix>, stringsToParse: NonNullable<readonly string[]>): PrefixIndexParser;
+export function prefixIndexParser(other: NonNullable<PrefixIndexParser>): PrefixIndexParser;
+export function prefixIndexParser(prefixCharOrCodePointOrOther: NonNullable<string | number | Prefix | PrefixIndexParser>, stringsToParse?: readonly string[]): PrefixIndexParser
+{
+    if (prefixCharOrCodePointOrOther instanceof PrefixIndexParser)
+    {
+        return new PrefixIndexParser(prefixCharOrCodePointOrOther.prefix.flagChar, prefixCharOrCodePointOrOther.strings);
+    }
+    else
+    {
+        if (stringsToParse === undefined || stringsToParse === null)
+        {
+            throw new Error(`${prefixIndexParser.name}: ${stringsToParse} strings to parse argument.`);
+        }
+
+        return new PrefixIndexParser(prefixCharOrCodePointOrOther, stringsToParse);
+    }
+}
+
+export {prefixIndexParser as default};
