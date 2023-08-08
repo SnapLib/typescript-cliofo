@@ -17,19 +17,19 @@ export class PrefixIndexParser implements IterableIterator<readonly [string, rea
     {
         if (argumentPrefix === undefined || argumentPrefix === null)
         {
-            throw new Error(`${this.constructor.name}: ${argumentPrefix} prefix`);
+            throw new Error(`${PrefixIndexParser.name}: ${argumentPrefix} prefix`);
         }
 
         if (strings === undefined || strings === null)
         {
-            throw new Error(`${this.constructor.name}: ${strings} strings`);
+            throw new Error(`${PrefixIndexParser.name}: ${strings} strings`);
         }
 
         if (typeof argumentPrefix === "string")
         {
             if (argumentPrefix.length !== 1)
             {
-                throw new Error(`${this.constructor.name}: prefix doesn't consist of single character: "${argumentPrefix}"`);
+                throw new Error(`${PrefixIndexParser.name}: prefix doesn't consist of single character: "${argumentPrefix}"`);
             }
 
             this.#prefix = Object.freeze(prefix(argumentPrefix));
@@ -74,7 +74,7 @@ export class PrefixIndexParser implements IterableIterator<readonly [string, rea
         this.#operands = Object.freeze(argValueIndexMaps[0]);
         this.#flags = Object.freeze(argValueIndexMaps[1]);
         this.#options = Object.freeze(argValueIndexMaps[2]);
-        this.#string = `${this.constructor.name} {prefix: ${this.#prefix}, operands: ${mapToString(this.#operands)}, flags: ${mapToString(this.#flags)}, options: ${mapToString(this.#options)}}`;
+        this.#string = `${PrefixIndexParser.name} {prefix: ${this.#prefix}, operands: ${mapToString(this.#operands)}, flags: ${mapToString(this.#flags)}, options: ${mapToString(this.#options)}}`;
 
         this.#operandFlagOptionIndexEntries = Object.freeze([...this.#operands.entries(), ...this.#flags.entries(), ...this.#options.entries()]);
     }
