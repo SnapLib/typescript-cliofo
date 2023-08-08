@@ -10,7 +10,7 @@ export class PrefixIndexParser implements IterableIterator<readonly [string, rea
     readonly #options: ReadonlyMap<string, readonly number[]>;
     readonly #string: string;
 
-    readonly #operandFlagOptionIndexEntries: readonly [string, readonly number[]][];
+    readonly #operandFlagOptionIndexEntries: readonly Readonly<[string, readonly number[]]>[];
     #iterIndex: number = 0;
 
     public constructor(argumentPrefix: NonNullable<string | number | Prefix>, strings: NonNullable<readonly string[]>)
