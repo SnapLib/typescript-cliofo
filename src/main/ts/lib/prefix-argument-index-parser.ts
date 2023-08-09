@@ -1,4 +1,4 @@
-import { type PrefixIndexParser, prefixIndexParser as indexParser } from "./prefix-index-parser.js";
+import { type PrefixIndexParser, prefixIndexParser as indexParser, prefixIndexParser } from "./prefix-index-parser.js";
 import { type OperandArgString, operandArgString } from "./argument/operand-arg-string.js";
 import { type FlagArgString, flagArgString } from "./argument/flag-arg-string.js";
 import { type OptionArgString, optionArgString } from "./argument/option-arg-string.js";
@@ -51,6 +51,7 @@ export class PrefixArgumentIndexParser
             this.#string = `${PrefixArgumentIndexParser.name} {prefix: {flagChar: '${this.#prefixIndexParser.prefix.flagChar}', optionString: "${this.#prefixIndexParser.prefix.optionString}"}, operands: ${mapToString(this.#operands)}, flags: ${mapToString(this.#flags)}, options: ${mapToString(this.#options)}}`;
     }
 
+    public get prefixIndexParser(): Readonly<PrefixIndexParser> { return this.#prefixIndexParser; }
     public get operands(): ReadonlyMap<OperandArgString, readonly number[]> { return this.#operands; }
     public get flags(): ReadonlyMap<FlagArgString, readonly number[]> { return this.#flags; }
     public get options(): ReadonlyMap<OptionArgString, readonly number[]> { return this.#options; }
@@ -60,7 +61,26 @@ export class PrefixArgumentIndexParser
     public [inspect.custom](): string { return this.#string; }
 }
 
-export function prefixArgumentIndexParser(prefixIndexParser: PrefixIndexParser): PrefixArgumentIndexParser
+export function prefixArgumentIndexParser(prefixChar: NonNullable<string>, stringsToParse: NonNullable<readonly string[]>): PrefixArgumentIndexParser;
+export function prefixArgumentIndexParser(prefixIndexParser: NonNullable<PrefixIndexParser>): PrefixArgumentIndexParser;
+export function prefixArgumentIndexParser(other: NonNullable<PrefixArgumentIndexParser>): PrefixArgumentIndexParser;
+export function prefixArgumentIndexParser(prefixCharOrPrefixIndexParserOrOther: NonNullable<string | PrefixIndexParser | PrefixArgumentIndexParser>, stringsToParse?: readonly string[]): PrefixArgumentIndexParser
 {
-    return new PrefixArgumentIndexParser(prefixIndexParser);
+    if (typeof prefixCharOrPrefixIndexParserOrOther === "string")
+    {
+        if (stringsToParse === undefined || stringsToParse === null)
+        {
+            throw new Error(`${prefixArgumentIndexParser.name}: ${stringsToParse} strings to parse argument.`);
+        }
+
+        return new PrefixArgumentIndexParser(prefixIndexParser(prefixCharOrPrefixIndexParserOrOther, stringsToParse));
+    }
+    else if (prefixCharOrPrefixIndexParserOrOther instanceof PrefixArgumentIndexParser)
+    {
+        return new PrefixArgumentIndexParser(prefixIndexParser(prefixCharOrPrefixIndexParserOrOther.prefixIndexParser.prefix.flagChar, prefixCharOrPrefixIndexParserOrOther.prefixIndexParser.strings));
+    }
+    else
+    {
+        return new PrefixArgumentIndexParser(prefixCharOrPrefixIndexParserOrOther);
+    }
 }
