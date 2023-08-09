@@ -6,6 +6,17 @@ import { stringPrefixArgString } from "./argument/string-prefix-arg-string.js";
 import { stringSetPrefixArgString } from "./argument/string-set-prefix-arg-string.js";
 import { inspect } from "util";
 
+const stringToString = (aString: string): string =>
+{
+    const quote = aString.length !== 1 ? "\"" : "'";
+    return `${quote}${aString}${quote}`;
+};
+
+const mapToString = (aMap: ReadonlyMap<OperandArgString | FlagArgString | OptionArgString, readonly number[]>): string =>
+{
+    return "{" + String(Array.from(aMap.entries()).map(entry => `${stringToString(entry[0].argString.value)} => [${entry[1].join(", ")}]`).join(", ")) + "}";
+};
+
 export class PrefixArgumentIndexParser
 {
     readonly #prefixIndexParser: Readonly<PrefixIndexParser>;
@@ -52,15 +63,4 @@ export class PrefixArgumentIndexParser
     public toString(): string { return this.#string; }
 
     public [inspect.custom](): string { return this.#string; }
-}
-
-function stringToString(aString: string): string
-{
-    const quote = aString.length !== 1 ? "\"" : "'";
-    return `${quote}${aString}${quote}`;
-}
-
-function mapToString(aMap: ReadonlyMap<OperandArgString | FlagArgString | OptionArgString, readonly number[]>): string
-{
-    return "{" + String(Array.from(aMap.entries()).map(entry => `${stringToString(entry[0].argString.value)} => [${entry[1].join(", ")}]`).join(", ")) + "}";
 }

@@ -1,6 +1,17 @@
 import { inspect } from "util";
 import { type Prefix, prefix } from "./prefix.js";
 
+const stringToString = (aString: string): string =>
+{
+    const quote = aString.length !== 1 ? "\"" : "'";
+    return `${quote}${aString}${quote}`;
+};
+
+const mapToString = (aMap: ReadonlyMap<string, readonly number[]>): string =>
+{
+    return "{" + String(Array.from(aMap.entries()).map(entry => `${stringToString(entry[0])} => [${entry[1].join(", ")}]`).join(", ")) + "}";
+};
+
 export class PrefixIndexParser implements IterableIterator<readonly [string, readonly number[]]>
 {
     readonly #prefix: Readonly<Prefix>;
@@ -105,17 +116,6 @@ export class PrefixIndexParser implements IterableIterator<readonly [string, rea
 
     public toString(): string { return this.#string; }
     public [inspect.custom]() { return this.#string; }
-}
-
-function stringToString(aString: string): string
-{
-    const quote = aString.length !== 1 ? "\"" : "'";
-    return `${quote}${aString}${quote}`;
-}
-
-function mapToString(aMap: ReadonlyMap<string, readonly number[]>): string
-{
-    return "{" + String(Array.from(aMap.entries()).map(entry => `${stringToString(entry[0])} => [${entry[1].join(", ")}]`).join(", ")) + "}";
 }
 
 export function prefixIndexParser(prefixChar: NonNullable<string>, stringsToParse: NonNullable<readonly string[]>): PrefixIndexParser;
