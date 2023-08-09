@@ -21,7 +21,7 @@ export class PrefixIndexParser
     readonly #options: ReadonlyMap<string, readonly number[]>;
     readonly #string: string;
 
-    public constructor(argumentPrefix: NonNullable<string | number | Prefix>, strings: NonNullable<readonly string[]>)
+    public constructor(argumentPrefix: NonNullable<string | Prefix>, strings: NonNullable<readonly string[]>)
     {
         if (argumentPrefix === undefined || argumentPrefix === null)
         {
@@ -40,10 +40,6 @@ export class PrefixIndexParser
                 throw new Error(`${PrefixIndexParser.name}: prefix doesn't consist of single character: "${argumentPrefix}"`);
             }
 
-            this.#prefix = Object.freeze(prefix(argumentPrefix));
-        }
-        else if (typeof argumentPrefix === "number")
-        {
             this.#prefix = Object.freeze(prefix(argumentPrefix));
         }
         else
@@ -96,14 +92,13 @@ export class PrefixIndexParser
 }
 
 export function prefixIndexParser(prefixChar: NonNullable<string>, stringsToParse: NonNullable<readonly string[]>): PrefixIndexParser;
-export function prefixIndexParser(prefixCodePoint: NonNullable<number>, stringsToParse: NonNullable<readonly string[]>): PrefixIndexParser;
 export function prefixIndexParser(prefix: NonNullable<Prefix>, stringsToParse: NonNullable<readonly string[]>): PrefixIndexParser;
 export function prefixIndexParser(other: NonNullable<PrefixIndexParser>): PrefixIndexParser;
-export function prefixIndexParser(prefixCharOrCodePointOrOther: NonNullable<string | number | Prefix | PrefixIndexParser>, stringsToParse?: readonly string[]): PrefixIndexParser
+export function prefixIndexParser(prefixCharOrOther: NonNullable<string | Prefix | PrefixIndexParser>, stringsToParse?: readonly string[]): PrefixIndexParser
 {
-    if (prefixCharOrCodePointOrOther instanceof PrefixIndexParser)
+    if (prefixCharOrOther instanceof PrefixIndexParser)
     {
-        return new PrefixIndexParser(prefixCharOrCodePointOrOther.prefix.flagChar, prefixCharOrCodePointOrOther.strings);
+        return new PrefixIndexParser(prefixCharOrOther.prefix.flagChar, prefixCharOrOther.strings);
     }
     else
     {
@@ -112,7 +107,7 @@ export function prefixIndexParser(prefixCharOrCodePointOrOther: NonNullable<stri
             throw new Error(`${prefixIndexParser.name}: ${stringsToParse} strings to parse argument.`);
         }
 
-        return new PrefixIndexParser(prefixCharOrCodePointOrOther, stringsToParse);
+        return new PrefixIndexParser(prefixCharOrOther, stringsToParse);
     }
 }
 
