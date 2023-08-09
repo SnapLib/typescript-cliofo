@@ -63,15 +63,24 @@ export class FlagArgString extends ConstrainedArgString<string>
 
 export function flagArgString(stringPrefixArgumentString: NonNullable<StringPrefixArgString>): FlagArgString;
 export function flagArgString(other: NonNullable<FlagArgString>): FlagArgString;
-export function flagArgString(stringPrefixArgumentStringOrOther: NonNullable<StringPrefixArgString | FlagArgString>): FlagArgString
+export function flagArgString(stringPrefixArgumentStringOrPrefixStringOrOther: NonNullable<string | StringPrefixArgString | FlagArgString>, valueString?: string): FlagArgString
 {
-    if (stringPrefixArgumentStringOrOther instanceof StringPrefixArgString)
+    if (typeof stringPrefixArgumentStringOrPrefixStringOrOther === "string")
     {
-        return new FlagArgString(stringPrefixArgumentStringOrOther);
+        if (valueString === undefined || valueString === null)
+        {
+            throw new Error(`${flagArgString.name}: ${valueString} value string argument.`);
+        }
+
+        return new FlagArgString(stringPrefixArgString(stringPrefixArgumentStringOrPrefixStringOrOther, valueString));
+    }
+    else if (stringPrefixArgumentStringOrPrefixStringOrOther instanceof StringPrefixArgString)
+    {
+        return new FlagArgString(stringPrefixArgumentStringOrPrefixStringOrOther);
     }
     else
     {
-        return new FlagArgString(stringPrefixArgString(stringPrefixArgumentStringOrOther.argString.prefix, stringPrefixArgumentStringOrOther.argString.value));
+        return new FlagArgString(stringPrefixArgString(stringPrefixArgumentStringOrPrefixStringOrOther.argString.prefix, stringPrefixArgumentStringOrPrefixStringOrOther.argString.value));
     }
 }
 
