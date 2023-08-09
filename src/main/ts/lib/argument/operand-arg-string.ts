@@ -2,7 +2,7 @@ import { argStringConstraint, type ArgStringConstraint, type PrefixPredicate, ty
 import { ConstrainedArgString } from "./constrained-arg-string.js";
 import { StringSetPrefixArgString, stringSetPrefixArgString } from "./string-set-prefix-arg-string.js";
 
-const whiteSpaceRegEx: Readonly<RegExp> = Object.freeze(/\s/g);
+const whiteSpaceRegEx: Readonly<RegExp> = /\s/g;
 
  export const operandPrefixPredicate: PrefixPredicate<ReadonlySet<string>> =
     Object.freeze( (prefixStringSet?: ReadonlySet<string>): boolean =>

@@ -1,3 +1,3 @@
-import { PrefixIndexParser } from "./lib/prefix-index-parser.js";
+import { prefixArgumentIndexParser } from "./lib/prefix-argument-index-parser.js";
 
-console.log(new PrefixIndexParser("-", process.argv.slice(2)));
+console.log(prefixArgumentIndexParser("-", process.argv.slice(2)));

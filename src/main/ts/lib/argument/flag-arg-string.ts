@@ -2,7 +2,7 @@ import { argStringConstraint, type ArgStringConstraint, type PrefixPredicate, ty
 import { ConstrainedArgString } from "./constrained-arg-string.js";
 import { StringPrefixArgString, stringPrefixArgString } from "./string-prefix-arg-string.js";
 
-const whiteSpaceRegEx: Readonly<RegExp> = Object.freeze(/\s/g);
+const whiteSpaceRegEx: Readonly<RegExp> = /\s/g;
 
 /**
  * Predicate that consumes a `string` and returns `true` if it's not `undefined`
