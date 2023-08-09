@@ -2,7 +2,6 @@ import { type PrefixIndexParser, prefixIndexParser as indexParser } from "./pref
 import { type OperandArgString, operandArgString } from "./argument/operand-arg-string.js";
 import { type FlagArgString, flagArgString } from "./argument/flag-arg-string.js";
 import { type OptionArgString, optionArgString } from "./argument/option-arg-string.js";
-import { stringSetPrefixArgString } from "./argument/string-set-prefix-arg-string.js";
 import { inspect } from "util";
 
 const stringToString = (aString: string): string =>
