@@ -53,7 +53,7 @@ export class PrefixArgumentIndexParser
                 ]
             )));
 
-            this.#string = `${PrefixArgumentIndexParser.name} {prefix: ${this.#prefixIndexParser.prefix}, operands: ${mapToString(this.#operands)}, flags: ${mapToString(this.#flags)}, options: ${mapToString(this.#options)}}`;
+            this.#string = `${PrefixArgumentIndexParser.name} {prefix: {flagChar: '${this.#prefixIndexParser.prefix.flagChar}', optionString: "${this.#prefixIndexParser.prefix.optionString}"}, operands: ${mapToString(this.#operands)}, flags: ${mapToString(this.#flags)}, options: ${mapToString(this.#options)}}`;
     }
 
     public get operands(): ReadonlyMap<OperandArgString, readonly number[]> { return this.#operands; }
