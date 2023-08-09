@@ -4,6 +4,7 @@ import { type FlagArgString, flagArgString } from "./argument/flag-arg-string.js
 import { type OptionArgString, optionArgString } from "./argument/option-arg-string.js";
 import { stringPrefixArgString } from "./argument/string-prefix-arg-string.js";
 import { stringSetPrefixArgString } from "./argument/string-set-prefix-arg-string.js";
+import { inspect } from "util";
 
 export class PrefixArgumentIndexParser
 {
@@ -47,6 +48,10 @@ export class PrefixArgumentIndexParser
     public get operands(): ReadonlyMap<OperandArgString, readonly number[]> { return this.#operands; }
     public get flags(): ReadonlyMap<FlagArgString, readonly number[]> { return this.#flags; }
     public get options(): ReadonlyMap<OptionArgString, readonly number[]> { return this.#options; }
+
+    public toString(): string { return this.#string; }
+
+    public [inspect.custom](): string { return this.#string; }
 }
 
 function stringToString(aString: string): string
