@@ -61,26 +61,27 @@ export class FlagArgString extends ConstrainedArgString<string>
     }
 }
 
+export function flagArgString(prefixChar: NonNullable<string>, valueString: NonNullable<string>): FlagArgString;
 export function flagArgString(stringPrefixArgumentString: NonNullable<StringPrefixArgString>): FlagArgString;
 export function flagArgString(other: NonNullable<FlagArgString>): FlagArgString;
-export function flagArgString(stringPrefixArgumentStringOrPrefixStringOrOther: NonNullable<string | StringPrefixArgString | FlagArgString>, valueString?: string): FlagArgString
+export function flagArgString(prefixCharOrStringPrefixArgumentStringOrOther: NonNullable<string | StringPrefixArgString | FlagArgString>, valueString?: string): FlagArgString
 {
-    if (typeof stringPrefixArgumentStringOrPrefixStringOrOther === "string")
+    if (typeof prefixCharOrStringPrefixArgumentStringOrOther === "string")
     {
         if (valueString === undefined || valueString === null)
         {
             throw new Error(`${flagArgString.name}: ${valueString} value string argument.`);
         }
 
-        return new FlagArgString(stringPrefixArgString(stringPrefixArgumentStringOrPrefixStringOrOther, valueString));
+        return new FlagArgString((stringPrefixArgString(prefixCharOrStringPrefixArgumentStringOrOther, valueString)));
     }
-    else if (stringPrefixArgumentStringOrPrefixStringOrOther instanceof StringPrefixArgString)
+    else if (prefixCharOrStringPrefixArgumentStringOrOther instanceof StringPrefixArgString)
     {
-        return new FlagArgString(stringPrefixArgumentStringOrPrefixStringOrOther);
+        return new FlagArgString(prefixCharOrStringPrefixArgumentStringOrOther);
     }
     else
     {
-        return new FlagArgString(stringPrefixArgString(stringPrefixArgumentStringOrPrefixStringOrOther.argString.prefix, stringPrefixArgumentStringOrPrefixStringOrOther.argString.value));
+        return new FlagArgString(stringPrefixArgString(prefixCharOrStringPrefixArgumentStringOrOther.argString.prefix, prefixCharOrStringPrefixArgumentStringOrOther.argString.value));
     }
 }
 

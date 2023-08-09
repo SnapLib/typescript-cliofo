@@ -2,7 +2,6 @@ import { type PrefixIndexParser, prefixIndexParser as indexParser } from "./pref
 import { type OperandArgString, operandArgString } from "./argument/operand-arg-string.js";
 import { type FlagArgString, flagArgString } from "./argument/flag-arg-string.js";
 import { type OptionArgString, optionArgString } from "./argument/option-arg-string.js";
-import { stringPrefixArgString } from "./argument/string-prefix-arg-string.js";
 import { stringSetPrefixArgString } from "./argument/string-set-prefix-arg-string.js";
 import { inspect } from "util";
 
@@ -30,28 +29,25 @@ export class PrefixArgumentIndexParser
         this.#prefixIndexParser = Object.isFrozen(prefixIndexParser) ? prefixIndexParser : Object.freeze(indexParser(prefixIndexParser));
 
         this.#operands = Object.freeze(new Map(Array.from(this.#prefixIndexParser.operands.entries()).
-            map(operandIndexEntry =>
-                [ operandArgString(stringSetPrefixArgString(
-                    new Set([this.#prefixIndexParser.prefix.flagChar, this.#prefixIndexParser.prefix.optionString]),
-                    operandIndexEntry[0])), operandIndexEntry[1]
-                ]
-            )));
+            map(operandIndexEntry => [
+                operandArgString( new Set([this.#prefixIndexParser.prefix.flagChar, this.#prefixIndexParser.prefix.optionString]),
+                                  operandIndexEntry[0]),
+                operandIndexEntry[1]
+            ] )));
 
         this.#flags = Object.freeze(new Map(Array.from(this.#prefixIndexParser.flags.entries()).
-            map(flagIndexEntry =>
-                [ flagArgString(stringPrefixArgString(
-                    this.#prefixIndexParser.prefix.flagChar, flagIndexEntry[0])),
-                    flagIndexEntry[1]
-                ]
-            )));
+            map(flagIndexEntry => [
+                flagArgString( this.#prefixIndexParser.prefix.flagChar,
+                                flagIndexEntry[0] ),
+                flagIndexEntry[1]
+            ] )));
 
         this.#options = Object.freeze(new Map(Array.from(this.#prefixIndexParser.options.entries()).
-            map(optionIndexEntry =>
-                [ optionArgString(stringPrefixArgString(
-                    this.#prefixIndexParser.prefix.optionString, optionIndexEntry[0])),
-                    optionIndexEntry[1]
-                ]
-            )));
+            map(optionIndexEntry => [
+                optionArgString( this.#prefixIndexParser.prefix.optionString,
+                                 optionIndexEntry[0]),
+                optionIndexEntry[1]
+            ] )));
 
             this.#string = `${PrefixArgumentIndexParser.name} {prefix: {flagChar: '${this.#prefixIndexParser.prefix.flagChar}', optionString: "${this.#prefixIndexParser.prefix.optionString}"}, operands: ${mapToString(this.#operands)}, flags: ${mapToString(this.#flags)}, options: ${mapToString(this.#options)}}`;
     }
@@ -63,4 +59,9 @@ export class PrefixArgumentIndexParser
     public toString(): string { return this.#string; }
 
     public [inspect.custom](): string { return this.#string; }
+}
+
+export function prefixArgumentIndexParser(prefixIndexParser: PrefixIndexParser): PrefixArgumentIndexParser
+{
+    return new PrefixArgumentIndexParser(prefixIndexParser);
 }

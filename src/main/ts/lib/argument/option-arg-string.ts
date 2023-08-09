@@ -25,17 +25,27 @@ export class OptionArgString extends ConstrainedArgString<string>
     }
 }
 
+export function optionArgString(prefixString: NonNullable<string>, valueString: NonNullable<string>): OptionArgString;
 export function optionArgString(stringPrefixArgumentString: NonNullable<StringPrefixArgString>): OptionArgString;
 export function optionArgString(other: NonNullable<OptionArgString>): OptionArgString;
-export function optionArgString(stringPrefixArgumentStringOrOther: NonNullable<StringPrefixArgString | OptionArgString>): OptionArgString
+export function optionArgString(prefixStringOrStringPrefixArgumentStringOrOther: NonNullable<string | StringPrefixArgString | OptionArgString>, valueString?: string): OptionArgString
 {
-    if (stringPrefixArgumentStringOrOther instanceof StringPrefixArgString)
+    if (typeof prefixStringOrStringPrefixArgumentStringOrOther === "string")
     {
-        return new OptionArgString(stringPrefixArgumentStringOrOther);
+        if (valueString === undefined || valueString === null)
+        {
+            throw new Error(`${optionArgString.name}: ${valueString} value string argument.`);
+        }
+
+        return new OptionArgString((stringPrefixArgString(prefixStringOrStringPrefixArgumentStringOrOther, valueString)));
+    }
+    else if (prefixStringOrStringPrefixArgumentStringOrOther instanceof StringPrefixArgString)
+    {
+        return new OptionArgString(prefixStringOrStringPrefixArgumentStringOrOther);
     }
     else
     {
-        return new OptionArgString(stringPrefixArgString(stringPrefixArgumentStringOrOther.argString.prefix, stringPrefixArgumentStringOrOther.argString.value));
+        return new OptionArgString(stringPrefixArgString(prefixStringOrStringPrefixArgumentStringOrOther.argString.prefix, prefixStringOrStringPrefixArgumentStringOrOther.argString.value));
     }
 }
 

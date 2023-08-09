@@ -41,17 +41,27 @@ export class OperandArgString extends ConstrainedArgString<ReadonlySet<string>>
     }
 }
 
+export function operandArgString(prefixesStringSet: NonNullable<Set<string>>, valueString: NonNullable<string>): OperandArgString;
 export function operandArgString(stringSetPrefixArgumentString: NonNullable<StringSetPrefixArgString>): OperandArgString;
 export function operandArgString(other: NonNullable<OperandArgString>): OperandArgString;
-export function operandArgString(stringSetPrefixArgumentStringOrOther: NonNullable<StringSetPrefixArgString | OperandArgString>): OperandArgString
+export function operandArgString(stringSetOrStringSetPrefixArgumentStringOrOther: NonNullable<Set<string> | StringSetPrefixArgString | OperandArgString>, valueString?: string): OperandArgString
 {
-    if (stringSetPrefixArgumentStringOrOther instanceof StringSetPrefixArgString)
+    if (stringSetOrStringSetPrefixArgumentStringOrOther instanceof Set)
     {
-        return new OperandArgString(stringSetPrefixArgumentStringOrOther);
+        if (valueString === undefined || valueString === null)
+        {
+            throw new Error(`${operandArgString.name}: ${valueString} value string argument.`);
+        }
+
+        return new OperandArgString(stringSetPrefixArgString((stringSetOrStringSetPrefixArgumentStringOrOther), valueString));
+    }
+    else if (stringSetOrStringSetPrefixArgumentStringOrOther instanceof StringSetPrefixArgString)
+    {
+        return new OperandArgString(stringSetOrStringSetPrefixArgumentStringOrOther);
     }
     else
     {
-        return new OperandArgString(stringSetPrefixArgString(stringSetPrefixArgumentStringOrOther.argString.prefix, stringSetPrefixArgumentStringOrOther.argString.value));
+        return new OperandArgString(stringSetPrefixArgString(stringSetOrStringSetPrefixArgumentStringOrOther.argString.prefix, stringSetOrStringSetPrefixArgumentStringOrOther.argString.value));
     }
 }
 
