@@ -1,4 +1,4 @@
-import { type StringOrStringSet } from "./arg-string.js";
+import { type StringOrStringSet } from "./arg-string/arg-string.js";
 import { PrefixConstraintViolationError } from "./error/prefix-constraint-violation-error.js";
 import { ValueConstraintViolationError } from "./error/value-constraint-violation-error.js";
 
