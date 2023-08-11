@@ -50,7 +50,7 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrStringSet>
         this.#argStringConstraint = Object.isFrozen(argumentStringConstraint) ? argumentStringConstraint : Object.freeze(createArgStringConstraint(argumentStringConstraint));
         this.#argString = argumentString;
         this.#name = name;
-        this.#string = `${ConstrainedArgString.name} {${name.length !== 0 && name !== this.#argString.value ? `name: ${stringToString(name)}, ` : ""}prefix: ${stringOrStringSetToString(this.#argString.prefix)}, value: ${stringOrStringSetToString(this.#argString.value)}}`;
+        this.#string = `${ConstrainedArgString.name} {${this.#name.length !== 0 && this.#name !== this.#argString.value ? `name: ${stringToString(this.#name)}, ` : ""}prefix: ${stringOrStringSetToString(this.#argString.prefix)}, value: ${stringOrStringSetToString(this.#argString.value)}}`;
     }
 
     public get argConstraint(): Readonly<ArgStringConstraint<PrefixType>> { return this.#argStringConstraint; }
