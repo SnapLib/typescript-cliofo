@@ -4,11 +4,7 @@ import { type FlagArgString, flagArgString } from "./constrained-string/flag-arg
 import { type OptionArgString, optionArgString } from "./constrained-string/option-arg-string.js";
 import { inspect } from "util";
 
-const stringToString = (aString: string): string =>
-{
-    const quote = aString.length !== 1 ? "\"" : "'";
-    return `${quote}${aString}${quote}`;
-};
+const stringToString = (aString: string): string => aString.length !== 1 ? `"${aString}"` : `'${aString}'`;
 
 const mapToString = (aMap: ReadonlyMap<OperandArgString | FlagArgString | OptionArgString, readonly number[]>): string =>
 {
