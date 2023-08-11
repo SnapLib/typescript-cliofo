@@ -1,7 +1,28 @@
 import { inspect } from "util";
 
+/**
+ * This type is used to constrain the type of prefixes allowed for {@link ArgString}
+ * prefixes and the type of arguments an {@link ArgStringConstraint} and
+ * {@link ConstrainedArgString} can consume. It consists of a `string` or
+ * `ReadonlySet<string>` type.
+ *
+ * @see ArgString
+ * @see ArgStringConstraint
+ * @see ConstrainedArgString
+ */
 export type StringOrStringSet = string | ReadonlySet<string>;
 
+/**
+ * This is the root class of the Cliofo argument string hierarchy used to represent
+ * a string argument that can be passed on the command line. A command line string
+ * argument consists of 2 fundamental parts:
+ *
+ * 1. A leading ***prefix*** `string` or `string`s
+ * 1. and a suffix ***value*** `string` appended to the leading prefix
+ *
+ * The leading prefix can be a single `string` or a set of multiple `string`s if
+ * a use case requires specifying more than 1 leading prefix `string`.
+ */
 export abstract class ArgString<PrefixType extends StringOrStringSet>
 {
     readonly #prefix: PrefixType;
