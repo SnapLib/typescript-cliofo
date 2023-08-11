@@ -25,8 +25,8 @@ export type StringOrReadonlyStringSet = string | ReadonlySet<string>;
  * utilized by this API's {@link OperandArgString} class which specifies multiple
  * `string` values it's *not* allowed to have.
  *
- * @typeParam {StringOrReadonlyStringSet} PrefixType - `string` or
- * `ReadonlySet<string>` type specifying what type of prefix this object has.
+ * @typeParam PrefixType - `string` or `ReadonlySet<string>` type specifying
+ *                         what type of prefix this object has.
  */
 export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
 {
