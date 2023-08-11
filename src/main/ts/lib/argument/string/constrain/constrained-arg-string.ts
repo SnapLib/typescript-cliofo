@@ -1,5 +1,5 @@
 import { type ArgStringConstraint, argStringConstraint as createArgStringConstraint } from "./arg-string-constraint.js";
-import { type ArgString, type StringOrStringSet } from "./string/arg-string.js";
+import { type ArgString, type StringOrStringSet } from "./../arg-string.js";
 import { inspect } from "util";
 import { PrefixConstraintViolationError } from "./error/prefix-constraint-violation-error.js";
 import { ValueConstraintViolationError } from "./error/value-constraint-violation-error.js";
