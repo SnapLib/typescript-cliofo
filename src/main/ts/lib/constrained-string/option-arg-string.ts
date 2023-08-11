@@ -19,16 +19,16 @@ export const flagArgStringConstraint: ArgStringConstraint<string> = argStringCon
 
 export class OptionArgString extends ConstrainedArgString<string>
 {
-    public constructor(stringPrefixArgumentString: NonNullable<StringPrefixArgString>)
+    public constructor(stringPrefixArgumentString: NonNullable<StringPrefixArgString>, name?: string)
     {
-        super(flagArgStringConstraint, Object.isFrozen(stringPrefixArgumentString) ? stringPrefixArgumentString : Object.freeze(stringPrefixArgString(stringPrefixArgumentString)));
+        super(flagArgStringConstraint, Object.isFrozen(stringPrefixArgumentString) ? stringPrefixArgumentString : Object.freeze(stringPrefixArgString(stringPrefixArgumentString)), name ?? stringPrefixArgumentString.value);
     }
 }
 
-export function optionArgString(prefixString: NonNullable<string>, valueString: NonNullable<string>): OptionArgString;
-export function optionArgString(stringPrefixArgumentString: NonNullable<StringPrefixArgString>): OptionArgString;
-export function optionArgString(other: NonNullable<OptionArgString>): OptionArgString;
-export function optionArgString(prefixStringOrStringPrefixArgumentStringOrOther: NonNullable<string | StringPrefixArgString | OptionArgString>, valueString?: string): OptionArgString
+export function optionArgString(prefixString: NonNullable<string>, valueString: NonNullable<string>, name?: string): OptionArgString;
+export function optionArgString(stringPrefixArgumentString: NonNullable<StringPrefixArgString>, name?: string): OptionArgString;
+export function optionArgString(other: NonNullable<OptionArgString>, name?: string): OptionArgString;
+export function optionArgString(prefixStringOrStringPrefixArgumentStringOrOther: NonNullable<string | StringPrefixArgString | OptionArgString>, valueString?: string, name?: string): OptionArgString
 {
     if (typeof prefixStringOrStringPrefixArgumentStringOrOther === "string")
     {
@@ -37,15 +37,15 @@ export function optionArgString(prefixStringOrStringPrefixArgumentStringOrOther:
             throw new Error(`${optionArgString.name}: ${valueString} value string argument.`);
         }
 
-        return new OptionArgString((stringPrefixArgString(prefixStringOrStringPrefixArgumentStringOrOther, valueString)));
+        return new OptionArgString((stringPrefixArgString(prefixStringOrStringPrefixArgumentStringOrOther, valueString)), name);
     }
     else if (prefixStringOrStringPrefixArgumentStringOrOther instanceof StringPrefixArgString)
     {
-        return new OptionArgString(prefixStringOrStringPrefixArgumentStringOrOther);
+        return new OptionArgString(prefixStringOrStringPrefixArgumentStringOrOther, name);
     }
     else
     {
-        return new OptionArgString(stringPrefixArgString(prefixStringOrStringPrefixArgumentStringOrOther.argString.prefix, prefixStringOrStringPrefixArgumentStringOrOther.argString.value));
+        return new OptionArgString(stringPrefixArgString(prefixStringOrStringPrefixArgumentStringOrOther.argString.prefix, prefixStringOrStringPrefixArgumentStringOrOther.argString.value), name);
     }
 }
 

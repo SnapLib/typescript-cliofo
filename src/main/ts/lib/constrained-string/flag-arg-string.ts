@@ -55,16 +55,16 @@ export const flagArgStringConstraint: ArgStringConstraint<string> = argStringCon
 
 export class FlagArgString extends ConstrainedArgString<string>
 {
-    public constructor(stringPrefixArgumentString: NonNullable<StringPrefixArgString>)
+    public constructor(stringPrefixArgumentString: NonNullable<StringPrefixArgString>, name?: string)
     {
-        super(flagArgStringConstraint, Object.isFrozen(stringPrefixArgumentString) ? stringPrefixArgumentString : Object.freeze(stringPrefixArgString(stringPrefixArgumentString)));
+        super(flagArgStringConstraint, Object.isFrozen(stringPrefixArgumentString) ? stringPrefixArgumentString : Object.freeze(stringPrefixArgString(stringPrefixArgumentString)), name ?? "");
     }
 }
 
-export function flagArgString(prefixChar: NonNullable<string>, valueString: NonNullable<string>): FlagArgString;
-export function flagArgString(stringPrefixArgumentString: NonNullable<StringPrefixArgString>): FlagArgString;
-export function flagArgString(other: NonNullable<FlagArgString>): FlagArgString;
-export function flagArgString(prefixCharOrStringPrefixArgumentStringOrOther: NonNullable<string | StringPrefixArgString | FlagArgString>, valueString?: string): FlagArgString
+export function flagArgString(prefixChar: NonNullable<string>, valueString: NonNullable<string>, name?: string): FlagArgString;
+export function flagArgString(stringPrefixArgumentString: NonNullable<StringPrefixArgString>, name?: string): FlagArgString;
+export function flagArgString(other: NonNullable<FlagArgString>, name?: string): FlagArgString;
+export function flagArgString(prefixCharOrStringPrefixArgumentStringOrOther: NonNullable<string | StringPrefixArgString | FlagArgString>, valueString?: string, name?: string): FlagArgString
 {
     if (typeof prefixCharOrStringPrefixArgumentStringOrOther === "string")
     {
@@ -77,11 +77,11 @@ export function flagArgString(prefixCharOrStringPrefixArgumentStringOrOther: Non
     }
     else if (prefixCharOrStringPrefixArgumentStringOrOther instanceof StringPrefixArgString)
     {
-        return new FlagArgString(prefixCharOrStringPrefixArgumentStringOrOther);
+        return new FlagArgString(prefixCharOrStringPrefixArgumentStringOrOther, name);
     }
     else
     {
-        return new FlagArgString(stringPrefixArgString(prefixCharOrStringPrefixArgumentStringOrOther.argString.prefix, prefixCharOrStringPrefixArgumentStringOrOther.argString.value));
+        return new FlagArgString(stringPrefixArgString(prefixCharOrStringPrefixArgumentStringOrOther.argString.prefix, prefixCharOrStringPrefixArgumentStringOrOther.argString.value), name);
     }
 }
 

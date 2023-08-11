@@ -35,16 +35,16 @@ export const operandArgStringConstraint: ArgStringConstraint<ReadonlySet<string>
 
 export class OperandArgString extends ConstrainedArgString<ReadonlySet<string>>
 {
-    public constructor(stringSetPrefixArgumentString: NonNullable<StringSetPrefixArgString>)
+    public constructor(stringSetPrefixArgumentString: NonNullable<StringSetPrefixArgString>, name?: string)
     {
-        super(operandArgStringConstraint, Object.isFrozen(stringSetPrefixArgumentString) ? stringSetPrefixArgumentString : Object.freeze(stringSetPrefixArgString(stringSetPrefixArgumentString)));
+        super(operandArgStringConstraint, Object.isFrozen(stringSetPrefixArgumentString) ? stringSetPrefixArgumentString : Object.freeze(stringSetPrefixArgString(stringSetPrefixArgumentString)), name ?? stringSetPrefixArgumentString.value);
     }
 }
 
-export function operandArgString(prefixesStringSet: NonNullable<Set<string>>, valueString: NonNullable<string>): OperandArgString;
-export function operandArgString(stringSetPrefixArgumentString: NonNullable<StringSetPrefixArgString>): OperandArgString;
-export function operandArgString(other: NonNullable<OperandArgString>): OperandArgString;
-export function operandArgString(stringSetOrStringSetPrefixArgumentStringOrOther: NonNullable<Set<string> | StringSetPrefixArgString | OperandArgString>, valueString?: string): OperandArgString
+export function operandArgString(prefixesStringSet: NonNullable<Set<string>>, valueString: NonNullable<string>, name?: string): OperandArgString;
+export function operandArgString(stringSetPrefixArgumentString: NonNullable<StringSetPrefixArgString>, name?: string): OperandArgString;
+export function operandArgString(other: NonNullable<OperandArgString>, name?: string): OperandArgString;
+export function operandArgString(stringSetOrStringSetPrefixArgumentStringOrOther: NonNullable<Set<string> | StringSetPrefixArgString | OperandArgString>, valueString?: string, name?: string): OperandArgString
 {
     if (stringSetOrStringSetPrefixArgumentStringOrOther instanceof Set)
     {
@@ -53,15 +53,15 @@ export function operandArgString(stringSetOrStringSetPrefixArgumentStringOrOther
             throw new Error(`${operandArgString.name}: ${valueString} value string argument.`);
         }
 
-        return new OperandArgString(stringSetPrefixArgString((stringSetOrStringSetPrefixArgumentStringOrOther), valueString));
+        return new OperandArgString(stringSetPrefixArgString((stringSetOrStringSetPrefixArgumentStringOrOther), valueString), name);
     }
     else if (stringSetOrStringSetPrefixArgumentStringOrOther instanceof StringSetPrefixArgString)
     {
-        return new OperandArgString(stringSetOrStringSetPrefixArgumentStringOrOther);
+        return new OperandArgString(stringSetOrStringSetPrefixArgumentStringOrOther, name);
     }
     else
     {
-        return new OperandArgString(stringSetPrefixArgString(stringSetOrStringSetPrefixArgumentStringOrOther.argString.prefix, stringSetOrStringSetPrefixArgumentStringOrOther.argString.value));
+        return new OperandArgString(stringSetPrefixArgString(stringSetOrStringSetPrefixArgumentStringOrOther.argString.prefix, stringSetOrStringSetPrefixArgumentStringOrOther.argString.value), name);
     }
 }
 

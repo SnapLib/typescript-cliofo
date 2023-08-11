@@ -22,9 +22,10 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrStringSet>
 {
     readonly #argStringConstraint: Readonly<ArgStringConstraint<PrefixType>>;
     readonly #argString: Readonly<ArgString<PrefixType>>;
+    readonly #name: string;
     readonly #string: string;
 
-    protected constructor(argumentStringConstraint: NonNullable<ArgStringConstraint<PrefixType>>, argumentString: NonNullable<Readonly<ArgString<PrefixType>>>)
+    protected constructor(argumentStringConstraint: NonNullable<ArgStringConstraint<PrefixType>>, argumentString: NonNullable<Readonly<ArgString<PrefixType>>>, name: NonNullable<string>)
     {
         if (argumentStringConstraint === undefined || argumentStringConstraint === null)
         {
@@ -48,12 +49,13 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrStringSet>
 
         this.#argStringConstraint = Object.isFrozen(argumentStringConstraint) ? argumentStringConstraint : Object.freeze(createArgStringConstraint(argumentStringConstraint));
         this.#argString = argumentString;
-
-        this.#string = `${ConstrainedArgString.name} {prefix: ${stringOrStringSetToString(this.#argString.prefix)}, value: ${stringOrStringSetToString(this.#argString.value)}}`;
+        this.#name = name;
+        this.#string = `${ConstrainedArgString.name} {${name.length !== 0 && name !== this.#argString.value ? `name: ${stringToString(name)}, ` : ""}prefix: ${stringOrStringSetToString(this.#argString.prefix)}, value: ${stringOrStringSetToString(this.#argString.value)}}`;
     }
 
     public get argConstraint(): Readonly<ArgStringConstraint<PrefixType>> { return this.#argStringConstraint; }
     public get argString(): Readonly<ArgString<PrefixType>> { return this.#argString; }
+    public get name(): string { return this.#name; }
 
     public toString(): string { return this.#string; }
 
