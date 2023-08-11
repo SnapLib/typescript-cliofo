@@ -42,9 +42,6 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
      * @param value The `string` to set as this object's suffix value.
      *
      * @throws {Error} if `undefined` or `null` is passed for either argument.
-     *
-     * @protected
-     * @constructor
      */
     protected constructor(prefix: NonNullable<PrefixType>, value: NonNullable<string>)
     {
@@ -67,9 +64,6 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
      * property.
      *
      * @returns this object's leading `string` or `ReadonlySet<string>` prefix property.
-     *
-     * @public
-     * @method
      */
     public get prefix(): PrefixType { return this.#prefix; }
 
@@ -77,9 +71,6 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
      * Getter for this object's suffix `string` value property.
      *
      * @returns this object's suffix `string` value property.
-     *
-     * @public
-     * @method
      */
     public get value(): string { return this.#value; }
 
@@ -88,9 +79,6 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
      * property.
      *
      * @returns this object's `string` or `ReadonlySet<string>` prefixed value property.
-     *
-     * @public
-     * @method
      */
     public abstract get prefixedValue(): PrefixType;
 
@@ -108,9 +96,6 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
      * Returns a `string` representation of this object.
      *
      * @returns a `string` representation of this object.
-     *
-     * @public
-     * @method
      */
     public abstract toString(): string;
 
@@ -118,9 +103,6 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
      * Returns a `string` representation of this object.
      *
      * @returns a `string` representation of this object.
-     *
-     * @public
-     * @method
      */
     public abstract [inspect.custom](): string;
 }
