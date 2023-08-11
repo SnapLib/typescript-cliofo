@@ -1,6 +1,6 @@
-import { argStringConstraint, type ArgStringConstraint, type PrefixPredicate, type ValuePredicate } from "./string/constrain/arg-string-constraint.js";
-import { ConstrainedArgString } from "./string/constrain/constrained-arg-string.js";
-import { StringSetPrefixArgString, stringSetPrefixArgString } from "./string/string-set-prefix-arg-string.js";
+import { argStringConstraint, type ArgStringConstraint, type PrefixPredicate, type ValuePredicate } from "./../constrain/arg-string-constraint.js";
+import { ConstrainedArgString } from "./../constrain/constrained-arg-string.js";
+import { StringSetPrefixArgString, stringSetPrefixArgString } from "../string/string-set-prefix-arg-string.js";
 
 const whiteSpaceRegEx: Readonly<RegExp> = /\s/g;
 
