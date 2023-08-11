@@ -1,7 +1,7 @@
 import { type PrefixIndexParser, prefixIndexParser as indexParser, prefixIndexParser } from "./prefix-index-parser.js";
-import { type OperandArgString, operandArgString } from "./argument/operand-arg-string.js";
-import { type FlagArgString, flagArgString } from "./argument/flag-arg-string.js";
-import { type OptionArgString, optionArgString } from "./argument/option-arg-string.js";
+import { type OperandArgString, operandArgString } from "./constrained-string/operand-arg-string.js";
+import { type FlagArgString, flagArgString } from "./constrained-string/flag-arg-string.js";
+import { type OptionArgString, optionArgString } from "./constrained-string/option-arg-string.js";
 import { inspect } from "util";
 
 const stringToString = (aString: string): string =>
