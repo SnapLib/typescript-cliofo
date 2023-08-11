@@ -1,12 +1,12 @@
-import { type StringOrStringSet } from "../string/arg-string.js";
+import { type StringOrReadonlyStringSet } from "../string/arg-string.js";
 import { PrefixConstraintViolationError } from "./error/prefix-constraint-violation-error.js";
 import { ValueConstraintViolationError } from "./error/value-constraint-violation-error.js";
 
-export type PrefixPredicate<PrefixType extends StringOrStringSet> = (prefix?: PrefixType) => boolean;
+export type PrefixPredicate<PrefixType extends StringOrReadonlyStringSet> = (prefix?: PrefixType) => boolean;
 
-export type ValuePredicate<PrefixType extends StringOrStringSet> = (prefix: NonNullable<PrefixType>, value: string) => boolean;
+export type ValuePredicate<PrefixType extends StringOrReadonlyStringSet> = (prefix: NonNullable<PrefixType>, value: string) => boolean;
 
-export class ArgStringConstraint<PrefixType extends StringOrStringSet>
+export class ArgStringConstraint<PrefixType extends StringOrReadonlyStringSet>
 {
     readonly #prefixConstraint: PrefixPredicate<PrefixType>;
     readonly #valueConstraint: ValuePredicate<PrefixType>;
@@ -55,14 +55,14 @@ export class ArgStringConstraint<PrefixType extends StringOrStringSet>
     }
 }
 
-export function argStringConstraint<PrefixType extends StringOrStringSet>(
+export function argStringConstraint<PrefixType extends StringOrReadonlyStringSet>(
     prefixConstraint: NonNullable<PrefixPredicate<PrefixType>>,
     valueConstraint: NonNullable<ValuePredicate<PrefixType>>
 ): ArgStringConstraint<PrefixType>;
-export function argStringConstraint<PrefixType extends StringOrStringSet>(
+export function argStringConstraint<PrefixType extends StringOrReadonlyStringSet>(
     other: NonNullable<ArgStringConstraint<PrefixType>>
 ): ArgStringConstraint<PrefixType>;
-export function argStringConstraint<PrefixType extends StringOrStringSet>(
+export function argStringConstraint<PrefixType extends StringOrReadonlyStringSet>(
     prefixConstraintOrOther: NonNullable<PrefixPredicate<PrefixType> | ArgStringConstraint<PrefixType>>,
     valueConstraint?: ValuePredicate<PrefixType>
 ): ArgStringConstraint<PrefixType>

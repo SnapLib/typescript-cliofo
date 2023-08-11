@@ -10,7 +10,7 @@ import { inspect } from "util";
  * @see ArgStringConstraint
  * @see ConstrainedArgString
  */
-export type StringOrStringSet = string | ReadonlySet<string>;
+export type StringOrReadonlyStringSet = string | ReadonlySet<string>;
 
 /**
  * This is the root class of the Cliofo argument string hierarchy used to represent
@@ -23,7 +23,7 @@ export type StringOrStringSet = string | ReadonlySet<string>;
  * The leading prefix can be a single `string` or a set of multiple `string`s if
  * a use case requires specifying more than 1 leading prefix `string`.
  */
-export abstract class ArgString<PrefixType extends StringOrStringSet>
+export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
 {
     readonly #prefix: PrefixType;
     readonly #value: string;
