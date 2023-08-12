@@ -1,3 +1,11 @@
+/**
+ * This module contains the {@link StringOrReadonlyStringSet} type and
+ * {@link ArgString} class used to represent strings that can be passed on the
+ * command line.
+ *
+ * @module
+ */
+
 import { inspect } from "util";
 
 /**
@@ -5,10 +13,6 @@ import { inspect } from "util";
  * prefixes and the type of arguments an {@link ArgStringConstraint} and
  * {@link ConstrainedArgString} can consume. It consists of a `string` or
  * `ReadonlySet<string>` type.
- *
- * @see {@link ArgString}
- * @see {@link ArgStringConstraint}
- * @see {@link ConstrainedArgString}
  */
 export type StringOrReadonlyStringSet = string | ReadonlySet<string>;
 
@@ -18,12 +22,9 @@ export type StringOrReadonlyStringSet = string | ReadonlySet<string>;
  * argument consists of 2 fundamental parts:
  *
  * 1. A leading ***prefix*** `string` or `string`s
- * 1. and a suffix ***value*** `string` appended to the leading prefix
+ * 1. and a suffix ***value*** `string` appended to the leading prefix(s)
  *
- * The leading prefix can be a single `string` or a set of multiple `string`s if
- * a use case requires specifying more than 1 leading prefix `string`. This is
- * utilized by this API's {@link OperandArgString} class which specifies multiple
- * `string` values it's *not* allowed to have.
+ * The leading prefix can be a single `string` or a set of multiple `string`s.
  *
  * @typeParam PrefixType - `string` or `ReadonlySet<string>` type specifying
  *                         what type of prefix this object has.
@@ -41,7 +42,7 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
      *
      * @param value The `string` to set as this object's suffix value.
      *
-     * @throws {Error} if `undefined` or `null` is passed for either argument.
+     * @throws Error if `undefined` or `null` is passed for either argument.
      */
     protected constructor(prefix: NonNullable<PrefixType>, value: NonNullable<string>)
     {
@@ -75,8 +76,8 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
     public get value(): string { return this.#value; }
 
     /**
-     * Getter for this object's `string` or `ReadonlySet<string>` prefixed value
-     * property.
+     * Getter for this object's `string` or `ReadonlySet<string>` prefixed
+     * value(s) property.
      *
      * @returns this object's `string` or `ReadonlySet<string>` prefixed value property.
      */
