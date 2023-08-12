@@ -1,12 +1,34 @@
+/**
+ * This module contains the {@link StringPrefixArgString} class which is an
+ * implementation of the {@link ArgString} class consisting of a `string`
+ * prefix and prefixed value. The Cliofo API uses this class to represent flag
+ * and option arguments. For example, consider following 2 arguments:
+ *
+ * ```shell
+ * -h --help
+ * ```
+ *
+ * The `-h` argument could be thought of as a flag consisting of the `'-'`
+ * prefix `string` prepended to the `'h'` `string` value.
+ *
+ * The `--help` argument could be thought of as an option consisting of the
+ * `"--"` prefix `string` prepended to the `"help"` `string` value.
+ *
+ * @module
+ */
+
 import { ArgString } from "./arg-string.js";
 import { inspect } from "util";
 
 const stringToString = (aString: string) => aString.length != 1 ? `"${aString}"` : `'${aString}'`;
 
 /**
- * This class is used to create objects that represent string arguments consisting
- * of `string` prefixes prepended to `string` values that can be passed on the
- * command line.
+ * This class is used to create objects that represent a string argument that
+ * can be passed on the command line consisting of a `string` prefix prepended
+ * to a `string` value.
+ *
+ * This class is an {@link ArgString} implementation consisting of a `string`
+ * prefix and prefixed value.
  */
 export class StringPrefixArgString extends ArgString<string>
 {

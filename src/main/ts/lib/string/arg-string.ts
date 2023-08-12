@@ -42,7 +42,7 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
      *
      * @param value The `string` to set as this object's suffix value.
      *
-     * @throws Error if `undefined` or `null` is passed for either argument.
+     * @throws Error} if `undefined` or `null` is passed for either argument.
      */
     protected constructor(prefix: NonNullable<PrefixType>, value: NonNullable<string>)
     {
