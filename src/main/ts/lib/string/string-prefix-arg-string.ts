@@ -7,19 +7,21 @@ const stringToString = (aString: string) => aString.length != 1 ? `"${aString}"`
  * This class is used to create objects that represent string arguments consisting
  * of `string` prefixes prepended to `string` values that can be passed on the
  * command line.
- *
- * @remarks
- * This API's {@link FlagArgString} and {@link OptionArgString} classes inherit
- * from this class as those classes can only have single `string` prefixes.
- *
- * @see {@link FlagArgString}
- * @see {@link OptionArgString}
  */
 export class StringPrefixArgString extends ArgString<string>
 {
     readonly #prefixedValue: string;
     readonly #string: string;
 
+    /**
+     * Constructs an object with a `string` prefix prepended to a `string` value.
+     *
+     * @param prefix The prefix `string` prepended to the beginning of the
+     *               constructed object's {@link StringPrefixArgString.value value}.
+     *
+     * @param value  The `string` appended to the end of the constructed
+     *               object's {@link StringPrefixArgString.prefix prefix}.
+     */
     public constructor(prefix: NonNullable<string>, value: NonNullable<string>)
     {
         super(prefix, value);
@@ -58,7 +60,28 @@ export class StringPrefixArgString extends ArgString<string>
     public override [inspect.custom](): string { return this.#string; }
 }
 
+/**
+ * Factory method for creating a {@link StringPrefixArgString} object with a
+ * specified `string` {@link StringPrefixArgString.prefix prefix} and
+ * {@link StringPrefixArgString.value value}.
+ *
+ * @param prefix The prefix `string` prepended to the beginning of the
+ *               returned object's {@link StringPrefixArgString.value value}.
+ *
+ * @param value  The `string` appended to the end of the returned
+ *               object's {@link StringPrefixArgString.prefix prefix}.
+ */
 export function stringPrefixArgString(prefix: NonNullable<string>, value: NonNullable<string>): StringPrefixArgString;
+
+/**
+ * Factory method for creating a {@link StringPrefixArgString} object with
+ * `string` {@link StringPrefixArgString.prefix prefix} and
+ * {@link StringPrefixArgString.value value} properties copied from a passed
+ * {@link StringPrefixArgString} object.
+ *
+ * @param aStringPrefixArgString The object to copy properties from to the
+ *                               returned {@link StringPrefixArgString} object.
+ */
 export function stringPrefixArgString(aStringPrefixArgString: NonNullable<StringPrefixArgString>): StringPrefixArgString;
 export function stringPrefixArgString(prefixOrStringPrefixArgString: NonNullable<string | StringPrefixArgString>, value?: string): StringPrefixArgString
 {
