@@ -61,15 +61,17 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
     }
 
     /**
-     * Getter for this object's leading `string` or `ReadonlySet<string>` prefix
-     * property.
+     * This object's leading `string` or `ReadonlySet<string>` prefix
+     * property that is prepended to its {@link ArgString.value} to create its
+     * {@link ArgString.prefixedValue}.
      *
      * @returns this object's leading `string` or `ReadonlySet<string>` prefix property.
      */
     public get prefix(): PrefixType { return this.#prefix; }
 
     /**
-     * Getter for this object's suffix `string` value property.
+     * This object's suffix `string` value property that's appended to its
+     * {@link ArgString.prefix} property to create its {@link ArgString.prefixedValue}.
      *
      * @returns this object's suffix `string` value property.
      */
