@@ -17,7 +17,7 @@
  * characters without being considered a flag or options like the `"-v"` and
  * `"--color"` arguments.
  *
- * @module
+ * @module string-set-prefix-arg-string
  */
 
 import { ArgString } from "./arg-string.js";
@@ -147,12 +147,12 @@ export function stringSetPrefixArgString(prefixes: NonNullable<readonly string[]
  *
  * @param prefixes The `Set` of `string`s to set the created {@link StringSetPrefixArgString}
  *                 object's {@link StringSetPrefixArgString.prefix} property to
- *                 prepend to the beginning of its {@link StringPrefixArgString.value}
- *                 to create its {@link StringPrefixArgString.prefixedValue}s property.
+ *                 prepend to the beginning of its {@link StringSetPrefixArgString.value}
+ *                 to create its {@link StringSetPrefixArgString.prefixedValue}s property.
  *
  * @param value The `string` appended to the end of the returned
- *               {@link StringPrefixArgString}'s {@link StringPrefixArgString.prefix}es
- *               to create its {@link StringPrefixArgString.prefixedValue}s property.
+ *               {@link StringSetPrefixArgString}'s {@link StringSetPrefixArgString.prefix}es
+ *               to create its {@link StringSetPrefixArgString.prefixedValue}s property.
  *
  * @returns a {@link StringSetPrefixArgString} object with its {@link StringSetPrefixArgString.prefix}
  *          set to the provided `Set<string>` and its
@@ -162,12 +162,12 @@ export function stringSetPrefixArgString(prefixes: NonNullable<ReadonlySet<strin
 
 /**
  * Creates a new {@link StringSetPrefixArgString} object instance by copying
- * the {@link StringSetPrefixArgString.prefix} and {@link StringPrefixArgString.value}
+ * the {@link StringSetPrefixArgString.prefix} and {@link StringSetPrefixArgString.value}
  * properties from a pre-existing {@link StringSetPrefixArgString} object.
  *
  * @param other The other {@link StringSetPrefixArgString} object to copy the
  *              {@link StringSetPrefixArgString.prefix} and
- *              {@link StringPrefixArgString.value} properties from.
+ *              {@link StringSetPrefixArgString.value} properties from.
  *
  * @returns a new {@link StringSetPrefixArgString} object instance by copying
  *          another {@link StringSetPrefixArgString} object.

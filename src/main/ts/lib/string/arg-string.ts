@@ -5,7 +5,7 @@
  * {@link StringOrReadonlyStringSet} type is used to constrain the types of
  * prefixes `ArgString`s can have to either a `string` or `ReadOnlySet<string>`.
  *
- * @module
+ * @module arg-string
  */
 
 import { inspect } from "util";

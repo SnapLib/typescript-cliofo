@@ -15,7 +15,7 @@
  * The `--help` argument could be thought of as an option consisting of the
  * `"--"` prefix `string` prepended to the `"help"` `string` value.
  *
- * @module
+ * @module string-prefix-arg-string
  */
 
 import { ArgString } from "./arg-string.js";
