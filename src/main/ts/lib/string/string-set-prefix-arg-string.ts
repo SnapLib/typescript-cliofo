@@ -13,8 +13,9 @@
  * ```
  *
  * The `file.txt` argument could be thought of as an operand argument with the
- * specified `'-'` and `"--"` prefixes that it can't contain without being
- * considered a flag or options like the `"-v"` and `"--color"` arguments.
+ * specified `'-'` and `"--"` prefixes that it can't contain as leading
+ * characters without being considered a flag or options like the `"-v"` and
+ * `"--color"` arguments.
  *
  * @module
  */
@@ -26,15 +27,30 @@ const stringToString = (aString: string): string => aString.length != 1 ? `"${aS
 const stringArrayToString = (strings: ReadonlyArray<string>) => `[${strings.map(aString => stringToString(aString)).join(", ")}]`;
 
 /**
- * This class is used to create objects that consists of multiple
+ * This class is used to create objects that consists of multiple `string`
+ * {@link ArgString.prefix}es that can be prepended to a `string`
+ * {@link ArgString.value} to create multiple {@link ArgString.prefixedValue}s.
+ *
+ * @see {@link ArgString}
  */
 export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
 {
-    readonly #prefixesArray: ReadonlyArray<string>;
+    readonly #prefixesArray: readonly string[];
     readonly #prefixedValue: ReadonlySet<string>;
-    readonly #prefixedValuesArray: ReadonlyArray<string>;
+    readonly #prefixedValuesArray: readonly string[];
     readonly #string: string;
 
+    /**
+     * Constructs an object with the provided `string` prefixes and value.
+     *
+     * @param prefixes The `string`s that can be prepended to the beginning of
+     *                 the constructed object's {@link StringSetPrefixArgString.value}
+     *                 to create its {@link StringSetPrefixArgString.prefixedValue}.
+     *
+     * @param value The `string` appended to the end of the constructed
+     *              object's {@link StringSetPrefixArgString.prefix}es to create
+     *              its {@link StringSetPrefixArgString.prefixedValue}s.
+     */
     public constructor(prefixes: NonNullable<ReadonlySet<string>>, value: NonNullable<string>)
     {
         super(Object.isFrozen(prefixes) ? prefixes : Object.freeze(new Set(prefixes)), value);
@@ -44,11 +60,44 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
         this.#string = `${StringSetPrefixArgString.name} {prefixes: ${stringArrayToString(this.#prefixedValuesArray)}, value: ${stringToString(super.value)}}`;
     }
 
+    /**
+     * Returns a set of `string`s created by prepending this object's
+     * {@link StringSetPrefixArgString.prefix}es to its
+     * {@link StringSetPrefixArgString.value}.
+     *
+     * @returns this object's prefixed value `string`s property.
+     */
     public override get prefixedValue(): ReadonlySet<string> { return this.#prefixedValue; }
 
-    public prefixes(): ReadonlyArray<string> { return this.#prefixesArray; }
-    public prefixedValues(): ReadonlyArray<string> { return this.#prefixedValuesArray; }
+    /**
+     * Returns this object's {@link StringSetPrefixArgString.prefix}es as a
+     * `readonly string[]` array (as opposed to a `ReadonlySet<string>`).
+     *
+     * @returns this object's {@link StringSetPrefixArgString.prefix}es as a
+     *          `readonly string[]` array (as opposed to a `ReadonlySet<string>`).
+     */
+    public prefixes(): readonly string[] { return this.#prefixesArray; }
 
+    /**
+     * Returns this object's {@link StringSetPrefixArgString.prefixedValue}es as
+     * a readonly string[]` array (as opposed to a `ReadonlySet<string>`).
+     *
+     * @returns this object's {@link StringSetPrefixArgString.prefixedValue}es as a
+     *          `readonly string[]` array (as opposed to a `ReadonlySet<string>`).
+     */
+    public prefixedValues(): readonly string[] { return this.#prefixedValuesArray; }
+
+    /**
+     * Returns `true` if the passed argument is a {@link StringSetPrefixArgString} object
+     * with {@link StringSetPrefixArgString.prefix} and {@link StringSetPrefixArgString.value}
+     * `ReadonlySet<string>` properties equal to this object's prefix and value properties.
+     *
+     * @param obj The argument being compared for equality to this
+     *            {@link StringSetPrefixArgString} object.
+     *
+     * @returns `true` if the passed argument is equal to this
+     *          {@link StringSetPrefixArgString} object.
+     */
     public override equals(obj?: unknown): boolean
     {
         if (this === obj) { return true; }
@@ -74,7 +123,7 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
 
 export function stringSetPrefixArgString(prefixes: NonNullable<readonly string[]>, value: NonNullable<string>): StringSetPrefixArgString;
 export function stringSetPrefixArgString(prefixes: NonNullable<ReadonlySet<string>>, value: NonNullable<string>): StringSetPrefixArgString;
-export function stringSetPrefixArgString(aStringSetPrefixArgString: NonNullable<StringSetPrefixArgString>): StringSetPrefixArgString;
+export function stringSetPrefixArgString(other: NonNullable<StringSetPrefixArgString>): StringSetPrefixArgString;
 export function stringSetPrefixArgString(prefixesOrOther: NonNullable<ReadonlySet<string> | readonly string[] | StringSetPrefixArgString>, value?: string): StringSetPrefixArgString
 {
     if (prefixesOrOther instanceof StringSetPrefixArgString)
@@ -87,10 +136,10 @@ export function stringSetPrefixArgString(prefixesOrOther: NonNullable<ReadonlySe
         throw new TypeError(`${stringSetPrefixArgString.name}: ${value} value.`);
     }
 
-    if (prefixesOrOther instanceof Array)
-    {
-        return new StringSetPrefixArgString(Object.freeze(new Set(prefixesOrOther)), value);
-    }
-
-    return new StringSetPrefixArgString(prefixesOrOther, value);
+    return new StringSetPrefixArgString(
+        prefixesOrOther instanceof Array ? Object.freeze(new Set(prefixesOrOther)) : prefixesOrOther,
+        value
+    );
 }
+
+export {stringSetPrefixArgString as default};
