@@ -85,21 +85,21 @@ export class StringPrefixArgString extends ArgString<string>
 
 /**
  * Factory method for creating a {@link StringPrefixArgString} object with a
- * specified `string` {@link StringPrefixArgString.prefix prefix} and
- * {@link StringPrefixArgString.value value}.
+ * specified `string` {@link StringPrefixArgString.prefix} and
+ * {@link StringPrefixArgString.value}.
  *
  * @param prefix The prefix `string` prepended to the beginning of the
- *               returned object's {@link StringPrefixArgString.value value}.
+ *               returned object's {@link StringPrefixArgString.value}.
  *
  * @param value  The `string` appended to the end of the returned
- *               object's {@link StringPrefixArgString.prefix prefix}.
+ *               {@link StringPrefixArgString}'s {@link StringPrefixArgString.prefix}.
  */
 export function stringPrefixArgString(prefix: NonNullable<string>, value: NonNullable<string>): StringPrefixArgString;
 
 /**
- * Factory method for creating a {@link StringPrefixArgString} object with
- * `string` {@link StringPrefixArgString.prefix prefix} and
- * {@link StringPrefixArgString.value value} properties copied from a passed
+ * Factory method for creating a {@link StringPrefixArgString} object by
+ * copying the `string` {@link StringPrefixArgString.prefix} and
+ * {@link StringPrefixArgString.value} properties from another
  * {@link StringPrefixArgString} object.
  *
  * @param aStringPrefixArgString The object to copy properties from to the
