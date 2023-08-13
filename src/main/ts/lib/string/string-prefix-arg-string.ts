@@ -90,7 +90,7 @@ export class StringPrefixArgString extends ArgString<string>
  *
  * @param prefix The prefix `string` prepended to the beginning of the
  *               returned object's {@link StringPrefixArgString.value} to create
- *               its {@link StringPrefixArgString.prefixedValue} property..
+ *               its {@link StringPrefixArgString.prefixedValue} property.
  *
  * @param value  The `string` appended to the end of the returned
  *               {@link StringPrefixArgString}'s {@link StringPrefixArgString.prefix}
