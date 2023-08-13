@@ -1,9 +1,33 @@
+/**
+ * This module contains the {@link StringSetPrefixArgString} class (and its
+ * factory methods) used to create objects to represent string arguments that
+ * can be passed on the command line consisting of different `string` prefixes
+ * prepended to a `string` value.
+ *
+ * The Cliofo API uses this class to represent ***operand*** arguments by
+ * defining prefixes that **can't** be prepended to a value for it to be an
+ * operand. For example, consider the following 3 arguments:
+ *
+ * ```text
+ * -v --color file.txt
+ * ```
+ *
+ * The `file.txt` argument could be thought of as an operand argument with the
+ * specified `'-'` and `"--"` prefixes that it can't contain without being
+ * considered a flag or options like the `"-v"` and `"--color"` arguments.
+ *
+ * @module
+ */
+
 import { ArgString } from "./arg-string.js";
 import { inspect } from "util";
 
 const stringToString = (aString: string): string => aString.length != 1 ? `"${aString}"` : `'${aString}'`;
 const stringArrayToString = (strings: ReadonlyArray<string>) => `[${strings.map(aString => stringToString(aString)).join(", ")}]`;
 
+/**
+ * This class is used to create objects that consists of multiple
+ */
 export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
 {
     readonly #prefixesArray: ReadonlyArray<string>;
@@ -48,9 +72,10 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
     public override [inspect.custom](): string { return this.#string; }
 }
 
+export function stringSetPrefixArgString(prefixes: NonNullable<readonly string[]>, value: NonNullable<string>): StringSetPrefixArgString;
 export function stringSetPrefixArgString(prefixes: NonNullable<ReadonlySet<string>>, value: NonNullable<string>): StringSetPrefixArgString;
 export function stringSetPrefixArgString(aStringSetPrefixArgString: NonNullable<StringSetPrefixArgString>): StringSetPrefixArgString;
-export function stringSetPrefixArgString(prefixesOrOther: NonNullable<ReadonlySet<string> | StringSetPrefixArgString>, value?: string): StringSetPrefixArgString
+export function stringSetPrefixArgString(prefixesOrOther: NonNullable<ReadonlySet<string> | readonly string[] | StringSetPrefixArgString>, value?: string): StringSetPrefixArgString
 {
     if (prefixesOrOther instanceof StringSetPrefixArgString)
     {
@@ -60,6 +85,11 @@ export function stringSetPrefixArgString(prefixesOrOther: NonNullable<ReadonlySe
     if (value === undefined || value === null)
     {
         throw new TypeError(`${stringSetPrefixArgString.name}: ${value} value.`);
+    }
+
+    if (prefixesOrOther instanceof Array)
+    {
+        return new StringSetPrefixArgString(Object.freeze(new Set(prefixesOrOther)), value);
     }
 
     return new StringSetPrefixArgString(prefixesOrOther, value);
