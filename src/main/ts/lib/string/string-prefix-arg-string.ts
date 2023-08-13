@@ -24,11 +24,10 @@ import { inspect } from "util";
 const stringToString = (aString: string) => aString.length != 1 ? `"${aString}"` : `'${aString}'`;
 
 /**
- * This class is used to create objects that consists of a `string` prefix
- * prepended to a `string` value.
+ * This class is used to create objects that consists of a `string` {@link ArgString.prefix}
+ * prepended to a `string` {@link ArgString.value} to create its {@link ArgString.prefixedValue}.
  *
- * This class is an {@link ArgString} implementation consisting of a `string`
- * {@link ArgString.prefix} and {@link ArgString.prefixedValue}.
+ * @see {@link ArgString}
  */
 export class StringPrefixArgString extends ArgString<string>
 {
@@ -36,13 +35,15 @@ export class StringPrefixArgString extends ArgString<string>
     readonly #string: string;
 
     /**
-     * Constructs an object with the `string` prefix and `string` value.
+     * Constructs an object with the provided `string` prefix and value.
      *
-     * @param prefix The prefix `string` prepended to the beginning of the
-     *               constructed object's {@link StringPrefixArgString.value value}.
+     * @param prefix The `string` prepended to the beginning of the constructed
+     *               object's {@link StringPrefixArgString.value value} to
+     *               create its {@link StringPrefixArgString.prefixedValue}.
      *
      * @param value  The `string` appended to the end of the constructed
-     *               object's {@link StringPrefixArgString.prefix prefix}.
+     *               object's {@link StringPrefixArgString.prefix prefix} to
+     *               create its {@link StringPrefixArgString.prefixedValue}.
      */
     public constructor(prefix: NonNullable<string>, value: NonNullable<string>)
     {
@@ -52,18 +53,18 @@ export class StringPrefixArgString extends ArgString<string>
     }
 
     /**
-     * Returns this object's prefixed `string` value property consisting of this
-     * object's prefix `string` property prepended to this object's `string`
-     * value property.
+     * This object's prefixed `string` value property consisting of this
+     * object's {@link StringPrefixArgString.prefix} `string` property prepended
+     * to its {@link StringPrefixArgString.value} `string` property.
      *
-     * @returns this object's prefixed `string` value property.
+     * @returns this object's prefixed value `string` property.
      */
     public override get prefixedValue(): string { return this.#prefixedValue; }
 
     /**
-     * Returns `true` if the passed argument is a {@link StringPrefixArgString}
-     * object with prefix and value `string` properties equal to this object's
-     * prefix and value `string` properties.
+     * Returns `true` if the passed argument is a {@link StringPrefixArgString} object
+     * with {@link StringPrefixArgString.prefix} and {@link StringPrefixArgString.value}
+     * `string` properties equal to this object's prefix and value `string` properties.
      *
      * @param obj The argument being compared for equality to this
      *            {@link StringPrefixArgString} object.
