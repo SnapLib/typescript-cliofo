@@ -38,12 +38,12 @@ export class StringPrefixArgString extends ArgString<string>
      * Constructs an object with the provided `string` prefix and value.
      *
      * @param prefix The `string` prepended to the beginning of the constructed
-     *               object's {@link StringPrefixArgString.value value} to
-     *               create its {@link StringPrefixArgString.prefixedValue}.
+     *               object's {@link StringPrefixArgString.value} to create its
+     *               {@link StringPrefixArgString.prefixedValue}.
      *
      * @param value  The `string` appended to the end of the constructed
-     *               object's {@link StringPrefixArgString.prefix prefix} to
-     *               create its {@link StringPrefixArgString.prefixedValue}.
+     *               object's {@link StringPrefixArgString.prefix} to create its
+     *               {@link StringPrefixArgString.prefixedValue}.
      */
     public constructor(prefix: NonNullable<string>, value: NonNullable<string>)
     {
