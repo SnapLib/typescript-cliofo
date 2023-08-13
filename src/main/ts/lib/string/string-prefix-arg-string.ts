@@ -28,7 +28,7 @@ const stringToString = (aString: string) => aString.length != 1 ? `"${aString}"`
  * prepended to a `string` value.
  *
  * This class is an {@link ArgString} implementation consisting of a `string`
- * prefix and prefixed value.
+ * {@link StringPrefixArgString.prefix} and {@link StringPrefixArgString.prefixedValue}.
  */
 export class StringPrefixArgString extends ArgString<string>
 {
