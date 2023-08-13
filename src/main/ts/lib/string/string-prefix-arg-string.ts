@@ -106,8 +106,8 @@ export function stringPrefixArgString(prefix: NonNullable<string>, value: NonNul
  * {@link StringPrefixArgString.value} properties from another
  * {@link StringPrefixArgString} object.
  *
- * @param aStringPrefixArgString The object to copy properties from to the
- *                               returned {@link StringPrefixArgString} object.
+ * @param other The object to copy properties from to the returned
+ *              {@link StringPrefixArgString} object.
  *
  * @returns A {@link StringPrefixArgString} object with its {@link StringPrefixArgString.prefix}
  *          and {@link StringPrefixArgString.value} properties copied from the
