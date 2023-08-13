@@ -105,20 +105,20 @@ export function stringPrefixArgString(prefix: NonNullable<string>, value: NonNul
  * @param aStringPrefixArgString The object to copy properties from to the
  *                               returned {@link StringPrefixArgString} object.
  */
-export function stringPrefixArgString(aStringPrefixArgString: NonNullable<StringPrefixArgString>): StringPrefixArgString;
-export function stringPrefixArgString(prefixOrStringPrefixArgString: NonNullable<string | StringPrefixArgString>, value?: string): StringPrefixArgString
+export function stringPrefixArgString(other: NonNullable<StringPrefixArgString>): StringPrefixArgString;
+export function stringPrefixArgString(prefixOrOther: NonNullable<string | StringPrefixArgString>, value?: string): StringPrefixArgString
 {
-    if (typeof prefixOrStringPrefixArgString === "string")
+    if (typeof prefixOrOther === "string")
     {
         if (value === undefined || value === null)
         {
             throw new TypeError(`${stringPrefixArgString.name}: ${value} value.`);
         }
 
-        return new StringPrefixArgString(prefixOrStringPrefixArgString, value);
+        return new StringPrefixArgString(prefixOrOther, value);
     }
 
-    return new StringPrefixArgString(prefixOrStringPrefixArgString.prefix, prefixOrStringPrefixArgString.value);
+    return new StringPrefixArgString(prefixOrOther.prefix, prefixOrOther.value);
 }
 
 export {stringPrefixArgString as default};
