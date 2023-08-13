@@ -121,10 +121,56 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
     public override [inspect.custom](): string { return this.#string; }
 }
 
+/**
+ * Creates a {@link StringSetPrefixArgString} object setting its {@link StringSetPrefixArgString.prefix}
+ * to the provided `string` array converted to a frozen `Set<string>` and its
+ * {@link StringSetPrefixArgString.value} to the provided `string`.
+ *
+ * @param prefixes An array of `string`s converted to a `Set<string>` to set as
+ *                 the returned {@link StringSetPrefixArgString}'s
+ *                 {@link StringSetPrefixArgString.prefix} property.
+ *
+ * @param value The `string` to set the returned {@link StringSetPrefixArgString}'s
+ *              {@link StringSetPrefixArgString.value} to.
+ *
+ * @returns a {@link StringSetPrefixArgString} object with its {@link StringSetPrefixArgString.prefix}
+ *          set to the provided `string` array converted to a frozen
+ *          `Set<string>` and its {@link StringSetPrefixArgString.value} set to
+ *          the provided `string.`
+ */
 export function stringSetPrefixArgString(prefixes: NonNullable<readonly string[]>, value: NonNullable<string>): StringSetPrefixArgString;
+
+/**
+ * Creates a {@link StringSetPrefixArgString} object setting its {@link StringSetPrefixArgString.prefix}
+ * to the provided `Set<string>` and its {@link StringSetPrefixArgString.value}
+ * to the provided `string`.
+ *
+ * @param prefixes The `Set` of `string`s to set the created {@link StringSetPrefixArgString}
+ *                 object's {@link StringSetPrefixArgString.prefix} property to
+ *                 prepend to the beginning of its {@link StringPrefixArgString.value}
+ *                 to create its {@link StringPrefixArgString.prefixedValue}s property.
+ *
+ * @param value The `string` appended to the end of the returned
+ *               {@link StringPrefixArgString}'s {@link StringPrefixArgString.prefix}es
+ *               to create its {@link StringPrefixArgString.prefixedValue}s property.
+ *
+ * @returns a {@link StringSetPrefixArgString} object with its {@link StringSetPrefixArgString.prefix}
+ *          set to the provided `Set<string>` and its
+ *          {@link StringSetPrefixArgString.value} set to the provided `string.`
+ */
 export function stringSetPrefixArgString(prefixes: NonNullable<ReadonlySet<string>>, value: NonNullable<string>): StringSetPrefixArgString;
+
+/**
+ * Creates a new instance of a {@link StringSetPrefixArgString} object by copying
+ * the {@link StringSetPrefixArgString.prefix} and {@link StringPrefixArgString.value}
+ * properties from a pre-existing {@link StringSetPrefixArgString} object.
+ *
+ * @param other The other {@link StringSetPrefixArgString} object to copy the
+ *              {@link StringSetPrefixArgString.prefix} and
+ *              {@link StringPrefixArgString.value} properties from.
+ */
 export function stringSetPrefixArgString(other: NonNullable<StringSetPrefixArgString>): StringSetPrefixArgString;
-export function stringSetPrefixArgString(prefixesOrOther: NonNullable<ReadonlySet<string> | readonly string[] | StringSetPrefixArgString>, value?: string): StringSetPrefixArgString
+export function stringSetPrefixArgString(prefixesOrOther: readonly string[] | NonNullable<ReadonlySet<string> |  StringSetPrefixArgString>, value?: string): StringSetPrefixArgString
 {
     if (prefixesOrOther instanceof StringSetPrefixArgString)
     {
