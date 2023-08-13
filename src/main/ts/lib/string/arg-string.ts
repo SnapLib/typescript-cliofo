@@ -1,7 +1,9 @@
 /**
- * This module contains the {@link StringOrReadonlyStringSet} type and
- * {@link ArgString} class used to represent strings that can be passed on the
- * command line.
+ * This module contains the {@link ArgString} class and
+ * {@link StringOrReadonlyStringSet} type. The `ArgString` class is used to
+ * represent strings that can be passed on the command line and the
+ * {@link StringOrReadonlyStringSet} type is used to constrain the types of
+ * prefixes `ArgString`s can have to either a `string` or `ReadOnlySet<string>`.
  *
  * @module
  */
@@ -9,10 +11,8 @@
 import { inspect } from "util";
 
 /**
- * This type is used to constrain the type of prefixes allowed for {@link ArgString}
- * prefixes and the type of arguments an {@link ArgStringConstraint} and
- * {@link ConstrainedArgString} can consume. It consists of a `string` or
- * `ReadonlySet<string>` type.
+ * This type is used to constrain the type of prefix allowed for
+ * {@link ArgString} objects to either a `string` or `ReadonlySet<string>`.
  */
 export type StringOrReadonlyStringSet = string | ReadonlySet<string>;
 
