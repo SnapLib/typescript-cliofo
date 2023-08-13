@@ -93,6 +93,10 @@ export class StringPrefixArgString extends ArgString<string>
  *
  * @param value  The `string` appended to the end of the returned
  *               {@link StringPrefixArgString}'s {@link StringPrefixArgString.prefix}.
+ *
+ * @returns A {@link StringPrefixArgString} object with its {@link StringPrefixArgString.prefix}
+ *          and {@link StringPrefixArgString.value} properties set to the passed
+ *          `string` arguments.
  */
 export function stringPrefixArgString(prefix: NonNullable<string>, value: NonNullable<string>): StringPrefixArgString;
 
@@ -104,21 +108,25 @@ export function stringPrefixArgString(prefix: NonNullable<string>, value: NonNul
  *
  * @param aStringPrefixArgString The object to copy properties from to the
  *                               returned {@link StringPrefixArgString} object.
+ *
+ * @returns A {@link StringPrefixArgString} object with its {@link StringPrefixArgString.prefix}
+ *          and {@link StringPrefixArgString.value} properties copied from the
+ *          passed {@link StringPrefixArgString} object argument.
  */
 export function stringPrefixArgString(other: NonNullable<StringPrefixArgString>): StringPrefixArgString;
 export function stringPrefixArgString(prefixOrOther: NonNullable<string | StringPrefixArgString>, value?: string): StringPrefixArgString
 {
-    if (typeof prefixOrOther === "string")
+    if (prefixOrOther instanceof StringPrefixArgString)
     {
-        if (value === undefined || value === null)
-        {
-            throw new TypeError(`${stringPrefixArgString.name}: ${value} value.`);
-        }
-
-        return new StringPrefixArgString(prefixOrOther, value);
+        return new StringPrefixArgString(prefixOrOther.prefix, prefixOrOther.value);
     }
 
-    return new StringPrefixArgString(prefixOrOther.prefix, prefixOrOther.value);
+    if (value === undefined || value === null)
+    {
+        throw new TypeError(`${stringPrefixArgString.name}: ${value} value.`);
+    }
+
+    return new StringPrefixArgString(prefixOrOther, value);
 }
 
 export {stringPrefixArgString as default};
