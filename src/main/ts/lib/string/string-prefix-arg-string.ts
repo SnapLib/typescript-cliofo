@@ -117,10 +117,8 @@ export function stringPrefixArgString(prefixOrStringPrefixArgString: NonNullable
 
         return new StringPrefixArgString(prefixOrStringPrefixArgString, value);
     }
-    else
-    {
-        return new StringPrefixArgString(prefixOrStringPrefixArgString.prefix, prefixOrStringPrefixArgString.value);
-    }
+
+    return new StringPrefixArgString(prefixOrStringPrefixArgString.prefix, prefixOrStringPrefixArgString.value);
 }
 
 export {stringPrefixArgString as default};
