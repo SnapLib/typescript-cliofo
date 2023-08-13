@@ -1,9 +1,9 @@
 /**
- * This module contains the {@link StringPrefixArgString} class which represent
- * a string argument that can be passed on the command line consisting of a
- * `string` prefix prepended to a `string` value. The Cliofo API uses this class
- * to represent ***flag*** and ***option*** arguments. For example, consider the
- * following 2 arguments:
+ * This module contains the {@link StringPrefixArgString} class used to create
+ * objects to represent a string argument that can be passed on the command line
+ * consisting of a `string` prefix prepended to a `string` value. The Cliofo API
+ * uses this class to represent ***flag*** and ***option*** arguments. For
+ * example, consider the following 2 arguments:
  *
  * ```text
  * -h --help
@@ -36,7 +36,7 @@ export class StringPrefixArgString extends ArgString<string>
     readonly #string: string;
 
     /**
-     * Constructs an object with a `string` prefix prepended to a `string` value.
+     * Constructs an object with the `string` prefix and `string` value.
      *
      * @param prefix The prefix `string` prepended to the beginning of the
      *               constructed object's {@link StringPrefixArgString.value value}.
@@ -62,8 +62,8 @@ export class StringPrefixArgString extends ArgString<string>
 
     /**
      * Returns `true` if the passed argument is a {@link StringPrefixArgString}
-     * object prefix and value `string` properties equal to this object's prefix
-     * and value `string` property.
+     * object with prefix and value `string` properties equal to this object's
+     * prefix and value `string` properties.
      *
      * @param obj The argument being compared for equality to this
      *            {@link StringPrefixArgString} object.
