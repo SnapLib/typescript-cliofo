@@ -4,11 +4,11 @@
  * {@link flag-arg-string.FlagArgString}, and {@link option-arg-string.OptionArgString}
  * classes inherit from.
  *
- * The {@link ConstrainedArgString} abstract class uses its {@link ArgStringConstraint}
- * {@link ConstrainedArgString.argStringConstraint} to enforce constraints on
- * its {@link ArgString} {@link ConstrainedArgString.argString} property. If a
+ * The {@link ConstrainedArgString} abstract class uses its {@link arg-string-constraint.ArgStringConstraint}
+ * {@link ConstrainedArgString.argConstraint} to enforce constraints on
+ * its {@link arg-string.ArgString} {@link ConstrainedArgString.argString} property. If a
  * {@link ConstrainedArgString} object attempts to be instantiated with an
- * {@link ArgString} that violates its {@link ConstrainedArgString.argStringConstraint},
+ * {@link arg-string.ArgString} that violates its {@link ConstrainedArgString.argConstraint},
  * an error gets thrown.
  *
  * @module constrained-arg-string
@@ -41,9 +41,13 @@ const stringOrStringSetToString = (stringOrStringSet: string | ReadonlySet<strin
 };
 
 /**
- * This class is ues to create objects that enforce constraints on the
- * {@link ArgString.prefix} and {@link ArgString.value} properties of
- * {@link ArgString} objects.
+ * This class is used to create objects that enforce constraints on the
+ * {@link ArgString.prefix} and {@link ArgString.value} properties of {@link ArgString}
+ * objects. It does this by having a {@link ArgStringConstraint}
+ * {@link ConstrainedArgString.argConstraint} and {@link ArgString} {@link ConstrainedArgString.argString}
+ * property. If a {@link ConstrainedArgString} object attempts to be instantiated with an
+ * {@link ArgString} that violates its {@link ConstrainedArgString.argConstraint},
+ * an error gets thrown.
  */
 export abstract class ConstrainedArgString<PrefixType extends StringOrReadonlyStringSet>
 {
