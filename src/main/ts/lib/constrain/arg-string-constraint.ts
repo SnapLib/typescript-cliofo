@@ -1,4 +1,12 @@
 /**
+ * This module contains the {@link ArgStringConstraint} class (and its factory
+ * methods), and the {@link PrefixPredicate} and {@link ValuePredicate} types.
+ *
+ * This class and these types are used by the {@link constrained-arg-string.ConstrainedArgString}
+ * class to enforce constraints on the {@link arg-string.ArgString.prefix} and
+ * {@link arg-string.ArgString.value} properties of {@link arg-string.ArgString}
+ * objects.
+ *
  * @module arg-string-constraint
  */
 
@@ -8,18 +16,56 @@ import { PrefixConstraintViolationError, ValueConstraintViolationError } from ".
 
 /**
  * This type defines a {@link StringOrReadonlyStringSet} predicate that can be
- * used to validate a `string` or `ReadonlySet<string>` argument. This predicate
- * is intended to be used to validate the {@link arg-string.ArgString.prefix}.
+ * used to validate a `string` or `ReadonlySet<string>` argument such as the
+ * {@link arg-string.ArgString.prefix ArgString prefix}.
  */
 export type PrefixPredicate<PrefixType extends StringOrReadonlyStringSet> = (prefix?: PrefixType) => boolean;
 
+/**
+ * This type defines a predicate that consumes a {@link StringOrReadonlyStringSet}
+ * and a `string` and can be used to validate a `string` or `ReadonlySet<string>`
+ * and `string` argument such as the {@link arg-string.ArgString.value ArgString value}
+ * while also being able to take an {@link arg-string.ArgString.prefix ArgString prefix}
+ * into account as well.
+ */
 export type ValuePredicate<PrefixType extends StringOrReadonlyStringSet> = (prefix: NonNullable<PrefixType>, value: string) => boolean;
 
+/**
+ * This class creates objects that contain predicates that can be used to
+ * validate {@link StringOrReadonlyStringSet} (`string` or `ReadonlySet<string>`)
+ * arguments. These predicates are contained within the {@link ArgStringConstraint.prefixConstraint}
+ * and  {@link ArgStringConstraint.valueConstraint} properties and are capable of validating
+ * {@link arg-string.ArgString.prefix} and {@link arg-string.ArgString.value} properties
+ * of {@link arg-string.ArgString} objects. The {@link constrained-arg-string.ConstrainedArgString}
+ * class uses this class to accomplish that task.
+ *
+ * @see {@link constrained-arg-string.ConstrainedArgString}
+ * @see {@link arg-string.ArgString}
+ */
 export class ArgStringConstraint<PrefixType extends StringOrReadonlyStringSet>
 {
     readonly #prefixConstraint: PrefixPredicate<PrefixType>;
     readonly #valueConstraint: ValuePredicate<PrefixType>;
 
+    /**
+     * Constructs a new {@link ArgStringConstraint} object instance with the
+     * provided prefix and value constraint predicates set to its
+     * {@link ArgStringConstraint.prefixConstraint} and
+     * {@link ArgStringConstraint.valueConstraint} properties.
+     *
+     * @param prefixConstraint A {@link PrefixPredicate} that consumes a `string`
+     *                         or `ReadonlySet<string>` and returns a `boolean`.
+     *
+     * @param valueConstraint A {@link ValuePredicate} that consumes a `string`
+     *                        or `ReadonlySet<string>` and a `string` and
+     *                        returns a `boolean`.
+     *
+     * @throws {@link arg-string-constraint-error.PrefixConstraintError}
+     * if the passed prefix constraint argument is `undefined` or `null`.
+     *
+     * @throws {@link arg-string-constraint-error.ValueConstraintError}
+     * if the passed value constraint argument is `undefined` or `null`.
+     */
     public constructor( prefixConstraint: NonNullable<PrefixPredicate<PrefixType>>,
                         valueConstraint: NonNullable<ValuePredicate<PrefixType>> )
     {
@@ -37,12 +83,59 @@ export class ArgStringConstraint<PrefixType extends StringOrReadonlyStringSet>
         this.#valueConstraint = Object.isFrozen(valueConstraint) ? valueConstraint : Object.freeze((prefix: PrefixType, valueString: string) => valueConstraint(prefix, valueString));
     }
 
+    /**
+     * This object's {@link PrefixPredicate} `string` or `ReadonlySet<string>`
+     * predicate function.
+     */
     public get prefixConstraint(): PrefixPredicate<PrefixType> { return this.#prefixConstraint; }
+
+    /**
+     * This object's {@link ValuePredicate} `string` or `ReadonlySet<string>`
+     * and `string` predicate function.
+     */
     public get valueConstraint(): ValuePredicate<PrefixType> { return this.#valueConstraint; }
 
+    /**
+     * Returns the `boolean` result of passing the provided `string` or `ReadonlySet<string>`
+     * argument to this object's {@link ArgStringConstraint.prefixConstraint}
+     *
+     * @param prefix A `string` or `ReadonlySet<string>` to pass to this object's
+     *               {@link ArgStringConstraint.prefixConstraint} to validate.
+     *
+     * @returns The `boolean` result of passing the provided `string` or
+     *          `ReadonlySet<string>` to this object's {@link ArgStringConstraint.prefixConstraint}
+     */
     public isValidPrefix(prefix: PrefixType): boolean { return this.#prefixConstraint(prefix); }
+
+    /**
+     * Returns the `boolean` result of passing the provided `string` or `ReadonlySet<string>`
+     * and `string` argument to this object's {@link ArgStringConstraint.prefixConstraint}.
+     *
+     * @param prefix A `string` or `ReadonlySet<string>` to pass to this object's
+     *               {@link ArgStringConstraint.valueConstraint} to validate.
+     *
+     * @param valueString A `string` to pass to this object's
+     *                    {@link ArgStringConstraint.valueConstraint} to validate.
+     *
+     * @returns The `boolean` result of passing the provided `string` or `ReadonlySet<string>`
+     *          and `string` argument to this object's {@link ArgStringConstraint.prefixConstraint}.
+     */
     public isValidValue(prefix: PrefixType, valueString: string): boolean { return this.#valueConstraint(prefix, valueString); }
 
+    /**
+     * Returns the passed `string` or `ReadonlySet<string>` if it's valid,
+     * otherwise throws {@link PrefixConstraintViolationError}.
+     *
+     * @param prefix The `string` or `ReadonlySet<string>` being validated.
+     *
+     * @param message Optional `string` to use as the error message if validation fails.
+     *
+     * @returns The passed `string` or `ReadonlySet<string>` if it's valid,
+     *          otherwise throws {@link PrefixConstraintViolationError}.
+     *
+     * @throws {@link constraint-violation-error.PrefixConstraintViolationError}
+     *         if passed `string` or `ReadonlySet<string>` fails validation.
+     */
     public requireValidPrefix(prefix: PrefixType, message?: string): PrefixType
     {
         if(this.#prefixConstraint(prefix))
@@ -53,6 +146,22 @@ export class ArgStringConstraint<PrefixType extends StringOrReadonlyStringSet>
         throw new PrefixConstraintViolationError(message);
     }
 
+    /**
+     * Returns the passed `string` if it's valid, otherwise throws {@link ValueConstraintViolationError}.
+     *
+     * @param prefix The `string` or `ReadonlySet<string>` that could be used as
+     *               part of the validation..
+     *
+     * @param valueString The `string` being validated.
+     *
+     * @param message Optional `string` to use as the error message if validation fails.
+     *
+     * @returns The passed `string` or `ReadonlySet<string>` if it's valid,
+     *          otherwise throws {@link PrefixConstraintViolationError}.
+     *
+     * @throws {@link constraint-violation-error.ValueConstraintViolationError}
+     *         if passed `string` fails validation.
+     */
     public requireValidValue(prefix: PrefixType, valueString: string, message?: string): string
     {
         if(this.#valueConstraint(prefix, valueString))
