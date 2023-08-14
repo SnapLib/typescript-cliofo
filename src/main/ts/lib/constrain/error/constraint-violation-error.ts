@@ -1,9 +1,9 @@
 /**
  * This module contains the {@link PrefixConstraintViolationError} and
- * {@link ValueConstraintViolationError} errors thrown by the
+ * {@link ValueConstraintViolationError} error classes thrown by the
  * {@link arg-string-constraint.ArgStringConstraint} and
- * {@link constrained-arg-string.ConstrainedArgString} if validation for either
- * a prefix or value fails.
+ * {@link constrained-arg-string.ConstrainedArgString} classes if validation for
+ * either a prefix or value fails.
  *
  * @module constraint-violation-error
  */
