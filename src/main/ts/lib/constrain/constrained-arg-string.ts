@@ -1,8 +1,7 @@
 import { type ArgStringConstraint, argStringConstraint as createArgStringConstraint } from "./arg-string-constraint.js";
 import { type ArgString, type StringOrReadonlyStringSet } from "./../string/arg-string.js";
 import { inspect } from "util";
-import { PrefixConstraintViolationError } from "./error/prefix-constraint-violation-error.js";
-import { ValueConstraintViolationError } from "./error/value-constraint-violation-error.js";
+import { PrefixConstraintViolationError, ValueConstraintViolationError } from "./constraint-violation-error.js";
 
 const stringToString = (aString: string) => aString.length !== 1 ? `"${aString}"` : `'${aString}'`;
 

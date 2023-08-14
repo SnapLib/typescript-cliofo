@@ -1,6 +1,5 @@
 import { type StringOrReadonlyStringSet } from "../string/arg-string.js";
-import { PrefixConstraintViolationError } from "./error/prefix-constraint-violation-error.js";
-import { ValueConstraintViolationError } from "./error/value-constraint-violation-error.js";
+import { PrefixConstraintViolationError, ValueConstraintViolationError } from "./constraint-violation-error.js";
 
 /**
  * This type defines a {@link StringOrReadonlyStringSet} predicate that can be
