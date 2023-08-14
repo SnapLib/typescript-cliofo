@@ -24,16 +24,17 @@
     "command",
     "line",
     "interface",
-    "snaplib",
     "operand",
+    "operands",
     "option",
     "options",
     "flag",
     "flags",
+    "argument",
+    "arguments",
     "parse",
     "parser",
-    "argument",
-    "arguments"
+    "snaplib"
   ],
   "devDependencies": {
     "@types/chai": "^4.3.5",
