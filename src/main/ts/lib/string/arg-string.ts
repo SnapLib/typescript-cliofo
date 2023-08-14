@@ -3,16 +3,25 @@
  * {@link StringOrReadonlyStringSet} type. The `ArgString` class is used to
  * represent strings that can be passed on the command line and the
  * {@link StringOrReadonlyStringSet} type is used to constrain the types of
- * prefixes `ArgString`s can have to either a `string` or `ReadOnlySet<string>`.
+ * prefixes and prefixed value(s)`ArgString`s can have to either a `string` or
+ * `ReadOnlySet<string>`.
+ *
+ * The {@link ArgString} class is the parent class the
+ * {@link string-prefix-arg-string.StringPrefixArgString} and
+ * {@link string-set-prefix-arg-string.StringSetPrefixArgString} classes inherit
+ * from.
  *
  * @module arg-string
+ *
+ * @see {@link string-prefix-arg-string}
+ * @see {@link string-set-prefix-arg-string}
  */
 
 import { inspect } from "util";
 
 /**
  * This type is used to constrain the type of prefix allowed for
- * {@link ArgString} objects to either a `string` or `ReadonlySet<string>`.
+ * {@link ArgString} objects to either a `string` or `ReadonlySet<string>`. It
  */
 export type StringOrReadonlyStringSet = string | ReadonlySet<string>;
 
@@ -24,10 +33,17 @@ export type StringOrReadonlyStringSet = string | ReadonlySet<string>;
  * 1. A leading ***prefix*** `string` or `string`s
  * 1. and a suffix ***value*** `string` appended to the leading prefix(s)
  *
- * The leading prefix can be a single `string` or a set of multiple `string`s.
+ * The leading prefix and prefixed value is constrained to
+ * {@link StringOrReadonlyStringSet} (a`string` or set of multiple `string`s).
  *
- * @typeParam PrefixType - `string` or `ReadonlySet<string>` type specifying
- *                         what type of prefix this object has.
+ * This class is the parent class of the
+ * {@link string-prefix-arg-string.StringPrefixArgString} and
+ * {@link string-set-prefix-arg-string.StringSetPrefixArgString} classes.
+ *
+ * @typeParam PrefixType Type constrained to {@link StringOrReadonlyStringSet}
+ *                       ()`string` or `ReadonlySet<string>`) specifying what
+ *                       type of {@link ArgString.prefix} and
+ *                       {@link ArgString.prefixedValue} this object has.
  */
 export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
 {
@@ -35,14 +51,17 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
     readonly #value: string;
 
     /**
-     * Constructs an instance of an {@link ArgString} object. If `undefined` or
-     * `null` is passed for either argument, an error will be thrown.
+     * Constructs an instance of an {@link ArgString} object with its
+     * {@link ArgString.prefix} and {@link ArgString.value} properties set the
+     * passed arguments. If `undefined` or `null` is passed for either argument,
+     * an error will be thrown.
      *
-     * @param prefix The value to set at this object's prefix or prefixes.
+     * @param prefix The `string` or `ReadonlySet<string>` to set as the
+     *               constructed object's {@link ArgString.prefix}.
      *
-     * @param value The `string` to set as this object's suffix value.
+     * @param value The `string` to set as this object's suffix {@link ArgString.value}.
      *
-     * @throws Error} if `undefined` or `null` is passed for either argument.
+     * @throws Error if `undefined` or `null` is passed for either argument.
      */
     protected constructor(prefix: NonNullable<PrefixType>, value: NonNullable<string>)
     {
