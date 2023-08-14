@@ -5,10 +5,10 @@
  * classes inherit from.
  *
  * The {@link ConstrainedArgString} abstract class uses its {@link arg-string-constraint.ArgStringConstraint}
- * {@link ConstrainedArgString.argConstraint} to enforce constraints on
+ * {@link ConstrainedArgString.argStringConstraint} to enforce constraints on
  * its {@link arg-string.ArgString} {@link ConstrainedArgString.argString} property. If a
  * {@link ConstrainedArgString} object attempts to be instantiated with an
- * {@link arg-string.ArgString} that violates its {@link ConstrainedArgString.argConstraint},
+ * {@link arg-string.ArgString} that violates its {@link ConstrainedArgString.argStringConstraint},
  * an error gets thrown.
  *
  * @module constrained-arg-string
@@ -44,9 +44,9 @@ const stringOrStringSetToString = (stringOrStringSet: string | ReadonlySet<strin
  * This class is used to create objects that enforce constraints on the
  * {@link ArgString.prefix} and {@link ArgString.value} properties of {@link ArgString}
  * objects. It does this by having a {@link ArgStringConstraint}
- * {@link ConstrainedArgString.argConstraint} and {@link ArgString} {@link ConstrainedArgString.argString}
+ * {@link ConstrainedArgString.argStringConstraint} and {@link ArgString} {@link ConstrainedArgString.argString}
  * property. If a {@link ConstrainedArgString} object attempts to be instantiated with an
- * {@link ArgString} that violates its {@link ConstrainedArgString.argConstraint},
+ * {@link ArgString} that violates its {@link ConstrainedArgString.argStringConstraint},
  * an error gets thrown.
  */
 export abstract class ConstrainedArgString<PrefixType extends StringOrReadonlyStringSet>
@@ -84,7 +84,7 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrReadonlySt
         this.#string = `${new.target.name} {${this.#name.length !== 0 && this.#name !== this.#argString.value ? `name: ${stringToString(this.#name)}, ` : ""}prefix: ${stringOrStringSetToString(this.#argString.prefix)}, value: ${stringOrStringSetToString(this.#argString.value)}}`;
     }
 
-    public get argConstraint(): Readonly<ArgStringConstraint<PrefixType>> { return this.#argStringConstraint; }
+    public get argStringConstraint(): Readonly<ArgStringConstraint<PrefixType>> { return this.#argStringConstraint; }
     public get argString(): Readonly<ArgString<PrefixType>> { return this.#argString; }
     public get name(): string { return this.#name; }
 
