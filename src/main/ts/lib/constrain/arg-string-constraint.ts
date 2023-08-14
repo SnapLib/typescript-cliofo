@@ -173,10 +173,36 @@ export class ArgStringConstraint<PrefixType extends StringOrReadonlyStringSet>
     }
 }
 
+/**
+ * Creates a new {@link ArgStringConstraint} object instance with its
+ * {@link ArgStringConstraint.prefixConstraint} and {@link ArgStringConstraint.valueConstraint}
+ * properties set via the provided arguments.
+ *
+ * @param prefixConstraint The {@link PrefixPredicate} to set the returned
+ *                         {@link ArgStringConstraint} object instance's
+ *                         {@link ArgStringConstraint.prefixConstraint} property to.
+ *
+ * @param valueConstraint The {@link ValuePredicate} to set the returned
+ *                         {@link ArgStringConstraint} object instance's
+ *                         {@link ArgStringConstraint.valueConstraint} property to.
+ *
+ * @returns a new {@link ArgStringConstraint} object instance.
+ */
 export function argStringConstraint<PrefixType extends StringOrReadonlyStringSet>(
     prefixConstraint: NonNullable<PrefixPredicate<PrefixType>>,
     valueConstraint: NonNullable<ValuePredicate<PrefixType>>
 ): ArgStringConstraint<PrefixType>;
+
+/**
+ * Creates a new {@link ArgStringConstraint} object instance copying the
+ * {@link ArgStringConstraint.prefixConstraint} and {@link ArgStringConstraint.valueConstraint}
+ * properties from a pre-existing {@link ArgStringConstraint} object instance.
+ *
+ * @param other The {@link ArgStringConstraint} to copy  {@link ArgStringConstraint.prefixConstraint}
+ * and {@link ArgStringConstraint.valueConstraint} properties from.
+ *
+ * @returns a new {@link ArgStringConstraint} object instance.
+ */
 export function argStringConstraint<PrefixType extends StringOrReadonlyStringSet>(
     other: NonNullable<ArgStringConstraint<PrefixType>>
 ): ArgStringConstraint<PrefixType>;
