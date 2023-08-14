@@ -3,7 +3,7 @@
  */
 
 import { type StringOrReadonlyStringSet } from "../string/arg-string.js";
-import { PrefixConstraintViolationError, ValueConstraintViolationError } from "./constraint-violation-error.js";
+import { PrefixConstraintViolationError, ValueConstraintViolationError } from "./error/constraint-violation-error.js";
 
 /**
  * This type defines a {@link StringOrReadonlyStringSet} predicate that can be
