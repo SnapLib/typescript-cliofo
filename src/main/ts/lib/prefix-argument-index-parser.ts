@@ -19,8 +19,13 @@ export class PrefixArgumentIndexParser
     readonly #options: ReadonlyMap<OptionArgString, readonly number[]>;
     readonly #string;
 
-    public constructor(prefixIndexParser: PrefixIndexParser)
+    public constructor(prefixIndexParser: NonNullable<PrefixIndexParser>)
     {
+        if (prefixIndexParser === undefined || prefixIndexParser === null)
+        {
+            throw new TypeError(`${new.target.name}: ${prefixIndexParser} prefix index parser.`);
+        }
+
         this.#prefixIndexParser = Object.isFrozen(prefixIndexParser) ? prefixIndexParser : Object.freeze(indexParser(prefixIndexParser));
 
         this.#operands = Object.freeze(new Map(Array.from(this.#prefixIndexParser.operands.entries()).
