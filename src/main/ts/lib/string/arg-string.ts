@@ -130,4 +130,4 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
 
 export {StringPrefixArgString, stringPrefixArgString} from "./string-prefix-arg-string.js";
 export {StringSetPrefixArgString, stringSetPrefixArgString} from "./string-set-prefix-arg-string.js";
-export {ArgString as default};
+export default ArgString;

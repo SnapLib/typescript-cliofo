@@ -195,4 +195,4 @@ export function stringSetPrefixArgString(prefixesOrOther: readonly string[] | No
     );
 }
 
-export {stringSetPrefixArgString as default};
+export default stringSetPrefixArgString;

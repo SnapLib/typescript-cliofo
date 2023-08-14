@@ -47,4 +47,4 @@ export function prefix(flagCharOrCodePointOrOther: NonNullable<string | Prefix>)
                       : flagCharOrCodePointOrOther.flagChar );
 }
 
-export {prefix as default};
+export default prefix;

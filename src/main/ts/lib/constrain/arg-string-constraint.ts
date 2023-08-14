@@ -231,4 +231,4 @@ export function argStringConstraint<PrefixType extends StringOrReadonlyStringSet
     }
 }
 
-export {argStringConstraint as default};
+export default argStringConstraint;

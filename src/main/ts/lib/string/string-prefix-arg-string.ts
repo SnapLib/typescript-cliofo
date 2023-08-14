@@ -135,4 +135,4 @@ export function stringPrefixArgString(prefixOrOther: NonNullable<string | String
     return new StringPrefixArgString(prefixOrOther, value);
 }
 
-export {stringPrefixArgString as default};
+export default stringPrefixArgString;

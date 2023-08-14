@@ -111,4 +111,4 @@ export function prefixIndexParser(prefixCharOrOther: NonNullable<string | Prefix
     }
 }
 
-export {prefixIndexParser as default};
+export default prefixIndexParser;
