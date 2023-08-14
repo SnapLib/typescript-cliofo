@@ -42,7 +42,7 @@ export type StringOrReadonlyStringSet = string | ReadonlySet<string>;
  * {@link string-set-prefix-arg-string.StringSetPrefixArgString} classes.
  *
  * @typeParam PrefixType Type constrained to {@link StringOrReadonlyStringSet}
- *                       ()`string` or `ReadonlySet<string>`) specifying what
+ *                       (`string` or `ReadonlySet<string>`) specifying what
  *                       type of {@link ArgString.prefix} and
  *                       {@link ArgString.prefixedValue} this object has.
  */
