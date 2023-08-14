@@ -85,3 +85,5 @@ export function prefixArgumentIndexParser(prefixCharOrPrefixIndexParserOrOther: 
         return new PrefixArgumentIndexParser(prefixCharOrPrefixIndexParserOrOther);
     }
 }
+
+export default PrefixArgumentIndexParser;
