@@ -27,9 +27,9 @@ import { inspect } from "util";
 export type StringOrReadonlyStringSet = string | ReadonlySet<string>;
 
 /**
- * This is the root class of the Cliofo argument string hierarchy used to represent
- * a string argument that can be passed on the command line. A command line string
- * argument consists of 2 fundamental parts:
+ * This is the root class of the Cliofo argument string hierarchy used to
+ * represent a string argument that can be passed on the command line. A command
+ * line string argument consists of 2 fundamental parts:
  *
  * 1. A leading ***prefix*** `string` or `string`s
  * 1. and a suffix ***value*** `string` appended to the leading prefix(s)
@@ -81,8 +81,8 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
     }
 
     /**
-     * This object's leading `string` or `ReadonlySet<string>` prefix
-     * property that is prepended to its {@link ArgString.value} to create its
+     * This object's leading `string` or `ReadonlySet<string>` prefix property
+     * that is prepended to its {@link ArgString.value} to create its
      * {@link ArgString.prefixedValue}.
      *
      * @returns this object's leading `string` or `ReadonlySet<string>` prefix property.
