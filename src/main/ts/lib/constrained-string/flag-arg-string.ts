@@ -70,7 +70,7 @@ export function flagArgString(prefixCharOrStringPrefixArgumentStringOrOther: Non
     {
         if (valueString === undefined || valueString === null)
         {
-            throw new Error(`${flagArgString.name}: ${valueString} value string argument.`);
+            throw new TypeError(`${flagArgString.name}: ${valueString} value string argument.`);
         }
 
         return new FlagArgString((stringPrefixArgString(prefixCharOrStringPrefixArgumentStringOrOther, valueString)));

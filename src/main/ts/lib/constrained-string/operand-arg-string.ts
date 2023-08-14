@@ -50,7 +50,7 @@ export function operandArgString(stringSetOrStringSetPrefixArgumentStringOrOther
     {
         if (valueString === undefined || valueString === null)
         {
-            throw new Error(`${operandArgString.name}: ${valueString} value string argument.`);
+            throw new TypeError(`${operandArgString.name}: ${valueString} value string argument.`);
         }
 
         return new OperandArgString(stringSetPrefixArgString((stringSetOrStringSetPrefixArgumentStringOrOther), valueString), name);

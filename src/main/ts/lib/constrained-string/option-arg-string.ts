@@ -34,7 +34,7 @@ export function optionArgString(prefixStringOrStringPrefixArgumentStringOrOther:
     {
         if (valueString === undefined || valueString === null)
         {
-            throw new Error(`${optionArgString.name}: ${valueString} value string argument.`);
+            throw new TypeError(`${optionArgString.name}: ${valueString} value string argument.`);
         }
 
         return new OptionArgString((stringPrefixArgString(prefixStringOrStringPrefixArgumentStringOrOther, valueString)), name);
