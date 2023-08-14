@@ -1,11 +1,13 @@
 /**
- * This module contains the {@link ArgStringConstraint} class (and its factory
- * methods), and the {@link PrefixPredicate} and {@link ValuePredicate} types.
+ * This module contains the {@link ArgStringConstraint} class used by the
+ * {@link constrained-arg-string.ConstrainedArgString} class to enforce constraints
+ * on the {@link arg-string.ArgString.prefix} and {@link arg-string.ArgString.value}
+ * properties of {@link arg-string.ArgString} objects.
  *
- * This class and these types are used by the {@link constrained-arg-string.ConstrainedArgString}
- * class to enforce constraints on the {@link arg-string.ArgString.prefix} and
- * {@link arg-string.ArgString.value} properties of {@link arg-string.ArgString}
- * objects.
+ * This module also contains the {@link PrefixPredicate} and {@link ValuePredicate}
+ * types used by the {@link ArgStringConstraint} class' as the types for its
+ * {@link ArgStringConstraint.prefixConstraint} and {@link ArgStringConstraint.valueConstraint}
+ * properties.
  *
  * @module arg-string-constraint
  *
