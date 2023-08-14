@@ -17,6 +17,7 @@
  * @see {@link string-set-prefix-arg-string}
  */
 
+import { ArgStringPrefixError, ArgStringValueError } from "./arg-string-error.js";
 import { inspect } from "util";
 
 /**
@@ -67,12 +68,12 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
     {
         if (prefix === undefined || prefix === null)
         {
-            throw new Error(`${this.constructor.name}: ${prefix} prefix.`);
+            throw new ArgStringPrefixError(`${this.constructor.name}: ${prefix} prefix.`);
         }
 
         if (value === undefined || value === null)
         {
-            throw new Error(`${this.constructor.name}: ${value} value.`);
+            throw new ArgStringValueError(`${this.constructor.name}: ${value} value.`);
         }
 
         this.#prefix = prefix;
