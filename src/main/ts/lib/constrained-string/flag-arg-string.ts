@@ -1,3 +1,7 @@
+/**
+ * @module flag-arg-string
+ */
+
 import { argStringConstraint, type ArgStringConstraint, type PrefixPredicate, type ValuePredicate } from "../constrain/arg-string-constraint.js";
 import { ConstrainedArgString } from "../constrain/constrained-arg-string.js";
 import { StringPrefixArgString, stringPrefixArgString } from "../string/string-prefix-arg-string.js";
