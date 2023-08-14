@@ -3,6 +3,7 @@
  */
 
 import { type StringOrReadonlyStringSet } from "../string/arg-string.js";
+import { PrefixConstraintError, ValueConstraintError } from "./error/arg-string-constraint-error.js";
 import { PrefixConstraintViolationError, ValueConstraintViolationError } from "./error/constraint-violation-error.js";
 
 /**
@@ -24,12 +25,12 @@ export class ArgStringConstraint<PrefixType extends StringOrReadonlyStringSet>
     {
         if (prefixConstraint === undefined || prefixConstraint === null)
         {
-            throw new TypeError(`${ArgStringConstraint.name}: ${prefixConstraint} prefix constraint`);
+            throw new PrefixConstraintError(`${ArgStringConstraint.name}: ${prefixConstraint} prefix constraint`);
         }
 
         if (valueConstraint === undefined || valueConstraint === null)
         {
-            throw new TypeError(`${ArgStringConstraint.name}: ${valueConstraint} value constraint`);
+            throw new ValueConstraintError(`${ArgStringConstraint.name}: ${valueConstraint} value constraint`);
         }
 
         this.#prefixConstraint = Object.isFrozen(prefixConstraint) ? prefixConstraint : Object.freeze((prefix?: PrefixType) => prefixConstraint(prefix));

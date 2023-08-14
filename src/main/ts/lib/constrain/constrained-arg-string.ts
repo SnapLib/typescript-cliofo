@@ -6,6 +6,7 @@ import { type ArgStringConstraint, argStringConstraint as createArgStringConstra
 import { type ArgString, type StringOrReadonlyStringSet } from "./../string/arg-string.js";
 import { inspect } from "util";
 import { PrefixConstraintViolationError, ValueConstraintViolationError } from "./error/constraint-violation-error.js";
+import { ArgStringConstraintError, ArgStringError } from "./error/constrained-arg-string-error.js";
 
 const stringToString = (aString: string) => aString.length !== 1 ? `"${aString}"` : `'${aString}'`;
 
@@ -32,12 +33,12 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrReadonlySt
     {
         if (argumentStringConstraint === undefined || argumentStringConstraint === null)
         {
-            throw new TypeError(`${ConstrainedArgString.name}: ${argumentStringConstraint} argument string constraint.`);
+            throw new ArgStringConstraintError(`${ConstrainedArgString.name}: ${argumentStringConstraint} argument string constraint.`);
         }
 
         if (argumentString === undefined || argumentString === null)
         {
-            throw new TypeError(`${ConstrainedArgString.name}: ${argumentString} argument string.`);
+            throw new ArgStringError(`${ConstrainedArgString.name}: ${argumentString} argument string.`);
         }
 
         if ( ! argumentStringConstraint.isValidPrefix(argumentString.prefix))
