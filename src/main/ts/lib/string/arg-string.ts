@@ -62,7 +62,9 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
      *
      * @param value The `string` to set as this object's suffix {@link ArgString.value}.
      *
-     * @throws Error if `undefined` or `null` is passed for either argument.
+     * @throws {@link arg-string-error.ArgStringPrefixError} if `undefined` or `null` is passed for the prefix argument.
+     *
+     * @throws {@link arg-string-error.ArgStringValueError} if `undefined` or `null` is passed for the value argument.
      */
     protected constructor(prefix: NonNullable<PrefixType>, value: NonNullable<string>)
     {
