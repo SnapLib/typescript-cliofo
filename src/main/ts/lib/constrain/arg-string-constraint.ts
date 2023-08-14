@@ -1,3 +1,7 @@
+/**
+ * @module arg-string-constraint
+ */
+
 import { type StringOrReadonlyStringSet } from "../string/arg-string.js";
 import { PrefixConstraintViolationError, ValueConstraintViolationError } from "./constraint-violation-error.js";
 

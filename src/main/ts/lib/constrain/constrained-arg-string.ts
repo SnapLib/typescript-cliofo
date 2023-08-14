@@ -1,3 +1,7 @@
+/**
+ * @module constrained-arg-string
+ */
+
 import { type ArgStringConstraint, argStringConstraint as createArgStringConstraint } from "./arg-string-constraint.js";
 import { type ArgString, type StringOrReadonlyStringSet } from "./../string/arg-string.js";
 import { inspect } from "util";
