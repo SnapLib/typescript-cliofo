@@ -2,8 +2,8 @@
  * @module option-arg-string
  */
 
-import { argStringConstraint, type ArgStringConstraint, type PrefixPredicate, type ValuePredicate } from "../constrain/arg-string-constraint.js";
-import { ConstrainedArgString } from "../constrain/constrained-arg-string.js";
+import { argStringConstraint, type ArgStringConstraint, type PrefixPredicate, type ValuePredicate } from "./arg-string-constraint.js";
+import { ConstrainedArgString } from "./constrained-arg-string.js";
 import { StringPrefixArgString, stringPrefixArgString } from "../string/string-prefix-arg-string.js";
 
 const whiteSpaceRegEx: Readonly<RegExp> = /\s/g;

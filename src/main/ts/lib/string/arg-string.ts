@@ -128,6 +128,4 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
     public abstract [inspect.custom](): string;
 }
 
-export {StringPrefixArgString, stringPrefixArgString} from "./string-prefix-arg-string.js";
-export {StringSetPrefixArgString, stringSetPrefixArgString} from "./string-set-prefix-arg-string.js";
 export default ArgString;

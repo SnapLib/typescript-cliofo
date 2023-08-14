@@ -4,6 +4,13 @@
  * {@link flag-arg-string.FlagArgString}, and {@link option-arg-string.OptionArgString}
  * classes inherit from.
  *
+ * The {@link ConstrainedArgString} abstract class uses its {@link ArgStringConstraint}
+ * {@link ConstrainedArgString.argStringConstraint} to enforce constraints on
+ * its {@link ArgString} {@link ConstrainedArgString.argString} property. If a
+ * {@link ConstrainedArgString} object attempts to be instantiated with an
+ * {@link ArgString} that violates its {@link ConstrainedArgString.argStringConstraint},
+ * an error gets thrown.
+ *
  * @module constrained-arg-string
  *
  * @see {@link arg-string-constraint}
@@ -33,6 +40,11 @@ const stringOrStringSetToString = (stringOrStringSet: string | ReadonlySet<strin
     }
 };
 
+/**
+ * This class is ues to create objects that enforce constraints on the
+ * {@link ArgString.prefix} and {@link ArgString.value} properties of
+ * {@link ArgString} objects.
+ */
 export abstract class ConstrainedArgString<PrefixType extends StringOrReadonlyStringSet>
 {
     readonly #argStringConstraint: Readonly<ArgStringConstraint<PrefixType>>;
@@ -77,7 +89,4 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrReadonlySt
     public [inspect.custom](): string { return this.#string; }
 }
 
-export {OperandArgString, operandArgString} from "./operand-arg-string.js";
-export {FlagArgString, flagArgString} from "./flag-arg-string.js";
-export {OptionArgString, optionArgString} from "./option-arg-string.js";
 export default ConstrainedArgString;
