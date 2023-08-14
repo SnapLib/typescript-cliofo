@@ -62,10 +62,8 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
 
     /**
      * Returns a set of `string`s created by prepending this object's
-     * {@link StringSetPrefixArgString.prefix}es to its
+     * {@link StringSetPrefixArgString.prefix}es to its `string`
      * {@link StringSetPrefixArgString.value}.
-     *
-     * @returns this object's prefixed value `string`s property.
      */
     public override get prefixedValue(): ReadonlySet<string> { return this.#prefixedValue; }
 
