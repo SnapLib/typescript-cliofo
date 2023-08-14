@@ -25,7 +25,7 @@ export class PrefixIndexParser
     {
         if (argumentPrefix === undefined || argumentPrefix === null)
         {
-            throw new Error(`${this.constructor.name}: ${argumentPrefix} prefix`);
+            throw new TypeError(`${this.constructor.name}: ${argumentPrefix} prefix`);
         }
 
         if (strings === undefined || strings === null)
@@ -37,7 +37,7 @@ export class PrefixIndexParser
         {
             if (argumentPrefix.length !== 1)
             {
-                throw new Error(`${this.constructor.name}: prefix doesn't consist of single character: "${argumentPrefix}"`);
+                throw new TypeError(`${this.constructor.name}: prefix doesn't consist of single character: "${argumentPrefix}"`);
             }
 
             this.#prefix = Object.freeze(prefix(argumentPrefix));
@@ -104,7 +104,7 @@ export function prefixIndexParser(prefixCharOrOther: NonNullable<string | Prefix
     {
         if (stringsToParse === undefined || stringsToParse === null)
         {
-            throw new Error(`${prefixIndexParser.name}: ${stringsToParse} strings to parse argument.`);
+            throw new TypeError(`${prefixIndexParser.name}: ${stringsToParse} strings to parse argument.`);
         }
 
         return new PrefixIndexParser(prefixCharOrOther, stringsToParse);
