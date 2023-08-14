@@ -1,5 +1,16 @@
 /**
+ * This module contains the {@link ConstrainedArgString} abstract class which is
+ * the root parent class the {@link operand-arg-string.OperandArgString},
+ * {@link flag-arg-string.FlagArgString}, and {@link option-arg-string.OptionArgString}
+ * classes inherit from.
+ *
  * @module constrained-arg-string
+ *
+ * @see {@link arg-string-constraint}
+ * @see {@link operand-arg-string}
+ * @see {@link flag-arg-string}
+ * @see {@link option-arg-string}
+ * @see {@link arg-string}
  */
 
 import { type ArgStringConstraint, argStringConstraint as createArgStringConstraint } from "./arg-string-constraint.js";
@@ -66,4 +77,4 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrReadonlySt
     public [inspect.custom](): string { return this.#string; }
 }
 
-export {ConstrainedArgString as default};
+export default ConstrainedArgString;
