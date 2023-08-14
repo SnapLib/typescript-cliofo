@@ -10,7 +10,7 @@ export class Prefix
     {
         if (flagCharOrCodePointOrOther === undefined || flagCharOrCodePointOrOther === null)
         {
-            throw new Error("undefined or null flag char or code point.");
+            throw new TypeError(`${this.constructor.name}: ${flagCharOrCodePointOrOther} flag char.`);
         }
 
         if (typeof flagCharOrCodePointOrOther === "string")
@@ -60,6 +60,5 @@ export function prefix(flagCharOrCodePointOrOther: NonNullable<string | number |
 {
     return new Prefix(flagCharOrCodePointOrOther);
 }
-
 
 export {prefix as default};
