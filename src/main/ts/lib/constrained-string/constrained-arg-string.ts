@@ -14,7 +14,7 @@
  */
 
 import { type ArgStringConstraint, argStringConstraint as createArgStringConstraint } from "./arg-string-constraint.js";
-import { type ArgString, type StringOrReadonlyStringSet } from "./../string/arg-string.js";
+import { type ArgString, type StringOrReadonlyStringSet } from "../string/arg-string.js";
 import { inspect } from "util";
 import { PrefixConstraintViolationError, ValueConstraintViolationError } from "./error/constraint-violation-error.js";
 import { ArgStringConstraintError, ArgStringError } from "./error/constrained-arg-string-error.js";
