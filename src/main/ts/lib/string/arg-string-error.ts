@@ -8,7 +8,7 @@
 
 /**
  * Error thrown by {@link arg-string.ArgString.constructor} if `undefined` or
- * `null` is passed an argument for the `prefix` argument.
+ * `null` is passed as an argument for the `prefix` argument.
  */
 export class ArgStringPrefixError extends Error
 {
@@ -27,7 +27,7 @@ export class ArgStringPrefixError extends Error
 
 /**
  * Error thrown by {@link arg-string.ArgString.constructor} if `undefined` or
- * `null` is passed an argument for the `value` argument.
+ * `null` is passed as an argument for the `value` argument.
  */
 export class ArgStringValueError extends Error
 {
