@@ -25,19 +25,19 @@ export class PrefixIndexParser
     {
         if (argumentPrefix === undefined || argumentPrefix === null)
         {
-            throw new Error(`${PrefixIndexParser.name}: ${argumentPrefix} prefix`);
+            throw new Error(`${this.constructor.name}: ${argumentPrefix} prefix`);
         }
 
         if (strings === undefined || strings === null)
         {
-            throw new Error(`${PrefixIndexParser.name}: ${strings} strings`);
+            throw new Error(`${this.constructor.name}: ${strings} strings`);
         }
 
         if (typeof argumentPrefix === "string")
         {
             if (argumentPrefix.length !== 1)
             {
-                throw new Error(`${PrefixIndexParser.name}: prefix doesn't consist of single character: "${argumentPrefix}"`);
+                throw new Error(`${this.constructor.name}: prefix doesn't consist of single character: "${argumentPrefix}"`);
             }
 
             this.#prefix = Object.freeze(prefix(argumentPrefix));

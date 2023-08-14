@@ -33,28 +33,28 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrReadonlySt
     {
         if (argStringConstraint === undefined || argStringConstraint === null)
         {
-            throw new ArgStringConstraintError(`${ConstrainedArgString.name}: ${argStringConstraint} argument string constraint.`);
+            throw new ArgStringConstraintError(`${this.constructor.name}: ${argStringConstraint} argument string constraint.`);
         }
 
         if (argString === undefined || argString === null)
         {
-            throw new ArgStringError(`${ConstrainedArgString.name}: ${argString} argument string.`);
+            throw new ArgStringError(`${this.constructor.name}: ${argString} argument string.`);
         }
 
         if ( ! argStringConstraint.isValidPrefix(argString.prefix))
         {
-            throw new PrefixConstraintViolationError(`${ConstrainedArgString.name}: prefix string violates constraint: {prefix${typeof argString.prefix === "string" ? "" : "es"}: ${stringOrStringSetToString(argString.prefix)}, value: ${stringToString(argString.value)}}`);
+            throw new PrefixConstraintViolationError(`${this.constructor.name}: prefix string violates constraint: {prefix${typeof argString.prefix === "string" ? "" : "es"}: ${stringOrStringSetToString(argString.prefix)}, value: ${stringToString(argString.value)}}`);
         }
 
         if ( ! argStringConstraint.isValidValue(argString.prefix, argString.value))
         {
-            throw new ValueConstraintViolationError(`${ConstrainedArgString.name}: value string violates constraint: {prefix${typeof argString.prefix === "string" ? "" : "es"}: ${stringOrStringSetToString(argString.prefix)}, value: ${stringToString(argString.value)}}`);
+            throw new ValueConstraintViolationError(`${this.constructor.name}: value string violates constraint: {prefix${typeof argString.prefix === "string" ? "" : "es"}: ${stringOrStringSetToString(argString.prefix)}, value: ${stringToString(argString.value)}}`);
         }
 
         this.#argStringConstraint = Object.isFrozen(argStringConstraint) ? argStringConstraint : Object.freeze(createArgStringConstraint(argStringConstraint));
         this.#argString = argString;
         this.#name = name;
-        this.#string = `${ConstrainedArgString.name} {${this.#name.length !== 0 && this.#name !== this.#argString.value ? `name: ${stringToString(this.#name)}, ` : ""}prefix: ${stringOrStringSetToString(this.#argString.prefix)}, value: ${stringOrStringSetToString(this.#argString.value)}}`;
+        this.#string = `${this.constructor.name} {${this.#name.length !== 0 && this.#name !== this.#argString.value ? `name: ${stringToString(this.#name)}, ` : ""}prefix: ${stringOrStringSetToString(this.#argString.prefix)}, value: ${stringOrStringSetToString(this.#argString.value)}}`;
     }
 
     public get argConstraint(): Readonly<ArgStringConstraint<PrefixType>> { return this.#argStringConstraint; }
