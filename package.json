@@ -1,5 +1,5 @@
 {
-  "name": "@snaplib/cliofo",
+  "name": "cliofo",
   "version": "0.0.1",
   "description": "Command line interface argument parser built around the concept of a prefix character, operands, flags, and options.",
   "main": "./build/dist/Cliofo/cliofo.js",
