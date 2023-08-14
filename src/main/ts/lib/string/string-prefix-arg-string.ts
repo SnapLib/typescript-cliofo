@@ -49,7 +49,7 @@ export class StringPrefixArgString extends ArgString<string>
     {
         super(prefix, value);
         this.#prefixedValue = super.prefix + super.value;
-        this.#string = `${StringPrefixArgString.name} {prefix: ${stringToString(super.prefix)}, value: ${stringToString(super.value)}}`;
+        this.#string = `${new.target.name} {prefix: ${stringToString(super.prefix)}, value: ${stringToString(super.value)}}`;
     }
 
     /**

@@ -71,12 +71,12 @@ export class ArgStringConstraint<PrefixType extends StringOrReadonlyStringSet>
     {
         if (prefixConstraint === undefined || prefixConstraint === null)
         {
-            throw new PrefixConstraintError(`${this.constructor.name}: ${prefixConstraint} prefix constraint`);
+            throw new PrefixConstraintError(`${new.target.name}: ${prefixConstraint} prefix constraint`);
         }
 
         if (valueConstraint === undefined || valueConstraint === null)
         {
-            throw new ValueConstraintError(`${this.constructor.name}: ${valueConstraint} value constraint`);
+            throw new ValueConstraintError(`${new.target.name}: ${valueConstraint} value constraint`);
         }
 
         this.#prefixConstraint = Object.isFrozen(prefixConstraint) ? prefixConstraint : Object.freeze((prefix?: PrefixType) => prefixConstraint(prefix));

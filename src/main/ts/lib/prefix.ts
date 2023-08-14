@@ -10,7 +10,7 @@ export class Prefix
     {
         if (flagCharOrCodePointOrOther === undefined || flagCharOrCodePointOrOther === null)
         {
-            throw new TypeError(`${this.constructor.name}: ${flagCharOrCodePointOrOther} flag char.`);
+            throw new TypeError(`${new.target.name}: ${flagCharOrCodePointOrOther} flag char.`);
         }
 
         if (flagCharOrCodePointOrOther.length !== 1)

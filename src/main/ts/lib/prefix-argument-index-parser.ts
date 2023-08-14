@@ -44,7 +44,7 @@ export class PrefixArgumentIndexParser
                 optionIndexEntry[1]
             ] )));
 
-            this.#string = `${PrefixArgumentIndexParser.name} {prefix: {flagChar: '${this.#prefixIndexParser.prefix.flagChar}', optionString: "${this.#prefixIndexParser.prefix.optionString}"}, operands: ${mapToString(this.#operands)}, flags: ${mapToString(this.#flags)}, options: ${mapToString(this.#options)}}`;
+            this.#string = `${new.target.name} {prefix: {flagChar: '${this.#prefixIndexParser.prefix.flagChar}', optionString: "${this.#prefixIndexParser.prefix.optionString}"}, operands: ${mapToString(this.#operands)}, flags: ${mapToString(this.#flags)}, options: ${mapToString(this.#options)}}`;
     }
 
     public get prefixIndexParser(): Readonly<PrefixIndexParser> { return this.#prefixIndexParser; }

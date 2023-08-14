@@ -70,12 +70,12 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
     {
         if (prefix === undefined || prefix === null)
         {
-            throw new ArgStringPrefixError(`${this.constructor.name}: ${prefix} prefix.`);
+            throw new ArgStringPrefixError(`${new.target.name}: ${prefix} prefix.`);
         }
 
         if (value === undefined || value === null)
         {
-            throw new ArgStringValueError(`${this.constructor.name}: ${value} value.`);
+            throw new ArgStringValueError(`${new.target.name}: ${value} value.`);
         }
 
         this.#prefix = prefix;
