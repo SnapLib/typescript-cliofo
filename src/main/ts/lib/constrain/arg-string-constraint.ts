@@ -2,6 +2,11 @@ import { type StringOrReadonlyStringSet } from "../string/arg-string.js";
 import { PrefixConstraintViolationError } from "./error/prefix-constraint-violation-error.js";
 import { ValueConstraintViolationError } from "./error/value-constraint-violation-error.js";
 
+/**
+ * This type defines a {@link StringOrReadonlyStringSet} predicate that can be
+ * used to validate a `string` or `ReadonlySet<string>` argument. This predicate
+ * is intended to be used to validate the {@link arg-string.ArgString.prefix}.
+ */
 export type PrefixPredicate<PrefixType extends StringOrReadonlyStringSet> = (prefix?: PrefixType) => boolean;
 
 export type ValuePredicate<PrefixType extends StringOrReadonlyStringSet> = (prefix: NonNullable<PrefixType>, value: string) => boolean;
