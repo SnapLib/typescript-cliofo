@@ -1,12 +1,23 @@
 /**
- * This module contains the errors thrown by the {@link arg-string.ArgString}
+ * This module contains the {@link ArgStringPrefixError} and
+ * {@link ArgStringValueError} errors thrown by the {@link arg-string.ArgString}
  * class constructor if `undefined` or `null` is passed as an argument.
  *
  * @module arg-string-error
  */
 
+/**
+ * Error thrown by {@link arg-string.ArgString.constructor} if `undefined` or
+ * `null` is passed an argument for the `prefix` argument.
+ */
 export class ArgStringPrefixError extends Error
 {
+    /**
+     * Constructs a new {@link ArgStringPrefixError} with the optional `string`
+     * message.
+     *
+     * @param message The error message.
+     */
     public constructor(message?: string)
     {
         super(message);
@@ -14,8 +25,18 @@ export class ArgStringPrefixError extends Error
     }
 }
 
+/**
+ * Error thrown by {@link arg-string.ArgString.constructor} if `undefined` or
+ * `null` is passed an argument for the `value` argument.
+ */
 export class ArgStringValueError extends Error
 {
+    /**
+     * Constructs a new {@link ArgStringValueError} with the optional `string`
+     * message.
+     *
+     * @param message The error message.
+     */
     public constructor(message?: string)
     {
         super(message);
