@@ -30,14 +30,14 @@ export class PrefixIndexParser
 
         if (strings === undefined || strings === null)
         {
-            throw new Error(`${this.constructor.name}: ${strings} strings`);
+            throw new TypeError(`${this.constructor.name}: ${strings} strings`);
         }
 
         if (typeof argumentPrefix === "string")
         {
             if (argumentPrefix.length !== 1)
             {
-                throw new TypeError(`${this.constructor.name}: prefix doesn't consist of single character: "${argumentPrefix}"`);
+                throw new Error(`${this.constructor.name}: prefix doesn't consist of single character: "${argumentPrefix}"`);
             }
 
             this.#prefix = Object.freeze(prefix(argumentPrefix));
