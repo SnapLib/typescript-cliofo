@@ -15,6 +15,8 @@
  */
 export class PrefixConstraintViolationError extends Error
 {
+    public override readonly name: string = PrefixConstraintViolationError.name;
+
     public constructor(message?: string)
     {
         super(message);
@@ -29,6 +31,8 @@ export class PrefixConstraintViolationError extends Error
  */
 export class ValueConstraintViolationError extends Error
 {
+    public override readonly name: string = ValueConstraintViolationError.name;
+
     public constructor(message?: string)
     {
         super(message);
