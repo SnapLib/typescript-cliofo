@@ -155,6 +155,8 @@ export function stringSetPrefixArgString(prefixes: NonNullable<readonly string[]
  * @returns a {@link StringSetPrefixArgString} object with its {@link StringSetPrefixArgString.prefix}
  *          set to the provided `Set<string>` and its
  *          {@link StringSetPrefixArgString.value} set to the provided `string.`
+ *
+ * @see {@link StringSetPrefixArgString}
  */
 export function stringSetPrefixArgString(prefixes: NonNullable<ReadonlySet<string>>, value: NonNullable<string>): StringSetPrefixArgString;
 
@@ -169,6 +171,8 @@ export function stringSetPrefixArgString(prefixes: NonNullable<ReadonlySet<strin
  *
  * @returns a new {@link StringSetPrefixArgString} object instance by copying
  *          another {@link StringSetPrefixArgString} object.
+ *
+ * @see {@link StringSetPrefixArgString}
  */
 export function stringSetPrefixArgString(other: NonNullable<StringSetPrefixArgString>): StringSetPrefixArgString;
 export function stringSetPrefixArgString(prefixesOrOther: readonly string[] | NonNullable<ReadonlySet<string> |  StringSetPrefixArgString>, value?: string): StringSetPrefixArgString
