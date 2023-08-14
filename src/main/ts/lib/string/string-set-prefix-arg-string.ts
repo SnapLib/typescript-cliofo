@@ -18,6 +18,8 @@
  * `"--color"` arguments.
  *
  * @module string-set-prefix-arg-string
+ *
+ * @see {@link arg-string}
  */
 
 import { ArgString } from "./arg-string.js";

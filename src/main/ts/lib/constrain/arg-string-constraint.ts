@@ -8,6 +8,9 @@
  * objects.
  *
  * @module arg-string-constraint
+ *
+ * @see {@link constrained-arg-string}
+ * @see {@link arg-string}
  */
 
 import { type StringOrReadonlyStringSet } from "../string/arg-string.js";

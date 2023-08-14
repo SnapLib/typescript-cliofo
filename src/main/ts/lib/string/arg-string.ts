@@ -45,6 +45,9 @@ export type StringOrReadonlyStringSet = string | ReadonlySet<string>;
  *                       (`string` or `ReadonlySet<string>`) specifying what
  *                       type of {@link ArgString.prefix} and
  *                       {@link ArgString.prefixedValue} this object has.
+ *
+ * @see {@link string-prefix-arg-string.StringPrefixArgString}
+ * @see {@link string-set-prefix-arg-string.StringSetPrefixArgString}
  */
 export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
 {

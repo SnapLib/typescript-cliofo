@@ -16,6 +16,8 @@
  * `"--"` prefix `string` prepended to the `"help"` `string` value.
  *
  * @module string-prefix-arg-string
+ *
+ * @see {@link arg-string}
  */
 
 import { ArgString } from "./arg-string.js";
