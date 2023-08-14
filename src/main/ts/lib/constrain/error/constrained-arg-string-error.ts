@@ -23,7 +23,7 @@ export class ArgStringConstraintError extends Error
     public constructor(message?: string)
     {
         super(message);
-        Object.setPrototypeOf(this, ArgStringConstraintError.prototype);
+        Object.setPrototypeOf(this, new.target.prototype);
     }
 }
 
@@ -44,6 +44,6 @@ export class ArgStringError extends Error
     public constructor(message?: string)
     {
         super(message);
-        Object.setPrototypeOf(this, ArgStringError.prototype);
+        Object.setPrototypeOf(this, new.target.prototype);
     }
 }

@@ -23,7 +23,7 @@ export class ArgStringPrefixError extends Error
     public constructor(message?: string)
     {
         super(message);
-        Object.setPrototypeOf(this, ArgStringPrefixError.prototype);
+        Object.setPrototypeOf(this, new.target.prototype);
     }
 }
 
@@ -44,6 +44,6 @@ export class ArgStringValueError extends Error
     public constructor(message?: string)
     {
         super(message);
-        Object.setPrototypeOf(this, ArgStringValueError.prototype);
+        Object.setPrototypeOf(this, new.target.prototype);
     }
 }

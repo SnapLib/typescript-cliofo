@@ -20,7 +20,7 @@ export class PrefixConstraintViolationError extends Error
     public constructor(message?: string)
     {
         super(message);
-        Object.setPrototypeOf(this, PrefixConstraintViolationError.prototype);
+        Object.setPrototypeOf(this, new.target.prototype);
     }
 }
 
@@ -36,6 +36,6 @@ export class ValueConstraintViolationError extends Error
     public constructor(message?: string)
     {
         super(message);
-        Object.setPrototypeOf(this, ValueConstraintViolationError.prototype);
+        Object.setPrototypeOf(this, new.target.prototype);
     }
 }
