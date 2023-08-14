@@ -1,5 +1,5 @@
 /**
- * This module contains the {@link ArgString} class and
+ * This module contains the {@link ArgString} abstract class and
  * {@link StringOrReadonlyStringSet} type. The `ArgString` class is used to
  * represent strings that can be passed on the command line and the
  * {@link StringOrReadonlyStringSet} type is used to constrain the types of
