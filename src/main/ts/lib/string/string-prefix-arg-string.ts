@@ -97,6 +97,8 @@ export class StringPrefixArgString extends ArgString<string>
  * @returns A {@link StringPrefixArgString} object with its {@link StringPrefixArgString.prefix}
  *          and {@link StringPrefixArgString.value} properties set to the passed
  *          `string` arguments.
+ *
+ * @see {@link StringPrefixArgString}
  */
 export function stringPrefixArgString(prefix: NonNullable<string>, value: NonNullable<string>): StringPrefixArgString;
 
@@ -112,6 +114,8 @@ export function stringPrefixArgString(prefix: NonNullable<string>, value: NonNul
  * @returns A {@link StringPrefixArgString} object with its {@link StringPrefixArgString.prefix}
  *          and {@link StringPrefixArgString.value} properties copied from the
  *          passed {@link StringPrefixArgString} object argument.
+ *
+ * @see {@link StringPrefixArgString}
  */
 export function stringPrefixArgString(other: NonNullable<StringPrefixArgString>): StringPrefixArgString;
 export function stringPrefixArgString(prefixOrOther: NonNullable<string | StringPrefixArgString>, value?: string): StringPrefixArgString
