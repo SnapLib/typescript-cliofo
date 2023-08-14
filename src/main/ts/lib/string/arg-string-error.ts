@@ -12,6 +12,8 @@
  */
 export class ArgStringPrefixError extends Error
 {
+    public override readonly name: string = ArgStringPrefixError.name;
+
     /**
      * Constructs a new {@link ArgStringPrefixError} with the optional `string`
      * message.
@@ -31,6 +33,8 @@ export class ArgStringPrefixError extends Error
  */
 export class ArgStringValueError extends Error
 {
+    public override readonly name: string = ArgStringValueError.name;
+
     /**
      * Constructs a new {@link ArgStringValueError} with the optional `string`
      * message.
