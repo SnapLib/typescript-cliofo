@@ -77,4 +77,7 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrReadonlySt
     public [inspect.custom](): string { return this.#string; }
 }
 
+export {OperandArgString, operandArgString} from "./operand-arg-string.js";
+export {FlagArgString, flagArgString} from "./flag-arg-string.js";
+export {OptionArgString, optionArgString} from "./option-arg-string.js";
 export default ConstrainedArgString;
