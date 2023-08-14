@@ -53,11 +53,9 @@ export class StringPrefixArgString extends ArgString<string>
     }
 
     /**
-     * This object's prefixed `string` value property consisting of this
-     * object's {@link StringPrefixArgString.prefix} `string` property prepended
-     * to its {@link StringPrefixArgString.value} `string` property.
-     *
-     * @returns this object's prefixed value `string` property.
+     * This object's prefixed `string` value property consisting of its
+     * {@link StringPrefixArgString.prefix} `string` property prepended to its
+     * {@link StringPrefixArgString.value} `string` property.
      */
     public override get prefixedValue(): string { return this.#prefixedValue; }
 
