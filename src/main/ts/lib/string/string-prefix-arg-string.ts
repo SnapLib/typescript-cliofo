@@ -37,7 +37,8 @@ export class StringPrefixArgString extends ArgString<string>
     readonly #string: string;
 
     /**
-     * Constructs an object with the provided `string` prefix and value.
+     * Constructs an object with the provided `string` prefix and value. If either
+     * of the arguments are `undefined` or `null`, an error will be thrown.
      *
      * @param prefix The `string` prepended to the beginning of the constructed
      *               object's {@link StringPrefixArgString.value} to create its
