@@ -1,5 +1,30 @@
 /**
+ * This module contains all the necessary components to create an object to represent a GNU *flag* argument.
+ *
+ * ## Prefix and value `string` predicates
+ *
+ * 1. {@link flagPrefixPredicate}
+ *
+ *     This predicate ensures that a `string` is only 1 character and not a whitespace.
+ *
+ * 1. {@link flagValuePredicate}
+ *
+ *     This predicate ensures that a `string` is 0-1 character(s) long, is not a specified character,
+ *     and does not contain any white space.
+ *
+ * ## {@link flagArgStringConstraint}
+ *
+ * The object consisting of the 2 predicates above so they can be enforced on a string and more easily referenced.
+ *
+ * ## {@link FlagArgString}
+ *
+ * The class bringing all the above components together combined with a {@link string-prefix-arg-string.StringPrefixArgString}
+ * for creating an object used to represent a GNU *flag* argument.
+ *
  * @module flag-arg-string
+ *
+ * @see {@link constrained-arg-string}
+ * @see {@link string-prefix-arg}
  */
 
 import { argStringConstraint, type ArgStringConstraint, type PrefixPredicate, type ValuePredicate } from "./arg-string-constraint.js";
@@ -10,14 +35,14 @@ const whiteSpaceRegEx: Readonly<RegExp> = /\s/g;
 
 /**
  * Predicate that consumes a `string` and returns `true` if it's not `undefined`
- * or `null` and only consists of a single character.
+ * or `null`, only consists of a single character, and is not a whitespace.
  *
- * This is used to validate the prefixes for flag arguments.
+ * This is used to validate the prefixes (the leading part prepended to the value) of flag arguments.
  *
  * @param prefixString The `string` being checked if it's a valid flag prefix.
  *
- * @returns `true` if the passed string isn't `undefined` or `null` and contains
- *         only a single character.
+ * @returns `true` if the passed `string` isn't `undefined` or `null`, only
+ * consists of a single character, and is not a whitespace.
  *
  * @see FlagArgString
  */
@@ -30,10 +55,11 @@ const whiteSpaceRegEx: Readonly<RegExp> = /\s/g;
 
 /**
  * Predicate that consumes 2 `string`s and returns `true` if the second `string`
- * argument is 0 or 1 characters and doesn't start with the first `string`.
+ * argument is 0 or 1 characters, doesn't start with the first `string`, and
+ * doesn't contain any whitespace.
  *
- * This is used to validate the value (the part that comes after the prefix)
- * for flags.
+ * This is used to validate the value (the part that's appended to the prefix)
+ * of flag arguments.
  *
  * This function does not perform any validation on the first `string` argument
  * it's passed.
@@ -42,8 +68,8 @@ const whiteSpaceRegEx: Readonly<RegExp> = /\s/g;
  *
  * @param valueString The flag value `string` being validated.
  *
- * @returns `true` if the passed flag `string` value is 0 or 1 characters and
- *          doesn't consist of the first `string`.
+ * @returns `true` if the second `string` argument is 0 or 1 characters, doesn't
+ *          start with the first `string`, and doesn't contain any whitespace.
  *
  * @see FlagArgString
  */
@@ -55,6 +81,11 @@ export const flagValuePredicate: ValuePredicate<string> =
         && ! valueString.startsWith(prefixString)
         && ! whiteSpaceRegEx.test(valueString) );
 
+/**
+ * Object containing the {@link flagPrefixPredicate} and {@link flagValuePredicate}
+ * `string` predicates for validating the {@link StringPrefixArgString.prefix}
+ * and {@link StringPrefixArgString.value} of a {@link StringPrefixArgString}.
+ */
 export const flagArgStringConstraint: ArgStringConstraint<string> = argStringConstraint(flagPrefixPredicate, flagValuePredicate);
 
 export class FlagArgString extends ConstrainedArgString<string>
