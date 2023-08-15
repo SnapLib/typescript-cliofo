@@ -47,6 +47,12 @@ export class StringPrefixArgString extends ArgString<string>
      * @param value  The `string` appended to the end of the constructed
      *               object's {@link StringPrefixArgString.prefix} to create its
      *               {@link StringPrefixArgString.prefixedValue}.
+     *
+     * @throws {@link arg-string.ArgStringPrefixError}
+     * if `undefined` or `null` is passed for the prefix argument.
+     *
+     * @throws {@link arg-string.ArgStringValueError}
+     * if `undefined` or `null` is passed for the value argument.
      */
     public constructor(prefix: NonNullable<string>, value: NonNullable<string>)
     {
