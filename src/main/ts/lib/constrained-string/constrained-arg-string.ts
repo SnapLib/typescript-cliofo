@@ -23,8 +23,8 @@
 import { type ArgStringConstraint, argStringConstraint as createArgStringConstraint } from "./arg-string-constraint.js";
 import { type ArgString, type StringOrReadonlyStringSet } from "../string/arg-string.js";
 import { inspect } from "util";
-import { PrefixConstraintViolationError, ValueConstraintViolationError } from "./error/constraint-violation-error.js";
 import { ArgStringConstraintError, ArgStringError } from "./error/constrained-arg-string-error.js";
+import { PrefixConstraintViolationError, ValueConstraintViolationError } from "./error/constraint-violation-error.js";
 
 const stringToString = (aString: string) => aString.length !== 1 ? `"${aString}"` : `'${aString}'`;
 
@@ -56,7 +56,44 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrReadonlySt
     readonly #name: string;
     readonly #string: string;
 
-    protected constructor(argStringConstraint: NonNullable<ArgStringConstraint<PrefixType>>, argString: NonNullable<Readonly<ArgString<PrefixType>>>, name: NonNullable<string>)
+    /**
+     * Constructs a {@link ConstrainedArgString} object instance with the
+     * provided {@link ArgStringConstraint}, {@link ArgString}, and `string`
+     * name properties. If the passed {@link ArgString} argument violates one
+     * the {@link ArgStringConstraint}'s constraints, then an error is thrown.
+     *
+     * This the root parent class the {@link operand-arg-string.OperandArgString},
+     * {@link flag-arg-string.FlagArgString}, and {@link option-arg-string.OptionArgString}
+     * classes inherit from.
+     *
+     * @param argStringConstraint The {@link ArgStringConstraint} the constructed
+     *                            object will contain and enforces on its {@link ArgString}.
+     *
+     * @param argString The {@link ArgString} the constructed object will contain.
+     *
+     * @param name Name `string` value for the constructed object.
+     *
+     * @throws {@link constrained-arg-string-error.ArgStringConstraintError}
+     * if passed arg string constraint argument is `undefined` or `null`.
+     *
+     * @throws {@link constrained-arg-string-error.ArgStringError}
+     * if passed arg string argument is `undefined` or `null`.
+     *
+     * @throws {@link constraint-violation-error.PrefixConstraintViolationError}
+     * if passed arg string {@link ArgString.prefix} fails validation.
+     *
+     * @throws {@link constraint-violation-error.ValueConstraintViolationError}
+     * if passed arg string {@link ArgString.value} fails validation.
+     *
+     * @see {@link operand-arg-string.OperandArgString}
+     * @see {@link flag-arg-string.FlagArgString}
+     * @see {@link option-arg-string.OptionArgString}
+     * @see {@link ArgStringConstraint}
+     * @see {@link ArgString}
+     */
+    protected constructor( argStringConstraint: NonNullable<ArgStringConstraint<PrefixType>>,
+                           argString: NonNullable<Readonly<ArgString<PrefixType>>>,
+                           name: NonNullable<string> )
     {
         if (argStringConstraint === undefined || argStringConstraint === null)
         {
@@ -84,12 +121,35 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrReadonlySt
         this.#string = `${new.target.name} {${this.#name.length !== 0 && this.#name !== this.#argString.value ? `name: ${stringToString(this.#name)}, ` : ""}prefix: ${stringOrStringSetToString(this.#argString.prefix)}, value: ${stringOrStringSetToString(this.#argString.value)}}`;
     }
 
+    /**
+     * This object's {@link ArgStringConstraint} property.
+     */
     public get argStringConstraint(): Readonly<ArgStringConstraint<PrefixType>> { return this.#argStringConstraint; }
+
+    /**
+     * This object's {@link ArgString} property.
+     */
     public get argString(): Readonly<ArgString<PrefixType>> { return this.#argString; }
+
+    /**
+     * This object's `string` name property.
+     */
     public get name(): string { return this.#name; }
 
+    /**
+     * Returns a `string` representation of this object. This is the same
+     * `string` returned by the `[inspect.custom]()` method.
+     *
+     * @returns a `string` representation of this object.
+     */
     public toString(): string { return this.#string; }
 
+    /**
+     * Returns a `string` representation of this object. This is the same
+     * `string` returned by the {@link ConstrainedArgString.toString} method.
+     *
+     * @returns a `string` representation of this object.
+     */
     public [inspect.custom](): string { return this.#string; }
 }
 
