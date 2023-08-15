@@ -121,16 +121,53 @@ export const flagArgStringConstraint: ArgStringConstraint<string> = argStringCon
  * ```
  *
  * `node-script.js` is the script being passed the flag arguments `l`, `a`, and `C`.
+ *
+ * @see {@link ConstrainedArgString}
+ * @see {@link StringPrefixArgString}
  */
 export class FlagArgString extends ConstrainedArgString<string>
 {
+    /**
+     * Constructs an object used to represent a GNU *flag* argument with the {@link StringPrefixArgString.prefix} and
+     * {@link StringPrefixArgString.value} `string`s of the passed {@link StringPrefixArgString}. If the passed
+     * {@link StringPrefixArgString} object contains {@link StringPrefixArgString.prefix} and
+     * {@link StringPrefixArgString.value} `string`s that fail validation, an error gets thrown.
+     *
+     * @param stringPrefixArgumentString The {@link StringPrefixArgString} object to use the
+     *                                   {@link StringPrefixArgString.prefix} and {@link StringPrefixArgString.value}
+     *                                   `string`s from.
+     *
+     * @param name Optional `string` used to give the flag an identifiable name.
+     *
+     * @throws {@link constraint-violation-error.PrefixConstraintViolationError}
+     * if the passed {@link StringPrefixArgString} object contains a {@link StringPrefixArgString.prefix} that's not a
+     * single character and a whitespace.
+     */
     public constructor(stringPrefixArgumentString: NonNullable<StringPrefixArgString>, name?: string)
     {
         super(flagArgStringConstraint, Object.isFrozen(stringPrefixArgumentString) ? stringPrefixArgumentString : Object.freeze(stringPrefixArgString(stringPrefixArgumentString)), name ?? "");
     }
 }
 
+/**
+ * Factory function for creating {@link FlagArgString} object instances with the specified prefix and value character
+ * `string`s and optional name `string`.
+ *
+ * @param prefixChar The character prefixed to the value used to denote it as a flag.
+ *
+ * @param valueString The character value of the flag that's appended to its prefix.
+ *
+ * @param name Optional `string` used to give the flag object an identifiable name.
+ *
+ * @returns a {@link FlagArgString} object instance.
+ */
 export function flagArgString(prefixChar: NonNullable<string>, valueString: NonNullable<string>, name?: string): FlagArgString;
+
+/**
+ *
+ * @param stringPrefixArgumentString
+ * @param name
+ */
 export function flagArgString(stringPrefixArgumentString: NonNullable<StringPrefixArgString>, name?: string): FlagArgString;
 export function flagArgString(other: NonNullable<FlagArgString>, name?: string): FlagArgString;
 export function flagArgString(prefixCharOrStringPrefixArgumentStringOrOther: NonNullable<string | StringPrefixArgString | FlagArgString>, valueString?: string, name?: string): FlagArgString
