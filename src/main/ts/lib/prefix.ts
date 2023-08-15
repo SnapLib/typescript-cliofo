@@ -1,3 +1,7 @@
+/**
+ * @module prefix
+ */
+
 import { inspect } from "util";
 
 export class Prefix

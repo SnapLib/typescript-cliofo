@@ -1,3 +1,7 @@
+/**
+ * @module prefix-argument-index-parser
+ */
+
 import { type PrefixIndexParser, prefixIndexParser as indexParser, prefixIndexParser } from "./prefix-index-parser.js";
 import { type OperandArgString, operandArgString } from "./constrained-string/operand-arg-string.js";
 import { type FlagArgString, flagArgString } from "./constrained-string/flag-arg-string.js";

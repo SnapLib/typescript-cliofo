@@ -1,3 +1,7 @@
+/**
+ * @module prefix-index-parser
+ */
+
 import { inspect } from "util";
 import { type Prefix, prefix } from "./prefix.js";
 
