@@ -16,7 +16,6 @@
  */
 
 import { type StringOrReadonlyStringSet } from "../string/arg-string.js";
-import { PrefixConstraintError, ValueConstraintError } from "./error/arg-string-constraint-error.js";
 import { PrefixConstraintViolationError, ValueConstraintViolationError } from "./error/constraint-violation-error.js";
 
 /**
@@ -65,10 +64,10 @@ export class ArgStringConstraint<PrefixType extends StringOrReadonlyStringSet>
      *                        or `ReadonlySet<string>` and a `string` and
      *                        returns a `boolean`.
      *
-     * @throws {@link arg-string-constraint-error.PrefixConstraintError}
+     * @throws {@link PrefixConstraintError}
      * if the passed prefix constraint argument is `undefined` or `null`.
      *
-     * @throws {@link arg-string-constraint-error.ValueConstraintError}
+     * @throws {@link ValueConstraintError}
      * if the passed value constraint argument is `undefined` or `null`.
      */
     public constructor( prefixConstraint: NonNullable<PrefixPredicate<PrefixType>>,
@@ -228,6 +227,48 @@ export function argStringConstraint<PrefixType extends StringOrReadonlyStringSet
         }
 
         return new ArgStringConstraint(prefixConstraintOrOther, valueConstraint);
+    }
+}
+
+/**
+ * Error thrown by the {@link ArgStringConstraint.constructor ArgStringConstraint constructor}
+ * if `undefined` or `null` is passed an argument for the prefix constraint argument.
+ */
+export class PrefixConstraintError extends Error
+{
+    public override readonly name: string = PrefixConstraintError.name;
+
+    /**
+     * Constructs a new {@link PrefixConstraintError} with the optional `string`
+     * message.
+     *
+     * @param message The error message.
+     */
+    public constructor(message?: string)
+    {
+        super(message);
+        Object.setPrototypeOf(this, new.target.prototype);
+    }
+}
+
+/**
+ * Error thrown by the {@link ArgStringConstraint.constructor ArgStringConstraint constructor}
+ * if `undefined` or `null` is passed an argument for the value constraint argument.
+ */
+export class ValueConstraintError extends Error
+{
+    public override readonly name: string = ValueConstraintError.name;
+
+    /**
+     * Constructs a new {@link ValueConstraintError} with the optional `string`
+     * message.
+     *
+     * @param message The error message.
+     */
+    public constructor(message?: string)
+    {
+        super(message);
+        Object.setPrototypeOf(this, new.target.prototype);
     }
 }
 
