@@ -49,6 +49,10 @@ const stringOrStringSetToString = (stringOrStringSet: string | ReadonlySet<strin
  * {@link ArgString} that violates its {@link ConstrainedArgString.argStringConstraint},
  * an error gets thrown.
  *
+ * @typeParam PrefixType The type of {@link StringOrReadonlyStringSet} prefix,
+ *                       constrained to a `string` or `ReadonlySet<string>`,
+ *                       that the {@link ArgString} contains.
+ *
  * @see {@link operand-arg-string.OperandArgString}
  * @see {@link flag-arg-string.FlagArgString}
  * @see {@link option-arg-string.OptionArgString}
