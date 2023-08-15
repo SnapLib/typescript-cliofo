@@ -1,9 +1,22 @@
 /**
+ * This module exports the {@link Prefix} class and its factory functions. The
+ * {@link Prefix} class is used by the {@link prefix-index-parser.PrefixIndexParser}
+ * class to contain the leading prefix `string`s a command line argument can or
+ * cannot be prepended with to designate it an operand, flag, or option.
+ *
  * @module prefix
+ *
+ * @see {@link prefix-index-parser}
+ * @see {@link prefix-argument-index-parser}
  */
 
 import { inspect } from "util";
 
+/**
+ * This class instantiates objects that is used by the {@link prefix-index-parser.PrefixIndexParser}
+ * class to contain the leading prefix `string`s a command line argument can or
+ * cannot be prepended with to designate it an operand, flag, or option.
+ */
 export class Prefix
 {
     readonly #flagChar: string;
