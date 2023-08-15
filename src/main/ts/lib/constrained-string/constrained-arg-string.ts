@@ -48,6 +48,12 @@ const stringOrStringSetToString = (stringOrStringSet: string | ReadonlySet<strin
  * property. If a {@link ConstrainedArgString} object attempts to be instantiated with an
  * {@link ArgString} that violates its {@link ConstrainedArgString.argStringConstraint},
  * an error gets thrown.
+ *
+ * @see {@link operand-arg-string.OperandArgString}
+ * @see {@link flag-arg-string.FlagArgString}
+ * @see {@link option-arg-string.OptionArgString}
+ * @see {@link ArgStringConstraint}
+ * @see {@link ArgString}
  */
 export abstract class ConstrainedArgString<PrefixType extends StringOrReadonlyStringSet>
 {
@@ -85,9 +91,6 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrReadonlySt
      * @throws {@link constraint-violation-error.ValueConstraintViolationError}
      * if passed arg string {@link ArgString.value} fails validation.
      *
-     * @see {@link operand-arg-string.OperandArgString}
-     * @see {@link flag-arg-string.FlagArgString}
-     * @see {@link option-arg-string.OptionArgString}
      * @see {@link ArgStringConstraint}
      * @see {@link ArgString}
      */
