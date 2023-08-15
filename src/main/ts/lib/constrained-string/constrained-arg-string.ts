@@ -22,9 +22,8 @@
 
 import { type ArgStringConstraint, argStringConstraint as createArgStringConstraint } from "./arg-string-constraint.js";
 import { type ArgString, type StringOrReadonlyStringSet } from "../string/arg-string.js";
-import { inspect } from "util";
-import { ArgStringConstraintError, ArgStringError } from "./error/constrained-arg-string-error.js";
 import { PrefixConstraintViolationError, ValueConstraintViolationError } from "./error/constraint-violation-error.js";
+import { inspect } from "util";
 
 const stringToString = (aString: string) => aString.length !== 1 ? `"${aString}"` : `'${aString}'`;
 
@@ -83,10 +82,10 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrReadonlySt
      *
      * @param name Name `string` value for the constructed object.
      *
-     * @throws {@link constrained-arg-string-error.ArgStringConstraintError}
+     * @throws {@link ArgStringConstraintError}
      * if passed arg string constraint argument is `undefined` or `null`.
      *
-     * @throws {@link constrained-arg-string-error.ArgStringError}
+     * @throws {@link ArgStringError}
      * if passed arg string argument is `undefined` or `null`.
      *
      * @throws {@link constraint-violation-error.PrefixConstraintViolationError}
@@ -158,6 +157,48 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrReadonlySt
      * @returns a `string` representation of this object.
      */
     public [inspect.custom](): string { return this.#string; }
+}
+
+/**
+ * Error thrown by the {@link ArgStringConstraint.constructor ArgStringConstraint constructor}
+ * if `undefined` or `null` is passed an argument for the prefix constraint argument.
+ */
+export class ArgStringConstraintError extends Error
+{
+    public override readonly name: string = ArgStringConstraintError.name;
+
+    /**
+     * Constructs a new {@link ArgStringConstraintError} with the optional
+     * `string` message.
+     *
+     * @param message The error message.
+     */
+    public constructor(message?: string)
+    {
+        super(message);
+        Object.setPrototypeOf(this, new.target.prototype);
+    }
+}
+
+/**
+ * Error thrown by the {@link ArgStringConstraint.constructor ArgStringConstraint constructor}
+ * if `undefined` or `null` is passed an argument for the value constraint argument.
+ */
+export class ArgStringError extends Error
+{
+    public override readonly name: string = ArgStringError.name;
+
+    /**
+     * Constructs a new {@link ArgStringError} with the optional `string`
+     * message.
+     *
+     * @param message The error message.
+     */
+    public constructor(message?: string)
+    {
+        super(message);
+        Object.setPrototypeOf(this, new.target.prototype);
+    }
 }
 
 export default ConstrainedArgString;
