@@ -6,6 +6,7 @@
     "lib": ["es2021"],
     "module": "es2020",
     "noEmitOnError": true,
+    "noImplicitOverride": true,
     "preserveConstEnums": false,
     "strict": true,
     "target": "es2021"
