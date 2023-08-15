@@ -17,7 +17,6 @@
  * @see {@link string-set-prefix-arg-string}
  */
 
-import { ArgStringPrefixError, ArgStringValueError } from "./arg-string-error.js";
 import { inspect } from "util";
 
 /**
@@ -65,9 +64,9 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
      *
      * @param value The `string` to set as this object's suffix {@link ArgString.value}.
      *
-     * @throws {@link arg-string-error.ArgStringPrefixError} if `undefined` or `null` is passed for the prefix argument.
+     * @throws {@link ArgStringPrefixError} if `undefined` or `null` is passed for the prefix argument.
      *
-     * @throws {@link arg-string-error.ArgStringValueError} if `undefined` or `null` is passed for the value argument.
+     * @throws {@link ArgStringValueError} if `undefined` or `null` is passed for the value argument.
      */
     protected constructor(prefix: NonNullable<PrefixType>, value: NonNullable<string>)
     {
@@ -128,6 +127,48 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
      * @returns a `string` representation of this object.
      */
     public abstract [inspect.custom](): string;
+}
+
+/**
+ * Error thrown by the {@link ArgString.constructor ArgString constructor}
+ * if `undefined` or `null` is passed as an argument for the `prefix` argument.
+ */
+export class ArgStringPrefixError extends Error
+{
+    public override readonly name: string = ArgStringPrefixError.name;
+
+    /**
+     * Constructs a new {@link ArgStringPrefixError} with the optional `string`
+     * message.
+     *
+     * @param message The error message.
+     */
+    public constructor(message?: string)
+    {
+        super(message);
+        Object.setPrototypeOf(this, new.target.prototype);
+    }
+}
+
+/**
+ * Error thrown by the {@link ArgString.constructor ArgString constructor} if
+ * `undefined` or `null` is passed as an argument for the `value` argument.
+ */
+export class ArgStringValueError extends Error
+{
+    public override readonly name: string = ArgStringValueError.name;
+
+    /**
+     * Constructs a new {@link ArgStringValueError} with the optional `string`
+     * message.
+     *
+     * @param message The error message.
+     */
+    public constructor(message?: string)
+    {
+        super(message);
+        Object.setPrototypeOf(this, new.target.prototype);
+    }
 }
 
 export default ArgString;
