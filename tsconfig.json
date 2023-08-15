@@ -8,6 +8,7 @@
     "noEmitOnError": true,
     "noImplicitOverride": true,
     "preserveConstEnums": false,
+    "rootDir": "./src/main/ts",
     "strict": true,
     "target": "es2021"
   }
