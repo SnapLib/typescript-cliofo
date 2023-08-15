@@ -14,6 +14,8 @@
     "build": "tsc -p ./tsconfig.dev.json",
     "build-dist": "tsc -p ./tsconfig.dist.json",
     "build-scripts": "tsc -p ./scripts/ts/tsconfig.json --outDir ./scripts",
+    "build-test": "tsc -p ./tsconfig.test.json",
+    "build-types": "tsc -p ./tsconfig.types.json",
     "build-tsdoc": "typedoc --options ./typedoc.json",
     "clean": "node ./scripts/remove.js --directory ./build",
     "dev": "node build/dev/cliofo.js -dfg --directory -abc --transform -Aaxxy --directory blep meep --a -x",
