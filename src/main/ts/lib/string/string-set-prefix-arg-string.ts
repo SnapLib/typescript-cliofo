@@ -43,7 +43,8 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
     readonly #string: string;
 
     /**
-     * Constructs an object with the provided `string` prefixes and value.
+     * Constructs an object with the provided `string` prefixes and value. If either
+     * of the arguments are `undefined` or `null`, an error will be thrown.
      *
      * @param prefixes The `string`s that can be prepended to the beginning of
      *                 the constructed object's {@link StringSetPrefixArgString.value}
@@ -52,6 +53,12 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
      * @param value The `string` appended to the end of the constructed
      *              object's {@link StringSetPrefixArgString.prefix}es to create
      *              its {@link StringSetPrefixArgString.prefixedValue}s.
+     *
+     * @throws {@link arg-string.ArgStringPrefixError}
+     * if `undefined` or `null` is passed for the prefixes argument.
+     *
+     * @throws {@link arg-string.ArgStringValueError}
+     * if `undefined` or `null` is passed for the value argument.
      */
     public constructor(prefixes: NonNullable<ReadonlySet<string>>, value: NonNullable<string>)
     {
