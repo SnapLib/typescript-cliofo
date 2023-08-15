@@ -11,8 +11,8 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "build": "tsc --removeComments true --skipLibCheck true --declarationMap true --sourceMap true -p ./tsconfig.json --outDir ./build/dev --declarationDir ./build/dev/types",
-    "build-dist": "tsc --declarationMap false --sourceMap false -p ./tsconfig.json --outDir ./build/dist/Cliofo --declarationDir ./build/dist/Cliofo/types",
+    "build": "tsc -p ./tsconfig.dev.json",
+    "build-dist": "tsc -p ./tsconfig.dist.json",
     "build-scripts": "tsc -p ./scripts/ts/tsconfig.json --outDir ./scripts",
     "build-tsdoc": "typedoc --options ./typedoc.json",
     "clean": "node ./scripts/remove.js --directory ./build",
