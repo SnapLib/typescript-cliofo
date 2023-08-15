@@ -1,16 +1,16 @@
 {
-    "include": ["./src/main/ts/**/*.ts"],
-    "compilerOptions":
-    {
-      "baseUrl": "./src/main/ts",
-      "declaration": true,
-      "esModuleInterop": true,
-      "forceConsistentCasingInFileNames": true,
-      "lib": ["es2021"],
-      "module": "es2020",
-      "noEmitOnError": true,
-      "preserveConstEnums": false,
-      "strict": true,
-      "target": "es2021"
-    }
+  "include": ["./src/main/ts/**/*.ts"],
+  "compilerOptions":
+  {
+    "baseUrl": "./src/main/ts",
+    "declaration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["es2021"],
+    "module": "es2020",
+    "noEmitOnError": true,
+    "preserveConstEnums": false,
+    "strict": true,
+    "target": "es2021"
   }
+}
