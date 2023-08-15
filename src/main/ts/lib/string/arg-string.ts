@@ -114,14 +114,16 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
     public abstract equals(obj?: unknown): boolean;
 
     /**
-     * Returns a `string` representation of this object.
+     * Returns a `string` representation of this object. This is the same
+     * `string` returned by the `[inspect.custom]()` method.
      *
      * @returns a `string` representation of this object.
      */
     public abstract toString(): string;
 
     /**
-     * Returns a `string` representation of this object.
+     * Returns a `string` representation of this object. This is the same
+     * `string` returned by the {@link ArgString.toString} method.
      *
      * @returns a `string` representation of this object.
      */
