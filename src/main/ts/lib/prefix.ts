@@ -23,19 +23,19 @@ export class Prefix
     readonly #optionString: string;
     readonly #string: string;
 
-    public constructor(flagCharOrCodePointOrOther: NonNullable<string>)
+    public constructor(flagChar: NonNullable<string>)
     {
-        if (flagCharOrCodePointOrOther === undefined || flagCharOrCodePointOrOther === null)
+        if (flagChar === undefined || flagChar === null)
         {
-            throw new TypeError(`${new.target.name}: ${flagCharOrCodePointOrOther} flag char.`);
+            throw new TypeError(`${new.target.name}: ${flagChar} flag char.`);
         }
 
-        if (flagCharOrCodePointOrOther.length !== 1)
+        if (flagChar.length !== 1)
         {
-            throw new Error(`Flag character doesn't consist of single character: "${flagCharOrCodePointOrOther}"`);
+            throw new Error(`Flag character doesn't consist of single character: "${flagChar}"`);
         }
 
-        this.#flagChar = flagCharOrCodePointOrOther;
+        this.#flagChar = flagChar;
         this.#optionString = this.#flagChar.repeat(2);
         this.#string = `${this.constructor.name} {flagChar: '${this.#flagChar}', optionString: "${this.#optionString}"}`;
     }
@@ -53,6 +53,27 @@ export class Prefix
     public toString(): string { return this.#string; }
 
     public [inspect.custom](): string { return this.#string; }
+}
+
+/**
+ * Error thrown by the {@link Prefix.constructor Prefix constructor} if `undefined`,
+ * `null`, or `string` not consisting of single character is passed as an argument.
+ */
+export class PrefixFlagCharError extends Error
+{
+    public override readonly name: string = PrefixFlagCharError.name;
+
+    /**
+     * Constructs a new {@link PrefixFlagCharError} with the optional
+     * `string` message.
+     *
+     * @param message The error message.
+     */
+    public constructor(message?: string)
+    {
+        super(message);
+        Object.setPrototypeOf(this, new.target.prototype);
+    }
 }
 
 export function prefix(flagChar: NonNullable<string>): Prefix;
