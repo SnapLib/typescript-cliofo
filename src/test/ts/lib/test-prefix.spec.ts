@@ -2,21 +2,21 @@ import { Prefix, PrefixFlagCharError } from "../../../main/ts/lib/prefix.js";
 import { assert } from "chai";
 import { suite, test } from "mocha";
 
-suite("Prefix", function testSuitePrefix()
+suite("Prefix class", function testSuitePrefixClass()
 {
     suite("Prefix constructor", function testSuitePrefixConstructor()
     {
-        test(`undefined Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function()
+        test(`undefined Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testUndefinedPrefixConstructorArgumentThrows()
         {
             assert.throws(() => new Prefix(undefined!), PrefixFlagCharError);
         });
 
-        test(`null Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function()
+        test(`null Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testNullPrefixConstructorArgumentThrows()
         {
             assert.throws(() => new Prefix(null!), PrefixFlagCharError);
         });
 
-        test(`Empty string Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function()
+        test(`Empty string Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testEmptyStringPrefixConstructorArgumentThrows()
         {
             assert.throws(() => new Prefix(""), PrefixFlagCharError);
         });
@@ -31,21 +31,21 @@ suite("Prefix", function testSuitePrefix()
                                                    : whiteSpaceChar === "\n" ? "Line feed"
                                                    : whiteSpaceChar === "\r" ? "Carriage return"
                                                    : whiteSpaceChar === "\v" ? "Vertical tab"
-                                                   : "space";
-                test(`${whitespaceCharName} character Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function()
+                                                   : "Space";
+                test(`${whitespaceCharName} character Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testWhitespacePrefixConstructorArgumentThrows()
                 {
                     assert.throws(() => new Prefix(whiteSpaceChar), PrefixFlagCharError);
                 });
             });
         });
 
-        test(`String greater than 1 character Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function()
+        test(`String greater than 1 character Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testSingleCharacterPrefixConstructorArgumentThrows()
         {
             const aString: string = "***";
             assert.throws(() => new Prefix(aString), PrefixFlagCharError);
         });
 
-        test(`Single non-whitespace character Prefix constructor argument does not throw.`, function()
+        test(`Single non-whitespace character Prefix constructor argument does not throw.`, function testSingleNonWhitespacePrefixConstructorArgumentDoesNotThrow()
         {
             assert.doesNotThrow(() => new Prefix("-"), PrefixFlagCharError);
         });
@@ -126,4 +126,9 @@ suite("Prefix", function testSuitePrefix()
             assert.isFalse(aPrefixObject.equals(anUnequalPrefixObject), "Prefix equals unequal did not return false");
         });
     });
+});
+
+suite("Prefix factory method", function testSuitePrefixFactoryMethod()
+{
+
 });
