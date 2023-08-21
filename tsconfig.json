@@ -16,6 +16,7 @@
     "transpileOnly": true,
     "esm": true,
     "compilerOptions": {
+      "skipDefaultLibCheck": true,
       "skipLibCheck": true,
     }
   }
