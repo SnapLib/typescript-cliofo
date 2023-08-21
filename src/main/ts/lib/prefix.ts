@@ -12,6 +12,8 @@
 
 import { inspect } from "util";
 
+const whitespaceChars: readonly string[] = Object.freeze(["\u0020", "\t", "\n", "\r", "\v"]);
+
 const whiteSpaceRegex: RegExp = /\s/g;
 
 /**
@@ -37,7 +39,7 @@ export class Prefix
             throw new PrefixFlagCharError(`Flag character doesn't consist of single character: "${flagChar}"`);
         }
 
-        if (flagChar === "\t" || flagChar === "\r")
+        if (whitespaceChars.includes(flagChar))
         {
             throw new PrefixFlagCharError("Flag character consists of whitespace.");
         }
