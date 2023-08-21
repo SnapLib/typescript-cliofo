@@ -1,9 +1,19 @@
 {
   "name": "cliofo",
   "version": "0.0.1",
-  "description": "Command line interface argument parser built around the concept of a prefix character, operands, flags, and options.",
-  "main": "./build/dist/Cliofo/cliofo.js",
-  "author": "Snap",
+  "description": "Command line interface argument parser built around the conventional GNU concept of a prefix character used to denote operands, flags, and options.",
+  "main": "./build/dist/cliofo/cliofo.js",
+  "types": "./build/dist/cliofo/types",
+  "author": {
+    "name": "Snap",
+    "email": "snap@snaplib.org",
+    "url": "https://www.github.com/SnapLib"
+  },
+  "homepage": "https://github.com/SnapLib/typescript-cliofo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SnapLib/typescript-cliofo"
+  },
   "license": "MIT",
   "private": true,
   "type": "module",
@@ -24,14 +34,9 @@
     "line",
     "interface",
     "operand",
-    "operands",
     "option",
-    "options",
     "flag",
-    "flags",
     "argument",
-    "arguments",
-    "parse",
     "parser",
     "snaplib"
   ],
