@@ -12,6 +12,8 @@
 
 import { inspect } from "util";
 
+const whiteSpaceRegex: RegExp = /\s/g;
+
 /**
  * This class instantiates objects that is used by the {@link prefix-index-parser.PrefixIndexParser}
  * class to contain the leading prefix `string`s a command line argument can or
@@ -33,6 +35,11 @@ export class Prefix
         if (flagChar.length !== 1)
         {
             throw new PrefixFlagCharError(`Flag character doesn't consist of single character: "${flagChar}"`);
+        }
+
+        if (whiteSpaceRegex.test(flagChar))
+        {
+            throw new PrefixFlagCharError("Flag character consists of whitespace.");
         }
 
         this.#flagChar = flagChar;
