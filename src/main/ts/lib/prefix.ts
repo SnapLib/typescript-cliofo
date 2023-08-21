@@ -27,12 +27,12 @@ export class Prefix
     {
         if (flagChar === undefined || flagChar === null)
         {
-            throw new TypeError(`${new.target.name}: ${flagChar} flag char.`);
+            throw new PrefixFlagCharError(`${new.target.name}: ${flagChar} flag char.`);
         }
 
         if (flagChar.length !== 1)
         {
-            throw new Error(`Flag character doesn't consist of single character: "${flagChar}"`);
+            throw new PrefixFlagCharError(`Flag character doesn't consist of single character: "${flagChar}"`);
         }
 
         this.#flagChar = flagChar;
