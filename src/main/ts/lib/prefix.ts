@@ -37,6 +37,11 @@ export class Prefix
             throw new PrefixFlagCharError(`Flag character doesn't consist of single character: "${flagChar}"`);
         }
 
+        if (flagChar === "\t" || flagChar === "\r")
+        {
+            throw new PrefixFlagCharError("Flag character consists of whitespace.");
+        }
+
         if (whiteSpaceRegex.test(flagChar))
         {
             throw new PrefixFlagCharError("Flag character consists of whitespace.");
