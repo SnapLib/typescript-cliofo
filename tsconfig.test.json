@@ -6,6 +6,7 @@
       "declarationMap": false,
       "noEmit": true,
       "outDir": "./build/test",
+      "preserveConstEnums": true,
       "removeComments": true,
       "rootDirs": ["./src/main/ts", "./src/test/ts"],
       "skipDefaultLibCheck": true,
