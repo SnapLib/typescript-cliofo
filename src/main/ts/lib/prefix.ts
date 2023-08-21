@@ -85,11 +85,11 @@ export class PrefixFlagCharError extends Error
 
 export function prefix(flagChar: NonNullable<string>): Prefix;
 export function prefix(other: NonNullable<Prefix>): Prefix;
-export function prefix(flagCharOrCodePointOrOther: NonNullable<string | Prefix>): Prefix
+export function prefix(flagCharOrOther: NonNullable<string | Prefix>): Prefix
 {
-    return new Prefix(typeof flagCharOrCodePointOrOther === "string"
-                      ? flagCharOrCodePointOrOther
-                      : flagCharOrCodePointOrOther.flagChar );
+    return new Prefix(typeof flagCharOrOther === "string"
+                      ? flagCharOrOther
+                      : flagCharOrOther.flagChar );
 }
 
 export default prefix;
