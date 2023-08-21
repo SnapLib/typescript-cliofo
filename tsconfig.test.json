@@ -4,9 +4,11 @@
     {
       "declaration": false,
       "declarationMap": false,
+      "noEmit": true,
       "outDir": "./build/test",
       "removeComments": true,
       "rootDirs": ["./src/main/ts", "./src/test/ts"],
+      "skipDefaultLibCheck": true,
       "skipLibCheck": true,
       "sourceMap": true
     }
