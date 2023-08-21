@@ -127,8 +127,3 @@ suite("Prefix class", function testSuitePrefixClass()
         });
     });
 });
-
-suite("Prefix factory method", function testSuitePrefixFactoryMethod()
-{
-
-});
