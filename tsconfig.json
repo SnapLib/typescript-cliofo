@@ -11,5 +11,12 @@
     "rootDir": "./src/main/ts",
     "strict": true,
     "target": "es2021"
+  },
+  "ts-node": {
+    "transpileOnly": true,
+    "esm": true,
+    "compilerOptions": {
+      "skipLibCheck": true,
+    }
   }
 }
