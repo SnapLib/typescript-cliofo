@@ -104,6 +104,7 @@ export class Prefix
  */
 export class PrefixFlagCharError extends Error
 {
+    /** The name for the type of error. */
     public override readonly name: string = PrefixFlagCharError.name;
 
     /**
