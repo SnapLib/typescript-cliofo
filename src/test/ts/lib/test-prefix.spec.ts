@@ -2,7 +2,7 @@ import { Prefix, prefix, PrefixFlagCharError } from "../../../main/ts/lib/prefix
 import { assert } from "chai";
 import { suite, test } from "mocha";
 
-suite("Prefix class", function testSuitePrefixClass()
+suite(`${Prefix.name} class`, function testSuitePrefixClass()
 {
     suite("Prefix constructor", function testSuitePrefixConstructor()
     {
@@ -21,7 +21,7 @@ suite("Prefix class", function testSuitePrefixClass()
             assert.throws(() => new Prefix(""), PrefixFlagCharError);
         });
 
-        suite("Prefix constructor whitespace arguments", function testSuitePrefixConstructorWhitespaceArguments()
+        suite(`${Prefix.name} constructor whitespace arguments`, function testSuitePrefixConstructorWhitespaceArguments()
         {
             const whitespaceChars: readonly string[] = Object.freeze(["\u0020", "\t", "\n", "\r", "\v"]);
 
@@ -51,9 +51,9 @@ suite("Prefix class", function testSuitePrefixClass()
         });
     });
 
-    suite("Prefix getters", function testSuitePrefixGetters()
+    suite(`${Prefix.name} getters`, function testSuitePrefixGetters()
     {
-        test("Prefix flag char getter returns a string.", function testPrefixFlagCharGetterIsString()
+        test(`${Prefix.name} flag char getter returns a string.`, function testPrefixFlagCharGetterIsString()
         {
             const flagChar: string = "-";
 
@@ -62,7 +62,7 @@ suite("Prefix class", function testSuitePrefixClass()
             assert.isString(prefix.flagChar, `${prefix.flagChar} is not a string.`);
         });
 
-        test("Prefix option string getter returns a string.", function testPrefixOptionStringGetterIsString()
+        test(`${Prefix.name} option string getter returns a string.`, function testPrefixOptionStringGetterIsString()
         {
             const flagChar: string = "-";
 
@@ -71,7 +71,7 @@ suite("Prefix class", function testSuitePrefixClass()
             assert.isString(prefix.optionString, `${prefix.optionString} is not a string.`);
         });
 
-        test("Prefix flag char getter returns flag char.", function testPrefixFlagCharGetterReturnsFlagChar()
+        test(`${Prefix.name} flag char getter returns flag char.`, function testPrefixFlagCharGetterReturnsFlagChar()
         {
             const flagChar: string = "-";
 
@@ -80,7 +80,7 @@ suite("Prefix class", function testSuitePrefixClass()
             assert.strictEqual(prefix.flagChar, flagChar, `'${prefix.flagChar}' does not equal '${flagChar}'.`);
         });
 
-        test("Prefix option string getter returns flag char repeated twice.", function testPrefixFlagCharGetterReturnsFlagCharRepeatedTwice()
+        test(`${Prefix.name} option string getter returns flag char repeated twice.`, function testPrefixFlagCharGetterReturnsFlagCharRepeatedTwice()
         {
             const flagChar: string = "-";
 
@@ -92,34 +92,34 @@ suite("Prefix class", function testSuitePrefixClass()
         });
     });
 
-    suite("Prefix equals method", function testSuitePrefixEqualsMethod()
+    suite(`${Prefix.name} equals method`, function testSuitePrefixEqualsMethod()
     {
-        test("Prefix equals same returns true.", function testPrefixEqualsSameReturnsTrue()
+        test(`${Prefix.name} equals same returns true.`, function testPrefixEqualsSameReturnsTrue()
         {
             const prefix: Prefix = new Prefix("-");
             assert.isTrue(prefix.equals(prefix), "Prefix equals same did not return true");
         });
 
-        test("Prefix equals equivalent returns true.", function testPrefixEqualsEquivalentReturnsTrue()
+        test(`${Prefix.name} equals equivalent returns true.`, function testPrefixEqualsEquivalentReturnsTrue()
         {
             const aPrefixObject: Prefix = new Prefix("-");
             const anEqualPrefixObject: Prefix = new Prefix("-");
             assert.isTrue(aPrefixObject.equals(anEqualPrefixObject), "Prefix equals equivalent did not return true");
         });
 
-        test("Prefix equals undefined returns false.", function testPrefixEqualsUndefinedReturnsFalse()
+        test(`${Prefix.name} equals undefined returns false.`, function testPrefixEqualsUndefinedReturnsFalse()
         {
             const prefix: Prefix = new Prefix("-");
             assert.isFalse(prefix.equals(undefined), "Prefix equals undefined did not return false");
         });
 
-        test("Prefix equals null returns false.", function testPrefixEqualsNullReturnsFalse()
+        test(`${Prefix.name} equals null returns false.`, function testPrefixEqualsNullReturnsFalse()
         {
             const prefix: Prefix = new Prefix("-");
             assert.isFalse(prefix.equals(null), "Prefix equals null did not return false");
         });
 
-        test("Prefix equals unequal returns false.", function testPrefixEqualsUnequalReturnsFalse()
+        test(`${Prefix.name} equals unequal returns false.`, function testPrefixEqualsUnequalReturnsFalse()
         {
             const aPrefixObject: Prefix = new Prefix("-");
             const anUnequalPrefixObject: Prefix = new Prefix("+");
@@ -128,24 +128,24 @@ suite("Prefix class", function testSuitePrefixClass()
     });
 });
 
-suite("Prefix factory method", function testSuitePrefixFactoryMethod()
+suite(`${Prefix.name} factory method`, function testSuitePrefixFactoryMethod()
 {
-    test(`undefined Prefix factory argument throws "${PrefixFlagCharError.name}".`, function testUndefinedPrefixFactoryArgumentThrows()
+    test(`undefined ${Prefix.name} factory argument throws.`, function testUndefinedPrefixFactoryArgumentThrows()
     {
         assert.throws(() => prefix(undefined!));
     });
 
-    test(`null Prefix factory argument throws "${PrefixFlagCharError.name}".`, function testNullPrefixFactoryArgumentThrows()
+    test(`null ${Prefix.name} factory argument throws.`, function testNullPrefixFactoryArgumentThrows()
     {
         assert.throws(() => prefix(null!));
     });
 
-    test(`Empty string Prefix factory argument throws "${PrefixFlagCharError.name}".`, function testEmptyStringPrefixFactoryArgumentThrows()
+    test(`Empty string ${Prefix.name} factory argument throws "${PrefixFlagCharError.name}".`, function testEmptyStringPrefixFactoryArgumentThrows()
     {
         assert.throws(() => prefix(""), PrefixFlagCharError);
     });
 
-    suite("Prefix factory whitespace arguments", function testSuitePrefixFactoryWhitespaceArguments()
+    suite(`${Prefix.name} factory whitespace arguments`, function testSuitePrefixFactoryWhitespaceArguments()
         {
             const whitespaceChars: readonly string[] = Object.freeze(["\u0020", "\t", "\n", "\r", "\v"]);
 
@@ -163,18 +163,18 @@ suite("Prefix factory method", function testSuitePrefixFactoryMethod()
             });
         });
 
-        test(`String greater than 1 character Prefix factory argument throws "${PrefixFlagCharError.name}".`, function testSingleCharacterPrefixFactoryArgumentThrows()
+        test(`String greater than 1 character ${Prefix.name} factory argument throws "${PrefixFlagCharError.name}".`, function testSingleCharacterPrefixFactoryArgumentThrows()
         {
             const aString: string = "***";
             assert.throws(() => new Prefix(aString), PrefixFlagCharError);
         });
 
-        test("Single non-whitespace character Prefix factory argument does not throw.", function testSingleNonWhitespacePrefixFactoryArgumentDoesNotThrow()
+        test(`Single non-whitespace character ${Prefix.name} factory argument does not throw.`, function testSingleNonWhitespacePrefixFactoryArgumentDoesNotThrow()
         {
             assert.doesNotThrow(() => new Prefix("-"));
         });
 
-        test("Copy factory method returns equal Prefix object.", function testCopyPrefixFactoryReturnsEqual()
+        test(`Copy factory method returns equal ${Prefix.name} object.`, function testCopyPrefixFactoryReturnsEqual()
         {
             const original: Prefix = new Prefix("-");
 
