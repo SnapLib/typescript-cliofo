@@ -25,6 +25,17 @@ export class Prefix
     readonly #optionString: string;
     readonly #string: string;
 
+    /**
+     * Constructs a new {@link Prefix} object instance using the provided character argument as the instantiated
+     * object's flag character and to generate the object's option string. If the flag character is `undefined`, `null`,
+     * or a `string` not consisting of a single non-whitespace character, an error is thrown.
+     *
+     * @param flagChar The `string` character used as the instantiated object's {@link Prefix.flagChar}
+     *                 character and to generate its {@link Prefix.optionString}.
+     *
+     * @throws {@link PrefixFlagCharError} if the passed `string` argument is `undefined`, `null`, or doesn't consist of
+     *                                     a single non-whitespace character.
+     */
     public constructor(flagChar: NonNullable<string>)
     {
         if (flagChar === undefined || flagChar === null)
@@ -47,9 +58,20 @@ export class Prefix
         this.#string = `${this.constructor.name} {flagChar: '${this.#flagChar}', optionString: "${this.#optionString}"}`;
     }
 
+    /** This object's flag character `string` property. */
     public get flagChar(): string { return this.#flagChar; }
+
+    /** This object's option `string` created by repeating its {@link Prefix.flagChar} twice. */
     public get optionString(): string { return this.#optionString; }
 
+    /**
+     * Returns `true` if the passed argument is equal to this {@link Prefix} object.
+     *
+     * @param obj The argument being compared for equality to this
+     *            {@link Prefix} object.
+     *
+     * @returns `true` if the passed argument is equal to this {@link Prefix} object.
+     */
     public equals(obj: unknown | undefined | null): boolean
     {
         return this === obj || obj instanceof Prefix
@@ -57,8 +79,20 @@ export class Prefix
                && this.#optionString === obj.#optionString;
     }
 
+    /**
+     * Returns a `string` representation of this object. This is the same
+     * `string` returned by the `[inspect.custom]()` method.
+     *
+     * @returns a `string` representation of this object.
+     */
     public toString(): string { return this.#string; }
 
+    /**
+     * Returns a `string` representation of this object. This is the same
+     * `string` returned by the {@link Prefix.toString} method.
+     *
+     * @returns a `string` representation of this object.
+     */
     public [inspect.custom](): string { return this.#string; }
 }
 
