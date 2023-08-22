@@ -222,6 +222,7 @@ export function argStringConstraint<PrefixType extends StringOrReadonlyStringSet
  */
 export class PrefixConstraintError extends Error
 {
+    /** The name for the type of error. */
     public override readonly name: string = PrefixConstraintError.name;
 
     /**
@@ -243,6 +244,7 @@ export class PrefixConstraintError extends Error
  */
 export class ValueConstraintError extends Error
 {
+    /** The name for the type of error. */
     public override readonly name: string = ValueConstraintError.name;
 
     /**
