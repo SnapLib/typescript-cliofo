@@ -12,9 +12,7 @@
 
 import { inspect } from "util";
 
-const whitespaceChars: readonly string[] = Object.freeze(["\u0020", "\t", "\n", "\r", "\v"]);
-
-const whiteSpaceRegex: RegExp = /\s/g;
+const whiteSpaceRegex: RegExp = /\s/;
 
 /**
  * This class instantiates objects that is used by the {@link prefix-index-parser.PrefixIndexParser}
@@ -37,11 +35,6 @@ export class Prefix
         if (flagChar.length !== 1)
         {
             throw new PrefixFlagCharError(`Flag character doesn't consist of single character: "${flagChar}"`);
-        }
-
-        if (whitespaceChars.includes(flagChar))
-        {
-            throw new PrefixFlagCharError("Flag character consists of whitespace.");
         }
 
         if (whiteSpaceRegex.test(flagChar))
