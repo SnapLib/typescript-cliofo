@@ -31,7 +31,7 @@ export type StringOrReadonlyStringSet = string | ReadonlySet<string>;
  * line string argument consists of 2 fundamental parts:
  *
  * 1. A leading ***prefix*** `string` or `string`s
- * 1. and a suffix ***value*** `string` appended to the leading prefix(s)
+ * 1. and a suffix ***value*** `string` that can be appended to the leading prefix(s)
  *
  * The leading prefix and prefixed value is constrained to
  * {@link StringOrReadonlyStringSet} (a`string` or set of multiple `string`s).
