@@ -45,7 +45,7 @@ suite("Prefix class", function testSuitePrefixClass()
             assert.throws(() => new Prefix(aString), PrefixFlagCharError);
         });
 
-        test(`Single non-whitespace character Prefix constructor argument does not throw.`, function testSingleNonWhitespacePrefixConstructorArgumentDoesNotThrow()
+        test("Single non-whitespace character Prefix constructor argument does not throw.", function testSingleNonWhitespacePrefixConstructorArgumentDoesNotThrow()
         {
             assert.doesNotThrow(() => new Prefix("-"));
         });
@@ -169,8 +169,17 @@ suite("Prefix factory method", function testSuitePrefixFactoryMethod()
             assert.throws(() => new Prefix(aString), PrefixFlagCharError);
         });
 
-        test(`Single non-whitespace character Prefix factory argument does not throw.`, function testSingleNonWhitespacePrefixFactoryArgumentDoesNotThrow()
+        test("Single non-whitespace character Prefix factory argument does not throw.", function testSingleNonWhitespacePrefixFactoryArgumentDoesNotThrow()
         {
             assert.doesNotThrow(() => new Prefix("-"));
+        });
+
+        test("Copy factory method returns equal Prefix object.", function testCopyPrefixFactoryReturnsEqual()
+        {
+            const original: Prefix = new Prefix("-");
+
+            const copy: Prefix = prefix(original);
+
+            assert.isTrue(copy.equals(original));
         });
 });
