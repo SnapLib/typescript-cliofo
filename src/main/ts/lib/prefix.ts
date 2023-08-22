@@ -18,6 +18,8 @@ const whiteSpaceRegex: RegExp = /^\s$/;
  * This class instantiates objects that is used by the {@link prefix-index-parser.PrefixIndexParser}
  * class to contain the leading prefix `string`s a command line argument can or
  * cannot be prepended with to designate it an operand, flag, or option.
+ *
+ * @see {@link prefix-index-parser.PrefixIndexParser}
  */
 export class Prefix
 {
