@@ -126,6 +126,7 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
  */
 export class ArgStringPrefixError extends Error
 {
+    /** The name for the type of error. */
     public override readonly name: string = ArgStringPrefixError.name;
 
     /**
@@ -146,6 +147,7 @@ export class ArgStringPrefixError extends Error
  */
 export class ArgStringValueError extends Error
 {
+    /** The name for the type of error. */
     public override readonly name: string = ArgStringValueError.name;
 
     /**
