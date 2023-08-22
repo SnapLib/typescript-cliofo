@@ -4,7 +4,7 @@ import { suite, test } from "mocha";
 
 suite(`${Prefix.name} class`, function testSuitePrefixClass()
 {
-    suite("Prefix constructor", function testSuitePrefixConstructor()
+    suite(`${Prefix.name} constructor`, function testSuitePrefixConstructor()
     {
         test(`undefined Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testUndefinedPrefixConstructorArgumentThrows()
         {
