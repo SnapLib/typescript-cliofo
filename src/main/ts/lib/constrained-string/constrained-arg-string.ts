@@ -1,15 +1,13 @@
 /**
- * This module contains the {@link ConstrainedArgString} abstract class which is
- * the root parent class the {@link operand-arg-string.OperandArgString},
- * {@link flag-arg-string.FlagArgString}, and {@link option-arg-string.OptionArgString}
- * classes inherit from.
+ * This module contains the {@link ConstrainedArgString} abstract class which is the root parent class the
+ * {@link operand-arg-string.OperandArgString}, {@link flag-arg-string.FlagArgString}, and
+ * {@link option-arg-string.OptionArgString} classes inherit from.
  *
  * The {@link ConstrainedArgString} abstract class uses its {@link arg-string-constraint.ArgStringConstraint}
- * {@link ConstrainedArgString.argStringConstraint} to enforce constraints on
- * its {@link arg-string.ArgString} {@link ConstrainedArgString.argString} property. If a
- * {@link ConstrainedArgString} object attempts to be instantiated with an
- * {@link arg-string.ArgString} that violates its {@link ConstrainedArgString.argStringConstraint},
- * an error gets thrown.
+ * {@link ConstrainedArgString.argStringConstraint} to enforce constraints on its {@link arg-string.ArgString}
+ * {@link ConstrainedArgString.argString} property. If a {@link ConstrainedArgString} object attempts to be instantiated
+ * with an {@link arg-string.ArgString} that violates its {@link ConstrainedArgString.argStringConstraint}, an error
+ * gets thrown.
  *
  * @module constrained-arg-string
  *
@@ -40,17 +38,15 @@ const stringOrStringSetToString = (stringOrStringSet: string | ReadonlySet<strin
 };
 
 /**
- * This class is used to create objects that enforce constraints on the
- * {@link ArgString.prefix} and {@link ArgString.value} properties of {@link ArgString}
- * objects. It does this by having a {@link ArgStringConstraint}
+ * This class is used to create objects that enforce constraints on the {@link ArgString.prefix} and
+ * {@link ArgString.value} properties of {@link ArgString} objects. It does this by having a {@link ArgStringConstraint}
  * {@link ConstrainedArgString.argStringConstraint} and {@link ArgString} {@link ConstrainedArgString.argString}
- * property. If a {@link ConstrainedArgString} object attempts to be instantiated with an
- * {@link ArgString} that violates its {@link ConstrainedArgString.argStringConstraint},
- * an error gets thrown.
+ * property. If a {@link ConstrainedArgString} object attempts to be instantiated with an {@link ArgString} that
+ * violates its {@link ConstrainedArgString.argStringConstraint}, an error gets thrown.
  *
- * @typeParam PrefixType The type of {@link StringOrReadonlyStringSet} prefix,
- *                       constrained to a `string` or `ReadonlySet<string>`,
- *                       that the {@link ArgString} contains.
+ * @typeParam PrefixType
+ * The type of {@link StringOrReadonlyStringSet} prefix, constrained to a `string` or `ReadonlySet<string>`, that the
+ * {@link ArgString} contains.
  *
  * @see {@link operand-arg-string.OperandArgString}
  * @see {@link flag-arg-string.FlagArgString}
@@ -66,27 +62,23 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrReadonlySt
     readonly #string: string;
 
     /**
-     * Constructs a {@link ConstrainedArgString} object instance with the
-     * provided {@link ArgStringConstraint}, {@link ArgString}, and `string`
-     * name properties. If the passed {@link ArgString} argument violates one
-     * the {@link ArgStringConstraint}'s constraints, then an error is thrown.
+     * Constructs a {@link ConstrainedArgString} object instance with the provided {@link ArgStringConstraint},
+     * {@link ArgString}, and `string` name properties. If the passed {@link ArgString} argument violates the
+     * {@link ArgStringConstraint}'s constraints, then an error is thrown.
      *
-     * This the root parent class the {@link operand-arg-string.OperandArgString},
-     * {@link flag-arg-string.FlagArgString}, and {@link option-arg-string.OptionArgString}
-     * classes inherit from.
+     * This the root parent class the {@link operand-arg-string.OperandArgString}, {@link flag-arg-string.FlagArgString},
+     * and {@link option-arg-string.OptionArgString} classes inherit from.
      *
-     * @param argStringConstraint The {@link ArgStringConstraint} the constructed
-     *                            object will contain and enforces on its {@link ArgString}.
+     * @param argStringConstraint
+     * The {@link ArgStringConstraint} the constructed object will contain and enforces on its {@link ArgString}.
      *
      * @param argString The {@link ArgString} the constructed object will contain.
      *
      * @param name Name `string` value for the constructed object.
      *
-     * @throws {@link ArgStringConstraintError}
-     * if passed arg string constraint argument is `undefined` or `null`.
+     * @throws {@link ArgStringConstraintError} if passed arg string constraint argument is `undefined` or `null`.
      *
-     * @throws {@link ArgStringError}
-     * if passed arg string argument is `undefined` or `null`.
+     * @throws {@link ArgStringError} if passed arg string argument is `undefined` or `null`.
      *
      * @throws {@link constraint-violation-error.PrefixConstraintViolationError}
      * if passed arg string {@link ArgString.prefix} fails validation.
@@ -127,19 +119,13 @@ export abstract class ConstrainedArgString<PrefixType extends StringOrReadonlySt
         this.#string = `${new.target.name} {${this.#name.length !== 0 && this.#name !== this.#argString.value ? `name: ${stringToString(this.#name)}, ` : ""}prefix: ${stringOrStringSetToString(this.#argString.prefix)}, value: ${stringOrStringSetToString(this.#argString.value)}}`;
     }
 
-    /**
-     * This object's {@link ArgStringConstraint} property.
-     */
+    /** This object's {@link ArgStringConstraint} property. */
     public get argStringConstraint(): Readonly<ArgStringConstraint<PrefixType>> { return this.#argStringConstraint; }
 
-    /**
-     * This object's {@link ArgString} property.
-     */
+    /** This object's {@link ArgString} property. */
     public get argString(): Readonly<ArgString<PrefixType>> { return this.#argString; }
 
-    /**
-     * This object's `string` name property.
-     */
+    /** This object's `string` name property. */
     public get name(): string { return this.#name; }
 
     /**
@@ -168,8 +154,7 @@ export class ArgStringConstraintError extends Error
     public override readonly name: string = ArgStringConstraintError.name;
 
     /**
-     * Constructs a new {@link ArgStringConstraintError} with the optional
-     * `string` message.
+     * Constructs a new {@link ArgStringConstraintError} with the optional `string` message.
      *
      * @param message The error message.
      */
@@ -189,8 +174,7 @@ export class ArgStringError extends Error
     public override readonly name: string = ArgStringError.name;
 
     /**
-     * Constructs a new {@link ArgStringError} with the optional `string`
-     * message.
+     * Constructs a new {@link ArgStringError} with the optional `string` message.
      *
      * @param message The error message.
      */
