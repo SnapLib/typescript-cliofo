@@ -12,7 +12,7 @@
 
 import { inspect } from "util";
 
-const whiteSpaceRegex: RegExp = /\s/;
+const whiteSpaceRegex: RegExp = /^\s$/;
 
 /**
  * This class instantiates objects that is used by the {@link prefix-index-parser.PrefixIndexParser}
