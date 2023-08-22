@@ -1,4 +1,4 @@
-import { Prefix, PrefixFlagCharError } from "../../../main/ts/lib/prefix.js";
+import { Prefix, prefix, PrefixFlagCharError } from "../../../main/ts/lib/prefix.js";
 import { assert } from "chai";
 import { suite, test } from "mocha";
 
@@ -47,7 +47,7 @@ suite("Prefix class", function testSuitePrefixClass()
 
         test(`Single non-whitespace character Prefix constructor argument does not throw.`, function testSingleNonWhitespacePrefixConstructorArgumentDoesNotThrow()
         {
-            assert.doesNotThrow(() => new Prefix("-"), PrefixFlagCharError);
+            assert.doesNotThrow(() => new Prefix("-"));
         });
     });
 
@@ -126,4 +126,51 @@ suite("Prefix class", function testSuitePrefixClass()
             assert.isFalse(aPrefixObject.equals(anUnequalPrefixObject), "Prefix equals unequal did not return false");
         });
     });
+});
+
+suite("Prefix factory method", function testSuitePrefixFactoryMethod()
+{
+    test(`undefined Prefix factory argument throws "${PrefixFlagCharError.name}".`, function testUndefinedPrefixFactoryArgumentThrows()
+    {
+        assert.throws(() => prefix(undefined!));
+    });
+
+    test(`null Prefix factory argument throws "${PrefixFlagCharError.name}".`, function testNullPrefixFactoryArgumentThrows()
+    {
+        assert.throws(() => prefix(null!));
+    });
+
+    test(`Empty string Prefix factory argument throws "${PrefixFlagCharError.name}".`, function testEmptyStringPrefixFactoryArgumentThrows()
+    {
+        assert.throws(() => prefix(""), PrefixFlagCharError);
+    });
+
+    suite("Prefix factory whitespace arguments", function testSuitePrefixFactoryWhitespaceArguments()
+        {
+            const whitespaceChars: readonly string[] = Object.freeze(["\u0020", "\t", "\n", "\r", "\v"]);
+
+            whitespaceChars.forEach(whiteSpaceChar =>
+            {
+                const whitespaceCharName: string =   whiteSpaceChar === "\t" ? "Horizontal tab"
+                                                   : whiteSpaceChar === "\n" ? "Line feed"
+                                                   : whiteSpaceChar === "\r" ? "Carriage return"
+                                                   : whiteSpaceChar === "\v" ? "Vertical tab"
+                                                   : "Space";
+                test(`${whitespaceCharName} character Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testWhitespacePrefixFactoryArgumentThrows()
+                {
+                    assert.throws(() => prefix(whiteSpaceChar), PrefixFlagCharError);
+                });
+            });
+        });
+
+        test(`String greater than 1 character Prefix factory argument throws "${PrefixFlagCharError.name}".`, function testSingleCharacterPrefixFactoryArgumentThrows()
+        {
+            const aString: string = "***";
+            assert.throws(() => new Prefix(aString), PrefixFlagCharError);
+        });
+
+        test(`Single non-whitespace character Prefix factory argument does not throw.`, function testSingleNonWhitespacePrefixFactoryArgumentDoesNotThrow()
+        {
+            assert.doesNotThrow(() => new Prefix("-"));
+        });
 });
