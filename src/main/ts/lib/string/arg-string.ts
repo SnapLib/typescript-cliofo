@@ -110,7 +110,7 @@ export abstract class ArgString<PrefixType extends StringOrReadonlyStringSet>
      *
      * @returns `true` if the passed argument is equal to this {@link ArgString} object.
      */
-    public abstract equals(obj?: unknown): boolean;
+    public abstract equals(obj: unknown | undefined | null): boolean;
 
     /**
      * Returns a `string` representation of this object. This is the same
