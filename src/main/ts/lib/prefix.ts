@@ -12,7 +12,7 @@
 
 import { inspect } from "util";
 
-const whiteSpaceRegex: RegExp = /^\s$/;
+const whiteSpaceRegEx: RegExp = /\s/;
 
 /**
  * This class instantiates objects that is used by the {@link prefix-index-parser.PrefixIndexParser}
@@ -50,7 +50,7 @@ export class Prefix
             throw new PrefixFlagCharError(`Flag character doesn't consist of single character: "${flagChar}"`);
         }
 
-        if (whiteSpaceRegex.test(flagChar))
+        if (whiteSpaceRegEx.test(flagChar))
         {
             throw new PrefixFlagCharError("Flag character consists of whitespace.");
         }
