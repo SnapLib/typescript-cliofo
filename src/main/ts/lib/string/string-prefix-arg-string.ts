@@ -30,6 +30,20 @@ const stringToString = (aString: string) => aString.length != 1 ? `"${aString}"`
  * This class is used to create objects that consists of a `string` {@link ArgString.prefix} prepended to a `string`
  * {@link ArgString.value} to create its {@link ArgString.prefixedValue} `string`.
  *
+ * @example
+ * Say you wanted to create objects to represent the 2 following arguments:
+ *
+ * ```text
+ * -h --help
+ * ```
+ *
+ * That could be achieved via:
+ *
+ * ```typescript
+ * const helpFlag = new StringPrefixArgString('-', 'h');
+ * const helpOption = new StringPrefixArgString("--", "help");
+ * ```
+ *
  * @see {@link ArgString}
  * @see {@link flag-arg-string.FlagArgString}
  * @see {@link option-arg-string.OptionArgString}
@@ -43,11 +57,11 @@ export class StringPrefixArgString extends ArgString<string>
      * Constructs an object with the provided `string` {@link ArgString.prefix} and {@link ArgString.value}. If either
      * of the arguments are `undefined` or `null`, an error will be thrown.
      *
-     * @param prefix The `string` prepended to the beginning of the constructed object's
-     *               {@link StringPrefixArgString.value} to create its {@link StringPrefixArgString.prefixedValue}.
+     * @param prefix The `string` prepended to the beginning of the constructed object's {@link StringPrefixArgString.value}
+     *               to create its {@link StringPrefixArgString.prefixedValue} `string`.
      *
      * @param value  The `string` appended to the end of the constructed object's {@link StringPrefixArgString.prefix}
-     *               to create its {@link StringPrefixArgString.prefixedValue}.
+     *               to create its {@link StringPrefixArgString.prefixedValue} `string`.
      *
      * @throws {@link arg-string.ArgStringPrefixError} if `undefined` or `null` is passed for the prefix argument.
      *
@@ -59,6 +73,18 @@ export class StringPrefixArgString extends ArgString<string>
         this.#prefixedValue = super.prefix + super.value;
         this.#string = `${new.target.name} {prefix: ${stringToString(super.prefix)}, value: ${stringToString(super.value)}}`;
     }
+
+    /**
+     * This object's leading `string` property that is prepended to its {@link StringPrefixArgString.value} to create
+     * its {@link StringPrefixArgString.prefixedValue} `string`.
+     */
+    public override get prefix(): string { return super.prefix; }
+
+    /**
+     * This object's suffix `string` property that's appended to its {@link StringPrefixArgString.prefix} property to
+     * create its {@link StringPrefixArgString.prefixedValue} `string`.
+     */
+    public override get value(): string { return super.value; }
 
     /**
      * This object's prefixed `string` value property consisting of its {@link StringPrefixArgString.prefix} `string`
@@ -83,6 +109,12 @@ export class StringPrefixArgString extends ArgString<string>
 
     public override toString(): string { return this.#string; }
 
+    /**
+     * Returns a `string` representation of this object. This is the same
+     * `string` returned by the {@link StringPrefixArgString.toString} method.
+     *
+     * @returns a `string` representation of this object.
+     */
     public override [inspect.custom](): string { return this.#string; }
 }
 
