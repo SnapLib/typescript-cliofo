@@ -1,25 +1,23 @@
 /**
- * This module contains the {@link StringSetPrefixArgString} class (and its
- * factory methods) used to create objects to represent string arguments that
- * can be passed on the command line consisting of different `string` prefixes
+ * This module contains the {@link StringSetPrefixArgString} class (and its factory methods) used to create objects to
+ * represent string arguments that can be passed on the command line consisting of different `string` prefixes
  * prepended to a `string` value.
  *
- * The Cliofo API uses this class to represent ***operand*** arguments by
- * defining prefixes that **can't** be prepended to a value for it to be an
- * operand. For example, consider the following 3 arguments:
+ * The Cliofo API uses this class to represent ***operand*** arguments by defining prefixes that **can't** be prepended
+ * to a value for it to be an operand. For example, consider the following 3 arguments:
  *
  * ```text
  * -v --color file.txt
  * ```
  *
- * The `file.txt` argument could be thought of as an operand argument with the
- * specified `'-'` and `"--"` prefixes that it can't contain as leading
- * characters without being considered a flag or options like the `"-v"` and
- * `"--color"` arguments.
+ * The `file.txt` argument could be thought of as an operand argument with the specified `'-'` and `"--"` prefixes that
+ * it *can't* contain as leading characters without being considered a flag or options like the `"-v"` and `"--color"`
+ * arguments.
  *
  * @module string-set-prefix-arg-string
  *
  * @see {@link arg-string}
+ * @see {@link operand-arg-string}
  */
 
 import { ArgString } from "./arg-string.js";
@@ -29,11 +27,12 @@ const stringToString = (aString: string): string => aString.length != 1 ? `"${aS
 const stringArrayToString = (strings: ReadonlyArray<string>) => `[${strings.map(aString => stringToString(aString)).join(", ")}]`;
 
 /**
- * This class is used to create objects that consists of multiple `string`
- * {@link ArgString.prefix}es that can be prepended to a `string`
- * {@link ArgString.value} to create multiple {@link ArgString.prefixedValue}s.
+ * This class is used to create objects that consists of multiple `string` {@link StringSetPrefixArgString.prefix}es
+ * that can be prepended to a `string` {@link StringSetPrefixArgString.value} to create multiple
+ * {@link ArgString.prefixedValue}s.
  *
  * @see {@link ArgString}
+ * @see {@link operand-arg-string.operandArgString}
  */
 export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
 {
@@ -46,19 +45,17 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
      * Constructs an object with the provided `string` prefixes and value. If either
      * of the arguments are `undefined` or `null`, an error will be thrown.
      *
-     * @param prefixes The `string`s that can be prepended to the beginning of
-     *                 the constructed object's {@link StringSetPrefixArgString.value}
-     *                 to create its {@link StringSetPrefixArgString.prefixedValue}.
+     * @param prefixes
+     * The `string`s that can be prepended to the beginning of the constructed object's
+     * {@link StringSetPrefixArgString.value} to create its {@link StringSetPrefixArgString.prefixedValue}.
      *
-     * @param value The `string` appended to the end of the constructed
-     *              object's {@link StringSetPrefixArgString.prefix}es to create
-     *              its {@link StringSetPrefixArgString.prefixedValue}s.
+     * @param value
+     * The `string` appended to the end of the constructed object's {@link StringSetPrefixArgString.prefix}es to create
+     * its {@link StringSetPrefixArgString.prefixedValue}s.
      *
-     * @throws {@link arg-string.ArgStringPrefixError}
-     * if `undefined` or `null` is passed for the prefixes argument.
+     * @throws {@link arg-string.ArgStringPrefixError} if `undefined` or `null` is passed for the prefixes argument.
      *
-     * @throws {@link arg-string.ArgStringValueError}
-     * if `undefined` or `null` is passed for the value argument.
+     * @throws {@link arg-string.ArgStringValueError} if `undefined` or `null` is passed for the value argument.
      */
     public constructor(prefixes: NonNullable<ReadonlySet<string>>, value: NonNullable<string>)
     {
@@ -70,9 +67,21 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
     }
 
     /**
-     * Returns a set of `string`s created by prepending this object's
-     * {@link StringSetPrefixArgString.prefix}es to its `string`
-     * {@link StringSetPrefixArgString.value}.
+     * This object's leading `ReadonlySet<string>` property that is prepended to its
+     * {@link StringSetPrefixArgString.value} to create its `Set` of {@link StringSetPrefixArgString.prefixedValue}
+     * `string`s.
+     */
+    public override get prefix(): ReadonlySet<string> { return super.prefix; }
+
+    /**
+     * This object's suffix `string` property that's appended to its `string`s {@link StringSetPrefixArgString.prefix}
+     * property to create its {@link StringSetPrefixArgString.prefixedValue} `string`s property.
+     */
+    public override get value(): string { return super.value; }
+
+    /**
+     * Returns a `Set` of `string`s created by prepending this object's {@link StringSetPrefixArgString.prefix}es to its
+     * `string` {@link StringSetPrefixArgString.value}.
      */
     public override get prefixedValue(): ReadonlySet<string> { return this.#prefixedValue; }
 
@@ -99,11 +108,9 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
      * with {@link StringSetPrefixArgString.prefix} and {@link StringSetPrefixArgString.value}
      * `ReadonlySet<string>` properties equal to this object's prefix and value properties.
      *
-     * @param obj The argument being compared for equality to this
-     *            {@link StringSetPrefixArgString} object.
+     * @param obj The argument being compared for equality to this {@link StringSetPrefixArgString} object.
      *
-     * @returns `true` if the passed argument is equal to this
-     *          {@link StringSetPrefixArgString} object.
+     * @returns `true` if the passed argument is equal to this {@link StringSetPrefixArgString} object.
      */
     public override equals(obj?: unknown): boolean
     {
@@ -125,6 +132,12 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
 
     public override toString(): string { return this.#string; }
 
+    /**
+     * Returns a `string` representation of this object. This is the same
+     * `string` returned by the {@link StringSetPrefixArgString.toString} method.
+     *
+     * @returns a `string` representation of this object.
+     */
     public override [inspect.custom](): string { return this.#string; }
 }
 
