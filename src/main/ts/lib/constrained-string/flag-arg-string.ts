@@ -48,7 +48,7 @@ import { argStringConstraint, type ArgStringConstraint, type PrefixPredicate, ty
 import { ConstrainedArgString } from "./constrained-arg-string.js";
 import { StringPrefixArgString, stringPrefixArgString } from "../string/string-prefix-arg-string.js";
 
-const whiteSpaceRegEx: Readonly<RegExp> = /\s/g;
+const whiteSpaceRegEx: Readonly<RegExp> = /^\s$/;
 
 /**
  * Predicate that consumes a `string` and returns `true` if it's:
