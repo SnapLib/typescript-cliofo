@@ -28,7 +28,7 @@ const stringToString = (aString: string) => aString.length != 1 ? `"${aString}"`
 
 /**
  * This class is used to create objects that consists of a `string` {@link ArgString.prefix} prepended to a `string`
- * {@link ArgString.value} to create its `string` {@link ArgString.prefixedValue}.
+ * {@link ArgString.value} to create its {@link ArgString.prefixedValue} `string`.
  *
  * @see {@link ArgString}
  * @see {@link flag-arg-string.FlagArgString}
