@@ -6,17 +6,17 @@ suite(`${Prefix.name} class`, function testSuitePrefixClass()
 {
     suite(`${Prefix.name} constructor`, function testSuitePrefixConstructor()
     {
-        test(`undefined Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testUndefinedPrefixConstructorArgumentThrows()
+        test(`undefined Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testPrefixConstructor_ThrowsPrefixFlagCharError_WhenPassedUndefined()
         {
             assert.throws(() => new Prefix(undefined!), PrefixFlagCharError);
         });
 
-        test(`null Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testNullPrefixConstructorArgumentThrows()
+        test(`null Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testPrefixConstructor_ThrowsPrefixFlagCharError_WhenPassedNull()
         {
             assert.throws(() => new Prefix(null!), PrefixFlagCharError);
         });
 
-        test(`Empty string Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testEmptyStringPrefixConstructorArgumentThrows()
+        test(`Empty string Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testPrefixConstructor_ThrowsPrefixFlagCharError_WhenPassedEmptyString()
         {
             assert.throws(() => new Prefix(""), PrefixFlagCharError);
         });
@@ -32,20 +32,20 @@ suite(`${Prefix.name} class`, function testSuitePrefixClass()
                                                    : whiteSpaceChar === "\r" ? "Carriage return"
                                                    : whiteSpaceChar === "\v" ? "Vertical tab"
                                                    : "Space";
-                test(`${whitespaceCharName} character Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testWhitespacePrefixConstructorArgumentThrows()
+                test(`${whitespaceCharName} character Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testPrefixConstructor_ThrowsPrefixFlagCharError_WhenPassedWhitespaceString()
                 {
                     assert.throws(() => new Prefix(whiteSpaceChar), PrefixFlagCharError);
                 });
             });
         });
 
-        test(`String greater than 1 character Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testSingleCharacterPrefixConstructorArgumentThrows()
+        test(`String greater than 1 character Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testPrefixConstructor_ThrowsPrefixFlagCharError_WhenPassedStringGreaterThanSingleCharacter()
         {
             const aString: string = "***";
             assert.throws(() => new Prefix(aString), PrefixFlagCharError);
         });
 
-        test("Single non-whitespace character Prefix constructor argument does not throw.", function testSingleNonWhitespacePrefixConstructorArgumentDoesNotThrow()
+        test("Single non-whitespace character Prefix constructor argument does not throw.", function testPrefixConstructor_DoesNotThrow_WhenPassedSingleNonWhitespaceCharacterString()
         {
             assert.doesNotThrow(() => new Prefix("-"));
         });
@@ -53,7 +53,7 @@ suite(`${Prefix.name} class`, function testSuitePrefixClass()
 
     suite(`${Prefix.name} getters`, function testSuitePrefixGetters()
     {
-        test(`${Prefix.name} flag char getter returns a string.`, function testPrefixFlagCharGetterIsString()
+        test(`${Prefix.name} flag char getter returns a string.`, function testPrefixFlagCharGetter_ReturnsString_WhenCalled()
         {
             const flagChar: string = "-";
 
@@ -62,7 +62,7 @@ suite(`${Prefix.name} class`, function testSuitePrefixClass()
             assert.isString(prefix.flagChar, `${prefix.flagChar} is not a string.`);
         });
 
-        test(`${Prefix.name} option string getter returns a string.`, function testPrefixOptionStringGetterIsString()
+        test(`${Prefix.name} option string getter returns a string.`, function testPrefixOptionStringCharGetter_ReturnsString_WhenCalled()
         {
             const flagChar: string = "-";
 
@@ -71,7 +71,7 @@ suite(`${Prefix.name} class`, function testSuitePrefixClass()
             assert.isString(prefix.optionString, `${prefix.optionString} is not a string.`);
         });
 
-        test(`${Prefix.name} flag char getter returns flag char.`, function testPrefixFlagCharGetterReturnsFlagChar()
+        test(`${Prefix.name} flag char getter returns flag char.`, function testPrefixFlagCharGetter_ReturnsFlagChar_WhenCalled()
         {
             const flagChar: string = "-";
 
@@ -80,7 +80,7 @@ suite(`${Prefix.name} class`, function testSuitePrefixClass()
             assert.strictEqual(prefix.flagChar, flagChar, `'${prefix.flagChar}' does not equal '${flagChar}'.`);
         });
 
-        test(`${Prefix.name} option string getter returns flag char repeated twice.`, function testPrefixFlagCharGetterReturnsFlagCharRepeatedTwice()
+        test(`${Prefix.name} option string getter returns flag char repeated twice.`, function testPrefixOptionStringGetter_ReturnsFlagCharRepeatedTwice_WhenCalled()
         {
             const flagChar: string = "-";
 
@@ -94,32 +94,32 @@ suite(`${Prefix.name} class`, function testSuitePrefixClass()
 
     suite(`${Prefix.name} equals method`, function testSuitePrefixEqualsMethod()
     {
-        test(`${Prefix.name} equals same returns true.`, function testPrefixEqualsSameReturnsTrue()
+        test(`${Prefix.name} equals same returns true.`, function testPrefixEquals_ReturnsTrue_WhenPassedSame()
         {
             const prefix: Prefix = new Prefix("-");
             assert.isTrue(prefix.equals(prefix), "Prefix equals same did not return true");
         });
 
-        test(`${Prefix.name} equals equivalent returns true.`, function testPrefixEqualsEquivalentReturnsTrue()
+        test(`${Prefix.name} equals equivalent returns true.`, function testPrefixEquals_ReturnsTrue_WhenPassedEqual()
         {
             const aPrefixObject: Prefix = new Prefix("-");
             const anEqualPrefixObject: Prefix = new Prefix("-");
             assert.isTrue(aPrefixObject.equals(anEqualPrefixObject), "Prefix equals equivalent did not return true");
         });
 
-        test(`${Prefix.name} equals undefined returns false.`, function testPrefixEqualsUndefinedReturnsFalse()
+        test(`${Prefix.name} equals undefined returns false.`, function testPrefixEquals_ReturnsFalse_WhenPassedUndefined()
         {
             const prefix: Prefix = new Prefix("-");
             assert.isFalse(prefix.equals(undefined), "Prefix equals undefined did not return false");
         });
 
-        test(`${Prefix.name} equals null returns false.`, function testPrefixEqualsNullReturnsFalse()
+        test(`${Prefix.name} equals null returns false.`, function testPrefixEquals_ReturnsFalse_WhenPassedNull()
         {
             const prefix: Prefix = new Prefix("-");
             assert.isFalse(prefix.equals(null), "Prefix equals null did not return false");
         });
 
-        test(`${Prefix.name} equals unequal returns false.`, function testPrefixEqualsUnequalReturnsFalse()
+        test(`${Prefix.name} equals unequal returns false.`, function testPrefixEquals_ReturnsFalse_WhenPassedUnequal()
         {
             const aPrefixObject: Prefix = new Prefix("-");
             const anUnequalPrefixObject: Prefix = new Prefix("+");
@@ -130,17 +130,17 @@ suite(`${Prefix.name} class`, function testSuitePrefixClass()
 
 suite(`${Prefix.name} factory method`, function testSuitePrefixFactoryMethod()
 {
-    test(`undefined ${Prefix.name} factory argument throws.`, function testUndefinedPrefixFactoryArgumentThrows()
+    test(`undefined ${Prefix.name} factory argument throws.`, function testPrefixFactory_Throws_WhenPassedUndefined()
     {
         assert.throws(() => prefix(undefined!));
     });
 
-    test(`null ${Prefix.name} factory argument throws.`, function testNullPrefixFactoryArgumentThrows()
+    test(`null ${Prefix.name} factory argument throws.`, function testPrefixFactory_Throws_WhenPassedNull()
     {
         assert.throws(() => prefix(null!));
     });
 
-    test(`Empty string ${Prefix.name} factory argument throws "${PrefixFlagCharError.name}".`, function testEmptyStringPrefixFactoryArgumentThrows()
+    test(`Empty string ${Prefix.name} factory argument throws "${PrefixFlagCharError.name}".`, function testPrefixFactory_ThrowsPrefixFlagCharError_WhenPassedEmptyString()
     {
         assert.throws(() => prefix(""), PrefixFlagCharError);
     });
@@ -156,25 +156,25 @@ suite(`${Prefix.name} factory method`, function testSuitePrefixFactoryMethod()
                                                    : whiteSpaceChar === "\r" ? "Carriage return"
                                                    : whiteSpaceChar === "\v" ? "Vertical tab"
                                                    : "Space";
-                test(`${whitespaceCharName} character Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testWhitespacePrefixFactoryArgumentThrows()
+                test(`${whitespaceCharName} character Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testPrefixFactory_ThrowsPrefixFlagCharError_WhenPassedWhitespaceString()
                 {
                     assert.throws(() => prefix(whiteSpaceChar), PrefixFlagCharError);
                 });
             });
         });
 
-        test(`String greater than 1 character ${Prefix.name} factory argument throws "${PrefixFlagCharError.name}".`, function testSingleCharacterPrefixFactoryArgumentThrows()
+        test(`String greater than 1 character ${Prefix.name} factory argument throws "${PrefixFlagCharError.name}".`, function testPrefixFactory_ThrowsPrefixFlagCharError_WhenPassedStringGreaterThanSingleCharacter()
         {
             const aString: string = "***";
             assert.throws(() => new Prefix(aString), PrefixFlagCharError);
         });
 
-        test(`Single non-whitespace character ${Prefix.name} factory argument does not throw.`, function testSingleNonWhitespacePrefixFactoryArgumentDoesNotThrow()
+        test(`Single non-whitespace character ${Prefix.name} factory argument does not throw.`, function testPrefixFactory_DoesNotThrow_WhenPassedSingleNonWhitespaceString()
         {
             assert.doesNotThrow(() => new Prefix("-"));
         });
 
-        test(`Copy factory method returns equal ${Prefix.name} object.`, function testCopyPrefixFactoryReturnsEqual()
+        test(`Copy factory method returns equal ${Prefix.name} object.`, function testPrefixFactory_ReturnsEqual_WhenCopying()
         {
             const original: Prefix = new Prefix("-");
 
