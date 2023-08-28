@@ -2,8 +2,8 @@
   "name": "cliofo",
   "version": "0.0.1",
   "description": "Command line interface argument parser built around the conventional GNU concept of a prefix character used to denote operands, flags, and options.",
-  "main": "./build/dist/cliofo/cliofo.js",
-  "types": "./build/dist/cliofo/types",
+  "main": "./cliofo.js",
+  "types": "./cliofo.d.js",
   "author": {
     "name": "Snap",
     "email": "snap@snaplib.org",
@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build": "tsc -p ./tsconfig.dev.json",
-    "build-dist": "tsc -p ./tsconfig.dist.json",
+    "build-dist": "npm run build-types & tsc -p ./tsconfig.dist.json",
     "build-types": "tsc -p ./tsconfig.types.json",
     "dev": "node build/dev/cliofo.js -dfg --directory -abc --transform -Aaxxy --directory blep meep --a -x",
     "test": "env TS_NODE_PROJECT='./tsconfig.test.json' mocha --config ./.mocharc.json",

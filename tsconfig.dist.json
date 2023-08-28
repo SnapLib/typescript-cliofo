@@ -3,7 +3,7 @@
     "compilerOptions":
     {
       "declaration": true,
-      "declarationDir": "./build/dist/cliofo/types",
+      // "declarationDir": "./build/dist/cliofo/types",
       "declarationMap": false,
       "esModuleInterop": true,
       "outDir": "./build/dist/cliofo",
