@@ -6,7 +6,6 @@ const resolvePath = require("node:path").resolve;
 const readFile = require("node:fs").readFileSync;
 
 const configOverrides = {
-    extends: "./.mocharc.json",
     reporter: "mochawesome",
     reporterOptions: [
         "autoOpen=true",

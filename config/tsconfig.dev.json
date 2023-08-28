@@ -1,11 +1,11 @@
 {
-    "extends": "./tsconfig.json",
+    "extends": "../tsconfig.json",
     "compilerOptions":
     {
       "declaration": false,
       "declarationMap": false,
       "esModuleInterop": false,
-      "outDir": "./build/dev",
+      "outDir": "../build/dev",
       "removeComments": true,
       "skipLibCheck": true,
       "sourceMap": true

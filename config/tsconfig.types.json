@@ -1,12 +1,11 @@
 {
-    "extends": "./tsconfig.json",
+    "extends": "../tsconfig.json",
     "compilerOptions":
     {
       "declaration": true,
-      // "declarationDir": "./build/dist/cliofo/types",
       "declarationMap": false,
-      "esModuleInterop": true,
-      "outDir": "./build/dist/cliofo",
+      "emitDeclarationOnly": true,
+      "outFile": "../build/dist/cliofo/cliofo.d.ts",
       "removeComments": true,
       "skipLibCheck": false,
       "sourceMap": false
