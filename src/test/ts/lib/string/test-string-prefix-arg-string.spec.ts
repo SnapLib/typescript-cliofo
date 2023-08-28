@@ -47,4 +47,18 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
             assert.throws(() => new StringPrefixArgString(null!, undefined!));
         });
     });
+
+    suite(`${StringPrefixArgString.name} getters`, function testSuiteStringPrefixArgStringGetters()
+    {
+        test(`${StringPrefixArgString.name} prefix getter returns a string.`, function testStringPrefixArgStringPrefixGetter_ReturnsString_WhenCalled()
+        {
+            const prefix: string = "-";
+
+            const value: string = "Simba";
+
+            const stringPrefixArgString: StringPrefixArgString = new StringPrefixArgString(prefix, value);
+
+            assert.isString(stringPrefixArgString.prefix, `${stringPrefixArgString.prefix} is not a string.`);
+        });
+    });
 });
