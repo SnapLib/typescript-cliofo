@@ -43,7 +43,7 @@ const pkgJsonPropsToExclude = Object.freeze(["private", "scripts", "devDependenc
 
 const distPkgJsonObj = Object.freeze(Object.fromEntries(Object.entries(pkgJsonObject).filter(pkgJsonEntry => ! pkgJsonPropsToExclude.includes(pkgJsonEntry[0]))));
 
-const distPkgJsonString = JSON.stringify(distPkgJsonObj);
+const distPkgJsonString = JSON.stringify(distPkgJsonObj, undefined, 2);
 
 if ( ! existsSync(outDir))
 {
