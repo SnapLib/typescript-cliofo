@@ -1,6 +1,6 @@
 {
   "name": "cliofo",
-  "version": "0.0.1",
+  "version": "0.0.11",
   "description": "Command line interface argument parser built around the conventional GNU concept of a prefix character used to denote operands, flags, and options.",
   "main": "./cliofo.js",
   "types": "./cliofo.d.ts",
@@ -22,11 +22,11 @@
   },
   "scripts": {
     "build": "tsc -p ./config/tsconfig.dev.json",
-    "build-dist": "npm run build-types && tsc -p ./config/tsconfig.dist.json && npm run build-pkg-json",
+    "build-dist": "npm run build-types && tsc -p ./config/tsconfig.dist.json",
     "build-types": "tsc -p ./config/tsconfig.types.json",
     "build-pkg-json": "node ./scripts/cp-pkg-json.mjs ./package.json ./build/dist/cliofo",
     "dev": "node build/dev/cliofo.js -dfg --directory -abc --transform -Aaxxy --directory blep meep --a -x",
-    "prebuild-dist": "rm -rf ./build/dist/cliofo",
+    "prebuild-dist": "rm -rf ./build/dist/cliofo && npm run build-pkg-json && cp ./README.md ./build/dist/cliofo/README.md",
     "test": "env TS_NODE_PROJECT='./config/tsconfig.test.json' mocha --config ./.mocharc.json",
     "test-report": "env TS_NODE_PROJECT='./config/tsconfig.test.json' mocha --config ./config/mochawesome.mocharc.cjs",
     "tsdoc": "typedoc --options ./typedoc.json"
