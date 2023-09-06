@@ -60,5 +60,62 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
 
             assert.isString(stringPrefixArgString.prefix, `${stringPrefixArgString.prefix} is not a string.`);
         });
+
+        test(`${StringPrefixArgString.name} prefix getter returns a prefix string.`, function testStringPrefixArgStringPrefixGetter_ReturnsPrefixString_WhenCalled()
+        {
+            const prefix: string = "-";
+
+            const value: string = "Nala";
+
+            const stringPrefixArgString: StringPrefixArgString = new StringPrefixArgString(prefix, value);
+
+            assert.strictEqual(stringPrefixArgString.prefix, prefix, `"${stringPrefixArgString.prefix}" does not equal "${prefix}".`);
+        });
+
+        test(`${StringPrefixArgString.name} value getter returns a string.`, function testStringPrefixArgStringValueGetter_ReturnsString_WhenCalled()
+        {
+            const prefix: string = "-";
+
+            const value: string = "Simba";
+
+            const stringPrefixArgString: StringPrefixArgString = new StringPrefixArgString(prefix, value);
+
+            assert.isString(stringPrefixArgString.value, `${stringPrefixArgString.value} is not a string.`);
+        });
+
+        test(`${StringPrefixArgString.name} value getter returns a value string.`, function testStringPrefixArgStringValueGetter_ReturnsValueString_WhenCalled()
+        {
+            const prefix: string = "-";
+
+            const value: string = "Nala";
+
+            const stringPrefixArgString: StringPrefixArgString = new StringPrefixArgString(prefix, value);
+
+            assert.strictEqual(stringPrefixArgString.value, value, `"${stringPrefixArgString.value}" does not equal "${value}".`);
+        });
+
+        test(`${StringPrefixArgString.name} prefixed value getter returns a string.`, function testStringPrefixArgStringPrefixedValueGetter_ReturnsString_WhenCalled()
+        {
+            const prefix: string = "-";
+
+            const value: string = "Simba";
+
+            const stringPrefixArgString: StringPrefixArgString = new StringPrefixArgString(prefix, value);
+
+            assert.isString(stringPrefixArgString.value, `${stringPrefixArgString.value} is not a string.`);
+        });
+
+        test(`${StringPrefixArgString.name} prefixed value getter returns a prefixed value string.`, function testStringPrefixArgStringPrefixedValueGetter_ReturnsPrefixedValueString_WhenCalled()
+        {
+            const prefix: string = "-";
+
+            const value: string = "Nala";
+
+            const prefixedValue: string = prefix + value;
+
+            const stringPrefixArgString: StringPrefixArgString = new StringPrefixArgString(prefix, value);
+
+            assert.strictEqual(stringPrefixArgString.prefixedValue, prefixedValue, `"${stringPrefixArgString.prefixedValue}" does not equal "${prefixedValue}".`);
+        });
     });
 });
