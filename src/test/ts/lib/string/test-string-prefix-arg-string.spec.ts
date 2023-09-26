@@ -214,4 +214,15 @@ suite(`${StringPrefixArgString.name} factory method`, function testSuiteStringPr
     {
         assert.throws(() => stringPrefixArgString("prefix", null!), ArgStringValueError);
     });
+
+    test(`${StringPrefixArgString.name} factory passed 2 string arguments does not throw.`, function testStringPrefixArgStringFactory_DoesNotThrow_WhenPassedTwoStrings()
+    {
+        assert.doesNotThrow(() => stringPrefixArgString("-", "Kion"));
+    });
+
+    test(`${StringPrefixArgString.name} factory passed other ${StringPrefixArgString.name} argument does not throw.`, function testStringPrefixArgStringFactory_DoesNotThrow_WhenPassedOther()
+    {
+        const aStringPrefixArgString = new StringPrefixArgString("-", "Simba");
+        assert.doesNotThrow(() => stringPrefixArgString(aStringPrefixArgString));
+    });
 });
