@@ -27,7 +27,7 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
             assert.throws(() => new StringPrefixArgString("-", null!), ArgStringValueError);
         });
 
-        test("undefined prefix and value ${StringPrefixArgString.name} constructor arguments throws", function testStringPrefixArgStringConstructor_Throws_WhenPassedUndefinedPrefixAndValueArguments()
+        test(`undefined prefix and value ${StringPrefixArgString.name} constructor arguments throws`, function testStringPrefixArgStringConstructor_Throws_WhenPassedUndefinedPrefixAndValueArguments()
         {
             assert.throws(() => new StringPrefixArgString(undefined!, undefined!));
         });
