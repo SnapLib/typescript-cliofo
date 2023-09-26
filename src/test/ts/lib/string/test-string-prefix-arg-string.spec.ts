@@ -7,42 +7,42 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
 {
     suite(`${StringPrefixArgString.name} constructor`, function testStringPrefixArgStringConstructor()
     {
-        test(`undefined prefix constructor argument throws ${ArgStringPrefixError.name}`, function testStringPrefixArgStringConstructor_ThrowsArgStringPrefixError_WhenPassedUndefinedPrefixArgument()
+        test(`undefined prefix ${StringPrefixArgString.name} constructor argument throws ${ArgStringPrefixError.name}`, function testStringPrefixArgStringConstructor_ThrowsArgStringPrefixError_WhenPassedUndefinedPrefixArgument()
         {
             assert.throws(() => new StringPrefixArgString(undefined!, "Simba"), ArgStringPrefixError);
         });
 
-        test(`null prefix constructor argument throws ${ArgStringPrefixError.name}`, function testStringPrefixArgStringConstructor_ThrowsArgStringPrefixError_WhenPassedNullPrefixArgument()
+        test(`null prefix ${StringPrefixArgString.name} constructor argument throws ${ArgStringPrefixError.name}`, function testStringPrefixArgStringConstructor_ThrowsArgStringPrefixError_WhenPassedNullPrefixArgument()
         {
             assert.throws(() => new StringPrefixArgString(null!, "Kion"), ArgStringPrefixError);
         });
 
-        test(`undefined value constructor argument throws ${ArgStringValueError.name}`, function testStringPrefixArgStringConstructor_ThrowsArgStringValueError_WhenPassedUndefinedValueArgument()
+        test(`undefined value ${StringPrefixArgString.name} constructor argument throws ${ArgStringValueError.name}`, function testStringPrefixArgStringConstructor_ThrowsArgStringValueError_WhenPassedUndefinedValueArgument()
         {
             assert.throws(() => new StringPrefixArgString("-", undefined!), ArgStringValueError);
         });
 
-        test(`null value constructor argument throws ${ArgStringValueError.name}`, function testStringPrefixArgStringConstructor_ThrowsArgStringValueError_WhenPassedNullValueArgument()
+        test(`null value ${StringPrefixArgString.name} constructor argument throws ${ArgStringValueError.name}`, function testStringPrefixArgStringConstructor_ThrowsArgStringValueError_WhenPassedNullValueArgument()
         {
             assert.throws(() => new StringPrefixArgString("-", null!), ArgStringValueError);
         });
 
-        test("undefined prefix and value constructor arguments throws", function testStringPrefixArgStringConstructor_Throws_WhenPassedUndefinedPrefixAndValueArguments()
+        test("undefined prefix and value ${StringPrefixArgString.name} constructor arguments throws", function testStringPrefixArgStringConstructor_Throws_WhenPassedUndefinedPrefixAndValueArguments()
         {
             assert.throws(() => new StringPrefixArgString(undefined!, undefined!));
         });
 
-        test("null prefix and value constructor arguments throws", function testStringPrefixArgStringConstructor_Throws_WhenPassedNullPrefixAndValueArguments()
+        test(`null prefix and value ${StringPrefixArgString.name} constructor arguments throws`, function testStringPrefixArgStringConstructor_Throws_WhenPassedNullPrefixAndValueArguments()
         {
             assert.throws(() => new StringPrefixArgString(null!, null!));
         });
 
-        test("undefined prefix and null value constructor arguments throws", function testStringPrefixArgStringConstructor_Throws_WhenPassedUndefinedPrefixAndNullValueArguments()
+        test(`undefined prefix and null value ${StringPrefixArgString.name} constructor arguments throws`, function testStringPrefixArgStringConstructor_Throws_WhenPassedUndefinedPrefixAndNullValueArguments()
         {
             assert.throws(() => new StringPrefixArgString(undefined!, null!));
         });
 
-        test("null prefix and undefined value constructor arguments throws", function testStringPrefixArgStringConstructor_Throws_WhenPassedNullPrefixAndUndefinedValueArguments()
+        test(`null prefix and undefined value ${StringPrefixArgString.name} constructor arguments throws`, function testStringPrefixArgStringConstructor_Throws_WhenPassedNullPrefixAndUndefinedValueArguments()
         {
             assert.throws(() => new StringPrefixArgString(null!, undefined!));
         });
