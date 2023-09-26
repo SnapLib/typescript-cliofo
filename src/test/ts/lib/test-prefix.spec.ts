@@ -152,10 +152,10 @@ suite(`${Prefix.name} factory method`, function testSuitePrefixFactoryMethod()
             whitespaceChars.forEach(whiteSpaceChar =>
             {
                 const whitespaceCharName =   whiteSpaceChar === "\t" ? "Horizontal tab"
-                                                   : whiteSpaceChar === "\n" ? "Line feed"
-                                                   : whiteSpaceChar === "\r" ? "Carriage return"
-                                                   : whiteSpaceChar === "\v" ? "Vertical tab"
-                                                   : "Space";
+                                           : whiteSpaceChar === "\n" ? "Line feed"
+                                           : whiteSpaceChar === "\r" ? "Carriage return"
+                                           : whiteSpaceChar === "\v" ? "Vertical tab"
+                                           : "Space";
                 test(`${whitespaceCharName} character Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testPrefixFactory_ThrowsPrefixFlagCharError_WhenPassedWhitespaceString()
                 {
                     assert.throws(() => prefix(whiteSpaceChar), PrefixFlagCharError);
