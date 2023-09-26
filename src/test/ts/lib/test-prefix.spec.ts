@@ -130,12 +130,12 @@ suite(`${Prefix.name} class`, function testSuitePrefixClass()
 
 suite(`${Prefix.name} factory method`, function testSuitePrefixFactoryMethod()
 {
-    test(`undefined ${Prefix.name} factory argument throws ${TypeError.name}.`, function testPrefixFactory_Throws_WhenPassedUndefined()
+    test(`undefined ${Prefix.name} factory argument throws ${TypeError.name}.`, function testPrefixFactory_ThrowsTypeError_WhenPassedUndefined()
     {
         assert.throws(() => prefix(undefined!), TypeError);
     });
 
-    test(`null ${Prefix.name} factory argument throws ${TypeError.name}.`, function testPrefixFactory_Throws_WhenPassedNull()
+    test(`null ${Prefix.name} factory argument throws ${TypeError.name}.`, function testPrefixFactory_ThrowsTypeError_WhenPassedNull()
     {
         assert.throws(() => prefix(null!), TypeError);
     });
