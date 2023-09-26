@@ -50,7 +50,7 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
 
     suite(`${StringPrefixArgString.name} getters`, function testSuiteStringPrefixArgStringGetters()
     {
-        test(`${StringPrefixArgString.name} prefix getter returns a string.`, function testStringPrefixArgStringPrefixGetter_ReturnsString_WhenCalled()
+        test(`${StringPrefixArgString.name} prefix getter returns a string`, function testStringPrefixArgStringPrefixGetter_ReturnsString_WhenCalled()
         {
             const prefix = "-";
 
@@ -61,7 +61,7 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
             assert.isString(stringPrefixArgString.prefix, `${stringPrefixArgString.prefix} is not a string.`);
         });
 
-        test(`${StringPrefixArgString.name} prefix getter returns prefix string.`, function testStringPrefixArgStringPrefixGetter_ReturnsPrefixString_WhenCalled()
+        test(`${StringPrefixArgString.name} prefix getter returns prefix string`, function testStringPrefixArgStringPrefixGetter_ReturnsPrefixString_WhenCalled()
         {
             const prefix = "-";
 
@@ -72,7 +72,7 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
             assert.strictEqual(stringPrefixArgString.prefix, prefix, `"${stringPrefixArgString.prefix}" does not equal "${prefix}".`);
         });
 
-        test(`${StringPrefixArgString.name} value getter returns a string.`, function testStringPrefixArgStringValueGetter_ReturnsString_WhenCalled()
+        test(`${StringPrefixArgString.name} value getter returns a string`, function testStringPrefixArgStringValueGetter_ReturnsString_WhenCalled()
         {
             const prefix = "-";
 
@@ -83,7 +83,7 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
             assert.isString(stringPrefixArgString.value, `${stringPrefixArgString.value} is not a string.`);
         });
 
-        test(`${StringPrefixArgString.name} value getter returns value string.`, function testStringPrefixArgStringValueGetter_ReturnsValueString_WhenCalled()
+        test(`${StringPrefixArgString.name} value getter returns value string`, function testStringPrefixArgStringValueGetter_ReturnsValueString_WhenCalled()
         {
             const prefix = "-";
 
@@ -94,7 +94,7 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
             assert.strictEqual(stringPrefixArgString.value, value, `"${stringPrefixArgString.value}" does not equal "${value}".`);
         });
 
-        test(`${StringPrefixArgString.name} prefixed value getter returns a string.`, function testStringPrefixArgStringPrefixedValueGetter_ReturnsString_WhenCalled()
+        test(`${StringPrefixArgString.name} prefixed value getter returns a string`, function testStringPrefixArgStringPrefixedValueGetter_ReturnsString_WhenCalled()
         {
             const prefix = "-";
 
@@ -105,7 +105,7 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
             assert.isString(stringPrefixArgString.value, `${stringPrefixArgString.value} is not a string.`);
         });
 
-        test(`${StringPrefixArgString.name} prefixed value getter returns a prefixed value string.`, function testStringPrefixArgStringPrefixedValueGetter_ReturnsPrefixedValueString_WhenCalled()
+        test(`${StringPrefixArgString.name} prefixed value getter returns a prefixed value string`, function testStringPrefixArgStringPrefixedValueGetter_ReturnsPrefixedValueString_WhenCalled()
         {
             const prefix = "-";
 
@@ -121,14 +121,14 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
 
     suite(`${StringPrefixArgString.name} equals`, function testSuiteStringPrefixArgStringEquals()
     {
-        test(`${StringPrefixArgString.name} equals same returns true.`, function testStringPrefixArgStringEquals_ReturnsTrue_WhenPassedSame()
+        test(`${StringPrefixArgString.name} equals same returns true`, function testStringPrefixArgStringEquals_ReturnsTrue_WhenPassedSame()
         {
             const stringPrefixArgString = new StringPrefixArgString("-", "Simba");
 
             assert.isTrue(stringPrefixArgString.equals(stringPrefixArgString), "StringPrefixArgString equals same did not return true");
         });
 
-        test(`${StringPrefixArgString.name} equals equivalent returns true.`, function testStringPrefixArgStringEquals_ReturnsTrue_WhenPassedEquivalent()
+        test(`${StringPrefixArgString.name} equals equivalent returns true`, function testStringPrefixArgStringEquals_ReturnsTrue_WhenPassedEquivalent()
         {
             const aStringPrefixArgString = new StringPrefixArgString("-", "Simba");
             const anEqualStringPrefixArgString = new StringPrefixArgString("-", "Simba");
@@ -136,21 +136,21 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
             assert.isTrue(aStringPrefixArgString.equals(anEqualStringPrefixArgString), "StringPrefixArgString equals equivalent did not return true");
         });
 
-        test(`${StringPrefixArgString.name} equals undefined returns false.`, function testStringPrefixArgStringEquals_ReturnsFalse_WhenPassedUndefined()
+        test(`${StringPrefixArgString.name} equals undefined returns false`, function testStringPrefixArgStringEquals_ReturnsFalse_WhenPassedUndefined()
         {
             const stringPrefixArgString = new StringPrefixArgString("-", "Simba");
 
             assert.isFalse(stringPrefixArgString.equals(undefined), "StringPrefixArgString equals undefined did not return false");
         });
 
-        test(`${StringPrefixArgString.name} equals null returns false.`, function testStringPrefixArgStringEquals_ReturnsFalse_WhenPassedNull()
+        test(`${StringPrefixArgString.name} equals null returns false`, function testStringPrefixArgStringEquals_ReturnsFalse_WhenPassedNull()
         {
             const stringPrefixArgString = new StringPrefixArgString("-", "Simba");
 
             assert.isFalse(stringPrefixArgString.equals(null), "StringPrefixArgString equals null did not return false");
         });
 
-        test(`${StringPrefixArgString.name} equals differing prefix returns false.`, function testStringPrefixArgStringEquals_ReturnsFalse_WhenPassedDifferingPrefix()
+        test(`${StringPrefixArgString.name} equals differing prefix returns false`, function testStringPrefixArgStringEquals_ReturnsFalse_WhenPassedDifferingPrefix()
         {
             const value = "Nala";
 
@@ -161,7 +161,7 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
             assert.isFalse(aStringPrefixArgString.equals(differingPrefixStringPrefixArgString), "StringPrefixArgString equals differing prefix did not return false");
         });
 
-        test(`${StringPrefixArgString.name} equals differing value returns false.`, function testStringPrefixArgStringEquals_ReturnsFalse_WhenPassedDifferingValue()
+        test(`${StringPrefixArgString.name} equals differing value returns false`, function testStringPrefixArgStringEquals_ReturnsFalse_WhenPassedDifferingValue()
         {
             const prefix = "Nala";
 
@@ -172,7 +172,7 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
             assert.isFalse(aStringPrefixArgString.equals(differingValueStringPrefixArgString), "StringPrefixArgString equals differing value did not return false");
         });
 
-        test(`${StringPrefixArgString.name} equals unequal returns false.`, function testStringPrefixArgStringEquals_ReturnsFalse_WhenPassedUnequal()
+        test(`${StringPrefixArgString.name} equals unequal returns false`, function testStringPrefixArgStringEquals_ReturnsFalse_WhenPassedUnequal()
         {
             const aStringPrefixArgString = new StringPrefixArgString("-", "Simba");
 
@@ -185,42 +185,42 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
 
 suite(`${StringPrefixArgString.name} factory method`, function testSuiteStringPrefixArgStringMethod()
 {
-    test(`undefined ${StringPrefixArgString.name} factory argument throws ${TypeError.name}.`, function testStringPrefixArgStringFactory_ThrowsTypeError_WhenPassedUndefined()
+    test(`undefined ${StringPrefixArgString.name} factory argument throws ${TypeError.name}`, function testStringPrefixArgStringFactory_ThrowsTypeError_WhenPassedUndefined()
     {
         assert.throws(() => stringPrefixArgString(undefined!), TypeError);
     });
 
-    test(`null ${StringPrefixArgString.name} factory argument throws ${TypeError.name}.`, function testStringPrefixArgStringFactory_ThrowsTypeError_WhenPassedNull()
+    test(`null ${StringPrefixArgString.name} factory argument throws ${TypeError.name}`, function testStringPrefixArgStringFactory_ThrowsTypeError_WhenPassedNull()
     {
         assert.throws(() => stringPrefixArgString(null!), TypeError);
     });
 
-    test(`undefined ${StringPrefixArgString.name} factory prefix argument throws ${ArgStringPrefixError.name}.`, function testStringPrefixArgStringFactory_ThrowsArgStringPrefixError_WhenPassedUndefinedPrefixArg()
+    test(`undefined ${StringPrefixArgString.name} factory prefix argument throws ${ArgStringPrefixError.name}`, function testStringPrefixArgStringFactory_ThrowsArgStringPrefixError_WhenPassedUndefinedPrefixArg()
     {
         assert.throws(() => stringPrefixArgString(undefined!, "value"), ArgStringPrefixError);
     });
 
-    test(`null ${StringPrefixArgString.name} factory prefix argument throws ${ArgStringPrefixError.name}.`, function testStringPrefixArgStringFactory_ThrowsArgStringPrefixError_WhenPassedNullPrefixArg()
+    test(`null ${StringPrefixArgString.name} factory prefix argument throws ${ArgStringPrefixError.name}`, function testStringPrefixArgStringFactory_ThrowsArgStringPrefixError_WhenPassedNullPrefixArg()
     {
         assert.throws(() => stringPrefixArgString(null!, "value"), ArgStringPrefixError);
     });
 
-    test(`undefined ${StringPrefixArgString.name} factory value argument throws ${ArgStringValueError.name}.`, function testStringPrefixArgStringFactory_ThrowsArgStringValueError_WhenPassedUndefinedValueArg()
+    test(`undefined ${StringPrefixArgString.name} factory value argument throws ${ArgStringValueError.name}`, function testStringPrefixArgStringFactory_ThrowsArgStringValueError_WhenPassedUndefinedValueArg()
     {
         assert.throws(() => stringPrefixArgString("prefix", undefined!), ArgStringValueError);
     });
 
-    test(`null ${StringPrefixArgString.name} factory value argument throws ${ArgStringValueError.name}.`, function testStringPrefixArgStringFactory_ThrowsArgStringValueError_WhenPassedNullValueArg()
+    test(`null ${StringPrefixArgString.name} factory value argument throws ${ArgStringValueError.name}`, function testStringPrefixArgStringFactory_ThrowsArgStringValueError_WhenPassedNullValueArg()
     {
         assert.throws(() => stringPrefixArgString("prefix", null!), ArgStringValueError);
     });
 
-    test(`${StringPrefixArgString.name} factory passed 2 string arguments does not throw.`, function testStringPrefixArgStringFactory_DoesNotThrow_WhenPassedTwoStrings()
+    test(`${StringPrefixArgString.name} factory passed 2 string arguments does not throw`, function testStringPrefixArgStringFactory_DoesNotThrow_WhenPassedTwoStrings()
     {
         assert.doesNotThrow(() => stringPrefixArgString("-", "Kion"));
     });
 
-    test(`${StringPrefixArgString.name} factory passed other ${StringPrefixArgString.name} argument does not throw.`, function testStringPrefixArgStringFactory_DoesNotThrow_WhenPassedOther()
+    test(`${StringPrefixArgString.name} factory passed other ${StringPrefixArgString.name} argument does not throw`, function testStringPrefixArgStringFactory_DoesNotThrow_WhenPassedOther()
     {
         const aStringPrefixArgString = new StringPrefixArgString("-", "Simba");
         assert.doesNotThrow(() => stringPrefixArgString(aStringPrefixArgString));
