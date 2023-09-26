@@ -61,7 +61,7 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
             assert.isString(stringPrefixArgString.prefix, `${stringPrefixArgString.prefix} is not a string.`);
         });
 
-        test(`${StringPrefixArgString.name} prefix getter returns a prefix string.`, function testStringPrefixArgStringPrefixGetter_ReturnsPrefixString_WhenCalled()
+        test(`${StringPrefixArgString.name} prefix getter returns prefix string.`, function testStringPrefixArgStringPrefixGetter_ReturnsPrefixString_WhenCalled()
         {
             const prefix = "-";
 
@@ -83,7 +83,7 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
             assert.isString(stringPrefixArgString.value, `${stringPrefixArgString.value} is not a string.`);
         });
 
-        test(`${StringPrefixArgString.name} value getter returns a value string.`, function testStringPrefixArgStringValueGetter_ReturnsValueString_WhenCalled()
+        test(`${StringPrefixArgString.name} value getter returns value string.`, function testStringPrefixArgStringValueGetter_ReturnsValueString_WhenCalled()
         {
             const prefix = "-";
 
