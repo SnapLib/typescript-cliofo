@@ -21,7 +21,7 @@
  * @see {@link option-arg-string}
  */
 
-import { ArgString } from "./arg-string.js";
+import { ArgString, ArgStringValueError } from "./arg-string.js";
 import { inspect } from "util";
 
 const stringToString = (aString: string) => aString.length != 1 ? `"${aString}"` : `'${aString}'`;
@@ -156,9 +156,14 @@ export function stringPrefixArgString(prefixOrOther: NonNullable<string | String
         return new StringPrefixArgString(prefixOrOther.prefix, prefixOrOther.value);
     }
 
+    if ( (prefixOrOther === undefined || prefixOrOther === null) && (value === undefined || value === null) )
+    {
+        throw new TypeError(`${stringPrefixArgString.name}: ${prefixOrOther} prefix and ${value} value.`);
+    }
+
     if (value === undefined || value === null)
     {
-        throw new TypeError(`${stringPrefixArgString.name}: ${value} value.`);
+        throw new ArgStringValueError(`${stringPrefixArgString.name}: ${value} value.`);
     }
 
     return new StringPrefixArgString(prefixOrOther, value);
