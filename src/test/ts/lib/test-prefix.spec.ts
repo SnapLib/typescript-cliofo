@@ -146,40 +146,40 @@ suite(`${Prefix.name} factory method`, function testSuitePrefixFactoryMethod()
     });
 
     suite(`${Prefix.name} factory whitespace arguments`, function testSuitePrefixFactoryWhitespaceArguments()
-        {
-            const whitespaceChars: readonly string[] = Object.freeze(["\u0020", "\t", "\n", "\r", "\v"]);
+    {
+        const whitespaceChars: readonly string[] = Object.freeze(["\u0020", "\t", "\n", "\r", "\v"]);
 
-            whitespaceChars.forEach(whiteSpaceChar =>
+        whitespaceChars.forEach(whiteSpaceChar =>
+        {
+            const whitespaceCharName =   whiteSpaceChar === "\t" ? "Horizontal tab"
+                                        : whiteSpaceChar === "\n" ? "Line feed"
+                                        : whiteSpaceChar === "\r" ? "Carriage return"
+                                        : whiteSpaceChar === "\v" ? "Vertical tab"
+                                        : "Space";
+            test(`${whitespaceCharName} character Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testPrefixFactory_ThrowsPrefixFlagCharError_WhenPassedWhitespaceString()
             {
-                const whitespaceCharName =   whiteSpaceChar === "\t" ? "Horizontal tab"
-                                           : whiteSpaceChar === "\n" ? "Line feed"
-                                           : whiteSpaceChar === "\r" ? "Carriage return"
-                                           : whiteSpaceChar === "\v" ? "Vertical tab"
-                                           : "Space";
-                test(`${whitespaceCharName} character Prefix constructor argument throws "${PrefixFlagCharError.name}".`, function testPrefixFactory_ThrowsPrefixFlagCharError_WhenPassedWhitespaceString()
-                {
-                    assert.throws(() => prefix(whiteSpaceChar), PrefixFlagCharError);
-                });
+                assert.throws(() => prefix(whiteSpaceChar), PrefixFlagCharError);
             });
         });
+    });
 
-        test(`String greater than 1 character ${Prefix.name} factory argument throws "${PrefixFlagCharError.name}".`, function testPrefixFactory_ThrowsPrefixFlagCharError_WhenPassedStringGreaterThanSingleCharacter()
-        {
-            const aString = "***";
-            assert.throws(() => new Prefix(aString), PrefixFlagCharError);
-        });
+    test(`String greater than 1 character ${Prefix.name} factory argument throws "${PrefixFlagCharError.name}".`, function testPrefixFactory_ThrowsPrefixFlagCharError_WhenPassedStringGreaterThanSingleCharacter()
+    {
+        const aString = "***";
+        assert.throws(() => new Prefix(aString), PrefixFlagCharError);
+    });
 
-        test(`Single non-whitespace character ${Prefix.name} factory argument does not throw.`, function testPrefixFactory_DoesNotThrow_WhenPassedSingleNonWhitespaceString()
-        {
-            assert.doesNotThrow(() => new Prefix("-"));
-        });
+    test(`Single non-whitespace character ${Prefix.name} factory argument does not throw.`, function testPrefixFactory_DoesNotThrow_WhenPassedSingleNonWhitespaceString()
+    {
+        assert.doesNotThrow(() => new Prefix("-"));
+    });
 
-        test(`Copy factory method returns equal ${Prefix.name} object.`, function testPrefixFactory_ReturnsEqual_WhenCopying()
-        {
-            const original = new Prefix("-");
+    test(`Copy factory method returns equal ${Prefix.name} object.`, function testPrefixFactory_ReturnsEqual_WhenCopying()
+    {
+        const original = new Prefix("-");
 
-            const copy = prefix(original);
+        const copy = prefix(original);
 
-            assert.isTrue(copy.equals(original));
-        });
+        assert.isTrue(copy.equals(original));
+    });
 });
