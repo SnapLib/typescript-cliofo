@@ -1,4 +1,4 @@
-import { StringPrefixArgString } from "../../../../main/ts/lib/string/string-prefix-arg-string.js";
+import { stringPrefixArgString, StringPrefixArgString } from "../../../../main/ts/lib/string/string-prefix-arg-string.js";
 import { ArgStringPrefixError,  ArgStringValueError } from "../../../../main/ts/lib/string/arg-string.js";
 import { assert } from "chai";
 import { suite, test } from "mocha";
@@ -180,5 +180,38 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
 
             assert.isFalse(aStringPrefixArgString.equals(differingValueStringPrefixArgString), "StringPrefixArgString equals unequal did not return false");
         });
+    });
+});
+
+suite(`${StringPrefixArgString.name} factory method`, function testSuiteStringPrefixArgStringMethod()
+{
+    test(`undefined ${StringPrefixArgString.name} factory argument throws ${TypeError.name}.`, function testStringPrefixArgStringFactory_ThrowsTypeError_WhenPassedUndefined()
+    {
+        assert.throws(() => stringPrefixArgString(undefined!), TypeError);
+    });
+
+    test(`null ${StringPrefixArgString.name} factory argument throws ${TypeError.name}.`, function testStringPrefixArgStringFactory_ThrowsTypeError_WhenPassedNull()
+    {
+        assert.throws(() => stringPrefixArgString(null!), TypeError);
+    });
+
+    test(`undefined ${StringPrefixArgString.name} factory prefix argument throws ${ArgStringPrefixError.name}.`, function testStringPrefixArgStringFactory_ThrowsArgStringPrefixError_WhenPassedUndefinedPrefixArg()
+    {
+        assert.throws(() => stringPrefixArgString(undefined!, "value"), ArgStringPrefixError);
+    });
+
+    test(`null ${StringPrefixArgString.name} factory prefix argument throws ${ArgStringPrefixError.name}.`, function testStringPrefixArgStringFactory_ThrowsArgStringPrefixError_WhenPassedNullPrefixArg()
+    {
+        assert.throws(() => stringPrefixArgString(null!, "value"), ArgStringPrefixError);
+    });
+
+    test(`undefined ${StringPrefixArgString.name} factory value argument throws ${ArgStringValueError.name}.`, function testStringPrefixArgStringFactory_ThrowsArgStringValueError_WhenPassedUndefinedValueArg()
+    {
+        assert.throws(() => stringPrefixArgString("prefix", undefined!), ArgStringValueError);
+    });
+
+    test(`null ${StringPrefixArgString.name} factory value argument throws ${ArgStringValueError.name}.`, function testStringPrefixArgStringFactory_ThrowsArgStringValueError_WhenPassedNullValueArg()
+    {
+        assert.throws(() => stringPrefixArgString("prefix", null!), ArgStringValueError);
     });
 });
