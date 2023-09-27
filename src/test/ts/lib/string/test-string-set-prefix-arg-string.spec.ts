@@ -1,4 +1,4 @@
-import { StringSetPrefixArgString } from "../../../../main/ts/lib/string/string-set-prefix-arg-string.js";
+import { StringSetPrefixArgString, stringSetPrefixArgString } from "../../../../main/ts/lib/string/string-set-prefix-arg-string.js";
 import { ArgStringPrefixError,  ArgStringValueError } from "../../../../main/ts/lib/string/arg-string.js";
 import { assert, expect } from "chai";
 import { suite, test } from "mocha";
@@ -193,5 +193,49 @@ suite(`${StringSetPrefixArgString.name} class`, function testSuiteStringSetPrefi
 
             assert.isFalse(aStringPrefixArgString.equals(differingValueStringPrefixArgString), `${StringSetPrefixArgString.name} equals unequal did not return false`);
         });
+    });
+});
+
+suite(`${StringSetPrefixArgString.name} factory method`, function testSuiteStringSetPrefixArgStringMethod()
+{
+    test(`undefined ${StringSetPrefixArgString.name} factory argument throws ${TypeError.name}`, function testStringSetPrefixArgStringFactory_ThrowsTypeError_WhenPassedUndefined()
+    {
+        assert.throws(() => stringSetPrefixArgString(undefined!), TypeError);
+    });
+
+    test(`null ${StringSetPrefixArgString.name} factory argument throws ${TypeError.name}`, function testStringSetPrefixArgStringFactory_ThrowsTypeError_WhenPassedNull()
+    {
+        assert.throws(() => stringSetPrefixArgString(null!), TypeError);
+    });
+
+    test(`undefined ${StringSetPrefixArgString.name} factory prefix argument throws ${ArgStringPrefixError.name}`, function testStringSetPrefixArgStringFactory_ThrowsArgStringPrefixError_WhenPassedUndefinedPrefixArg()
+    {
+        assert.throws(() => stringSetPrefixArgString(undefined!, "value"), ArgStringPrefixError);
+    });
+
+    test(`null ${StringSetPrefixArgString.name} factory prefix argument throws ${ArgStringPrefixError.name}`, function testStringSetPrefixArgStringFactory_ThrowsArgStringPrefixError_WhenPassedNullPrefixArg()
+    {
+        assert.throws(() => stringSetPrefixArgString(null!, "value"), ArgStringPrefixError);
+    });
+
+    test(`undefined ${StringSetPrefixArgString.name} factory value argument throws ${ArgStringValueError.name}`, function testStringSetPrefixArgStringFactory_ThrowsArgStringValueError_WhenPassedUndefinedValueArg()
+    {
+        assert.throws(() => stringSetPrefixArgString(new Set(["-"]), undefined!), ArgStringValueError);
+    });
+
+    test(`null ${StringSetPrefixArgString.name} factory value argument throws ${ArgStringValueError.name}`, function testStringSetPrefixArgStringFactory_ThrowsArgStringValueError_WhenPassedNullValueArg()
+    {
+        assert.throws(() => stringSetPrefixArgString(new Set(["-"]), null!), ArgStringValueError);
+    });
+
+    test(`${StringSetPrefixArgString.name} factory passed 2 string arguments does not throw`, function testStringSetPrefixArgStringFactory_DoesNotThrow_WhenPassedTwoStrings()
+    {
+        assert.doesNotThrow(() => stringSetPrefixArgString(new Set(["-"]), "Kion"));
+    });
+
+    test(`${StringSetPrefixArgString.name} factory passed other ${StringSetPrefixArgString.name} argument does not throw`, function testStringSetPrefixArgStringFactory_DoesNotThrow_WhenPassedOther()
+    {
+        const aStringPrefixArgString = new StringSetPrefixArgString(new Set(["-"]), "Simba");
+        assert.doesNotThrow(() => stringSetPrefixArgString(aStringPrefixArgString));
     });
 });
