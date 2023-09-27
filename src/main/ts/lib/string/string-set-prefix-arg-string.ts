@@ -116,10 +116,10 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
     {
         if (this === obj) { return true; }
         if ( ! (obj instanceof StringSetPrefixArgString)) { return false; }
-        if (super.value !== obj.value) { return false; }
-        if (super.prefix.size !== obj.prefix.size) { return false; }
+        if (this.value !== obj.value) { return false; }
+        if (this.prefix.size !== obj.prefix.size) { return false; }
 
-        for (const prefixString of super.prefix)
+        for (const prefixString of this.prefix)
         {
             if ( ! obj.prefix.has(prefixString))
             {
