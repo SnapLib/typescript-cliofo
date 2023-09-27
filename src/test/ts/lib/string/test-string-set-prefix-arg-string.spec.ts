@@ -1,6 +1,6 @@
 import { StringSetPrefixArgString } from "../../../../main/ts/lib/string/string-set-prefix-arg-string.js";
 import { ArgStringPrefixError,  ArgStringValueError } from "../../../../main/ts/lib/string/arg-string.js";
-import { assert } from "chai";
+import { assert, expect } from "chai";
 import { suite, test } from "mocha";
 
 suite(`${StringSetPrefixArgString.name} class`, function testSuiteStringSetPrefixArgStringClass()
@@ -60,7 +60,7 @@ suite(`${StringSetPrefixArgString.name} class`, function testSuiteStringSetPrefi
 
             const stringPrefixArgString = new StringSetPrefixArgString(prefixSet, value);
 
-            assert.isTrue(stringPrefixArgString.prefix instanceof Set, `${stringPrefixArgString.prefix} is not instanceof a set.`);
+            expect(stringPrefixArgString.prefix).to.be.instanceOf(Set, `${StringSetPrefixArgString.name}.prototype.prefix not a Set`);
         });
 
         test(`${StringSetPrefixArgString.name} frozen prefix getter returns same prefix set`, function testStringSetFrozenPrefixArgStringPrefixGetter_ReturnsSamePrefixString_WhenCalled()
@@ -129,6 +129,69 @@ suite(`${StringSetPrefixArgString.name} class`, function testSuiteStringSetPrefi
             const stringPrefixArgString = new StringSetPrefixArgString(prefixSet, value);
 
             assert.deepEqual(stringPrefixArgString.prefixedValue, prefixedValues, `"${stringPrefixArgString.prefixedValue}" does not equal "${prefixedValues}".`);
+        });
+    });
+
+    suite(`${StringSetPrefixArgString.name} equals`, function testSuiteStringSetPrefixArgStringEquals()
+    {
+        test(`${StringSetPrefixArgString.name} equals same returns true`, function testStringSetPrefixArgStringEquals_ReturnsTrue_WhenPassedSame()
+        {
+            const stringPrefixArgString = new StringSetPrefixArgString(new Set(["-"]), "Simba");
+
+            assert.isTrue(stringPrefixArgString.equals(stringPrefixArgString), `${StringSetPrefixArgString.name} equals same did not return true`);
+        });
+
+        test(`${StringSetPrefixArgString.name} equals equivalent returns true`, function testStringSetPrefixArgStringEquals_ReturnsTrue_WhenPassedEquivalent()
+        {
+            const aStringPrefixArgString = new StringSetPrefixArgString(new Set(["-"]), "Simba");
+            const anEqualStringPrefixArgString = new StringSetPrefixArgString(new Set(["-"]), "Simba");
+
+            assert.isTrue(aStringPrefixArgString.equals(anEqualStringPrefixArgString), `${StringSetPrefixArgString.name} equals equivalent did not return true`);
+        });
+
+        test(`${StringSetPrefixArgString.name} equals undefined returns false`, function testStringSetPrefixArgStringEquals_ReturnsFalse_WhenPassedUndefined()
+        {
+            const stringPrefixArgString = new StringSetPrefixArgString(new Set(["-"]), "Simba");
+
+            assert.isFalse(stringPrefixArgString.equals(undefined), `${StringSetPrefixArgString.name} equals undefined did not return false`);
+        });
+
+        test(`${StringSetPrefixArgString.name} equals null returns false`, function testStringSetPrefixArgStringEquals_ReturnsFalse_WhenPassedNull()
+        {
+            const stringPrefixArgString = new StringSetPrefixArgString(new Set(["-"]), "Simba");
+
+            assert.isFalse(stringPrefixArgString.equals(null), `${StringSetPrefixArgString.name} equals null did not return false`);
+        });
+
+        test(`${StringSetPrefixArgString.name} equals differing prefix returns false`, function testStringSetPrefixArgStringEquals_ReturnsFalse_WhenPassedDifferingPrefix()
+        {
+            const value = "Nala";
+
+            const aStringPrefixArgString = new StringSetPrefixArgString(new Set(["-"]), value);
+
+            const differingPrefixStringPrefixArgString = new StringSetPrefixArgString(new Set(["--"]), value);
+
+            assert.isFalse(aStringPrefixArgString.equals(differingPrefixStringPrefixArgString), `${StringSetPrefixArgString.name} equals differing prefix did not return false`);
+        });
+
+        test(`${StringSetPrefixArgString.name} equals differing value returns false`, function testStringSetPrefixArgStringEquals_ReturnsFalse_WhenPassedDifferingValue()
+        {
+            const stringSet = new Set(["Nala"]);
+
+            const aStringPrefixArgString = new StringSetPrefixArgString(stringSet, "Simba");
+
+            const differingValueStringPrefixArgString = new StringSetPrefixArgString(stringSet, "Nala");
+
+            assert.isFalse(aStringPrefixArgString.equals(differingValueStringPrefixArgString), `${StringSetPrefixArgString.name} equals differing value did not return false`);
+        });
+
+        test(`${StringSetPrefixArgString.name} equals unequal returns false`, function testStringSetPrefixArgStringEquals_ReturnsFalse_WhenPassedUnequal()
+        {
+            const aStringPrefixArgString = new StringSetPrefixArgString(new Set(["-"]), "Simba");
+
+            const differingValueStringPrefixArgString = new StringSetPrefixArgString(new Set(["--"]), "Nala");
+
+            assert.isFalse(aStringPrefixArgString.equals(differingValueStringPrefixArgString), `${StringSetPrefixArgString.name} equals unequal did not return false`);
         });
     });
 });
