@@ -20,7 +20,7 @@
  * @see {@link operand-arg-string}
  */
 
-import { ArgString } from "./arg-string.js";
+import { ArgString, ArgStringValueError } from "./arg-string.js";
 import { inspect } from "util";
 
 const stringToString = (aString: string): string => aString.length != 1 ? `"${aString}"` : `'${aString}'`;
@@ -204,9 +204,14 @@ export function stringSetPrefixArgString(prefixesOrOther: readonly string[] | No
         return new StringSetPrefixArgString(prefixesOrOther.prefix, prefixesOrOther.value);
     }
 
+    if ( (prefixesOrOther === undefined || prefixesOrOther === null) && (value === undefined || value === null) )
+    {
+        throw new TypeError(`${stringSetPrefixArgString.name}: ${prefixesOrOther} prefix and ${value} value.`);
+    }
+
     if (value === undefined || value === null)
     {
-        throw new TypeError(`${stringSetPrefixArgString.name}: ${value} value.`);
+        throw new ArgStringValueError(`${stringSetPrefixArgString.name}: ${value} value.`);
     }
 
     return new StringSetPrefixArgString(
