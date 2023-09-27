@@ -125,7 +125,7 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
         {
             const stringPrefixArgString = new StringPrefixArgString("-", "Simba");
 
-            assert.isTrue(stringPrefixArgString.equals(stringPrefixArgString), "StringPrefixArgString equals same did not return true");
+            assert.isTrue(stringPrefixArgString.equals(stringPrefixArgString), `${StringPrefixArgString.name} equals same did not return true`);
         });
 
         test(`${StringPrefixArgString.name} equals equivalent returns true`, function testStringPrefixArgStringEquals_ReturnsTrue_WhenPassedEquivalent()
@@ -133,21 +133,21 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
             const aStringPrefixArgString = new StringPrefixArgString("-", "Simba");
             const anEqualStringPrefixArgString = new StringPrefixArgString("-", "Simba");
 
-            assert.isTrue(aStringPrefixArgString.equals(anEqualStringPrefixArgString), "StringPrefixArgString equals equivalent did not return true");
+            assert.isTrue(aStringPrefixArgString.equals(anEqualStringPrefixArgString), `${StringPrefixArgString.name} equals equivalent did not return true`);
         });
 
         test(`${StringPrefixArgString.name} equals undefined returns false`, function testStringPrefixArgStringEquals_ReturnsFalse_WhenPassedUndefined()
         {
             const stringPrefixArgString = new StringPrefixArgString("-", "Simba");
 
-            assert.isFalse(stringPrefixArgString.equals(undefined), "StringPrefixArgString equals undefined did not return false");
+            assert.isFalse(stringPrefixArgString.equals(undefined), `${StringPrefixArgString.name} equals undefined did not return false`);
         });
 
         test(`${StringPrefixArgString.name} equals null returns false`, function testStringPrefixArgStringEquals_ReturnsFalse_WhenPassedNull()
         {
             const stringPrefixArgString = new StringPrefixArgString("-", "Simba");
 
-            assert.isFalse(stringPrefixArgString.equals(null), "StringPrefixArgString equals null did not return false");
+            assert.isFalse(stringPrefixArgString.equals(null), `${StringPrefixArgString.name} equals null did not return false`);
         });
 
         test(`${StringPrefixArgString.name} equals differing prefix returns false`, function testStringPrefixArgStringEquals_ReturnsFalse_WhenPassedDifferingPrefix()
@@ -158,7 +158,7 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
 
             const differingPrefixStringPrefixArgString = new StringPrefixArgString("--", value);
 
-            assert.isFalse(aStringPrefixArgString.equals(differingPrefixStringPrefixArgString), "StringPrefixArgString equals differing prefix did not return false");
+            assert.isFalse(aStringPrefixArgString.equals(differingPrefixStringPrefixArgString), `${StringPrefixArgString.name} equals differing prefix did not return false`);
         });
 
         test(`${StringPrefixArgString.name} equals differing value returns false`, function testStringPrefixArgStringEquals_ReturnsFalse_WhenPassedDifferingValue()
@@ -169,7 +169,7 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
 
             const differingValueStringPrefixArgString = new StringPrefixArgString(prefix, "Nala");
 
-            assert.isFalse(aStringPrefixArgString.equals(differingValueStringPrefixArgString), "StringPrefixArgString equals differing value did not return false");
+            assert.isFalse(aStringPrefixArgString.equals(differingValueStringPrefixArgString), `${StringPrefixArgString.name} equals differing value did not return false`);
         });
 
         test(`${StringPrefixArgString.name} equals unequal returns false`, function testStringPrefixArgStringEquals_ReturnsFalse_WhenPassedUnequal()
@@ -178,7 +178,7 @@ suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgSt
 
             const differingValueStringPrefixArgString = new StringPrefixArgString("--", "Nala");
 
-            assert.isFalse(aStringPrefixArgString.equals(differingValueStringPrefixArgString), "StringPrefixArgString equals unequal did not return false");
+            assert.isFalse(aStringPrefixArgString.equals(differingValueStringPrefixArgString), `${StringPrefixArgString.name} equals unequal did not return false`);
         });
     });
 });
