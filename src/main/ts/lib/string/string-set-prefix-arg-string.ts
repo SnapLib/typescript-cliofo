@@ -112,7 +112,7 @@ export class StringSetPrefixArgString extends ArgString<ReadonlySet<string>>
      *
      * @returns `true` if the passed argument is equal to this {@link StringSetPrefixArgString} object.
      */
-    public override equals(obj?: unknown): boolean
+    public override equals(obj: unknown | undefined | null): boolean
     {
         if (this === obj) { return true; }
         if ( ! (obj instanceof StringSetPrefixArgString)) { return false; }
