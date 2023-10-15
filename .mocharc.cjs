@@ -1,7 +1,5 @@
 "use strict";
 
-const resolvePath = require("node:path").resolve;
-
 const defaultMochaConfig = {
     "check-leaks": true,
     "node-option": [
