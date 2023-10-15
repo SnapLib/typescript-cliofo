@@ -3,7 +3,6 @@
 
 const joinPath = require("node:path").join;
 const resolvePath = require("node:path").resolve;
-const readFile = require("node:fs").readFileSync;
 
 const configOverrides = {
     reporter: "mochawesome",
@@ -18,8 +17,7 @@ const configOverrides = {
     ]
 };
 
-const rootMocharcPath = resolvePath(joinPath(".", ".mocharc.json"));
-const rootMocharcFileString = readFile(rootMocharcPath).toString();
-const rootMocharcConfig = JSON.parse(rootMocharcFileString);
+const rootMocharcPath = resolvePath(joinPath(".", ".mocharc.cjs"));
+const rootMocharcConfig = require(rootMocharcPath);
 
 module.exports = {...rootMocharcConfig, ...configOverrides};
