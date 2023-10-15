@@ -21,7 +21,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "build": "tsc -p ./config/tsconfig.dev.json",
+    "build": "tsc -p ./tsconfig.json",
     "build-dist": "npm run build-types && tsc -p ./config/tsconfig.dist.json",
     "build-types": "tsc -p ./config/tsconfig.types.json",
     "build-pkg-json": "node ./scripts/cp-pkg-json.mjs ./package.json ./build/dist/cliofo",

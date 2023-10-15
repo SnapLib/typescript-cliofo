@@ -2,13 +2,20 @@
   "include": ["./src/main/ts/**/*.mts"],
   "compilerOptions":
   {
+    "declaration": false,
+    "declarationMap": false,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["es2021"],
     "module": "es2020",
     "noEmitOnError": true,
     "noImplicitOverride": true,
+    "outDir": "./build/dev",
     "preserveConstEnums": true,
+    "removeComments": true,
     "rootDir": "./src/main/ts",
+    "skipLibCheck": true,
+    "sourceMap": true,
     "strict": true,
     "target": "es2021"
   },
