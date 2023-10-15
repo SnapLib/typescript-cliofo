@@ -3,7 +3,7 @@ module.exports = {
     ignorePatterns: ["!./**/*.mts"],
     env:
     {
-        es2021: true,
+        es2020: true,
         node: true
     },
     extends:
@@ -14,7 +14,6 @@ module.exports = {
     parser: "@typescript-eslint/parser",
     parserOptions:
     {
-        ecmaVersion: 2020,
         sourceType: "module"
     },
     plugins:
