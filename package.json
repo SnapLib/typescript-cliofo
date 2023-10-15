@@ -29,7 +29,7 @@
     "prebuild-dist": "rm -rf ./build/dist/cliofo && npm run build-pkg-json && cp ./README.md ./build/dist/cliofo/README.md",
     "test": "NODE_ENV=test env TS_NODE_PROJECT='./config/tsconfig.test.json' mocha --config ./.mocharc.cjs",
     "test-report": "NODE_ENV=test MOCHA_REPORTER=mochawesome env TS_NODE_PROJECT='./config/tsconfig.test.json' mocha --config ./.mocharc.cjs",
-    "tsdoc": "typedoc --options ./typedoc.json"
+    "tsdoc": "typedoc --options ./typedoc.config.cjs"
   },
   "keywords": [
     "cli",
