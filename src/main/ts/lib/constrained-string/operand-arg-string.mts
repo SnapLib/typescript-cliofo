@@ -2,9 +2,9 @@
  * @module operand-arg-string
  */
 
-import { argStringConstraint, type ArgStringConstraint, type PrefixPredicate, type ValuePredicate } from "./arg-string-constraint.js";
-import { ConstrainedArgString } from "./constrained-arg-string.js";
-import { StringSetPrefixArgString, stringSetPrefixArgString } from "../string/string-set-prefix-arg-string.js";
+import { argStringConstraint, type ArgStringConstraint, type PrefixPredicate, type ValuePredicate } from "./arg-string-constraint.mjs";
+import { ConstrainedArgString } from "./constrained-arg-string.mjs";
+import { StringSetPrefixArgString, stringSetPrefixArgString } from "../string/string-set-prefix-arg-string.mjs";
 
 const whiteSpaceRegEx: Readonly<RegExp> = /\s/;
 

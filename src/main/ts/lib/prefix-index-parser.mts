@@ -3,7 +3,7 @@
  */
 
 import { inspect } from "util";
-import { type Prefix, prefix } from "./prefix.js";
+import { type Prefix, prefix } from "./prefix.mjs";
 
 const stringToString = (aString: string): string =>
 {

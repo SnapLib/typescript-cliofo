@@ -21,7 +21,7 @@
  * @see {@link option-arg-string}
  */
 
-import { ArgString, ArgStringValueError } from "./arg-string.js";
+import { ArgString, ArgStringValueError } from "./arg-string.mjs";
 import { inspect } from "util";
 
 const stringToString = (aString: string) => aString.length != 1 ? `"${aString}"` : `'${aString}'`;

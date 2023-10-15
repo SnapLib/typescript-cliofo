@@ -14,8 +14,8 @@
  * @see {@link arg-string}
  */
 
-import { type StringOrReadonlyStringSet } from "../string/arg-string.js";
-import { PrefixConstraintViolationError, ValueConstraintViolationError } from "./constraint-violation-error.js";
+import { type StringOrReadonlyStringSet } from "../string/arg-string.mjs";
+import { PrefixConstraintViolationError, ValueConstraintViolationError } from "./constraint-violation-error.mjs";
 
 /**
  * This type defines a {@link StringOrReadonlyStringSet} predicate that can be used to validate a `string` or

@@ -2,10 +2,10 @@
  * @module prefix-argument-index-parser
  */
 
-import { type PrefixIndexParser, prefixIndexParser as indexParser, prefixIndexParser } from "./prefix-index-parser.js";
-import { type OperandArgString, operandArgString } from "./constrained-string/operand-arg-string.js";
-import { type FlagArgString, flagArgString } from "./constrained-string/flag-arg-string.js";
-import { type OptionArgString, optionArgString } from "./constrained-string/option-arg-string.js";
+import { type PrefixIndexParser, prefixIndexParser as indexParser, prefixIndexParser } from "./prefix-index-parser.mjs";
+import { type OperandArgString, operandArgString } from "./constrained-string/operand-arg-string.mjs";
+import { type FlagArgString, flagArgString } from "./constrained-string/flag-arg-string.mjs";
+import { type OptionArgString, optionArgString } from "./constrained-string/option-arg-string.mjs";
 import { inspect } from "util";
 
 const stringToString = (aString: string): string => aString.length !== 1 ? `"${aString}"` : `'${aString}'`;

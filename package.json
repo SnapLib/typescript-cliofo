@@ -2,7 +2,7 @@
   "name": "cliofo",
   "version": "0.0.13",
   "description": "Command line interface argument parser built around the conventional GNU concept of a prefix character used to denote operands, flags, and options.",
-  "main": "./cliofo.js",
+  "main": "./cliofo.mjs",
   "types": "./cliofo.d.ts",
   "author": {
     "name": "Snap",

@@ -18,9 +18,9 @@
  * @see {@link arg-string}
  */
 
-import { type ArgStringConstraint, argStringConstraint as createArgStringConstraint } from "./arg-string-constraint.js";
-import { type ArgString, type StringOrReadonlyStringSet } from "../string/arg-string.js";
-import { PrefixConstraintViolationError, ValueConstraintViolationError } from "./constraint-violation-error.js";
+import { type ArgStringConstraint, argStringConstraint as createArgStringConstraint } from "./arg-string-constraint.mjs";
+import { type ArgString, type StringOrReadonlyStringSet } from "../string/arg-string.mjs";
+import { PrefixConstraintViolationError, ValueConstraintViolationError } from "./constraint-violation-error.mjs";
 import { inspect } from "util";
 
 const stringToString = (aString: string) => aString.length !== 1 ? `"${aString}"` : `'${aString}'`;

@@ -1,5 +1,5 @@
-import { stringPrefixArgString, StringPrefixArgString } from "../../../../main/ts/lib/string/string-prefix-arg-string.js";
-import { ArgStringPrefixError,  ArgStringValueError } from "../../../../main/ts/lib/string/arg-string.js";
+import { stringPrefixArgString, StringPrefixArgString } from "../../../../main/ts/lib/string/string-prefix-arg-string.mjs";
+import { ArgStringPrefixError,  ArgStringValueError } from "../../../../main/ts/lib/string/arg-string.mjs";
 import { assert } from "chai";
 import { suite, test } from "mocha";
 
