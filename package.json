@@ -28,7 +28,7 @@
     "dev": "node build/dev/cliofo.js -dfg --directory -abc --transform -Aaxxy --directory blep meep --a -x",
     "prebuild-dist": "rm -rf ./build/dist/cliofo && npm run build-pkg-json && cp ./README.md ./build/dist/cliofo/README.md",
     "test": "NODE_ENV=test env TS_NODE_PROJECT='./config/tsconfig.test.json' mocha --config ./.mocharc.cjs",
-    "test-report": "NODE_ENV=test env TS_NODE_PROJECT='./config/tsconfig.test.json' mocha --config ./config/mochawesome.mocharc.cjs",
+    "test-report": "NODE_ENV=test MOCHA_REPORTER=mochawesome env TS_NODE_PROJECT='./config/tsconfig.test.json' mocha --config ./.mocharc.cjs",
     "tsdoc": "typedoc --options ./typedoc.json"
   },
   "keywords": [
