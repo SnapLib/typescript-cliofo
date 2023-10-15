@@ -1,6 +1,5 @@
 import { Prefix, prefix, PrefixFlagCharError } from "../../../main/ts/lib/prefix.mjs";
 import { assert } from "chai";
-import { suite, test } from "mocha";
 
 suite(`${Prefix.name} class`, function testSuitePrefixClass()
 {

@@ -1,7 +1,6 @@
 import { stringPrefixArgString, StringPrefixArgString } from "../../../../main/ts/lib/string/string-prefix-arg-string.mjs";
 import { ArgStringPrefixError,  ArgStringValueError } from "../../../../main/ts/lib/string/arg-string.mjs";
 import { assert } from "chai";
-import { suite, test } from "mocha";
 
 suite(`${StringPrefixArgString.name} class`, function testSuiteStringPrefixArgStringClass()
 {
