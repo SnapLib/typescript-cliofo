@@ -5,7 +5,7 @@
       "declaration": true,
       "declarationMap": false,
       "emitDeclarationOnly": true,
-      "outFile": "../build/dist/cliofo/cliofo.d.ts",
+      "outFile": "../build/dist/cliofo.d.ts",
       "removeComments": true,
       "skipLibCheck": false,
       "sourceMap": false

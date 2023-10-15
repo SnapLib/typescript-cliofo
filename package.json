@@ -22,11 +22,11 @@
   },
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
-    "build-dist": "npm run build-types && tsc -p ./config/tsconfig.dist.json",
+    "build-dist": "npm run build-types && tsc -p ./tsconfig.dist.json",
     "build-types": "tsc -p ./config/tsconfig.types.json",
-    "build-pkg-json": "node ./scripts/cp-pkg-json.mjs ./package.json ./build/dist/cliofo",
+    "build-pkg-json": "node ./scripts/cp-pkg-json.mjs ./package.json ./build/dist",
     "dev": "node build/dev/cliofo.js -dfg --directory -abc --transform -Aaxxy --directory blep meep --a -x",
-    "prebuild-dist": "rm -rf ./build/dist/cliofo && npm run build-pkg-json && cp ./README.md ./build/dist/cliofo/README.md",
+    "prebuild-dist": "rm -rf ./build/dist/cliofo && npm run build-pkg-json && cp ./README.md ./build/dist/README.md",
     "test": "NODE_ENV=test mocha --config ./.mocharc.cjs",
     "test-report": "NODE_ENV=test MOCHA_REPORTER=mochawesome env mocha --config ./.mocharc.cjs",
     "tsdoc": "typedoc --options ./typedoc.config.cjs"
