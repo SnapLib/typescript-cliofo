@@ -5,6 +5,6 @@ module.exports = {
   ],
   recursive: true,
   require: "ts-node/register",
-  spec: "./src/test/ts/**/*.spec.ts",
+  spec: "./src/test/ts/**/*.test.ts",
   ui: "tdd"
 }
