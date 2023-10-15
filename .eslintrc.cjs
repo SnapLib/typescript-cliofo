@@ -1,27 +1,27 @@
-{
-    "root": true,
-    "ignorePatterns": ["!./**/*.ts"],
-    "env":
+module.exports = {
+    root: true,
+    ignorePatterns: ["!./**/*.mts"],
+    env:
     {
-        "es2021": true,
-        "node": true
+        es2021: true,
+        node: true
     },
-    "extends":
+    extends:
     [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended"
     ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions":
+    parser: "@typescript-eslint/parser",
+    parserOptions:
     {
-        "ecmaVersion": 2020,
-        "sourceType": "module"
+        ecmaVersion: 2020,
+        sourceType: "module"
     },
-    "plugins":
+    plugins:
     [
         "@typescript-eslint"
     ],
-    "rules":
+    rules:
     {
         "@typescript-eslint/no-inferrable-types": "off",
         "@typescript-eslint/no-empty-function": "warn",
@@ -31,10 +31,10 @@
         "no-console": "off",
         "no-empty-function": "off",
         "no-implicit-coercion": "error",
-        "quotes": ["error", "double", {"avoidEscape": true, "allowTemplateLiterals": true}],
+        quotes: ["error", "double", {"avoidEscape": true, "allowTemplateLiterals": true}],
         "no-tabs": "error",
         "no-trailing-spaces": "error",
-        "semi": "off",
+        semi: "off",
         "@typescript-eslint/semi": ["error", "always"]
     }
-}
+};
