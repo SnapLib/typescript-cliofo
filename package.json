@@ -27,8 +27,8 @@
     "build-pkg-json": "node ./scripts/cp-pkg-json.mjs ./package.json ./build/dist",
     "dev": "node build/dev/cliofo.js -dfg --directory -abc --transform -Aaxxy --directory blep meep --a -x",
     "prebuild-dist": "rm -rf ./build/dist && npm run build-pkg-json && cp ./README.md ./build/dist/README.md",
-    "lint": "eslint --config .eslintrc.cjs --quiet ./src/**/*.mts",
-    "lint-strict": "eslint --config .eslintrc.cjs ./src/**/*.mts",
+    "lint": "eslint --config .eslintrc.cjs --quiet --ext .mts ./src/**/*.mts",
+    "lint-strict": "eslint --config .eslintrc.cjs --ext .mts ./src/**/*.mts",
     "test": "NODE_ENV=test mocha --config ./.mocharc.cjs",
     "test-report": "NODE_ENV=test MOCHA_REPORTER=mochawesome env mocha --config ./.mocharc.cjs",
     "tsdoc": "typedoc --options ./typedoc.config.cjs"
