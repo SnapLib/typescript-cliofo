@@ -1,6 +1,5 @@
 module.exports = {
     root: true,
-    ignorePatterns: ["!./**/*.mts"],
     env:
     {
         es2020: true,
