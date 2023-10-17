@@ -60,7 +60,7 @@ outputs errors and warnings to `stdout`.
 
 Run the default linter via:
 
-```bash
+```shell
 npm run lint
 ```
 
@@ -68,7 +68,7 @@ This runs a less strict lint check where all warnings are silenced.
 
 A stricter lint can be done via:
 
-```bash
+```shell
 npm run lint-strict
 ```
 
@@ -76,11 +76,18 @@ This is identical to the other lint command, except it doesn't silence warnings.
 
 This package uses [ESLint][eslint website] for linting.
 
+## TypeScript
+
+This package's source code is all written in [TypeScript][typescript website].
+This includes the source code that actually gets transpiled to the executable
+JavaScript as well as the unit test source code. All the source code can be
+found in the [`./src`](./src) directory found at the root of the package repo.
+
 ## TypeDoc API Documentation
 
 Running the command:
 
-```bash
+```shell
 npm run tsdoc
 ```
 
