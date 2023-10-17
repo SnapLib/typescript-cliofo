@@ -8,6 +8,6 @@ module.exports = {
   includeVersion: true,
   name: "Cliofo",
   out: "./build/tsdoc",
-  readme: "./docs/PKG_README.md",
+  readme: "./docs/API_README.md",
   tsconfig: "./tsconfig.json"
 };
