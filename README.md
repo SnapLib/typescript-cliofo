@@ -80,8 +80,35 @@ This package uses [ESLint][eslint website] for linting.
 
 This package's source code is all written in [TypeScript][typescript website].
 This includes the source code that actually gets transpiled to the executable
-JavaScript as well as the unit test source code. All the source code can be
-found in the [`./src`](./src) directory found at the root of the package repo.
+JavaScript in the deployed npm package as well as the unit test source code. All
+the source code can be found in the [`./src`](./src) directory found at the root of the package repo. The unit test source code does not get transpiled to
+JavaScript.
+
+Running the command:
+
+```bash
+npm run build
+```
+
+will output transpiled source code in a manner more suitable for developmental
+purposes to the `./build/dev` directory.
+
+Running the command:
+
+```bash
+npm run build-dist
+```
+
+will output transpiled source code in a manner more suitable for deployment to
+the `./build/dist` directory.
+
+Running the command:
+
+```bash
+npm run build-types
+```
+
+will output a TypeScript types declaration file to `./build/dist/cliofo.d.ts`.
 
 ## TypeDoc API Documentation
 
