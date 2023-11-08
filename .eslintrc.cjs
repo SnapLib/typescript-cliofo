@@ -2,7 +2,7 @@ module.exports = {
     root: true,
     env:
     {
-        es2020: true,
+        es2022: true,
         mocha: true,
         node: true
     },
@@ -55,6 +55,8 @@ module.exports = {
                 "@stylistic/keyword-spacing": "error",
                 "@stylistic/lines-around-comment": ["error", {beforeBlockComment: true, allowBlockStart: true }],
                 "@stylistic/member-delimiter-style": ["error", {multiline: {delimiter: "semi", requireLast: true}, singleline: {delimiter: "semi", requireLast: false}}],
+                "@stylistic/no-extra-parens": "error",
+                "@stylistic/no-extra-semi": "error",
                 "default-case": "error",
                 "default-case-last": "error",
                 "eol-last": "error",
