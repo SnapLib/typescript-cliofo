@@ -6,8 +6,8 @@
     "declarationMap": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es2021"],
-    "module": "es2020",
+    "lib": ["es2022"],
+    "module": "es2022",
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noImplicitOverride": true,
@@ -18,7 +18,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es2021"
+    "target": "es2022"
   },
   "ts-node": {
     "transpileOnly": true,
